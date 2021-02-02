@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
-import { Stuffs } from '../../api/stuffCollection/StuffCollection';
 
-// Publish collections
+import { Stuffs } from '../../api/stuff/StuffCollection';
+
+/** Publish all the collections you need. */
 Stuffs.publish();
 
-// alanning:roles publication
-// Recommended code to publish roles for each user.
+/** Need this for the alanning:roles package */
 Meteor.publish(null, function () {
   if (this.userId) {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });

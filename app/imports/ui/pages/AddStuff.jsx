@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 import SimpleSchema from 'simpl-schema';
-import { stuffDefineMethod } from '../../api/stuffCollection/StuffCollection.methods';
+import { Stuffs } from '../../api/stuff/StuffCollection';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const formSchema = new SimpleSchema({
@@ -25,17 +25,15 @@ class AddStuff extends React.Component {
   submit(data, formRef) {
     const { name, quantity, condition } = data;
     const owner = Meteor.user().username;
-    stuffDefineMethod.call({ name, quantity, condition, owner },
-        (error) => {
-          if (error) {
-            swal('Error', error.message, 'error');
-            // console.error(error.message);
-          } else {
-            swal('Success', 'Item added successfully', 'success');
-            formRef.reset();
-            // console.log('Success');
-          }
-        });
+    Stuffs.define({ name, quantity, condition, owner },
+      (error) => {
+        if (error) {
+          swal('Error', error.message, 'error');
+        } else {
+          swal('Success', 'Item added successfully', 'success');
+          formRef.reset();
+        }
+      });
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
