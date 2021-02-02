@@ -1,0 +1,38 @@
+/*
+  HEI's blue color codes: #0c4d85 (header/footer), #177fc5 (text)
+  HEI's font family: "Barlow Semi Condensed", sans-serif;
+ */
+
+/* landing page CSS */
+#landing-nav {
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
+}
+.fake-menu-item {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: #177fc5 !important;
+}
+p.fake-menu-item:hover {
+  color: #000000;
+}
+#landing-nav-logo {
+  color: #177fc5;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  padding-left: 20px;
+}
+#landing-logo {
+  align-content: center;
+}
+#landing {
+  padding-top: 250px;
+  padding-bottom: 500px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 30px;
+  /*background:*/
+  /*    linear-gradient(#FFFFFF, #FFFFFF) 0 100px/100% 100% no-repeat fixed,*/
+  /*    linear-gradient(to bottom, #FFFFFF 200px, #0c4d85 0) center/100% 100%;*/
+}
