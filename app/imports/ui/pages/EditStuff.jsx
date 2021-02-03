@@ -5,6 +5,7 @@ import { AutoForm, ErrorsField, HiddenField, NumField, SelectField, SubmitField,
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Stuffs } from '../../api/stuff/StuffCollection';
+import NavBar from '../components/NavBar';
 
 /** Renders the Page for editing a single document. */
 class EditStuff extends React.Component {
@@ -25,21 +26,24 @@ class EditStuff extends React.Component {
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   renderPage() {
     return (
-        <Grid container centered>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">Edit Stuff</Header>
-            <AutoForm schema={Stuffs.getSchema()} onSubmit={data => this.submit(data)} model={this.props.doc}>
-              <Segment>
-                <TextField name='name'/>
-                <NumField name='quantity' decimal={false}/>
-                <SelectField name='condition'/>
-                <SubmitField value='Submit'/>
-                <ErrorsField/>
-                <HiddenField name='owner' />
-              </Segment>
-            </AutoForm>
-          </Grid.Column>
-        </Grid>
+        <div>
+          <NavBar/>
+          <Grid container centered>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">Edit Stuff</Header>
+              <AutoForm schema={Stuffs.getSchema()} onSubmit={data => this.submit(data)} model={this.props.doc}>
+                <Segment>
+                  <TextField name='name'/>
+                  <NumField name='quantity' decimal={false}/>
+                  <SelectField name='condition'/>
+                  <SubmitField value='Submit'/>
+                  <ErrorsField/>
+                  <HiddenField name='owner' />
+                </Segment>
+              </AutoForm>
+            </Grid.Column>
+          </Grid>
+        </div>
     );
   }
 }
