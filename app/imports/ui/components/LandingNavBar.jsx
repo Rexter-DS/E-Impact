@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Button, Header } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { Menu, Image } from 'semantic-ui-react';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
@@ -17,14 +17,11 @@ class NavBar extends React.Component {
 
     return (
       <Menu id='landing-nav' style={menuStyle} className='ui borderless top fixed menu'>
-        <Menu.Item as={NavLink} activeClassName="" exact to="/">
-          <Header id="landing-nav-logo" as='h1'>E-Impact</Header>
-        </Menu.Item>
+        <a href={'/#'}>
+          <Image size='medium' verticalAlign='center' src="/images/EImpactLogoWhite.png"/>
+        </a>
         <Menu.Item position="right">
-          <a className='fake-menu-item' href={'#/signin'}><p>LOG IN</p></a>
-        </Menu.Item>
-        <Menu.Item>
-          <Button as={NavLink} activeClassName="" exact to="/signup" basic color='blue'>SIGN UP</Button>
+          <a className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
         </Menu.Item>
       </Menu>
     );
