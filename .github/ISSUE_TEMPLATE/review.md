@@ -9,7 +9,7 @@ assignees: ''
 
 ## Overview
 
-The focus for this code review will be centered around the _____ page.
+The focus for this code review will be centered around the _____ page. 
 Please pay attention too:
 * Javascript issues
 * React components
