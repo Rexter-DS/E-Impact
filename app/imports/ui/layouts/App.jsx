@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import 'semantic-ui-css/semantic.css';
 import { Roles } from 'meteor/alanning:roles';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import NavBar from '../components/NavBar';
+// import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import ListStuff from '../pages/ListStuff';
@@ -22,16 +22,17 @@ class App extends React.Component {
     return (
         <Router>
           <div>
-            <NavBar/>
+            {/* line below is what makes NavBar appear in every page */}
+            {/* <NavBar/> */}
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <Route path="/signout" component={Signout}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+              <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
             <Footer/>
@@ -47,16 +48,16 @@ class App extends React.Component {
  * @param {any} { component: Component, ...rest }
  */
 const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      return isLogged ?
-          (<Component {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-      );
-    }}
-  />
+    <Route
+        {...rest}
+        render={(props) => {
+          const isLogged = Meteor.userId() !== null;
+          return isLogged ?
+              (<Component {...props} />) :
+              (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+              );
+        }}
+    />
 );
 
 /**
@@ -80,13 +81,19 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
 
 /** Require a component and location to be passed to each ProtectedRoute. */
 ProtectedRoute.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  component: PropTypes.oneOfType([
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired,
+  ]),
   location: PropTypes.object,
 };
 
 /** Require a component and location to be passed to each AdminProtectedRoute. */
 AdminProtectedRoute.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  component: PropTypes.oneOfType([
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired,
+  ]),
   location: PropTypes.object,
 };
 
