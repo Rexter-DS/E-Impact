@@ -26,11 +26,11 @@ review-11
 ## Checklists
 
 * [Architecture](../../checklists/architecture-checklist.md)
-* [Design](../tree/master/checklists/design-checklist.md)
-* [JS](../tree/master/checklists/js-checklist.md)
-* [Meteor](../tree/master/checklists/meteor-checklist.md)
-* [React](../tree/master/checklists/react-checklist.md)
-* [Testing](../tree/master/checklists/testing-checklist.md)
+* [Design](../../checklists/design-checklist.md)
+* [JS](../../checklists/js-checklist.md)
+* [Meteor](../../checklists/meteor-checklist.md)
+* [React](../../checklists/react-checklist.md)
+* [Testing](../../checklists/testing-checklist.md)
 
 ## Due date
 
