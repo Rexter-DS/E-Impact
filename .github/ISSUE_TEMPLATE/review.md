@@ -16,7 +16,7 @@ Please pay attention too:
 
 ## Review Branch
 
-review-11
+review-xxx
 
 ## Files to review
 
@@ -34,7 +34,7 @@ review-11
 
 ## Due date
 
-Tuesday, Feb 8th at noon.
+Day, Month Day Time
 
 ## For more information
 
