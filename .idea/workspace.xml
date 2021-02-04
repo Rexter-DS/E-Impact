@@ -13,7 +13,7 @@
   </component>
   <component name="ProjectId" id="1nxXeybTbmSeOxvVqYRbcfVUOf8" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/imports/api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/imports/ui/pages" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -23,8 +23,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/imports/api" />
       <recent name="$PROJECT_DIR$/app/imports/ui/pages" />
+      <recent name="$PROJECT_DIR$/app/imports/ui/components" />
+      <recent name="$PROJECT_DIR$/app/imports/api" />
     </key>
   </component>
   <component name="RunDashboard">
