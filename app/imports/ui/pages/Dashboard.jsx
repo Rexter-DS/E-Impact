@@ -68,7 +68,7 @@ class Dashboard extends React.Component {
           { /* Contains the graphs that dislays the data */ }
           <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
             <Grid.Row>
-              <Grid.Column/>
+              <Grid.Column>
                 <Grid.Row>
                   <Menu fluid horizontal>
                     <Menu.Item
