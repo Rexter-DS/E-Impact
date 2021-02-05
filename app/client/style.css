@@ -33,3 +33,12 @@
 #landing-bottom {
   padding-top: 150px;
 }
+
+#dashboard-container {
+  padding-top: 120px;
+  padding-bottom: 150px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+}
+
+
