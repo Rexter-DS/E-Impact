@@ -41,4 +41,15 @@
   background-size: 100% 100%;
 }
 
+#footer {
+  background-color: #0c4d85;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: white !important;
+  padding: 0 !important;
+}
+
+.link {
+  color: #177fc5;
+}
+
 
