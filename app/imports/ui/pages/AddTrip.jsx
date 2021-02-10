@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
-import { AutoForm, ErrorsField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, NumField, SelectField, SubmitField, DateField } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -10,6 +10,10 @@ import NavBar from '../components/NavBar';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const formSchema = new SimpleSchema({
+  date: {
+    type: Date,
+    defaultValue: new Date(),
+  },
   distance: Number,
   mode: {
     type: String,
@@ -25,9 +29,9 @@ class AddTrip extends React.Component {
 
   /** On submit, insert the data. */
   submit(data, formRef) {
-    const { distance, mode, mpg } = data;
+    const { date, distance, mode, mpg } = data;
     const owner = Meteor.user().username;
-    Trips.define({ distance, mode, mpg, owner },
+    Trips.define({ date, distance, mode, mpg, owner },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
@@ -49,6 +53,7 @@ class AddTrip extends React.Component {
               <Header as="h2" textAlign="center">Add Trip</Header>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => this.submit(data, fRef)} >
                 <Segment>
+                  <DateField name='date'/>
                   <NumField name='distance' label={'Distance traveled (miles)'}/>
                   <SelectField name='mode' label={'Mode of transportation'}/>
                   <NumField name='mpg' label={'Vehicle MPG'}/>
@@ -64,4 +69,3 @@ class AddTrip extends React.Component {
 }
 
 export default AddTrip;
-

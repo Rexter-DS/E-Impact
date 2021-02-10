@@ -8,13 +8,13 @@ class TripItem extends React.Component {
   render() {
     return (
         <Table.Row>
-          <Table.Cell>{}</Table.Cell>
+          <Table.Cell>{this.props.trip.date.toLocaleDateString()}</Table.Cell>
           <Table.Cell>{this.props.trip.distance}</Table.Cell>
           <Table.Cell>{this.props.trip.mode}</Table.Cell>
           <Table.Cell>{this.props.trip.mpg}</Table.Cell>
-          <Table.Cell>{}</Table.Cell>
-          <Table.Cell>{}</Table.Cell>
-          <Table.Cell>{}</Table.Cell>
+          <Table.Cell>{this.props.trip.distance}</Table.Cell>
+          <Table.Cell>{(this.props.trip.distance / this.props.trip.mpg).toFixed(2)}</Table.Cell>
+          <Table.Cell>{((this.props.trip.distance / this.props.trip.mpg) * 19.6).toFixed(2)}</Table.Cell>
         </Table.Row>
     );
   }

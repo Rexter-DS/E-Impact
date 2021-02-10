@@ -14,6 +14,10 @@ export const tripPublications = {
 class TripCollection extends BaseCollection {
   constructor() {
     super('Trips', new SimpleSchema({
+      date: {
+        type: Date,
+        defaultValue: new Date(),
+      },
       distance: Number,
       mode: {
         type: String,
@@ -27,14 +31,16 @@ class TripCollection extends BaseCollection {
 
   /**
    * Defines a new Trip item.
+   * @param date of trip.
    * @param distance traveled.
    * @param mode of transportation.
    * @param mpg of vehicle.
    * @param owner the owner of the item.
    * @return {String} the docID of the new document.
    */
-  define({ distance, mode, mpg, owner }) {
+  define({ date, distance, mode, mpg, owner }) {
     const docID = this._collection.insert({
+      date,
       distance,
       mode,
       mpg,
@@ -46,13 +52,17 @@ class TripCollection extends BaseCollection {
   /**
    * Updates the given document.
    * @param docID the id of the document to update.
+   * @param date the new date.
    * @param distance the new distance (optional).
    * @param mode the new mode (optional).
    * @param mpg the new mpg (optional).
    */
-  update(docID, { distance, mode, mpg }) {
+  update(docID, { date, distance, mode, mpg }) {
     const updateData = {};
     // if (distance) { NOTE: 0 is falsy so we need to check if the quantity is a number.
+    if (date) {
+      updateData.date = date;
+    }
     if (_.isNumber(distance)) {
       updateData.distance = distance;
     }

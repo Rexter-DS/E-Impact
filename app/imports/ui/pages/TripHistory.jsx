@@ -7,7 +7,7 @@ import TripItem from '../components/TripItem';
 import NavBar from '../components/NavBar';
 
 /** Renders a table containing all of the Trip documents. Use <TripItem> to render each row. */
-class ListTrip extends React.Component {
+class TripHistory extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -20,12 +20,12 @@ class ListTrip extends React.Component {
         <div>
           <NavBar/>
           <Container>
-            <Header as="h2" textAlign="center">List Trip</Header>
+            <Header as="h2" textAlign="center">Trip History</Header>
             <Table celled>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Date</Table.HeaderCell>
-                  <Table.HeaderCell>Distance traveled (miles)</Table.HeaderCell>
+                  <Table.HeaderCell>Distance Traveled (miles)</Table.HeaderCell>
                   <Table.HeaderCell>Mode of Transportation</Table.HeaderCell>
                   <Table.HeaderCell>Vehicle MPG</Table.HeaderCell>
                   <Table.HeaderCell>VMT Saved (miles)</Table.HeaderCell>
@@ -44,7 +44,7 @@ class ListTrip extends React.Component {
 }
 
 /** Require an array of Trip documents in the props. */
-ListTrip.propTypes = {
+TripHistory.propTypes = {
   trips: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
@@ -57,4 +57,4 @@ export default withTracker(() => {
     trips: Trips.find({}).fetch(),
     ready: subscription.ready(),
   };
-})(ListTrip);
+})(TripHistory);
