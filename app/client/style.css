@@ -21,6 +21,7 @@
 .fake-menu-item:after {
 
 }
+
 #landing {
   padding-top: 150px;
   padding-bottom: 150px;
@@ -34,11 +35,28 @@
   padding-top: 150px;
 }
 
+#sign {
+  padding-top: 150px;
+  padding-bottom: 150px;
+  background-color: rgba(12, 77 ,133, 0.8);
+  font-family: "Barlow Semi Condensed", sans-serif;
+}
 #dashboard-container {
   padding-top: 120px;
   padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
+}
+
+#footer {
+  background-color: #0c4d85;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: white !important;
+  padding: 0 !important;
+}
+
+.link {
+  color: #177fc5;
 }
 
 

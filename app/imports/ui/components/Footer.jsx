@@ -7,12 +7,12 @@ class Footer extends React.Component {
       paddingTop: '15px',
       paddingBottom: '15px' };
     return (
-        <footer style={footerStyle}>
+        <footer id="footer" style={footerStyle}>
           <div className="ui center aligned container">
-              Department of Information and Computer Sciences <br />
+              Environment-Overflow <br />
               University of Hawaii<br />
               Honolulu, HI 96822 <br />
-            <a href="http://ics-software-engineering.github.io/meteor-application-template-react">Template Home Page</a>
+            <a className="link" href="https://environment-overflow.github.io">See more</a>
           </div>
         </footer>
     );
