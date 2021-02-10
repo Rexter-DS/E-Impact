@@ -7,6 +7,7 @@
       <change beforePath="$PROJECT_DIR$/app/imports/ui/pages/Signin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/imports/ui/pages/Signin.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imports/ui/pages/Signout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/imports/ui/pages/Signout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imports/ui/pages/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/imports/ui/pages/Signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/imports/ui/components/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/imports/ui/components/Footer.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +30,8 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -98,5 +101,22 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  <component name="WindowStateProjectService">
+    <state width="1142" height="279" key="GridCell.Tab.0.bottom" timestamp="1612912268401">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1142" height="279" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1612912268401" />
+    <state width="1142" height="279" key="GridCell.Tab.0.center" timestamp="1612912268400">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1142" height="279" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1612912268400" />
+    <state width="1142" height="279" key="GridCell.Tab.0.left" timestamp="1612912268400">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1142" height="279" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1612912268400" />
+    <state width="1142" height="279" key="GridCell.Tab.0.right" timestamp="1612912268400">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1142" height="279" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1612912268400" />
   </component>
 </project>

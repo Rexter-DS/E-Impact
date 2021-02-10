@@ -1,6 +1,14 @@
 {
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "jcamarao@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "Rexter-DS@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "tiffanywilliams@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "justin-mar@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "jkalaulau@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "nicholasmp@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "Icaraang@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "wongk711@foo.com", "password": "changeme", "role": "admin" },
     { "email": "john@foo.com", "password": "changeme" }
   ],
 
