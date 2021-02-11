@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const SidebarVisible = () => {
   const currentUser = Meteor.userId() ? Meteor.userId() : '';
   console.log(Meteor.user(), Meteor.userId());
-  return (<div>{currentUser ? (<Sidebar
+  return (currentUser ? <div><Sidebar
             as={Menu}
             animation='overlay'
             icon='labeled'
@@ -19,7 +19,7 @@ const SidebarVisible = () => {
                      activeClassName=""
                      exact
                      to="/Dashboard">
-            <Icon name='home'/>
+            <Icon name='grid layout'/>
             Dashboard
           </Menu.Item>
           <Menu.Item as={NavLink}
@@ -46,7 +46,6 @@ const SidebarVisible = () => {
             <Icon name='sign-out'/>
             Sign Out
           </Menu.Item>
-        </Sidebar>) : ''};
-  </div>);
+        </Sidebar></div> : '');
 };
 export default SidebarVisible;

@@ -21,6 +21,7 @@ import SidebarVisible from '../components/SideBar';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
+  // const [ userLogin, setUserLogin ] = useState(false)
   render() {
     return (
         <Router>
