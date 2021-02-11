@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { Trips } from '../../api/trip/TripCollection';
+import SidebarVisible from '../components/SideBar';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const formSchema = new SimpleSchema({
@@ -46,6 +47,7 @@ class AddTrip extends React.Component {
     let fRef = null;
     return (
         <div id='add-trip-container'>
+          <SidebarVisible/>
           <Grid container centered>
             <Grid.Column>
               <Header as="h2" textAlign="center">Add Trip</Header>

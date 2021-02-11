@@ -1,10 +1,12 @@
 import React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
+import SidebarVisible from '../components/SideBar';
 
 class Community extends React.Component {
   render() {
     return (
      <div id='community-container'>
+       <SidebarVisible/>
        <Grid>
          <Grid.Row>
            <Image src='/images/CommunityMap.png' size='big' centered bordered></Image>

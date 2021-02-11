@@ -1,11 +1,13 @@
 import React from 'react';
 import { Menu, Button, Table, Grid } from 'semantic-ui-react';
+import SidebarVisible from '../components/SideBar';
 
 class Daily extends React.Component {
 
   render() {
     return (
           <div id='daily-container' style={{ marginLeft: '150px' }}>
+            <SidebarVisible/>
             <Menu borderless id="daily-top">
               <Grid style={{ width: '100%' }}>
                 <Grid.Column width={6} verticalAlign='bottom'><Menu.Item className='daily-header-sums'>February

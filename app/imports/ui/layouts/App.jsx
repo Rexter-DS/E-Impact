@@ -18,7 +18,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dashboard from '../pages/Dashboard';
 import Daily from '../pages/Daily';
-import SidebarVisible from '../components/SideBar';
+// import SidebarVisible from '../components/SideBar';
 import Community from '../pages/Community';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -30,9 +30,8 @@ class App extends React.Component {
           <div>
             {/* line below is what makes NavBar appear in every page */}
             {/* <NavBar/> */}
-            <SidebarVisible/>
+            {/* <SidebarVisible/> */}
             <Switch>
-              <Route path="/dashboard" component={Dashboard}/>
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
@@ -40,6 +39,7 @@ class App extends React.Component {
               <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+              <ProtectedRoute path="/dashboard" component={Dashboard}/>
               <ProtectedRoute path="/daily" component={Daily}/>
               <ProtectedRoute path="/addTrip" component={AddTrip}/>
               <ProtectedRoute path="/history" component={TripHistory}/>
