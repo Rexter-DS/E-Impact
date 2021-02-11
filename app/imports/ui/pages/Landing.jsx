@@ -20,7 +20,7 @@ class Landing extends React.Component {
           <Grid id="landing-bottom" verticalAlign='middle' textAlign='center' container>
             <Grid.Column width={8}>
               <h1>Use our GHC estimator to calculate your GHG emissions for a single trip</h1>
-              <Button as={NavLink} exact to='/#' animated>
+              <Button as={NavLink} exact to='/quickaccess' animated>
                 <Button.Content visible>Take me there!</Button.Content>
                 <Button.Content hidden>
                   <Icon name='long arrow alternate right'/>
@@ -29,7 +29,7 @@ class Landing extends React.Component {
             </Grid.Column>
             <Grid.Column width={8}>
               <h1>Create an account to keep track of the emissions of your daily transit</h1>
-              <Button as={NavLink} exact to='/#' animated>
+              <Button as={NavLink} exact to='/signup' animated>
                 <Button.Content visible>Take me there!</Button.Content>
                 <Button.Content hidden>
                   <Icon name='long arrow alternate right'/>
