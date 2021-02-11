@@ -66,11 +66,12 @@ class Dashboard extends React.Component {
           <LandingNavBar/>
 
           { /* Contains the graphs that dislays the data */ }
+
           <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
             <Grid.Row>
               <Grid.Column>
                 <Grid.Row>
-                  <Menu fluid horizontal>
+                  <Menu fluid horizontal="true">
                     <Menu.Item
                         name='Today'
                         active={activeItem === 'Today'}
