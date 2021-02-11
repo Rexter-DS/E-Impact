@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Menu } from 'semantic-ui-react';
+import { Grid, Menu, Image } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import LandingNavBar from '../components/LandingNavBar';
 
@@ -59,14 +59,14 @@ class Dashboard extends React.Component {
 
   render() {
     const { activeItem } = this.state;
-
+    const pageStyle = {
+      marginLeft: 150,
+    };
     return (
-        <div id="dashboard-container">
-
-          <LandingNavBar/>
-
+        <div id="dashboard-container" style={pageStyle}>
+          {/*<LandingNavBar/>*/}
           { /* Contains the graphs that dislays the data */ }
-
+          <Image size='medium' src="/images/EImpactLogoWhite.png"/>
           <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
             <Grid.Row>
               <Grid.Column>
