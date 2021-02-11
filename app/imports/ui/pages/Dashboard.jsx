@@ -3,7 +3,7 @@ import { Grid, Menu } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import NavBar from '../components/NavBar';
 
-/** A simple static component to render some text for the landing page. */
+/* temporary data for the graphs */
 const data = [
   {
     name: 'Page A',
@@ -49,6 +49,7 @@ const data = [
   },
 ];
 
+/* The dashboard that contains graphs that contains the graphs to display data to the user */
 class Dashboard extends React.Component {
   state = {};
 
