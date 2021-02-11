@@ -25,18 +25,10 @@ const SidebarVisible = () => {
           <Menu.Item as={NavLink}
                      activeClassName="active"
                      exact
-                     to="/addtrip"
-                     key='add'>
-            <Icon name='add'/>
-            Add Trip
-          </Menu.Item>
-          <Menu.Item as={NavLink}
-                     activeClassName="active"
-                     exact
-                     to="/listtrip"
-                     key='list'>
+                     to="/daily"
+                     key='daily'>
             <Icon name='list'/>
-            List Trip
+            Daily
           </Menu.Item>
           <Menu.Item as={NavLink}
                      activeClassName="active"

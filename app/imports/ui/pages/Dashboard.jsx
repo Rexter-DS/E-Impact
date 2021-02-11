@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Menu, Image } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import LandingNavBar from '../components/LandingNavBar';
+import SidebarVisible from '../components/SideBar';
 
 /* temporary data for the graphs */
 const data = [
@@ -64,7 +65,7 @@ class Dashboard extends React.Component {
     };
     return (
         <div id="dashboard-container" style={pageStyle}>
-          {/*<LandingNavBar/>*/}
+          <SidebarVisible/>
           { /* Contains the graphs that dislays the data */ }
           <Image size='medium' src="/images/EImpactLogoWhite.png"/>
           <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
