@@ -1,13 +1,10 @@
 import React from 'react';
 import { Menu, Button, Table, Grid } from 'semantic-ui-react';
-import SidebarVisible from '../components/SideBar';
 
 class Daily extends React.Component {
 
   render() {
     return (
-        <div>
-          <SidebarVisible/>
           <div id='daily-container' style={{ marginLeft: '150px' }}>
             <Menu borderless id="daily-top">
               <Grid style={{ width: '100%' }}>
@@ -63,7 +60,6 @@ class Daily extends React.Component {
               </Table.Body>
             </Table>
           </div>
-        </div>
     );
   }
 }

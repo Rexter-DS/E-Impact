@@ -29,6 +29,7 @@ class App extends React.Component {
           <div>
             {/* line below is what makes NavBar appear in every page */}
             {/* <NavBar/> */}
+            <SidebarVisible/>
             <Switch>
               <Route path="/dashboard" component={Dashboard}/>
               <Route exact path="/" component={Landing}/>
