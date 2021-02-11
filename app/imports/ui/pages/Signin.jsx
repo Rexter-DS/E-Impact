@@ -52,7 +52,7 @@ export default class Signin extends React.Component {
                       <Header as="h2" textAlign="center">
                         Login to your account
                       </Header>
-                      <Image size='medium' verticalAlign='middle' src="/images/EImpactLogo.png"/>
+                      <Image size='medium' verticalAlign='centered' src="/images/EImpactLogo.png"/>
                       <Form.Input
                         label="Email"
                         id="signin-form-email"
