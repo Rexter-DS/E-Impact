@@ -80,7 +80,8 @@ dark-blue: 0C4D85
 
 #daily {
   font-size: 20px;
-  font-family: "Barlow Semi Condensed", sans-serif
+  font-family: "Barlow Semi Condensed", sans-serif;
+  height: 100vh !important;
 }
 
 .daily-table-header {
