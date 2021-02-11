@@ -32,6 +32,13 @@ const SidebarVisible = () => {
           </Menu.Item>
           <Menu.Item as={NavLink}
                      activeClassName="active"
+                     exact to="/community"
+                     key='community'>
+            <Icon name='globe'/>
+            Community
+          </Menu.Item>
+          <Menu.Item as={NavLink}
+                     activeClassName="active"
                      exact
                      to="/signout"
                      key='signout'>

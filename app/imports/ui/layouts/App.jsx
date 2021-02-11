@@ -19,6 +19,7 @@ import Signout from '../pages/Signout';
 import Dashboard from '../pages/Dashboard';
 import Daily from '../pages/Daily';
 import SidebarVisible from '../components/SideBar';
+import Community from '../pages/Community';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -42,6 +43,7 @@ class App extends React.Component {
               <ProtectedRoute path="/daily" component={Daily}/>
               <ProtectedRoute path="/addTrip" component={AddTrip}/>
               <ProtectedRoute path="/history" component={TripHistory}/>
+              <ProtectedRoute path="/community" component={Community}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
