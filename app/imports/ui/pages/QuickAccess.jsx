@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { Grid, Form, Input, Select } from 'semantic-ui-react';
-
+// A suggestions portion could be added below the produced GHG section.
 function QuickAccess() {
-  const [miles, setMiles] = useState('');
-  const [mpg, setMpg] = useState('');
-  const [ghg, setGhg] = useState(1);
+  // Hooks.
+  const [miles, setMiles] = useState(1);
+  const [mpg, setMpg] = useState(1);
+  const [ghg, setGhg] = useState(0);
+  // Updates the generated greenhouse gases.
+  const updateProduced = () => {
+    setGhg((miles / mpg) * 8887);
+  };
+  // Handles of Hooks.
+  const handleMiles = e => {
+    setMiles(e.target.value);
+    updateProduced();
+  };
+  const handleMpg = e => {
+    setMpg(e.target.value);
+    updateProduced();
+  };
   return (
       <Grid id="quick-access-container" centered>
         <Grid.Row>
@@ -15,7 +29,7 @@ function QuickAccess() {
             <Form.Field
                 control={Input}
                 label="Distance traveled (mi)"
-                onChange={e => setMiles(e.target.value)}
+                onChange={e => handleMiles(e)}
             />
             <Form.Field
                 control={Select}
@@ -30,13 +44,13 @@ function QuickAccess() {
             <Form.Field
                 control={Input}
                 label="Vehicle miles per gallon"
-                onChange={e => setMpg(e.target.value)}
+                onChange={e => handleMpg(e)}
             />
           </Form>
         </Grid.Row>
         <Grid.Row>
           <p>Miles Traveled: {miles}; Mileage Of Vehicle(if used): {mpg}</p>
-          <label onInput={() => setGhg((miles / mpg) * 8887)}>You produced {ghg} grams of CO2/gallon. </label>
+          <label>You produced {ghg} grams of CO2/gallon. </label>
         </Grid.Row>
       </Grid>
   );
