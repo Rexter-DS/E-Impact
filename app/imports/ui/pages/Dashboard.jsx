@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Menu, Image } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import SidebarVisible from '../components/SideBar';
@@ -49,51 +49,87 @@ const data = [
   },
 ];
 
+function BarGraph(data) {
+  return (
+      <ResponsiveContainer width='100%' height={250}>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" tick={{ fill: 'white' }}/>
+          <YAxis tick={{ fill: 'white' }}/>
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="pv" fill="#8884d8" />
+          <Bar dataKey="uv" fill="#82ca9d" />
+        </BarChart>
+      </ResponsiveContainer>
+  );
+}
+
+function LineGraph(data) {
+  return (
+      <ResponsiveContainer width='100%' height={250}>
+        <LineChart data={data}
+                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='name' tick={{ fill: 'white' }}/>
+          <YAxis tick={{ fill: 'white' }}/>
+          <Tooltip />
+          <Legend />
+          <Line type='monotone' dataKey='pv' stroke='#8884d8' />
+          <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
+        </LineChart>
+      </ResponsiveContainer>
+  );
+}
+
+const customizedPieGraphLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
+  const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
+
+  return (
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline={"central"}>
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+  );
+}
+
+function PieGraph(data) {
+  return (
+      <ResponsiveContainer>
+        <PieChart>
+          <Pie data={data} cx="50%" cy="50%" label={customizedPieGraphLabel} outerRadius={100} fill="#8884d8" />
+        </PieChart>
+      </ResponsiveContainer>
+  );
+}
+
 /* The dashboard that contains graphs that contains the graphs to display data to the user */
-class Dashboard extends React.Component {
-  state = {};
+function Dashboard() {
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name });
+  const [activeItem, setActiveItem] = useState('name');
+  const handleItemClick = (e, { name }) => {
+    setActiveItem({ activeItem: name });
   };
-
-  render() {
-    const { activeItem } = this.state;
-    const pageStyle = {
-      marginLeft: 150,
-    };
-    return (
-        <div id="dashboard-container" style={pageStyle}>
-          <SidebarVisible/>
-          { /* Contains the graphs that dislays the data */ }
-          <Image size='medium' src="/images/EImpactLogoWhite.png"/>
-          <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
-            <Grid.Row>
-              <Grid.Column>
-                <Grid.Row>
-                  <Menu fluid horizontal="true">
-                    <Menu.Item
-                        name='Today'
-                        active={activeItem === 'Today'}
-                        onClick={this.handleItemClick}
-                    />
-                  </Menu>
-                </Grid.Row>
-                <Grid.Row>
-                  <ResponsiveContainer width='100%' height={250}>
-                    <BarChart data={data}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" tick={{ fill: 'white' }}/>
-                      <YAxis tick={{ fill: 'white' }}/>
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="pv" fill="#8884d8" />
-                      <Bar dataKey="uv" fill="#82ca9d" />
-                    </BarChart>
-                  </ResponsiveContainer>;
-                </Grid.Row>
-              </Grid.Column>
-              <Grid.Column>
+  const pageStyle = { marginLeft: 150 };
+  return (
+      <div id="dashboard-container" style={pageStyle}>
+        <SidebarVisible/>
+        { /* Contains the graphs that dislays the data */ }
+        <Image size='medium' src="/images/EImpactLogoWhite.png"/>
+        <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
+          <Grid.Row>
+            <Grid.Column>
+              <Grid.Row>
+                <Menu fluid horizontal="true">
+                  <Menu.Item
+                      name='Today'
+                      active={activeItem === 'Today'}
+                      onClick={handleItemClick}
+                  />
+                </Menu>
+              </Grid.Row>
+              <Grid.Row>
                 <ResponsiveContainer width='100%' height={250}>
                   <BarChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -104,37 +140,50 @@ class Dashboard extends React.Component {
                     <Bar dataKey="pv" fill="#8884d8" />
                     <Bar dataKey="uv" fill="#82ca9d" />
                   </BarChart>
-                </ResponsiveContainer>
-              </Grid.Column>
-            </Grid.Row>
+                </ResponsiveContainer>;
+              </Grid.Row>
+            </Grid.Column>
+            <Grid.Column>
+              <ResponsiveContainer width='100%' height={250}>
+                <BarChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" tick={{ fill: 'white' }}/>
+                  <YAxis tick={{ fill: 'white' }}/>
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="pv" fill="#8884d8" />
+                  <Bar dataKey="uv" fill="#82ca9d" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Grid.Column>
+          </Grid.Row>
 
-            <Grid.Row>
-              <Grid.Column>
-                <ResponsiveContainer width='100%' height={250}>
-                  <LineChart data={data}
-                             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray='3 3' />
-                    <XAxis dataKey='name' tick={{ fill: 'white' }}/>
-                    <YAxis tick={{ fill: 'white' }}/>
-                    <Tooltip />
-                    <Legend />
-                    <Line type='monotone' dataKey='pv' stroke='#8884d8' />
-                    <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Grid.Column>
-              <Grid.Column>
-                <ResponsiveContainer width='100%' height={250}>
-                  <PieChart>
-                    <Pie data={data} dataKey="uv" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
-    );
-  }
+          <Grid.Row>
+            <Grid.Column>
+              <ResponsiveContainer width='100%' height={250}>
+                <LineChart data={data}
+                           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray='3 3' />
+                  <XAxis dataKey='name' tick={{ fill: 'white' }}/>
+                  <YAxis tick={{ fill: 'white' }}/>
+                  <Tooltip />
+                  <Legend />
+                  <Line type='monotone' dataKey='pv' stroke='#8884d8' />
+                  <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
+                </LineChart>
+              </ResponsiveContainer>
+            </Grid.Column>
+            <Grid.Column>
+              <ResponsiveContainer width='100%' height={250}>
+                <PieChart>
+                  <Pie data={data} dataKey="uv" nameKey="name" cx="50%" cy="50%" label={customizedPieGraphLabel} labelLine={false} outerRadius={100} fill="#8884d8" tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+  );
 }
 
 export default Dashboard;
