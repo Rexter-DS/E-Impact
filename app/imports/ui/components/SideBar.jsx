@@ -56,7 +56,7 @@ const SidebarVisible = () => {
           </Menu.Item>
           <Menu.Item style={{ color: '#0c4d85' }}>
             <Icon name='user circle outline'/>
-            {currentUser}
+            {Meteor.user() ? Meteor.user().username : 'Guest'}
           </Menu.Item>
         </Sidebar></div> : '');
 };
