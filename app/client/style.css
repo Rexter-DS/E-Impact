@@ -42,7 +42,7 @@
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 #dashboard-container {
-  /*padding-top: 20px;*/
+  padding-top: 100px;
   padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
