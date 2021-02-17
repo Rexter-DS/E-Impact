@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Grid, Menu, Image } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import SidebarVisible from '../components/SideBar';
@@ -111,7 +112,21 @@ function Dashboard() {
   const handleItemClick = (e, { name }) => {
     setActiveItem({ activeItem: name });
   };
+
   const pageStyle = { marginLeft: 150 };
+  Meteor.call('getData', function (error, result) {
+    if (error) {
+      console.log(error.reason);
+    }
+    if (result) {
+      console.log(result);
+    }
+  });
+
+  Meteor.call('getMilesTotal');
+  Meteor.call('getFuelSaved');
+  Meteor.call('getGHGReduced');
+
   return (
       <div id="dashboard-container" style={pageStyle}>
         <SidebarVisible/>
