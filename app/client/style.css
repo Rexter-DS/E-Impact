@@ -175,3 +175,7 @@ dark-blue: 0C4D85
   padding: 10px;
 }
 
+#card-bottom {
+  background-color: #1C7DC1;
+  color: white;
+}
