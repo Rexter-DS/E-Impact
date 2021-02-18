@@ -41,11 +41,19 @@
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
 }
+
+/* Dashhboard page CSS */
+
 #dashboard-container {
   /*padding-top: 20px;*/
-  padding-bottom: 150px;
+  padding: 50px 150px;
+  margin-left: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
+}
+
+#overall-container {
+  height: 200px;
 }
 
 #footer {

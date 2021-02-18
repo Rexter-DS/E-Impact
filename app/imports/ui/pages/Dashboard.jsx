@@ -1,54 +1,8 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Menu, Image } from 'semantic-ui-react';
+import { Grid, Menu, Image, Container, Header } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import SidebarVisible from '../components/SideBar';
-
-/* temporary data for the graphs */
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
 function BarGraph(data) {
   return (
@@ -95,25 +49,81 @@ const customizedPieGraphLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, p
   );
 }
 
-function PieGraph(data) {
+function PieGraph(props) {
   return (
       <ResponsiveContainer>
         <PieChart>
-          <Pie data={data} cx="50%" cy="50%" label={customizedPieGraphLabel} outerRadius={100} fill="#8884d8" />
+          <Pie data={props} cx="50%" cy="50%" label={customizedPieGraphLabel} outerRadius={100} fill="#8884d8" />
         </PieChart>
       </ResponsiveContainer>
   );
 }
 
+function Overall() {
+  const [totalMiles, setTotalMiles] = useState(0);
+  const [fuelSaved, setFuelSaved] = useState(0);
+  const [ghgReduced, setGHGReduced] = useState(0);
+  const [modesOfTransport, setModesOfTransport] = useState([]);
+
+  Meteor.call('getMilesTotal', function (error, result) {
+    if (!error) {
+      setTotalMiles(result);
+    }
+  });
+
+  Meteor.call('getFuelSaved', function (error, result) {
+    if (!error) {
+      setFuelSaved(result);
+    }
+  });
+
+  Meteor.call('getGHGReduced', function (error, result) {
+    if (!error) {
+      setGHGReduced(result);
+    }
+  });
+
+  Meteor.call('getModesOfTransport', function (error, result) {
+    if (!error) {
+      setModesOfTransport(result);
+    }
+  });
+
+  return (
+      <Grid id="overall-container" stretched container padding="vertically" columns={3}>
+        <Grid.Column>
+          <Grid.Row>
+            <Container text>
+              <Header>Overall</Header>
+            </Container>
+          </Grid.Row>
+          <Grid.Row>
+            { totalMiles } Total Miles
+          </Grid.Row>
+        </Grid.Column>
+
+        <Grid.Column>
+          <Grid.Row>
+            { fuelSaved } of fuel saved
+          </Grid.Row>
+          <Grid.Row>
+            { ghgReduced } of GHG reduced
+          </Grid.Row>
+        </Grid.Column>
+
+        <Grid.Column>
+          <ResponsiveContainer width='100%' height={250}>
+            <PieChart>
+              <Pie data={modesOfTransport} dataKey="value" cx="50%" cy="50%" label={customizedPieGraphLabel} outerRadius={100} fill="#8884d8" />
+            </PieChart>
+          </ResponsiveContainer>
+        </Grid.Column>
+      </Grid>
+  );
+}
 /* The dashboard that contains graphs that contains the graphs to display data to the user */
 function Dashboard() {
 
-  const [activeItem, setActiveItem] = useState('name');
-  const handleItemClick = (e, { name }) => {
-    setActiveItem({ activeItem: name });
-  };
-
-  const pageStyle = { marginLeft: 150 };
   Meteor.call('getData', function (error, result) {
     if (error) {
       console.log(error.reason);
@@ -123,80 +133,11 @@ function Dashboard() {
     }
   });
 
-  Meteor.call('getMilesTotal');
-  Meteor.call('getFuelSaved');
-  Meteor.call('getGHGReduced');
-
+  Meteor.call('getModesOfTransport');
   return (
-      <div id="dashboard-container" style={pageStyle}>
+      <div id="dashboard-container">
         <SidebarVisible/>
-        { /* Contains the graphs that dislays the data */ }
-        <Image size='medium' src="/images/EImpactLogoWhite.png"/>
-        <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
-          <Grid.Row>
-            <Grid.Column>
-              <Grid.Row>
-                <Menu fluid horizontal="true">
-                  <Menu.Item
-                      name='Today'
-                      active={activeItem === 'Today'}
-                      onClick={handleItemClick}
-                  />
-                </Menu>
-              </Grid.Row>
-              <Grid.Row>
-                <ResponsiveContainer width='100%' height={250}>
-                  <BarChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" tick={{ fill: 'white' }}/>
-                    <YAxis tick={{ fill: 'white' }}/>
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="pv" fill="#8884d8" />
-                    <Bar dataKey="uv" fill="#82ca9d" />
-                  </BarChart>
-                </ResponsiveContainer>;
-              </Grid.Row>
-            </Grid.Column>
-            <Grid.Column>
-              <ResponsiveContainer width='100%' height={250}>
-                <BarChart data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" tick={{ fill: 'white' }}/>
-                  <YAxis tick={{ fill: 'white' }}/>
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="pv" fill="#8884d8" />
-                  <Bar dataKey="uv" fill="#82ca9d" />
-                </BarChart>
-              </ResponsiveContainer>
-            </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column>
-              <ResponsiveContainer width='100%' height={250}>
-                <LineChart data={data}
-                           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray='3 3' />
-                  <XAxis dataKey='name' tick={{ fill: 'white' }}/>
-                  <YAxis tick={{ fill: 'white' }}/>
-                  <Tooltip />
-                  <Legend />
-                  <Line type='monotone' dataKey='pv' stroke='#8884d8' />
-                  <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
-                </LineChart>
-              </ResponsiveContainer>
-            </Grid.Column>
-            <Grid.Column>
-              <ResponsiveContainer width='100%' height={250}>
-                <PieChart>
-                  <Pie data={data} dataKey="uv" nameKey="name" cx="50%" cy="50%" label={customizedPieGraphLabel} labelLine={false} outerRadius={100} fill="#8884d8" tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <Overall/>
       </div>
   );
 }
