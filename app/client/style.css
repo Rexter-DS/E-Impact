@@ -111,9 +111,5 @@ dark-blue: 0C4D85
   padding-top: 50px;
   padding-bottom: 150px;
   margin-left: 150px;
-  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
-  background-size: 100% 100%;
-  color: #FFFFFF;
-  font-size: 40px;
   font-family: "Barlow Semi Condensed", sans-serif;
 }
