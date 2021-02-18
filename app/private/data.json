@@ -1,8 +1,8 @@
 [
   {
     "user": "Person1",
-    "autoMPG": "25",
-    "homeRoundTrip": "26",
+    "autoMPG": 25,
+    "homeRoundTrip": 26,
     "trips": [
       {
         "date": "2020-03-01",
@@ -176,8 +176,8 @@
   },
   {
     "user": "Person2",
-    "autoMPG": "30",
-    "homeRoundTrip": "39",
+    "autoMPG": 30,
+    "homeRoundTrip": 39,
     "trips": [
       {
         "date": "2020-03-01",
@@ -351,8 +351,8 @@
   },
   {
     "user": "Person3",
-    "autoMPG": "21",
-    "homeRoundTrip": "125",
+    "autoMPG": 21,
+    "homeRoundTrip": 125,
     "trips": [
       {
         "date": "2020-03-01",
@@ -526,8 +526,8 @@
   },
   {
     "user": "Person4",
-    "autoMPG": "17",
-    "homeRoundTrip": "3.5",
+    "autoMPG": 17,
+    "homeRoundTrip": 3.5,
     "trips": [
       {
         "date": "2020-03-01",
@@ -701,14 +701,14 @@
   },
   {
     "user": "Person5",
-    "autoMPG": "0",
-    "homeRoundTrip": "0",
+    "autoMPG": 0,
+    "homeRoundTrip": 0,
     "trips": []
   },
   {
     "user": "Person6",
-    "autoMPG": "17",
-    "homeRoundTrip": "9.2",
+    "autoMPG": 17,
+    "homeRoundTrip": 9.2,
     "trips": [
       {
         "date": "2020-03-01",
@@ -882,8 +882,8 @@
   },
   {
     "user": "Person7",
-    "autoMPG": "26",
-    "homeRoundTrip": "45",
+    "autoMPG": 26,
+    "homeRoundTrip": 45,
     "trips": [
       {
         "date": "2020-03-01",
@@ -1057,8 +1057,8 @@
   },
   {
     "user": "Person8",
-    "autoMPG": "113.7",
-    "homeRoundTrip": "44",
+    "autoMPG": 113.7,
+    "homeRoundTrip": 44,
     "trips": [
       {
         "date": "2020-03-01",
@@ -1232,14 +1232,14 @@
   },
   {
     "user": "Person9",
-    "autoMPG": "0",
-    "homeRoundTrip": "0",
+    "autoMPG": 0,
+    "homeRoundTrip": 0,
     "trips": []
   },
   {
     "user": "Person10",
-    "autoMPG": "23",
-    "homeRoundTrip": "24",
+    "autoMPG": 23,
+    "homeRoundTrip": 24,
     "trips": [
       {
         "date": "2020-03-01",
@@ -1413,8 +1413,8 @@
   },
   {
     "user": "Person11",
-    "autoMPG": "19",
-    "homeRoundTrip": "9",
+    "autoMPG": 19,
+    "homeRoundTrip": 9,
     "trips": [
       {
         "date": "2020-03-01",
