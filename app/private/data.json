@@ -1,0 +1,1588 @@
+[
+  {
+    "user": "Person1",
+    "autoMPG": "25",
+    "homeRoundTrip": "26",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person2",
+    "autoMPG": "30",
+    "homeRoundTrip": "39",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person3",
+    "autoMPG": "21",
+    "homeRoundTrip": "125",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person4",
+    "autoMPG": "17",
+    "homeRoundTrip": "3.5",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": "P"
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person5",
+    "autoMPG": "0",
+    "homeRoundTrip": "0",
+    "trips": []
+  },
+  {
+    "user": "Person6",
+    "autoMPG": "17",
+    "homeRoundTrip": "9.2",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person7",
+    "autoMPG": "26",
+    "homeRoundTrip": "45",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person8",
+    "autoMPG": "113.7",
+    "homeRoundTrip": "44",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": "E"
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person9",
+    "autoMPG": "0",
+    "homeRoundTrip": "0",
+    "trips": []
+  },
+  {
+    "user": "Person10",
+    "autoMPG": "23",
+    "homeRoundTrip": "24",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "C"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  },
+  {
+    "user": "Person11",
+    "autoMPG": "19",
+    "homeRoundTrip": "9",
+    "trips": [
+      {
+        "date": "2020-03-01",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-02",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-03",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-06",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-07",
+        "modeOfTransportation": ""
+      },{
+        "date": "2020-03-08",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-09",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-11",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-12",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-13",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-14",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-15",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-16",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-17",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-18",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-19",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-20",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-21",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-22",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-23",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-24",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-25",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-26",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-27",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-28",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-29",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-03-30",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-03-31",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-01",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-02",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-03",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-04",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-05",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-06",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-07",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-08",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-09",
+        "modeOfTransportation": "T"
+      },
+      {
+        "date": "2020-04-10",
+        "modeOfTransportation": ""
+      },
+      {
+        "date": "2020-04-11",
+        "modeOfTransportation": ""
+      }
+    ]
+  }
+]

@@ -1,5 +1,124 @@
+
 #quick-access-container {
   margin: auto;
   width: 50%;
   padding: 10px;
+/*
+  HEI's blue color codes: #0c4d85 (header/footer), #177fc5 (text)
+  HEI's font family: "Barlow Semi Condensed", sans-serif;
+ */
+
+/* landing page CSS */
+#landing-nav {
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
+}
+.fake-menu-item {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: #FFFFFF !important;
+  font-size: 30px;
+  padding-right: 50px;
+}
+.fake-menu-item:after {
+
+}
+
+#landing {
+  padding-top: 150px;
+  padding-bottom: 150px;
+  color: #FFFFFF;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 30px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+}
+#landing-bottom {
+  padding-top: 150px;
+}
+
+#sign {
+  padding-top: 150px;
+  padding-bottom: 150px;
+  background-color: rgba(12, 77 ,133, 0.8);
+  font-family: "Barlow Semi Condensed", sans-serif;
+}
+#dashboard-container {
+  /*padding-top: 20px;*/
+  padding-bottom: 150px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+}
+
+#footer {
+  background-color: #0c4d85;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: white !important;
+  padding: 0 !important;
+}
+
+.link {
+  color: #177fc5;
+}
+
+/*
+Daily Page
+light-blue: 3FADE2
+mid-blue: 1C7DC1 / 177fc5
+dark-blue: 0C4D85
+*/
+.daily-add-button {
+  color: #FFFFFF !important;
+  font-size: 20px !important;
+  background-color: #0c4d85 !important;
+}
+
+#daily-top {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: #0c4d85 !important;
+  font-size: 30px;
+  margin: 0 !important;
+}
+
+#daily-container {
+  font-size: 20px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  height: 100vh !important;
+}
+
+.daily-table-header {
+  color: #1C7DC1 !important;
+}
+
+.daily-header-sums {
+  color: #0c4d85 !important;
+  font-weight: 900 !important;
+}
+
+.daily-table {
+  margin: 0 !important;
+}
+
+.ui.table {
+  color: darkgrey !important;
+}
+
+/* Add Trip */
+#add-trip-container {
+  margin: 50px 0 0 150px;
+}
+
+/* Community */
+#community-container {
+  padding-top: 50px;
+  padding-bottom: 150px;
+  margin-left: 150px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+  color: #FFFFFF;
+  font-size: 40px;
+  font-family: "Barlow Semi Condensed", sans-serif;
 }
