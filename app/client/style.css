@@ -12,12 +12,14 @@
   border-bottom: none;
   box-shadow: none;
 }
-
 .fake-menu-item {
   font-family: "Barlow Semi Condensed", sans-serif;
   color: #FFFFFF !important;
   font-size: 30px;
   padding-right: 50px;
+}
+.fake-menu-item:after {
+
 }
 
 #landing {
@@ -29,7 +31,6 @@
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
 }
-
 #landing-bottom {
   padding-top: 150px;
 }
@@ -40,67 +41,11 @@
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
 }
-
-/* Dashhboard page CSS */
-
 #dashboard-container {
-  /*padding-top: 20px;*/
-  padding: 50px 100px;
-  margin-left: 150px;
-  font-family: "Barlow Semi Condensed", sans-serif;
+  padding-top: 100px;
+  padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
-}
-
-#overall-container {
-  height: 10%;
-  margin-bottom: 50px;
-  background-color: white;
-}
-
-#overall-text {
-  height: 20%;
-}
-
-#overall-total-miles {
-  height: 80%;
-}
-
-#miles-saved-container {
-  height: 10%;
-  margin-bottom: 50px;
-  background-color: white;
-}
-
-#miles-saved-header-container {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-#miles-saved-header {
-  height: 15%;
-}
-
-#miles-saved-graph {
-  height: 85%
-}
-
-#monthly-report-container {
-  height: 10%;
-  background-color: white;
-}
-
-#monthly-report-header-container {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-#monthly-report-header {
-  height: 15%;
-}
-
-#monthly-report-graph {
-  height: 85%
 }
 
 #footer {
@@ -166,16 +111,9 @@ dark-blue: 0C4D85
   padding-top: 50px;
   padding-bottom: 150px;
   margin-left: 150px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+  color: #FFFFFF;
+  font-size: 40px;
   font-family: "Barlow Semi Condensed", sans-serif;
-}
-
-#quick-access-container {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-
-#card-bottom {
-  background-color: #1C7DC1;
-  color: white;
 }
