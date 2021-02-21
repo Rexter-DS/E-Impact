@@ -23,6 +23,7 @@ module.exports = {
       ROOT_URL: 'http://111.222.333.444',
       MONGO_URL: 'mongodb://mongodb/meteor',
       MONGO_OPLOG_URL: 'mongodb://mongodb/local',
+      NODE_OPTIONS: '--max_old_space_size=16384',
     },
 
     docker: {

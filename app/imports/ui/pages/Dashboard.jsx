@@ -66,7 +66,7 @@ class Dashboard extends React.Component {
         <div id="dashboard-container" style={pageStyle}>
           <SidebarVisible/>
           { /* Contains the graphs that dislays the data */ }
-          <Image size='medium' src="/images/EImpactLogoWhite.png"/>
+          {/*<Image size='medium' src="/images/EImpactLogoWhite.png"/>*/}
           <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
             <Grid.Row>
               <Grid.Column>
