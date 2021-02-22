@@ -3,6 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 import { Roles } from 'meteor/alanning:roles';
+import swal from 'sweetalert';
 import BaseCollection from '../base/BaseCollection';
 
 export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle'];
@@ -46,6 +47,18 @@ class TripCollection extends BaseCollection {
       mpg,
       owner,
     });
+    return docID;
+  }
+
+  defineWithMessage({ date, distance, mode, mpg, owner }) {
+    const docID = this._collection.insert({ date, distance, mode, mpg, owner },
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Sucess');
+          }
+        });
     return docID;
   }
 
