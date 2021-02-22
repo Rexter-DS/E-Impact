@@ -1,34 +1,19 @@
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { Header } from 'semantic-ui-react';
+import Map from '../components/Map';
 
-const MapTest = ({ text }) => <div>{text}</div>;
-
-class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33,
-    },
-    zoom: 11,
-  };
-
+/** After the user clicks the "Signout" link in the NavBar, log them out and display this page. */
+export default class Signout extends React.Component {
   render() {
+    Meteor.logout();
     return (
-        // Important! Always set the container height explicitly
-        <div style={{ height: '50vh', width: '50%' }}>
-          <GoogleMapReact
-              bootstrapURLKeys={{ key: 'API KEY HERE' }}
-              defaultCenter={this.props.center}
-              defaultZoom={this.props.zoom}
-          >
-            <MapTest
-                lat={21.3069}
-                lng={157.8583}
-            />
-          </GoogleMapReact>
+        <div id='sign'>
+          <Header id="signout-page" as="h2" textAlign="center">
+            <p>You are signed out.</p>
+          </Header>
+          <Map/>
         </div>
     );
   }
 }
-
-export default SimpleMap;

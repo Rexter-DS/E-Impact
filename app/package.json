@@ -10,6 +10,7 @@
     "esri-leaflet-geocoder": "^3.0.0",
     "esri-loader": "^3.0.0",
     "google-map-react": "^2.1.9",
+    "google-maps-react": "^2.0.6",
     "graphql": "^14.5.8",
     "leaflet": "^1.0.0-rc.1",
     "meteor-node-stubs": "^1.0.1",
