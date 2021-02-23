@@ -1,16 +1,18 @@
 import React from 'react';
-import { Grid, Image, Statistic, Icon, Progress, Divider, Header, Card } from 'semantic-ui-react';
+import { Grid, Statistic, Icon, Progress, Divider, Header, Card } from 'semantic-ui-react';
 import SidebarVisible from '../components/SideBar';
+import Map from '../components/Map';
 
 class Community extends React.Component {
   render() {
     return (
      <div id='community-container'>
        <SidebarVisible/>
+       <div id='community-map'>
+        <Map/>
+       </div>
+       <div id='community-bottom'>
        <Grid centered>
-         <Grid.Row>
-           <Image src='/images/Honolulu.png' size='big' centered/>
-         </Grid.Row>
          <Grid.Row>
            <Grid.Column as="h2" textAlign='center'>Honolulu County</Grid.Column>
          </Grid.Row>
@@ -120,6 +122,7 @@ class Community extends React.Component {
            </Card.Content>
          </Card>
        </Card.Group>
+       </div>
      </div>
     );
   }
