@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { Grid, Form, Input, Select } from 'semantic-ui-react';
+import { Grid, Form, Card } from 'semantic-ui-react';
 // A suggestions portion could be added below the produced GHG section.
 function QuickAccess() {
-  // Hooks.
   const [miles, setMiles] = useState(1);
   const [mpg, setMpg] = useState(1);
   const [ghg, setGhg] = useState(0);
-  // Updates the generated greenhouse gases.
+  // Uniforms library using AutoForm with Form.Group width='equal' for spacing issue
   const updateProduced = () => {
-    setGhg((miles / mpg) * 8887);
+    setGhg((miles / mpg) * 19.57);
   };
-  // Handles of Hooks.
   const handleMiles = e => {
     setMiles(e.target.value);
     updateProduced();
@@ -19,40 +17,48 @@ function QuickAccess() {
     setMpg(e.target.value);
     updateProduced();
   };
+
   return (
-      <Grid id="quick-access-container" centered>
-        <Grid.Row>
-          <img src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
-        </Grid.Row>
-        <Grid.Row>
-          <Form>
-            <Form.Field
-                control={Input}
-                label="Distance traveled (mi)"
-                onChange={e => handleMiles(e)}
-            />
-            <Form.Field
-                control={Select}
-                label="Mode of transportation"
-                options={[
-                  { text: 'Bike', value: 'bike' },
-                  { text: 'Bus', value: 'bus' },
-                  { text: 'Car', value: 'car' },
-                  { text: 'Foot', value: 'foot' },
-                ]}
-            />
-            <Form.Field
-                control={Input}
-                label="Vehicle miles per gallon"
-                onChange={e => handleMpg(e)}
-            />
-          </Form>
-        </Grid.Row>
-        <Grid.Row>
-          <p>Miles Traveled: {miles}; Mileage Of Vehicle(if used): {mpg}</p>
-          <label>You produced {ghg} grams of CO2/gallon. </label>
-        </Grid.Row>
-      </Grid>
+      <div className="quick-access-container">
+        <Grid>
+          <Grid.Row>
+            <img src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
+          </Grid.Row>
+          <Grid.Row floated="center">
+            <Form align="left">
+              <Form.Field inline>
+                <label>Distance Traveled(mi)</label>
+                <input type="text" placeholder="ex. 0-9" onChange={e => handleMiles(e)}/>
+              </Form.Field>
+              <Form.Field inline>
+                <label>Mode of Transport</label>
+                <select>
+                  <option value="">Select Mode</option>
+                  <option value="Bike">Bike</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Car">Car</option>
+                  <option value="Carpool">Carpool</option>
+                  <option value="Foot">Foot</option>
+                </select>
+              </Form.Field>
+              <Form.Field inline>
+                <label>Mileage of test vehicle</label>
+                <input type="text" placeholder="ex. 0-9" onChange={e => handleMpg(e)}/>
+              </Form.Field>
+            </Form>
+          </Grid.Row>
+          <Grid.Row>
+            <p>Miles Traveled: {miles}; Mileage Of Vehicle(if used): {mpg}</p>
+            <label>You produced {ghg} lb. of CO2/gallon. </label>
+          </Grid.Row>
+          <Grid.Row>
+            <Card>
+              <Card.Content>GHG Produced</Card.Content>
+              <Card.Description>You produced {ghg} lb. of Co2/gallon</Card.Description>
+            </Card>
+          </Grid.Row>
+        </Grid>
+      </div>
   );
 }
 export default QuickAccess;
