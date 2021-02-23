@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Grid, Container, Header } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
@@ -22,28 +22,36 @@ function Overall() {
   const [ghgReduced, setGHGReduced] = useState(0);
   const [modesOfTransport, setModesOfTransport] = useState([]);
 
-  Meteor.call('getMilesTotal', function (error, result) {
-    if (!error) {
-      setTotalMiles(result);
-    }
+  useEffect(() => {
+    Meteor.call('getMilesTotal', function (error, result) {
+      if (!error) {
+        setTotalMiles(result);
+      }
+    });
   });
 
-  Meteor.call('getFuelSaved', function (error, result) {
-    if (!error) {
-      setFuelSaved(result);
-    }
+  useEffect(() => {
+    Meteor.call('getFuelSaved', function (error, result) {
+      if (!error) {
+        setFuelSaved(result);
+      }
+    });
   });
 
-  Meteor.call('getGHGReduced', function (error, result) {
-    if (!error) {
-      setGHGReduced(result);
-    }
+  useEffect(() => {
+    Meteor.call('getGHGReduced', function (error, result) {
+      if (!error) {
+        setGHGReduced(result);
+      }
+    });
   });
 
-  Meteor.call('getModesOfTransport', function (error, result) {
-    if (!error) {
-      setModesOfTransport(result);
-    }
+  useEffect(() => {
+    Meteor.call('getModesOfTransport', function (error, result) {
+      if (!error) {
+        setModesOfTransport(result);
+      }
+    });
   });
 
   return (
@@ -109,10 +117,12 @@ function Overall() {
 function MilesSavedPerDay() {
   const [milesSaved, setMilesSaved] = useState([]);
 
-  Meteor.call('getMilesSavedPerDay', function (error, result) {
-    if (!error) {
-      setMilesSaved(result);
-    }
+  useEffect(() => {
+    Meteor.call('getMilesSavedPerDay', function (error, result) {
+      if (!error) {
+        setMilesSaved(result);
+      }
+    });
   });
 
   return (
@@ -143,10 +153,12 @@ function MilesSavedPerDay() {
 function MonthlyGHGReport() {
   const [monthlyReport, setMonthlyReport] = useState([]);
 
-  Meteor.call('getMonthlyGHGReport', function (error, result) {
-    if (!error) {
-      setMonthlyReport(result);
-    }
+  useEffect(() => {
+    Meteor.call('getMonthlyGHGReport', function (error, result) {
+      if (!error) {
+        setMonthlyReport(result);
+      }
+    });
   });
 
   return (
