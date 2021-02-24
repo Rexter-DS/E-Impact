@@ -114,6 +114,20 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+
+.quick-access-container {
+  padding-bottom: 150px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+}
+.quick-access-navbar{
+  padding-bottom: 30px;
+}
+.quick-access-grid{
+  background-color: white;
+  /* width: 900px; */
+}
+
 #card-bottom {
   background-color: #1C7DC1;
   color: white;
