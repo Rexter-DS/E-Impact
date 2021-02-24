@@ -82,36 +82,60 @@ Meteor.methods({
   getModesOfTransport: function () {
     const data = JSON.parse(Assets.getText('data.json'));
 
-    const modes = [
-      { mode: 'Telework', value: 0 },
-      { mode: 'Public Transportation', value: 0 },
-      { mode: 'Biking', value: 0 },
-      { mode: 'Walk', value: 0 },
-      { mode: 'Carpool', value: 0 },
-      { mode: 'Electric Vehicle', value: 0 },
-    ];
+    const modes = [];
+    let result;
 
     data[3].trips.forEach((trip) => {
       switch (trip.modeOfTransportation) {
         default:
           break;
         case 'T':
-          modes[0].value += 1;
+          result = modes.find(({ mode }) => mode === 'Telework');
+          if (result == null) {
+            modes.push({ mode: 'Telework', value: 1 });
+          } else {
+            result.value += 1;
+          }
           break;
         case 'P':
-          modes[1].value += 1;
+          result = modes.find(({ mode }) => mode === 'Public\nTransport');
+          if (result == null) {
+            modes.push({ mode: 'Public\nTransport', value: 1 });
+          } else {
+            result.value += 1;
+          }
           break;
         case 'B':
-          modes[2].value += 1;
+          result = modes.find(({ mode }) => mode === 'Biking');
+          if (result == null) {
+            modes.push({ mode: 'Biking', value: 1 });
+          } else {
+            result.value += 1;
+          }
           break;
         case 'W':
-          modes[3].value += 1;
+          result = modes.find(({ mode }) => mode === 'Walking');
+          if (result == null) {
+            modes.push({ mode: 'Walking', value: 1 });
+          } else {
+            result.value += 1;
+          }
           break;
         case 'C':
-          modes[4].value += 1;
+          result = modes.find(({ mode }) => mode === 'Carpool');
+          if (result == null) {
+            modes.push({ mode: 'Carpool', value: 1 });
+          } else {
+            result.value += 1;
+          }
           break;
         case 'E':
-          modes[5].value += 1;
+          result = modes.find(({ mode }) => mode === 'Electric Vehicle');
+          if (result == null) {
+            modes.push({ mode: 'Electric Vehicle', value: 1 });
+          } else {
+            result.value += 1;
+          }
           break;
       }
     });

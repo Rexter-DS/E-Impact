@@ -1,73 +1,50 @@
-import React from 'react';
-import { Grid, Menu, Image } from 'semantic-ui-react';
-import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import { Meteor } from 'meteor/meteor';
+import { Grid, Container, Card } from 'semantic-ui-react';
+import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { VictoryPie, VictoryLabel } from 'victory';
 import SidebarVisible from '../components/SideBar';
 
-/* temporary data for the graphs */
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+function Overall() {
+  const [totalMiles, setTotalMiles] = useState(0);
 
-/* The dashboard that contains graphs that contains the graphs to display data to the user */
-class Dashboard extends React.Component {
-  state = {};
+  useEffect(() => {
+    Meteor.call('getMilesTotal', function (error, result) {
+      if (!error) {
+        setTotalMiles(result);
+      }
+    });
+  }, [totalMiles]);
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name });
-  };
+  const [fuelSaved, setFuelSaved] = useState(0);
 
-  render() {
-    const { activeItem } = this.state;
-    const pageStyle = {
-      marginLeft: 150,
-    };
-    return (
-        <div id="dashboard-container" style={pageStyle}>
-          <SidebarVisible/>
-          { /* Contains the graphs that dislays the data */ }
-          {/*<Image size='medium' src="/images/EImpactLogoWhite.png"/>*/}
-          <Grid id='dashboard' columns={2} padded="vertically" verticalAlign='middle' container>
+  useEffect(() => {
+    Meteor.call('getFuelSaved', function (error, result) {
+      if (!error) {
+        setFuelSaved(result);
+      }
+    });
+  }, [fuelSaved]);
+
+  const [ghgReduced, setGHGReduced] = useState(0);
+
+  useEffect(() => {
+    Meteor.call('getGHGReduced', function (error, result) {
+      if (!error) {
+        setGHGReduced(result);
+      }
+    });
+  }, [ghgReduced]);
+
+  return (
+      <Grid id="overall-container" style={{ height: '100%' }}>
+        <Grid.Column stretched>
+          <Grid.Row id="overall-total-miles">
+            <Grid.Row>
+              <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
+                { totalMiles }
+              </Container>
+            </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Grid.Row>
@@ -107,7 +84,14 @@ class Dashboard extends React.Component {
                 </ResponsiveContainer>
               </Grid.Column>
             </Grid.Row>
+          </Grid.Row>
 
+          <Grid.Row>
+            <Grid.Row>
+              <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
+                { fuelSaved } lbs
+              </Container>
+            </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <ResponsiveContainer width='100%' height={250}>
@@ -131,10 +115,135 @@ class Dashboard extends React.Component {
                 </ResponsiveContainer>
               </Grid.Column>
             </Grid.Row>
-          </Grid>
-        </div>
-    );
-  }
+          </Grid.Row>
+          <Grid.Row>
+
+            <Grid.Row>
+              <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
+                { ghgReduced } lbs
+              </Container>
+            </Grid.Row>
+            <Grid.Row>
+              <Container fluid text textAlign="center">
+                of GHG reduced
+              </Container>
+            </Grid.Row>
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
+  );
+}
+
+function ModesOfTransport() {
+
+  const [modesOfTransport, setModesOfTransport] = useState([]);
+
+  useEffect(() => {
+    Meteor.call('getModesOfTransport', function (error, result) {
+      if (!error) {
+        setModesOfTransport(result);
+      }
+    });
+  }, [modesOfTransport]);
+
+  return (
+      <div>
+        <VictoryPie
+            data={modesOfTransport}
+            x="mode"
+            y="value"
+            colorScale={['#093c69', '#177fc5', '#0c4d85']}
+            innerRadius={70}
+        />
+      </div>
+  );
+}
+
+function MilesSavedPerDay() {
+  const [milesSaved, setMilesSaved] = useState([]);
+
+  useEffect(() => {
+    Meteor.call('getMilesSavedPerDay', function (error, result) {
+      if (!error) {
+        setMilesSaved(result);
+      }
+    });
+  }, [milesSaved]);
+
+  return (
+      <ResponsiveContainer width='100%' height={250}>
+        <BarChart data={milesSaved}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="day" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="miles" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
+  );
+}
+
+function MonthlyGHGReport() {
+  const [monthlyReport, setMonthlyReport] = useState([]);
+
+  useEffect(() => {
+    Meteor.call('getMonthlyGHGReport', function (error, result) {
+      if (!error) {
+        setMonthlyReport(result);
+      }
+    });
+  }, [monthlyReport]);
+
+  return (
+      <ResponsiveContainer width='100%' height={250}>
+        <LineChart data={monthlyReport}
+                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='month'/>
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type='monotone' dataKey='GHGReduced' stroke='#8884d8' />
+        </LineChart>
+      </ResponsiveContainer>
+  );
+}
+/* The dashboard that contains graphs that contains the graphs to display data to the user */
+function Dashboard() {
+
+  return (
+      <div id="dashboard-container">
+        <SidebarVisible/>
+        <Card.Group id="dashboard-content" itemsPerRow={1}>
+          <Card id="overall-card">
+            <Card.Content>
+              <Card.Header>Overall</Card.Header>
+              <Grid container columns={2}>
+                <Grid.Column>
+                  <Overall/>
+                </Grid.Column>
+                <Grid.Column>
+                  <ModesOfTransport/>
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Card.Header style={{ marginBottom: 30 }}>Miles Saved Per Day</Card.Header>
+              <MilesSavedPerDay/>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Card.Header style={{ marginBottom: 30 }}>Monthly GHG Reduced</Card.Header>
+              <MonthlyGHGReport/>
+            </Card.Content>
+          </Card>
+        </Card.Group>
+      </div>
+  );
 }
 
 export default Dashboard;
