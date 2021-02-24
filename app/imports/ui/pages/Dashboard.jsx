@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Container, Header } from 'semantic-ui-react';
-import { ResponsiveContainer, LineChart, Line, PieChart, Pie, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { Grid, Container, Card } from 'semantic-ui-react';
+import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { VictoryPie, VictoryLabel } from 'victory';
 import SidebarVisible from '../components/SideBar';
-
-const customizedPieGraphLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
-  const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
-
-  return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline={"central"}>
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-  );
-};
 
 function Overall() {
   const [totalMiles, setTotalMiles] = useState(0);
-  const [fuelSaved, setFuelSaved] = useState(0);
-  const [ghgReduced, setGHGReduced] = useState(0);
-  const [modesOfTransport, setModesOfTransport] = useState([]);
 
   useEffect(() => {
     Meteor.call('getMilesTotal', function (error, result) {
@@ -28,7 +14,9 @@ function Overall() {
         setTotalMiles(result);
       }
     });
-  });
+  }, [totalMiles]);
+
+  const [fuelSaved, setFuelSaved] = useState(0);
 
   useEffect(() => {
     Meteor.call('getFuelSaved', function (error, result) {
@@ -36,7 +24,9 @@ function Overall() {
         setFuelSaved(result);
       }
     });
-  });
+  }, [fuelSaved]);
+
+  const [ghgReduced, setGHGReduced] = useState(0);
 
   useEffect(() => {
     Meteor.call('getGHGReduced', function (error, result) {
@@ -44,24 +34,11 @@ function Overall() {
         setGHGReduced(result);
       }
     });
-  });
-
-  useEffect(() => {
-    Meteor.call('getModesOfTransport', function (error, result) {
-      if (!error) {
-        setModesOfTransport(result);
-      }
-    });
-  });
+  }, [ghgReduced]);
 
   return (
-      <Grid id="overall-container" columns={3}>
-        <Grid.Column id="overall-left-grid">
-          <Grid.Row id="overall-text">
-            <Container fluid text>
-              <Header>Overall</Header>
-            </Container>
-          </Grid.Row>
+      <Grid id="overall-container" style={{ height: '100%' }}>
+        <Grid.Column stretched>
           <Grid.Row id="overall-total-miles">
             <Grid.Row>
               <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
@@ -74,9 +51,7 @@ function Overall() {
               </Container>
             </Grid.Row>
           </Grid.Row>
-        </Grid.Column>
 
-        <Grid.Column stretched>
           <Grid.Row>
             <Grid.Row>
               <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
@@ -90,6 +65,7 @@ function Overall() {
             </Grid.Row>
           </Grid.Row>
           <Grid.Row>
+
             <Grid.Row>
               <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
                 { ghgReduced } lbs
@@ -102,15 +78,32 @@ function Overall() {
             </Grid.Row>
           </Grid.Row>
         </Grid.Column>
-
-        <Grid.Column>
-          <ResponsiveContainer width='100%' height={250}>
-            <PieChart>
-              <Pie data={modesOfTransport} dataKey="value" cx="50%" cy="50%" label={customizedPieGraphLabel} outerRadius={100} fill="#8884d8" />
-            </PieChart>
-          </ResponsiveContainer>
-        </Grid.Column>
       </Grid>
+  );
+}
+
+function ModesOfTransport() {
+
+  const [modesOfTransport, setModesOfTransport] = useState([]);
+
+  useEffect(() => {
+    Meteor.call('getModesOfTransport', function (error, result) {
+      if (!error) {
+        setModesOfTransport(result);
+      }
+    });
+  }, [modesOfTransport]);
+
+  return (
+      <div>
+        <VictoryPie
+            data={modesOfTransport}
+            x="mode"
+            y="value"
+            colorScale={['#093c69', '#177fc5', '#0c4d85']}
+            innerRadius={70}
+        />
+      </div>
   );
 }
 
@@ -123,30 +116,19 @@ function MilesSavedPerDay() {
         setMilesSaved(result);
       }
     });
-  });
+  }, [milesSaved]);
 
   return (
-      <Grid id="miles-saved-container" column={1}>
-        <Grid.Column>
-          <Grid.Row id="miles-saved-header">
-            <Container id="miles-saved-header-container" fluid text>
-              <Header>Miles saved per day</Header>
-            </Container>
-          </Grid.Row>
-          <Grid.Row id="miles-saved-graph">
-            <ResponsiveContainer width='100%' height={250}>
-              <BarChart data={milesSaved}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="miles" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
-          </Grid.Row>
-        </Grid.Column>
-      </Grid>
+      <ResponsiveContainer width='100%' height={250}>
+        <BarChart data={milesSaved}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="day" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="miles" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
   );
 }
 
@@ -159,43 +141,55 @@ function MonthlyGHGReport() {
         setMonthlyReport(result);
       }
     });
-  });
+  }, [monthlyReport]);
 
   return (
-      <Grid id="monthly-report-container" columns={1}>
-        <Grid.Column>
-          <Grid.Row id="monthly-report-header">
-            <Container id="monthly-report-header-container" fluid text>
-              <Header>Monthly GHG report</Header>
-            </Container>
-          </Grid.Row>
-          <Grid.Row id="monthly-report-graph">
-            <ResponsiveContainer width='100%' height={250}>
-              <LineChart data={monthlyReport}
-                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='month'/>
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type='monotone' dataKey='GHGReduced' stroke='#8884d8' />
-              </LineChart>
-            </ResponsiveContainer>
-          </Grid.Row>
-        </Grid.Column>
-      </Grid>
+      <ResponsiveContainer width='100%' height={250}>
+        <LineChart data={monthlyReport}
+                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='month'/>
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type='monotone' dataKey='GHGReduced' stroke='#8884d8' />
+        </LineChart>
+      </ResponsiveContainer>
   );
 }
 /* The dashboard that contains graphs that contains the graphs to display data to the user */
 function Dashboard() {
 
-  Meteor.call('getMonthlyGHGReport');
   return (
       <div id="dashboard-container">
         <SidebarVisible/>
-        <Overall/>
-        <MilesSavedPerDay/>
-        <MonthlyGHGReport/>
+        <Card.Group id="dashboard-content" itemsPerRow={1}>
+          <Card id="overall-card">
+            <Card.Content>
+              <Card.Header>Overall</Card.Header>
+              <Grid container columns={2}>
+                <Grid.Column>
+                  <Overall/>
+                </Grid.Column>
+                <Grid.Column>
+                  <ModesOfTransport/>
+                </Grid.Column>
+              </Grid>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Card.Header style={{ marginBottom: 30 }}>Miles Saved Per Day</Card.Header>
+              <MilesSavedPerDay/>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Content>
+              <Card.Header style={{ marginBottom: 30 }}>Monthly GHG Reduced</Card.Header>
+              <MonthlyGHGReport/>
+            </Card.Content>
+          </Card>
+        </Card.Group>
       </div>
   );
 }

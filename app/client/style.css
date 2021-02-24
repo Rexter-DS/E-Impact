@@ -48,63 +48,11 @@
   padding: 50px 100px;
   margin-left: 150px;
   font-family: "Barlow Semi Condensed", sans-serif;
-  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
-  background-size: 100% 100%;
-}
-
-#overall-container {
-  height: 10%;
-  margin-bottom: 50px;
   background-color: white;
-}
-
-#overall-text {
-  height: 20%;
-}
-
-#overall-total-miles {
-  height: 80%;
-}
-
-#miles-saved-container {
-  height: 10%;
-  margin-bottom: 50px;
-  background-color: white;
-}
-
-#miles-saved-header-container {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-#miles-saved-header {
-  height: 15%;
-}
-
-#miles-saved-graph {
-  height: 85%
-}
-
-#monthly-report-container {
-  height: 10%;
-  background-color: white;
-}
-
-#monthly-report-header-container {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-#monthly-report-header {
-  height: 15%;
-}
-
-#monthly-report-graph {
-  height: 85%
 }
 
 #footer {
-  background-color: #0c4d85;
+  background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
   color: white !important;
   padding: 0 !important;
