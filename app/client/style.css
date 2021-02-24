@@ -179,6 +179,7 @@ dark-blue: 0C4D85
 }
 .quick-access-grid{
   background-color: white;
+  /* width: 900px; */
 }
 
 #card-bottom {
