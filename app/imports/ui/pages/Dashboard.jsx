@@ -46,9 +46,43 @@ function Overall() {
               </Container>
             </Grid.Row>
             <Grid.Row>
-              <Container fluid text textAlign="center">
-                Total Miles
-              </Container>
+              <Grid.Column>
+                <Grid.Row>
+                  <Menu fluid horizontal="true">
+                    <Menu.Item
+                        name='Today'
+                        active={activeItem === 'Today'}
+                        onClick={this.handleItemClick}
+                    />
+                  </Menu>
+                </Grid.Row>
+                <Grid.Row>
+                  <ResponsiveContainer width='100%' height={250}>
+                    <BarChart data={data}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" tick={{ fill: 'white' }}/>
+                      <YAxis tick={{ fill: 'white' }}/>
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="pv" fill="#8884d8" />
+                      <Bar dataKey="uv" fill="#82ca9d" />
+                    </BarChart>
+                  </ResponsiveContainer>;
+                </Grid.Row>
+              </Grid.Column>
+              <Grid.Column>
+                <ResponsiveContainer width='100%' height={250}>
+                  <BarChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" tick={{ fill: 'white' }}/>
+                    <YAxis tick={{ fill: 'white' }}/>
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="pv" fill="#8884d8" />
+                    <Bar dataKey="uv" fill="#82ca9d" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </Grid.Column>
             </Grid.Row>
           </Grid.Row>
 
@@ -59,9 +93,27 @@ function Overall() {
               </Container>
             </Grid.Row>
             <Grid.Row>
-              <Container fluid text textAlign="center">
-                of fuel saved
-              </Container>
+              <Grid.Column>
+                <ResponsiveContainer width='100%' height={250}>
+                  <LineChart data={data}
+                             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray='3 3' />
+                    <XAxis dataKey='name' tick={{ fill: 'white' }}/>
+                    <YAxis tick={{ fill: 'white' }}/>
+                    <Tooltip />
+                    <Legend />
+                    <Line type='monotone' dataKey='pv' stroke='#8884d8' />
+                    <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
+                  </LineChart>
+                </ResponsiveContainer>
+              </Grid.Column>
+              <Grid.Column>
+                <ResponsiveContainer width='100%' height={250}>
+                  <PieChart>
+                    <Pie data={data} dataKey="uv" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </Grid.Column>
             </Grid.Row>
           </Grid.Row>
           <Grid.Row>
