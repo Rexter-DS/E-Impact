@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Grid, Container, Card } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { VictoryPie, VictoryLabel } from 'victory';
+import { VictoryPie } from 'victory';
 import SidebarVisible from '../components/SideBar';
 
 function Overall() {
