@@ -7,6 +7,7 @@
     "core-js": "^3.8.3",
     "graphql": "^14.5.8",
     "meteor-node-stubs": "^1.0.1",
+    "nivo": "^0.31.0",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -19,7 +20,8 @@
     "sweetalert": "^2.1.2",
     "uniforms": "^3.0.0",
     "uniforms-bridge-simple-schema-2": "^3.0.0",
-    "uniforms-semantic": "^3.0.0"
+    "uniforms-semantic": "^3.0.0",
+    "victory": "^35.4.9"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
