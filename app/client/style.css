@@ -12,12 +12,14 @@
   border-bottom: none;
   box-shadow: none;
 }
-
 .fake-menu-item {
   font-family: "Barlow Semi Condensed", sans-serif;
   color: #FFFFFF !important;
   font-size: 30px;
   padding-right: 50px;
+}
+.fake-menu-item:after {
+
 }
 
 #landing {
@@ -29,7 +31,6 @@
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
 }
-
 #landing-bottom {
   padding-top: 150px;
 }
@@ -40,9 +41,6 @@
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
 }
-
-/* Dashhboard page CSS */
-
 #dashboard-container {
   /*padding-top: 20px;*/
   padding: 50px 100px;
@@ -117,13 +115,25 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
-#quick-access-container {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
+
+.quick-access-container {
+  padding-bottom: 150px;
+  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-size: 100% 100%;
+}
+.quick-access-navbar{
+  padding-bottom: 30px;
+}
+.quick-access-grid{
+  background-color: white;
+  /* width: 900px; */
 }
 
 #card-bottom {
   background-color: #1C7DC1;
   color: white;
+}
+
+#community-bottom {
+  padding-top: 400px;
 }
