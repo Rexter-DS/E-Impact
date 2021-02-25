@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import { AutoForm, ErrorsField, NumField, SelectField, SubmitField, DateField } from 'uniforms-semantic';
+import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -30,9 +31,15 @@ class AddTrip extends React.Component {
   submit(data, formRef) {
     const { date, distance, mode, mpg } = data;
     const owner = Meteor.user().username;
-    if (Trips.defineWithMessage({ date, distance, mode, mpg, owner })) {
-      formRef.reset();
-    }
+    Trips.define({ date, distance, mode, mpg, owner },
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Success', 'Item added successfully', 'success');
+            formRef.reset();
+          }
+        });
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */

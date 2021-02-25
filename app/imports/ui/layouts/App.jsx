@@ -21,7 +21,6 @@ import Dashboard from '../pages/Dashboard';
 import Daily from '../pages/Daily';
 // import SidebarVisible from '../components/SideBar';
 import Community from '../pages/Community';
-import MapTest from '../pages/MapTest';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -37,7 +36,6 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <Route path="/map" component={MapTest}/>
               <Route path="/quickaccess" component={QuickAccess}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
