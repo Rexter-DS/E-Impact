@@ -235,5 +235,9 @@ Meteor.methods({
     monthlyReport[1].GHGReduced = temp.toFixed(2);
 
     return monthlyReport;
-  }
+  },
+  getEVData: function () {
+    const data = JSON.parse(Assets.getText('evdata.json'));
+    return data;
+  },
 });

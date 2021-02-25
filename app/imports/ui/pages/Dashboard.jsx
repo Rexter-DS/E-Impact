@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Container, Card } from 'semantic-ui-react';
-import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { Grid, Container, Card, Menu } from 'semantic-ui-react';
+import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Pie, PieChart } from 'recharts';
 import { VictoryPie } from 'victory';
 import SidebarVisible from '../components/SideBar';
 

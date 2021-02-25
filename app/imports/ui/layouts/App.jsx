@@ -22,6 +22,7 @@ import Daily from '../pages/Daily';
 // import SidebarVisible from '../components/SideBar';
 import Community from '../pages/Community';
 import MapTest from '../pages/MapTest';
+import Compare from '../pages/Compare';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -46,6 +47,7 @@ class App extends React.Component {
               <ProtectedRoute path="/dashboard" component={Dashboard}/>
               <ProtectedRoute path="/daily" component={Daily}/>
               <ProtectedRoute path="/addTrip" component={AddTrip}/>
+              <ProtectedRoute path="/compare" component={Compare}/>
               <ProtectedRoute path="/history" component={TripHistory}/>
               <ProtectedRoute path="/community" component={Community}/>
               <ProtectedRoute path="/signout" component={Signout}/>

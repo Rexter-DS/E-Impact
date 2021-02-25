@@ -1,0 +1,26 @@
+[
+  {
+    "car": "Car 1",
+    "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
+    "cashPrice": "50,000",
+    "range": "300",
+    "batteryCapacity": "75",
+    "availableSubsidy": "20,00"
+  },
+  {
+    "car": "Car 2",
+    "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
+    "cashPrice": "23,000",
+    "range": "100",
+    "batteryCapacity": "55",
+    "availableSubsidy": "4,200"
+  },
+  {
+    "car": "Car 3",
+    "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
+    "cashPrice": "43,000",
+    "range": "500",
+    "batteryCapacity": "95",
+    "availableSubsidy": "4,000"
+  }
+]

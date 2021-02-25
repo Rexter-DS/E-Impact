@@ -137,3 +137,12 @@ dark-blue: 0C4D85
 #community-bottom {
   padding-top: 400px;
 }
+
+/* Compare */
+#compare-container {
+  margin: 50px 0px 0px 150px;
+}
+
+.compare-slider {
+  padding: 30px;
+}
