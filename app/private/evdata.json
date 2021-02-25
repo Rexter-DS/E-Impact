@@ -1,26 +1,26 @@
 [
   {
-    "car": "Car 1",
+    "car": "2020 Tesla Model Y",
     "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
-    "cashPrice": "50,000",
-    "range": "300",
+    "cashPrice": "48,990",
+    "range": "326",
     "batteryCapacity": "75",
-    "availableSubsidy": "20,00"
+    "website": "https://www.tesla.com/modely"
   },
   {
-    "car": "Car 2",
-    "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
-    "cashPrice": "23,000",
-    "range": "100",
-    "batteryCapacity": "55",
-    "availableSubsidy": "4,200"
+    "car": "2021 Hyundai Kona EV",
+    "image": "https://images.dealer.com/ddc/vehicles/2021/Hyundai/Kona/SUV/trim_SE_e03b2e/color/Chalk%20White-P6W-234%2C234%2C234-640-en_US.jpg?impolicy=resize&w=640",
+    "cashPrice": "37,390",
+    "range": "258",
+    "batteryCapacity": "64",
+    "website": "https://www.hyundaiusa.com/us/en/vehicles/kona-electric"
   },
   {
-    "car": "Car 3",
-    "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
+    "car": "2020 Chevrolet Bolt EV",
+    "image": "https://assets.newcars.com/images/car-pictures/original/2020-Chevrolet-Bolt-EV-Wagon-LT-4dr-Wagon-Photo-13.png",
     "cashPrice": "43,000",
-    "range": "500",
-    "batteryCapacity": "95",
-    "availableSubsidy": "4,000"
+    "range": "259",
+    "batteryCapacity": "66",
+    "website": "https://www.chevrolet.com/electric/previous-year/bolt-ev"
   }
 ]

@@ -16,25 +16,21 @@ function SliderHandler() {
     });
   }, [setEVData]);
 
-  console.log(evData);
-
   return (
       <Slider className='compare-slider'>
         {evData.map((value, index) => <Slide index={index} key={index}>
-          <Grid centered>
-            <Card>
-              <Image src={value.image}/>
-              <Card.Content>
-                <Card.Header>{value.car}</Card.Header>
-                <Card.Description>
-                  {value.cashPrice}<br/>
-                  {value.range}<br/>
-                  {value.batteryCapacity}<br/>
-                  {value.availableSubsidy}<br/>
-                </Card.Description>
-              </Card.Content>
-            </Card>
-          </Grid>
+          <Card fluid>
+            <Image className='compare-image-card' verticalAlign='middle'
+                   src={value.image} href={value.website} target='_blank'/>
+            <Card.Content>
+              <Card.Header>{value.car}</Card.Header>
+              <Card.Description>
+                Cash Price: ${value.cashPrice}<br/>
+                Range: {value.range} mi<br/>
+                Battery Capacity: {value.batteryCapacity} kWh<br/>
+              </Card.Description>
+            </Card.Content>
+          </Card>
         </Slide>)}
       </Slider>
   );
@@ -42,31 +38,40 @@ function SliderHandler() {
 
 function Compare() {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { evData: [1, 2, 3] };
-  //   let data = Meteor.apply('getEVData', { returnStubValue: true }, function (error, result) {
-  //     if (!error) {
-  //       return result;
-  //     }
-  //   });
-  //   console.log(data);
-  // }
-
-    return (
-        <div id='compare-container'>
-          <SidebarVisible/>
-          <CarouselProvider
-              naturalSlideWidth={100}
-              isIntrinsicHeight={true}
-              totalSlides={3}
-          >
-            <SliderHandler/>
-            <ButtonBack className='ui button'>Back</ButtonBack>
-            <ButtonNext className='ui button right floated'>Next</ButtonNext>
-          </CarouselProvider>
-        </div>
-    );
+  return (
+      <div id='compare-container'>
+        <SidebarVisible/>
+        <Grid centered>
+          <Grid.Column width={7}>
+            <Card fluid>
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Beater_Nissan.jpg'/>
+              <Card.Content>
+                <Card.Header>My Car</Card.Header>
+                <Card.Description>
+                  Cash Price: $13,000<br/>
+                  Range: 52 mi<br/>
+                  MPG: 30 mi<br/>
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={7}>
+            <CarouselProvider
+                isIntrinsicHeight={true}
+                totalSlides={3}
+            >
+              <SliderHandler/>
+              <ButtonBack className='ui icon button'>
+                <i className='arrow left icon'/>
+              </ButtonBack>
+              <ButtonNext className='ui icon button right floated'>
+                <i className='arrow right icon'/>
+              </ButtonNext>
+            </CarouselProvider>
+          </Grid.Column>
+        </Grid>
+      </div>
+  );
 }
 
 export default Compare;

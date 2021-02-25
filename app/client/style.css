@@ -141,8 +141,16 @@ dark-blue: 0C4D85
 /* Compare */
 #compare-container {
   margin: 50px 0px 0px 150px;
+  padding: 30px;
+  font-size: 20px;
+}
+
+.compare-image-card {
+  height: 450px;
+  background-color: #FFFFFF !important;
+
 }
 
 .compare-slider {
-  padding: 30px;
+  background-color: #FFFFFF !important;
 }
