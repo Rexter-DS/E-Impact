@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 const SidebarVisible = () => {
   const currentUser = Meteor.userId() ? Meteor.userId() : '';
-  console.log(currentUser);
+  // console.log(currentUser);
   return (currentUser ? <div><Sidebar
       as={Menu}
       animation='overlay'
