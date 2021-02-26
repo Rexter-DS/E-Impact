@@ -3,7 +3,7 @@ import React from 'react';
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = () => {
   const alignStyle = Meteor.userId() ? { paddingLeft: '150px' } : {paddingLeft: '0px'} ;
-  console.log(alignStyle);
+  // console.log(alignStyle);
     return (
         <footer id="footer" style={alignStyle}>
           <div className="ui center aligned container" >
