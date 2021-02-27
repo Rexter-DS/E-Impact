@@ -11,7 +11,7 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', error: '', redirectToReferer: false };
+    this.state = { county: '', first: '', last: '', email: '', password: '', error: '', redirectToReferer: false };
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -21,8 +21,8 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit = () => {
-    const { email, password } = this.state;
-    Accounts.createUser({ email, username: email, password }, (err) => {
+    const { county, first, last, email, password } = this.state;
+    Accounts.createUser({ email, profile: { county: county, first: first, last: last }, username: email, password }, (err) => {
       if (err) {
         this.setState({ error: err.reason });
       } else {
@@ -33,7 +33,7 @@ class Signup extends React.Component {
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/add' } };
+    const { from } = this.props.location.state || { from: { pathname: '/dashboard' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
@@ -50,6 +50,36 @@ class Signup extends React.Component {
                     </Header>
                     <Image size='medium' verticalAlign='centered' src="/images/EImpactLogo.png"/>
                     <Form.Input
+                        label="County"
+                        id="signup-form-county"
+                        icon="map"
+                        iconPosition="left"
+                        name="county"
+                        type="county"
+                        placeholder="County"
+                        onChange={this.handleChange}
+                    />
+                      <Form.Input
+                          label='First Name'
+                          icon='user'
+                          iconPosition='left'
+                          name='first'
+                          type='name'
+                          placeholder="First Name"
+                          onChange={this.handleChange}
+                          required
+                      />
+                      <Form.Input
+                          label='Last Name'
+                          icon='user'
+                          name='last'
+                          iconPosition='left'
+                          type='name'
+                          placeholder="Last Name"
+                          onChange={this.handleChange}
+                          required
+                      />
+                    <Form.Input
                       label="Email"
                       id="signup-form-email"
                       icon="user"
@@ -58,6 +88,7 @@ class Signup extends React.Component {
                       type="email"
                       placeholder="E-mail address"
                       onChange={this.handleChange}
+                      required
                     />
                     <Form.Input
                       label="Password"
@@ -68,6 +99,7 @@ class Signup extends React.Component {
                       placeholder="Password"
                       type="password"
                       onChange={this.handleChange}
+                      required
                     />
                     <Form.Button id="signup-form-submit" content="Submit"/>
                   </Segment>

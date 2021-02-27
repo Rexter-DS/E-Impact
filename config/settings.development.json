@@ -1,15 +1,15 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "jcamarao@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "Rexter-DS@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "tiffanywilliams@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "justin-mar@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "jkalaulau@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "nicholasmp@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "lcaraang@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "wongk711@foo.com", "password": "changeme", "role": "admin" },
-    { "email": "john@foo.com", "password": "changeme" }
+    { "county": "Honolulu", "first": "John", "last": "Smith", "email": "admin@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Maui", "first": "Jake", "last": "Camarao", "email": "jcamarao@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Honolulu", "first": "Rexter", "last": "Delos Santos", "email": "Rexter-DS@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Maui", "first": "Tiffany", "last": "Williams", "email": "tiffanywilliams@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Hawaii", "first": "Justin", "last": "Mar", "email": "justin-mar@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Hawaii", "first": "James", "last": "Lau", "email": "jkalaulau@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Honolulu", "first": "Nicholas", "last": "Miyamoto-Pennywell", "email": "nicholasmp@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Kauai", "first": "Louella", "last": "Caraang", "email": "lcaraang@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Honolulu", "first": "Kameron", "last": "Wong", "email": "wongk711@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Honolulu", "first": "John", "last": "Adams", "email": "john@foo.com", "password": "changeme" }
   ],
 
   "defaultData": [
