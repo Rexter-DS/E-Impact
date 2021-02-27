@@ -1,18 +1,18 @@
 import { Meteor } from 'meteor/meteor';
-import { Stuffs } from '../../api/stuff/StuffCollection.js';
+import { Trips } from '../../api/trip/TripCollection.js';
 
 /* eslint-disable no-console */
 
 /** Initialize the database with a default data document. */
 function addData(data) {
-  console.log(`  Adding: ${data.name} (${data.owner})`);
-  Stuffs.define(data);
+  console.log(`  Adding: trip on ${data.date} using ${data.mode} by ${data.owner}`);
+  Trips.define(data);
 }
 
-/** Initialize the collection if empty. */
-if (Stuffs.count() === 0) {
-  if (Meteor.settings.defaultData) {
-    console.log('Creating default data.');
-    Meteor.settings.defaultData.map(data => addData(data));
+/** Initialize the trips collection if empty. */
+if (Trips.count() === 0) {
+  if (Meteor.settings.defaultTrips) {
+    console.log('Creating default trips.');
+    Meteor.settings.defaultTrips.map(data => addData(data));
   }
 }
