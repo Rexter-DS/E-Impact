@@ -1,44 +1,39 @@
 import React, { useState } from 'react';
-import { Grid, Form, Card } from 'semantic-ui-react';
+import { Grid, Form, Card, Image, Header, Popup, Icon } from 'semantic-ui-react';
 import '../../../client/style.css';
-// A suggestions portion could be added below the produced GHG section.
+
 function QuickAccess() {
   const [miles, setMiles] = useState(1);
   const [mpg, setMpg] = useState(1);
   const [ghg, setGhg] = useState(0);
   const [transportationMethod, setTransportation] = useState('produced');
-  // Update handle functions for numerical values only. e is event not target.value
-  // Underscore methods for numerical verification.
-  // Description or hover icon to "pop up" text over Mileage.
-  // Maybe a brief description would be helpful.
-  // Additional Help page for additional pages to describe the use of that page. Why/What do I do on this page.
-  // What, Why, Where, answer why the user wants or needs to be on this page.
-  // Change the sizing of the white background.
-  const updateProduced = (x, y) => {
-    setGhg((x / y) * 19.64);
+  // TODO: Maybe a brief description would be helpful. What, Why, Where, answer why the user wants or needs to be on this page.
+  // TODO: Look into suggestion regarding withTracker() for constants?
+  const updateProduced = (updatedMiles, updatedMpg) => {
+    setGhg((updatedMiles / updatedMpg) * 19.64);
   };
-  const handleMiles = e => {
-    if (e.target.value === '') {
+  const handleMiles = newMiles => {
+    if (newMiles.target.value === '') {
       setMiles(1);
       updateProduced(1, mpg);
     } else {
-      setMiles(e.target.value);
-      updateProduced(e.target.value, mpg);
+      setMiles(newMiles.target.value);
+      updateProduced(newMiles.target.value, mpg);
     }
   };
-  const handleMpg = e => {
-    if (e.target.value === '' || e.target.value === '0') {
+  const handleMpg = newMpg => {
+    if (newMpg.target.value === '' || newMpg.target.value === '0') {
       setMpg(1);
       updateProduced(miles, 1);
     } else {
-      setMpg(e.target.value);
-      updateProduced(miles, e.target.value);
+      setMpg(newMpg.target.value);
+      updateProduced(miles, newMpg.target.value);
     }
   };
   const handleTransportation = e => {
-    if (e.target.value === '4') {
+    if (e.target.value === 'car') {
       setTransportation('produced');
-    } else if (e.target.value !== '1') {
+    } else if (e.target.value !== 'select mode') {
       setTransportation('saved');
     }
   };
@@ -47,25 +42,25 @@ function QuickAccess() {
       <div className="quick-access-container">
         <div className="quick-access-navbar">
           <a href={'/#'}>
-            <img src={'/images/EImpactLogoWhite.png'} height={131.27} width={300} alt="Home"/>
+            <Image src={'/images/EImpactLogoWhite.png'} height={131.27} width={300} alt="Home"/>
           </a>
         </div>
-        <div className="ui center aligned container">
+        <div className="quick-access-form">
           <Grid className="quick-access-grid">
             <Grid.Row centered>
-              <img src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
+              <Image src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
             </Grid.Row>
             <Grid.Row centered>
               <Grid.Column width={12}>
-                <h4>
-                  This is the QuickAccess Page which allows potential users to test this website before building an account.
+                <Header as="h4">
+                  Welcome to the QuickAccess Page, the purpose of this page is allow potential users to test this website before building an account.
                   Input any travel information below and the mileage of your most used vehicle to calculate your potential Green House Gas(CO2) emissions.
-                </h4>
+                </Header>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
               <Grid.Column width={4}>
-                <label>Distance Traveled(mi)</label>
+                <Header as="h3">Distance Traveled(mi)</Header>
               </Grid.Column>
               <Grid.Column width={4}>
                 <Form align="left">
@@ -77,19 +72,19 @@ function QuickAccess() {
             </Grid.Row>
             <Grid.Row floated="left" centered>
               <Grid.Column width={4} >
-                <label>Mode of Transport</label>
+                <Header as="h3">Mode of Transport</Header>
               </Grid.Column>
               <Grid.Column width={4}>
                 <Form>
                   <Form.Field>
                     <select onChange={e => handleTransportation(e)}>
-                      <option value="1">Select Mode</option>
-                      <option value="2">Bike</option>
-                      <option value="3">Bus</option>
-                      <option value="4">Car</option>
-                      <option value="5">Carpool</option>
-                      <option value="6">Foot</option>
-                      <option value="7">Remote Work</option>
+                      <option value="select mode">Select Mode</option>
+                      <option value="bike">Bike</option>
+                      <option value="bus">Bus</option>
+                      <option value="car">Car</option>
+                      <option value="carpool">Carpool</option>
+                      <option value="foot">Foot</option>
+                      <option value="remote work">Remote Work</option>
                     </select>
                   </Form.Field>
                 </Form>
@@ -97,7 +92,13 @@ function QuickAccess() {
             </Grid.Row>
             <Grid.Row floated="left" centered>
               <Grid.Column width={4}>
-                <label>Mileage of test vehicle</label>
+                <Header as="h3">Mileage of test vehicle</Header>
+                <Popup
+                    trigger={ <Icon name="question circle outline"/>
+                    }
+                    content="If your mode of transportation wasn't your car, inputting the mpg of your car can be used to determine how much ghg you saved by not using it."
+                    size="mini"
+                />
               </Grid.Column>
               <Grid.Column width={4}>
                 <Form align="left">
@@ -107,12 +108,8 @@ function QuickAccess() {
                 </Form>
               </Grid.Column>
             </Grid.Row>
-            {/* <Grid.Row> */}
-            {/* <p>Miles Traveled: {miles}; Mileage Of Vehicle(if used): {mpg}</p> */}
-            {/* <label>You produced {ghg} lb. of CO2/gallon. </label> */}
-            {/* </Grid.Row> */}
             <Grid.Row centered>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Card>
                   <Card.Content>
                     <Card.Header>GHG Produced</Card.Header>
@@ -120,7 +117,7 @@ function QuickAccess() {
                   </Card.Content>
                 </Card>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Card href='https://projectfootprint.com/'>
                   <Card.Content>
                     <Card.Header>Reduce Your CO2 Footprint</Card.Header>
@@ -130,7 +127,7 @@ function QuickAccess() {
                   </Card.Content>
                 </Card>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Card>
                   <Card.Content>
                     <Card.Header>Save Gas Money</Card.Header>
