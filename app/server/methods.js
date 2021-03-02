@@ -210,7 +210,7 @@ Meteor.methods({
         case 'W':
         case 'C':
         case 'E':
-          month = trip.date.split("-");
+          month = trip.date.split('-');
           switch (month[1]) {
             default:
               break;

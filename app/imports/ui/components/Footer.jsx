@@ -1,8 +1,9 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = () => {
-  const alignStyle = Meteor.userId() ? { paddingLeft: '150px' } : {paddingLeft: '0px'} ;
+  const alignStyle = Meteor.userId() ? { paddingLeft: '150px' } : { paddingLeft: '0px' };
   // console.log(alignStyle);
     return (
         <footer id="footer" style={alignStyle}>
