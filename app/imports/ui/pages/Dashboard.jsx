@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { withTracker, useTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 import { Grid, Container, Card } from 'semantic-ui-react';
 import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { VictoryPie } from 'victory';
+import { Trips } from '../../api/trip/TripCollection';
 import SidebarVisible from '../components/SideBar';
 
 function Overall() {
@@ -158,7 +161,9 @@ function MonthlyGHGReport() {
   );
 }
 /* The dashboard that contains graphs that contains the graphs to display data to the user */
-function Dashboard() {
+function Dashboard(props) {
+
+  console.log(props.trips);
 
   return (
       <div id="dashboard-container">
@@ -194,4 +199,15 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  trips: PropTypes.array,
+  ready: PropTypes.bool.isRequired,
+};
+
+export default withTracker(() => {
+  const subscription = Trips.subscribeTrip();
+  return {
+    trips: Trips.find({ owner: 'admin@foo.com' }).fetch(),
+    ready: subscription.ready(),
+  };
+})(Dashboard);

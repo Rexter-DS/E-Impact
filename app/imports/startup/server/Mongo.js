@@ -10,7 +10,7 @@ function addData(data) {
 }
 
 /** Initialize the trips collection if empty. */
-if (Trips.count() === 0) {
+if (Trips.find().count() === 0) {
   if (Meteor.settings.defaultTrips) {
     console.log('Creating default trips.');
     Meteor.settings.defaultTrips.map(data => addData(data));
