@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
+import _ from 'lodash';
 import { Roles } from 'meteor/alanning:roles';
 import swal from 'sweetalert';
 import BaseCollection from '../base/BaseCollection';
+import { Users } from '../user/UserCollection';
 
 export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle'];
 export const tripPublications = {
@@ -148,6 +149,45 @@ class TripCollection extends BaseCollection {
     return null;
   }
 
+  getTripCount(username) {
+    const userTrips = this._collection.find({ owner: username }).count();
+    return userTrips;
+  }
+
+  getTrips(username) {
+    return this._collection.find({ owner: username }).fetch();
+  }
+
+  getModesOfTransport(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+    const modesOfTransport = [
+      { mode: 'Telework', value: 0 },
+      { mode: 'Public Transportation', value: 0 },
+      { mode: 'Bike', value: 0 },
+      { mode: 'Walk', value: 0 },
+      { mode: 'Carpool', value: 0 },
+      { mode: 'Electric Vehicle', value: 0 },
+    ];
+
+    // iterate over user's trips and increment each value of mode they used.
+    _.forEach(userTrips, function (objects) {
+      const mode = _.find(modesOfTransport, ['mode', objects.mode]);
+      mode.value += 1;
+    });
+
+    const modesOfTransportValue = [];
+    const modesOfTransportLabel = [];
+
+    // create the formatted data and label for the charts
+    _.forEach(modesOfTransport, function (objects) {
+      if (objects.value !== 0) {
+        modesOfTransportValue.push(objects.value);
+        modesOfTransportLabel.push(objects.mode);
+      }
+    });
+
+    return [modesOfTransportValue, modesOfTransportLabel];
+  }
 }
 
 /**

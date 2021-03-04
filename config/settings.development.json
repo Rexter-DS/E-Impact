@@ -18,6 +18,18 @@
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
   ],
 
+  "defaultUsers": [
+    { "username": "admin@foo.com", "autoMPG": 25, "homeRoundTrip": 26 },
+    { "username": "jcamarao@foo.com", "autoMPG": 21, "homeRoundTrip": 125 },
+    { "username": "Rexter-DS@foo.com", "autoMPG": 30, "homeRoundTrip": 39 },
+    { "username": "tiffanywilliams@foo.com", "autoMPG": 17, "homeRoundTrip": 3.5 },
+    { "username": "justin-mar@foo.com", "autoMPG": 17, "homeRoundTrip": 9.2 },
+    { "username": "jkalaulau@foo.com", "autoMPG": 113.7, "homeRoundTrip": 44 },
+    { "username": "nicholasmp@foo.com", "autoMPG": 24, "homeRoundTrip": 23 },
+    { "username": "lcaraang@foo.com", "autoMPG": 19, "homeRoundTrip": 9 },
+    { "username": "wongk711@foo.com", "autoMPG": 26, "homeRoundTrip": 45 }
+  ],
+
   "defaultTrips": [
     { "date": "2020-03-01", "distance": 26, "mode": "Carpool", "mpg": 25, "owner":  "admin@foo.com"},
     { "date": "2020-03-04", "distance": 0, "mode": "Telework", "mpg": 0, "owner":  "admin@foo.com"},
@@ -211,6 +223,40 @@
     { "date": "2020-04-03", "distance": 0, "mode": "Telework", "mpg": 0, "owner":  "lcaraang@foo.com"},
     { "date": "2020-04-07", "distance": 0, "mode": "Telework", "mpg": 0, "owner":  "lcaraang@foo.com"},
     { "date": "2020-04-08", "distance": 0, "mode": "Telework", "mpg": 0, "owner":  "lcaraang@foo.com"},
-    { "date": "2020-04-09", "distance": 0, "mode": "Telework", "mpg": 0, "owner":  "lcaraang@foo.com"}
+    { "date": "2020-04-09", "distance": 0, "mode": "Telework", "mpg": 0, "owner":  "lcaraang@foo.com"},
+    { "date": "2020-03-01", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-02", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-03", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-04", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-05", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-06", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-07", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-08", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-09", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-10", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-11", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-12", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-16", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-17", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-18", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-19", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-20", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-21", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-22", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-23", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-03-31", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-01", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-02", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-03", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-04", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-05", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-06", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-07", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-08", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-09", "distance": 0, "mode": "Telework", "mpg": 0, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-10", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" },
+    { "date": "2020-04-11", "distance": 45, "mode": "Carpool", "mpg": 26, "owner": "wongk711@foo.com" }
   ]
 }
+
+
