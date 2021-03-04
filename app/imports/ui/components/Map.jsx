@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
 const mapStyles = {
   height: '400px',
@@ -7,7 +7,38 @@ const mapStyles = {
 };
 
 export class MapContainer extends React.Component {
+  state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {},
+  };
+
+  onMarkerClick = (props, marker, e) => this.setState({
+        selectedPlace: props,
+        activeMarker: marker,
+        showingInfoWindow: true,
+      });
+
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null,
+      });
+    }
+  };
+
+  onClose = props => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null,
+      });
+    }
+  };
+
   render() {
+
     return (
         <Map
             /* eslint-disable-next-line react/prop-types */
@@ -19,6 +50,33 @@ export class MapContainer extends React.Component {
               lng: -157.5,
             }}
         >
+          <Marker onHover={this.onMarkerClick}
+                  name={'Current location'}
+                  position={{ lat: 21.4389, lng: -158.0001 }}
+          />
+          {/*<InfoWindow*/}
+          {/*    marker={this.state.activeMarker}*/}
+          {/*    visible={this.state.showingInfoWindow}>*/}
+          {/*  <div>*/}
+          {/*    <h1>Honolulu County</h1>*/}
+          {/*  </div>*/}
+          {/*</InfoWindow>*/}
+          <Marker onClick={this.onMarkerClick}
+                  name={'Current location'}
+                  position={{ lat: 19.5429, lng: -155.6659 }}
+          />
+          <Marker onClick={this.onMarkerClick}
+                  name={'Current location'}
+                  position={{ lat: 20.7984, lng: -156.3319 }}
+          />
+          <Marker onClick={this.onMarkerClick}
+                  name={'Current location'}
+                  position={{ lat: 21.9661, lng: -159.5738 }}
+          />
+          <Marker onClick={this.onMarkerClick}
+                  name={'Current location'}
+                  position={{ lat: 21.1950, lng: -156.9750 }}
+          />
         </Map>
     );
   }
