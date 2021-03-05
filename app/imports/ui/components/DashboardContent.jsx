@@ -1,10 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'semantic-ui-react';
+import { Grid, Card, Statistic } from 'semantic-ui-react';
 import SidebarVisible from './SideBar';
 import Chart from './Chart';
 
-function DashboardContent({ milesSavedTotal, milesSavedPerDay, modesOfTransport, userProfile }) {
+function DashboardContent(
+    {
+      milesSavedTotal,
+      milesSavedPerDay,
+      modesOfTransport,
+      userProfile,
+      ghgReducedPerDay,
+      fuelSavedPerDay,
+    },
+) {
+
+  const milesSavedTotalData = [{
+    value: milesSavedTotal,
+    type: 'indicator',
+    mode: 'number',
+    number: { suffix: ' miles' },
+    title: 'VMT Reduced',
+  }];
 
   const milesSavedPerDayData = [{
     x: milesSavedPerDay.date,
@@ -15,6 +32,27 @@ function DashboardContent({ milesSavedTotal, milesSavedPerDay, modesOfTransport,
     text: milesSavedPerDay.mode,
   }];
 
+  const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
+/*
+  const fuelSavedTotalData = [{
+    value: fuelSavedTotal,
+    type: 'indicator',
+    mode: 'number',
+    number: { suffix: ' gallons' },
+    title: 'Gallons of Gas Saved',
+  }];
+*/
+  const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
+
+  /*
+  const ghgReducedTotalData = [{
+    value: ghgReducedTotal,
+    type: 'indicator',
+    mode: 'number',
+    number: { suffix: ' pounds' },
+    title: 'Pounds of GHG Reduced',
+  }];
+*/
   const modesOfTransportData = [{
     values: modesOfTransport.value,
     labels: modesOfTransport.label,
@@ -23,35 +61,82 @@ function DashboardContent({ milesSavedTotal, milesSavedPerDay, modesOfTransport,
     hoverinfo: 'label+percent',
   }];
 
-  const fuelSavedTotal = milesSavedTotal / userProfile.autoMPG;
-  const ghgReducedTotal = fuelSavedTotal * 19.6;
 
-  const layout = {
+  const defaultLayout = {
     autosize: true,
     showlegend: true,
+  };
+
+  const totalDataLayout = {
+    height: '250px',
+    width: '100%',
   };
 
   return (
       <div id='dashboard-container'>
         <SidebarVisible/>
-        <Card.Group id='dashboard-content'itemsPerRow={1}>
-          <Card id='overall-card'>
-            <Card.Content>
-              <Chart chartData={modesOfTransportData} chartLayout={layout}/>
+        <Card.Group centered stackable>
+          <Card>
+            <Card.Header style={{ paddingLeft: '10px' }}>
+              Vehicle Miles Traveled (VMT) Reduced
+            </Card.Header>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value>{milesSavedTotal}</Statistic.Value>
+                <Statistic.Label>miles</Statistic.Label>
+              </Statistic>
             </Card.Content>
           </Card>
           <Card>
-            <Card.Content>
-              <Card.Header style={{ marginBottom: 30 }}>Miles Saved Per Day</Card.Header>
+            <Card.Header style={{ paddingLeft: '10px' }}>
+              Gallons of Fuel Saved
+            </Card.Header>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
+                <Statistic.Label>gallons</Statistic.Label>
+              </Statistic>
             </Card.Content>
           </Card>
           <Card>
-            <Card.Content>
-              <Card.Header style={{ marginBottom: 30 }}>Monthly GHG Reduced</Card.Header>
-              <Chart chartData={milesSavedPerDayData} chartLayout={layout}/>
+            <Card.Header style={{ paddingLeft: '10px' }}>
+              Green House Gas (GHG) Reduced
+            </Card.Header>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value>{ghgReducedTotal}</Statistic.Value>
+                <Statistic.Label>pounds</Statistic.Label>
+              </Statistic>
             </Card.Content>
           </Card>
         </Card.Group>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={9}>
+              <Card fluid>
+                <Card.Header style={{ paddingLeft: '10px' }}>
+                  Miles Saved Per Day
+                </Card.Header>
+                <Card.Content>
+                  <Chart chartData={milesSavedPerDayData} chartLayout={defaultLayout}/>
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+            <Grid.Column width={7}>
+              <Card fluid>
+                <Card.Header style={{ paddingLeft: '10px' }}>
+                  Modes of Transportation Used
+                </Card.Header>
+                <Card.Content>
+                  <Chart chartData={modesOfTransportData} chartLayout={defaultLayout}/>
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Grid>
+
+        </Grid>
       </div>
   );
 }
@@ -61,6 +146,8 @@ DashboardContent.propTypes = {
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.object,
+  ghgReducedPerDay: PropTypes.object,
+  fuelSavedPerDay: PropTypes.object,
 };
 
 export default DashboardContent;

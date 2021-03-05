@@ -5,11 +5,12 @@ import Plot from 'react-plotly.js';
 function Chart({ chartData, chartLayout }) {
 
   return (
-      <div style={{ height: '100%', width: '100%' }}>
+      <div>
         <Plot
             data={chartData}
             layout={chartLayout}
-            useResizeHandler
+            useResizeHandler={true}
+            style={{ width: '100%', height: '100%'}}
         />
       </div>
   );

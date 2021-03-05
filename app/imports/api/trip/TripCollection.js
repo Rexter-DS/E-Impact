@@ -182,7 +182,7 @@ class TripCollection extends BaseCollection {
   getMilesSavedTotal(username) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
-    let milesSaved;
+    let milesSaved = 0;
     _.forEach(userTrips, function (objects) {
       milesSaved += objects.distance;
     });
@@ -206,12 +206,34 @@ class TripCollection extends BaseCollection {
     return { date: date, distance: distance, mode: mode };
   }
 
-  getGHGReducedPerDay(username) {
+  getGHGReducedPerDay(username, userMPG) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
 
+    const date = [];
+    const ghg = [];
+
+    const ghgPerGallon = 19.6;
+
+    _.forEach(userTrips, function (objects) {
+      date.push(objects.date);
+      ghg.push(((objects.distance / userMPG) * ghgPerGallon).toFixed(2));
+    });
+
+    return { date: date, ghg: ghg };
   }
 
-  getFuelSavedPerDay(username) {
+  getFuelSavedPerDay(username, userMPG) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
 
+    const date = [];
+    const fuel = [];
+
+    _.forEach(userTrips, function (objects) {
+      date.push(objects.date);
+      fuel.push((objects.distance / userMPG).toFixed(2));
+    });
+
+    return { date: date, fuel: fuel };
   }
 }
 

@@ -8,7 +8,18 @@ import DashboardContent from '../components/DashboardContent';
 
 // This page contains the graphs that will visualize the user's data in a more meaningful way.
 // The page waits for the data to load first and shows a loading page. Then once the collection is ready, we show the dashboard.
-function Dashboard({ tripReady, userReady, milesSavedTotal, milesSavedPerDay, modesOfTransport, userProfile }) {
+function Dashboard(
+    {
+      tripReady,
+      userReady,
+      milesSavedTotal,
+      milesSavedPerDay,
+      modesOfTransport,
+      userProfile,
+      ghgReducedPerDay,
+      fuelSavedPerDay,
+    },
+    ) {
 
   return ((tripReady && userReady) ?
       <DashboardContent
@@ -16,8 +27,10 @@ function Dashboard({ tripReady, userReady, milesSavedTotal, milesSavedPerDay, mo
           milesSavedPerDay={milesSavedPerDay}
           modesOfTransport={modesOfTransport}
           userProfile={userProfile}
-      />
-      : <Dimmer active>
+          ghgReducedPerDay={ghgReducedPerDay}
+          fuelSavedPerDay={fuelSavedPerDay}
+      /> :
+      <Dimmer active>
         <Loader>Loading Data</Loader>
       </Dimmer>);
 }
@@ -27,6 +40,8 @@ Dashboard.propTypes = {
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.any,
+  ghgReducedPerDay: PropTypes.object,
+  fuelSavedPerDay: PropTypes.object,
   tripReady: PropTypes.bool.isRequired,
   userReady: PropTypes.bool.isRequired,
 };
@@ -39,6 +54,8 @@ export default withTracker(({ match }) => {
   const milesSavedPerDay = Trips.getMilesSavedPerDay(username);
   const modesOfTransport = Trips.getModesOfTransport(username);
   const userProfile = Users.getUserProfile(username);
+  const ghgReducedPerDay = Trips.getGHGReducedPerDay(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
+  const fuelSavedPerDay = Trips.getFuelSavedPerDay(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
   return {
     tripReady: tripSubscribe.ready(),
     userReady: userSubscribe.ready(),
@@ -46,5 +63,7 @@ export default withTracker(({ match }) => {
     milesSavedPerDay,
     modesOfTransport,
     userProfile,
+    ghgReducedPerDay,
+    fuelSavedPerDay,
   };
 })(Dashboard);
