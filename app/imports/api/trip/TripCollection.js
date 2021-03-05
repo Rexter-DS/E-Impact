@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { Roles } from 'meteor/alanning:roles';
 import swal from 'sweetalert';
 import BaseCollection from '../base/BaseCollection';
-import { Users } from '../user/UserCollection';
 
 export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle'];
 export const tripPublications = {
@@ -149,15 +148,6 @@ class TripCollection extends BaseCollection {
     return null;
   }
 
-  getTripCount(username) {
-    const userTrips = this._collection.find({ owner: username }).count();
-    return userTrips;
-  }
-
-  getTrips(username) {
-    return this._collection.find({ owner: username }).fetch();
-  }
-
   getModesOfTransport(username) {
     const userTrips = this._collection.find({ owner: username }).fetch();
     const modesOfTransport = [
@@ -178,7 +168,7 @@ class TripCollection extends BaseCollection {
     const modesOfTransportValue = [];
     const modesOfTransportLabel = [];
 
-    // create the formatted data and label for the charts
+    // create the formatted data value and label for the charts.
     _.forEach(modesOfTransport, function (objects) {
       if (objects.value !== 0) {
         modesOfTransportValue.push(objects.value);
@@ -186,7 +176,42 @@ class TripCollection extends BaseCollection {
       }
     });
 
-    return [modesOfTransportValue, modesOfTransportLabel];
+    return { value: modesOfTransportValue, label: modesOfTransportLabel };
+  }
+
+  getMilesSavedTotal(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    let milesSaved;
+    _.forEach(userTrips, function (objects) {
+      milesSaved += objects.distance;
+    });
+
+    return milesSaved;
+  }
+
+  getMilesSavedPerDay(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    const date = [];
+    const distance = [];
+    const mode = [];
+
+    _.forEach(userTrips, function (objects) {
+      date.push(objects.date);
+      distance.push(objects.distance);
+      mode.push(objects.mode);
+    });
+
+    return { date: date, distance: distance, mode: mode };
+  }
+
+  getGHGReducedPerDay(username) {
+
+  }
+
+  getFuelSavedPerDay(username) {
+
   }
 }
 
