@@ -30,7 +30,8 @@ class AddTrip extends React.Component {
   submit(data, formRef) {
     const { date, distance, mode, mpg } = data;
     const owner = Meteor.user().username;
-    if (Trips.defineWithMessage({ date, distance, mode, mpg, owner })) {
+    const county = Meteor.user().profile.county;
+    if (Trips.defineWithMessage({ date, distance, mode, mpg, owner, county })) {
       formRef.reset();
     }
   }
