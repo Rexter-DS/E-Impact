@@ -4,6 +4,7 @@ import { Grid, Card, Statistic } from 'semantic-ui-react';
 import SidebarVisible from './SideBar';
 import Chart from './Chart';
 
+// Contains the graphs that visualizes the user's data.
 function DashboardContent(
     {
       milesSavedTotal,
@@ -15,14 +16,6 @@ function DashboardContent(
     },
 ) {
 
-  const milesSavedTotalData = [{
-    value: milesSavedTotal,
-    type: 'indicator',
-    mode: 'number',
-    number: { suffix: ' miles' },
-    title: 'VMT Reduced',
-  }];
-
   const milesSavedPerDayData = [{
     x: milesSavedPerDay.date,
     y: milesSavedPerDay.distance,
@@ -33,26 +26,9 @@ function DashboardContent(
   }];
 
   const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
-/*
-  const fuelSavedTotalData = [{
-    value: fuelSavedTotal,
-    type: 'indicator',
-    mode: 'number',
-    number: { suffix: ' gallons' },
-    title: 'Gallons of Gas Saved',
-  }];
-*/
+
   const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
 
-  /*
-  const ghgReducedTotalData = [{
-    value: ghgReducedTotal,
-    type: 'indicator',
-    mode: 'number',
-    number: { suffix: ' pounds' },
-    title: 'Pounds of GHG Reduced',
-  }];
-*/
   const modesOfTransportData = [{
     values: modesOfTransport.value,
     labels: modesOfTransport.label,
@@ -61,15 +37,9 @@ function DashboardContent(
     hoverinfo: 'label+percent',
   }];
 
-
   const defaultLayout = {
     autosize: true,
     showlegend: true,
-  };
-
-  const totalDataLayout = {
-    height: '250px',
-    width: '100%',
   };
 
   return (
@@ -135,7 +105,6 @@ function DashboardContent(
           </Grid.Row>
         </Grid>
         <Grid>
-
         </Grid>
       </div>
   );

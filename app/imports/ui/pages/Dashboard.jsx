@@ -32,7 +32,8 @@ function Dashboard(
       /> :
       <Dimmer active>
         <Loader>Loading Data</Loader>
-      </Dimmer>);
+      </Dimmer>
+  );
 }
 
 Dashboard.propTypes = {

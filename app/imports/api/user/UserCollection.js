@@ -50,6 +50,11 @@ class UserCollection extends BaseCollection {
     return docID;
   }
 
+  /**
+   * Gets the data for the specified user.
+   * @param username the username of the user.
+   * @returns {*} An object that contains all the data of the user.
+   */
   getUserProfile(username) {
     const user = this._collection.findOne({ username: username });
     return user;

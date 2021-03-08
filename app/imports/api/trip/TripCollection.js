@@ -148,6 +148,12 @@ class TripCollection extends BaseCollection {
     return null;
   }
 
+  /**
+   * Gets the modes of transportation that the user has used. Only returning the ones that they used and ignoring the ones that they did not.
+   * @param username the username of the user (ex: admin@foo.com)
+   * @returns {{label: [], value: []}} an object with two keys, label which is an array of modes of transportation that they used, and value which is an array of count
+   * for the respective mode.
+   */
   getModesOfTransport(username) {
     const userTrips = this._collection.find({ owner: username }).fetch();
     const modesOfTransport = [
@@ -179,6 +185,11 @@ class TripCollection extends BaseCollection {
     return { value: modesOfTransportValue, label: modesOfTransportLabel };
   }
 
+  /**
+   * Returns the total miles that the user has saved.
+   * @param username the username of the user.
+   * @returns {number} the total miles.
+   */
   getMilesSavedTotal(username) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
@@ -190,6 +201,12 @@ class TripCollection extends BaseCollection {
     return milesSaved;
   }
 
+  /**
+   * Returns the miles that the user has saved per day.
+   * @param username the username of the user.
+   * @returns {{date: [], mode: [], distance: []}}
+   * An object that contains an array dates for each trip, an array of modes used for each of those trips and the distance of the trip for respective date.
+   */
   getMilesSavedPerDay(username) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
@@ -206,6 +223,13 @@ class TripCollection extends BaseCollection {
     return { date: date, distance: distance, mode: mode };
   }
 
+  /**
+   * Gets the GHG that the user has reduced each day.
+   * @param username the username of the user.
+   * @param userMPG the MPG of the user.
+   * @returns {{date: [], ghg: []}}
+   * An object that contains an array of dates for the trips and an array of GHG that they saved for each of the respective date.
+   */
   getGHGReducedPerDay(username, userMPG) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
@@ -222,6 +246,13 @@ class TripCollection extends BaseCollection {
     return { date: date, ghg: ghg };
   }
 
+  /**
+   * Gets the fuel that the user saved per day.
+   * @param username the username of the user.
+   * @param userMPG the MPG of the user.
+   * @returns {{date: [], fuel: []}}
+   * An object that contains an array of dates and an array of fuel saved for the respective date.
+   */
   getFuelSavedPerDay(username, userMPG) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
