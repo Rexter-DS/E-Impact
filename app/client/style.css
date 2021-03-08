@@ -41,6 +41,7 @@
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
 }
+
 #dashboard-container {
   /*padding-top: 20px;*/
   padding: 50px 100px;
@@ -48,6 +49,11 @@
   font-family: "Barlow Semi Condensed", sans-serif;
   background-color: white;
 }
+
+#dashboard-total-row {
+  height: 10%;
+}
+
 
 #footer {
   background-color: #093c69;
