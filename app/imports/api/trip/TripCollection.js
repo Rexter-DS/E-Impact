@@ -6,7 +6,7 @@ import SimpleSchema from 'simpl-schema';
 import swal from 'sweetalert';
 import BaseCollection from '../base/BaseCollection';
 
-export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle'];
+export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle', 'Gas Car'];
 export const tripPublications = {
   trip: 'Trip',
   tripCommunity: 'TripCommunity',
