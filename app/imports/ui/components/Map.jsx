@@ -110,18 +110,18 @@ export class MapContainer extends React.Component {
             }}
         >
           <Marker onClick={this.onHonoluluClick}
-                  // onMouseEnter={() => this.state.showingInfoWindow(true)}
-                  // onMouseExit={() => this.state.showingInfoWindow(false)}
+                  // onMouseEnter={this.showInfo}
+                  // onMouseExit={this.closeInfo}
                   name={'Honolulu County'}
                   position={{ lat: 21.4389, lng: -158.0001 }}
           />
-           <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>Honolulu County</h1>
-            </div>
-           </InfoWindow>
+           {/* <InfoWindow */}
+           {/*    marker={this.state.activeMarker} */}
+           {/*    visible={this.state.showingInfoWindow}> */}
+           {/*  <div> */}
+           {/*    <h1>Honolulu County</h1> */}
+           {/*  </div> */}
+           {/* </InfoWindow> */}
           <Marker onClick={this.onHawaiiClick}
                   name={'Hawaii County'}
                   position={{ lat: 19.5429, lng: -155.6659 }}
@@ -144,5 +144,5 @@ export class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAbV-z-8r_Ez5Pv1sfjoMdGy4V600Y1yKw',
+  apiKey: 'INSERT API KEY HERE',
 })(MapContainer);
