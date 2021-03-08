@@ -46,6 +46,7 @@ class Daily extends React.Component {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>
+                <Table.HeaderCell className='daily-table-header'>County</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>Distance</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>Mode of Transportation</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>mpg</Table.HeaderCell>
