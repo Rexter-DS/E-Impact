@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 class TripItem extends React.Component {
   render() {
     let gallons;
-    if (this.props.trip.mode === 'Gas Car') {
-      gallons = (this.props.trip.distance !== 0 ? ((this.props.trip.distance / this.props.trip.mpg)) : 0 );
+    if (this.props.trip.mode === 'Gas Car' || this.props.trip.mode === 'Carpool') {
+      gallons = (this.props.trip.distance !== 0 ? ((this.props.trip.distance / this.props.trip.mpg)) : 0);
     } else {
       gallons = 0;
     }

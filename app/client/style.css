@@ -62,7 +62,8 @@
   position: fixed;
   width: 100%;
   bottom: 0;
-  padding: 20px 0;
+  margin-top: 100px;
+  padding: 15px 0;
 }
 
 #signin-footer {
@@ -73,7 +74,7 @@
   position: absolute;
   width: 100%;
   bottom: 0;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 #community-footer {
@@ -83,7 +84,7 @@
   color: white !important;
   width: 100%;
   bottom: 0;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 #landing-footer {
@@ -94,7 +95,7 @@
   position: absolute;
   width: 100%;
   bottom: 0;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 #dashboard-footer {
@@ -105,7 +106,7 @@
   position: absolute;
   width: 100%;
   bottom: 0px;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 #daily-footer {
@@ -115,7 +116,7 @@
   color: white !important;
   width: 100%;
   bottom: 0px;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .link {
