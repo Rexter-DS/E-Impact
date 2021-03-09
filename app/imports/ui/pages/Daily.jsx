@@ -33,7 +33,7 @@ class Daily extends React.Component {
           <Menu borderless id="daily-top">
             <Grid style={{ width: '100%' }}>
               <Grid.Column width={4} verticalAlign='bottom'><Menu.Item className='daily-header-sums'>February
-                                                                                                     2021</Menu.Item></Grid.Column>
+                2021</Menu.Item></Grid.Column>
               <Grid.Column width={6} textAlign='center'><Menu.Item className='daily-header-sums'>Total GHG Produced: {monthlySum.toFixed(2)}</Menu.Item></Grid.Column>
 
               <Grid.Column width={4} textAlign='center'><Menu.Item className='daily-header-sums'></Menu.Item></Grid.Column>
@@ -46,9 +46,8 @@ class Daily extends React.Component {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>
-                <Table.HeaderCell className='daily-table-header'>County</Table.HeaderCell>
-                <Table.HeaderCell className='daily-table-header'>Distance</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>Mode of Transportation</Table.HeaderCell>
+                <Table.HeaderCell className='daily-table-header'>Distance</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>mpg</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>Gallons used</Table.HeaderCell>
                 <Table.HeaderCell className='daily-table-header'>GHG produced</Table.HeaderCell>
