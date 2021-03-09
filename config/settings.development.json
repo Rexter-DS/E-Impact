@@ -8,7 +8,7 @@
     { "county": "Hawaii", "first": "James", "last": "Lau", "email": "jkalaulau@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Honolulu", "first": "Nicholas", "last": "Miyamoto-Pennywell", "email": "nicholasmp@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Kauai", "first": "Louella", "last": "Caraang", "email": "lcaraang@foo.com", "password": "changeme", "role": "admin" },
-    { "county": "Honolulu", "first": "Kameron", "last": "Wong", "email": "wongk711@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Kauai", "first": "Kameron", "last": "Wong", "email": "wongk711@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Honolulu", "first": "John", "last": "Adams", "email": "john@foo.com", "password": "changeme" }
   ],
 

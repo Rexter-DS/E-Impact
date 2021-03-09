@@ -116,7 +116,7 @@ class TripCollection extends BaseCollection {
       Meteor.publish(tripPublications.trip, function publish() {
         if (this.userId) {
           const username = Meteor.users.findOne(this.userId).username;
-          const county = Meteor.users.findOne(this.userId).county;
+          const county = Meteor.users.findOne(this.userId).profile.county;
           return instance._collection.find({ owner: username, county: county });
         }
         return this.ready();
