@@ -23,11 +23,28 @@ function DashboardContent(
     mode: 'markers',
     name: 'Miles saved',
     text: milesSavedPerDay.mode,
+    marker: {
+      size: 10,
+    },
   }];
 
   const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
 
+  const fuelSavedPerDayData = [{
+    x: fuelSavedPerDay.date,
+    y: fuelSavedPerDay.fuel,
+    name: 'Fuel Saved',
+    type: 'bar',
+  }];
+
   const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
+
+  const ghgReducedPerDayData = [{
+    x: ghgReducedPerDay.date,
+    y: ghgReducedPerDay.ghg,
+    name: 'GHG Reduced',
+    type: 'bar',
+  }];
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -104,7 +121,27 @@ function DashboardContent(
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid>
+        <Grid stackable columns='equal'>
+          <Grid.Column>
+            <Card fluid>
+              <Card.Header style={{ paddingLeft: '10px' }}>
+                Fuel Saved per Day
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={fuelSavedPerDayData} chartLayout={defaultLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column>
+            <Card fluid>
+              <Card.Header style={{ paddingLeft: '10px' }}>
+                GHG Reduced per Day
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={ghgReducedPerDayData} chartLayout={defaultLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
         </Grid>
       </div>
   );
