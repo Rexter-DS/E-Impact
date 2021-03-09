@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import _ from 'lodash';
 // import { check } from 'meteor/check';
 // import { _ } from 'meteor/underscore';
 // import { Roles } from 'meteor/alanning:roles';
@@ -115,7 +116,7 @@ class TripCollection extends BaseCollection {
       Meteor.publish(tripPublications.trip, function publish() {
         if (this.userId) {
           const username = Meteor.users.findOne(this.userId).username;
-          const county = Meteor.users.findOne(this.userId).county;
+          const county = Meteor.users.findOne(this.userId).profile.county;
           return instance._collection.find({ owner: username, county: county });
         }
         return this.ready();
@@ -152,6 +153,124 @@ class TripCollection extends BaseCollection {
     return null;
   }
 
+  /**
+   * Gets the modes of transportation that the user has used. Only returning the ones that they used and ignoring the ones that they did not.
+   * @param username the username of the user (ex: admin@foo.com)
+   * @returns {{label: [], value: []}} an object with two keys, label which is an array of modes of transportation that they used, and value which is an array of count
+   * for the respective mode.
+   */
+  getModesOfTransport(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+    const modesOfTransport = [
+      { mode: 'Telework', value: 0 },
+      { mode: 'Public Transportation', value: 0 },
+      { mode: 'Bike', value: 0 },
+      { mode: 'Walk', value: 0 },
+      { mode: 'Carpool', value: 0 },
+      { mode: 'Electric Vehicle', value: 0 },
+    ];
+
+    // iterate over user's trips and increment each value of mode they used.
+    _.forEach(userTrips, function (objects) {
+      const mode = _.find(modesOfTransport, ['mode', objects.mode]);
+      mode.value += 1;
+    });
+
+    const modesOfTransportValue = [];
+    const modesOfTransportLabel = [];
+
+    // create the formatted data value and label for the charts.
+    _.forEach(modesOfTransport, function (objects) {
+      if (objects.value !== 0) {
+        modesOfTransportValue.push(objects.value);
+        modesOfTransportLabel.push(objects.mode);
+      }
+    });
+
+    return { value: modesOfTransportValue, label: modesOfTransportLabel };
+  }
+
+  /**
+   * Returns the total miles that the user has saved.
+   * @param username the username of the user.
+   * @returns {number} the total miles.
+   */
+  getMilesSavedTotal(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    let milesSaved = 0;
+    _.forEach(userTrips, function (objects) {
+      milesSaved += objects.distance;
+    });
+
+    return milesSaved;
+  }
+
+  /**
+   * Returns the miles that the user has saved per day.
+   * @param username the username of the user.
+   * @returns {{date: [], mode: [], distance: []}}
+   * An object that contains an array dates for each trip, an array of modes used for each of those trips and the distance of the trip for respective date.
+   */
+  getMilesSavedPerDay(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    const date = [];
+    const distance = [];
+    const mode = [];
+
+    _.forEach(userTrips, function (objects) {
+      date.push(objects.date);
+      distance.push(objects.distance);
+      mode.push(objects.mode);
+    });
+
+    return { date: date, distance: distance, mode: mode };
+  }
+
+  /**
+   * Gets the GHG that the user has reduced each day.
+   * @param username the username of the user.
+   * @param userMPG the MPG of the user.
+   * @returns {{date: [], ghg: []}}
+   * An object that contains an array of dates for the trips and an array of GHG that they saved for each of the respective date.
+   */
+  getGHGReducedPerDay(username, userMPG) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    const date = [];
+    const ghg = [];
+
+    const ghgPerGallon = 19.6;
+
+    _.forEach(userTrips, function (objects) {
+      date.push(objects.date);
+      ghg.push(((objects.distance / userMPG) * ghgPerGallon).toFixed(2));
+    });
+
+    return { date: date, ghg: ghg };
+  }
+
+  /**
+   * Gets the fuel that the user saved per day.
+   * @param username the username of the user.
+   * @param userMPG the MPG of the user.
+   * @returns {{date: [], fuel: []}}
+   * An object that contains an array of dates and an array of fuel saved for the respective date.
+   */
+  getFuelSavedPerDay(username, userMPG) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    const date = [];
+    const fuel = [];
+
+    _.forEach(userTrips, function (objects) {
+      date.push(objects.date);
+      fuel.push((objects.distance / userMPG).toFixed(2));
+    });
+
+    return { date: date, fuel: fuel };
+  }
 }
 
 /**
