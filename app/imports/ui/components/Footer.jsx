@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
-const Footer = () => {
-  const alignStyle = { position: 'fixed', width: '100%', bottom: '0px' };
+const Footer = (props) => {
   // console.log(alignStyle);
     return (
-        <Container id="footer" style={alignStyle}>
+        <Container id={props.id}>
           <div className="ui center aligned container" >
               Environment-Overflow <br />
               This site is in collaboration with<br />
@@ -19,5 +19,9 @@ const Footer = () => {
         </Container>
     );
 };
+
+Footer.propTypes = {
+  id: PropTypes.string,
+}
 
 export default Footer;

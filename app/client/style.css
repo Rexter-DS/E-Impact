@@ -54,14 +54,68 @@
   height: 10%;
 }
 
-
-#footer {
+#compare-footer {
   background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
   color: white !important;
-  /*padding: 0 !important;*/
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   padding: 20px 0;
-  /*padding-left: 150px;*/
+}
+
+#signin-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 20px 0;
+}
+
+#community-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0;
+  padding: 20px 0;
+}
+
+#landing-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 20px 0;
+}
+
+#dashboard-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  padding: 20px 0;
+}
+
+#daily-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0px;
+  padding: 20px 0;
 }
 
 .link {
@@ -103,7 +157,7 @@ dark-blue: 0C4D85
 }
 
 .daily-table {
-  padding-bottom: 175px;
+  padding-bottom: 15px;
   margin: 0 !important;
 }
 

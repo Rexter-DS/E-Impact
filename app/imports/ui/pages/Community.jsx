@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Divider, Dropdown, Header, Popup } from 'semantic-ui-react';
-import SidebarVisible from '../components/SideBar';
+import SideBar from '../components/SideBar';
+import Footer from '../components/Footer';
 import Map from '../components/Map';
 import State from '../components/State';
 import Kauai from '../components/Kauai';
@@ -26,8 +27,9 @@ class Community extends React.Component {
   render() {
     const { value } = this.state;
     return (
+      <div>
         <div id='community-container'>
-          <SidebarVisible/>
+          <SideBar/>
           <div id='community-map'>
             <Map/>
           </div>
@@ -138,6 +140,8 @@ class Community extends React.Component {
             </Card.Group>
           </div>
         </div>
+        <Footer id={'community-footer'}/>
+      </div>
     );
   }
 }

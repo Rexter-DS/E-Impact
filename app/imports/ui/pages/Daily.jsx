@@ -4,9 +4,10 @@ import { Meteor } from 'meteor/meteor';
 import { Menu, Button, Table, Grid, Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import SidebarVisible from '../components/SideBar';
+import SideBar from '../components/SideBar';
 import { Trips, tripPublications } from '../../api/trip/TripCollection';
 import TripItem from '../components/TripItem';
+import Footer from '../components/Footer';
 
 class Daily extends React.Component {
 
@@ -25,11 +26,10 @@ class Daily extends React.Component {
         monthlySum += add;
       }
     }
-    // const myTrips = _.filter(this.props.trips, (trip) => trip.owner === this.props.username);
 
     return (
         <div id='daily-container' style={{ marginLeft: '150px' }}>
-          <SidebarVisible/>
+          <SideBar/>
           <Menu borderless id="daily-top">
             <Grid style={{ width: '100%' }}>
               <Grid.Column width={4} verticalAlign='bottom'><Menu.Item className='daily-header-sums'>February
@@ -57,6 +57,7 @@ class Daily extends React.Component {
               {monthTrips.map((trip) => <TripItem key={trip._id} trip={trip} />)}
             </Table.Body>
           </Table>
+          <Footer id={'daily-footer'}/>
         </div>
     );
   }

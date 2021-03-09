@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import Footer from '../components/Footer';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -92,6 +93,7 @@ export default class Signin extends React.Component {
               </Grid>
             </Container>
           </div>
+          <Footer id={'signin-footer'}/>
         </div>
     );
   }

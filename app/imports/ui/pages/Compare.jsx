@@ -3,7 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { Grid, Header, Image, Card, Divider } from 'semantic-ui-react';
-import SidebarVisible from '../components/SideBar';
+import SideBar from '../components/SideBar';
+import Footer from '../components/Footer';
 
 function SliderHandler() {
   const [evData, setEVData] = useState([]);
@@ -74,8 +75,9 @@ function SliderHandler() {
 function Compare() {
 
   return (
+      <div>
       <div id='compare-container'>
-        <SidebarVisible/>
+        <SideBar/>
         <CarouselProvider
             isIntrinsicHeight={true}
             totalSlides={3}
@@ -95,6 +97,8 @@ function Compare() {
             </Grid.Row>
           </Grid>
         </CarouselProvider>
+      </div>
+        <Footer id={'compare-footer'}/>
       </div>
   );
 }
