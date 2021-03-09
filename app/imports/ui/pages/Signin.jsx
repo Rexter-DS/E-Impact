@@ -96,7 +96,7 @@ export default class Signin extends React.Component {
           </div>
         </div>
         <Footer id={'signin-footer'}/>
-    <div/>
+    </div>
     );
   }
 }
