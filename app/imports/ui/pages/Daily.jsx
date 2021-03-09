@@ -71,7 +71,7 @@ Daily.propTypes = {
 
 export default withTracker(() => {
   const username = Meteor.user()?.username;
-  const ready = Meteor.subscribe(tripPublications.tripAdmin).ready() && username !== undefined;
+  const ready = Meteor.subscribe(tripPublications.tripCommunity).ready() && username !== undefined;
   const trips = Trips.find({}).fetch();
   return {
     ready,
