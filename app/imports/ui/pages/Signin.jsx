@@ -43,6 +43,7 @@ export default class Signin extends React.Component {
     }
     // Otherwise return the Login form.
     return (
+        <div>
         <div id='sign'>
           <div>
             <Container id="signin-page">
@@ -93,8 +94,9 @@ export default class Signin extends React.Component {
               </Grid>
             </Container>
           </div>
-          <Footer id={'signin-footer'}/>
         </div>
+        <Footer id={'signin-footer'}/>
+    <div/>
     );
   }
 }
