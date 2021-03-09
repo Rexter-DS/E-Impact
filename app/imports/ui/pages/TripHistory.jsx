@@ -31,6 +31,8 @@ class TripHistory extends React.Component {
                   <Table.HeaderCell>VMT Saved (miles)</Table.HeaderCell>
                   <Table.HeaderCell>Fuel Saved (gallons)</Table.HeaderCell>
                   <Table.HeaderCell>CO2 Reduced (pounds)</Table.HeaderCell>
+                  <Table.HeaderCell>Owner</Table.HeaderCell>
+                  <Table.HeaderCell>County</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>

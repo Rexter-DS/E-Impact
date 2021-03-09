@@ -1,15 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
-import { Roles } from 'meteor/alanning:roles';
+// import { check } from 'meteor/check';
+// import { _ } from 'meteor/underscore';
+// import { Roles } from 'meteor/alanning:roles';
 import swal from 'sweetalert';
 import BaseCollection from '../base/BaseCollection';
 
-export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle'];
+export const tripModes = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle', 'Gas Car'];
 export const tripPublications = {
   trip: 'Trip',
-  tripAdmin: 'TripAdmin',
+  tripCommunity: 'TripCommunity',
 };
 
 class TripCollection extends BaseCollection {
@@ -23,10 +23,11 @@ class TripCollection extends BaseCollection {
       mode: {
         type: String,
         allowedValues: tripModes,
-        defaultValue: 'Telework',
+        defaultValue: 'Gas Car',
       },
       mpg: Number,
       owner: String,
+      county: String,
     }));
   }
 
@@ -37,26 +38,28 @@ class TripCollection extends BaseCollection {
    * @param mode of transportation.
    * @param mpg of vehicle.
    * @param owner the owner of the item.
+   * @param county the county of the owner.
    * @return {String} the docID of the new document.
    */
-  define({ date, distance, mode, mpg, owner }) {
+  define({ date, distance, mode, mpg, owner, county }) {
     const docID = this._collection.insert({
       date,
       distance,
       mode,
       mpg,
       owner,
+      county,
     });
     return docID;
   }
 
-  defineWithMessage({ date, distance, mode, mpg, owner }) {
-    const docID = this._collection.insert({ date, distance, mode, mpg, owner },
+  defineWithMessage({ date, distance, mode, mpg, owner, county }) {
+    const docID = this._collection.insert({ date, distance, mode, mpg, owner, county },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
           } else {
-            swal('Sucess');
+            swal('Success', 'Trip added successfully', 'success');
           }
         });
     return docID;
@@ -70,7 +73,7 @@ class TripCollection extends BaseCollection {
    * @param mode the new mode (optional).
    * @param mpg the new mpg (optional).
    */
-  update(docID, { date, distance, mode, mpg }) {
+  /* update(docID, { date, distance, mode, mpg }) {
     const updateData = {};
     // if (distance) { NOTE: 0 is falsy so we need to check if the quantity is a number.
     if (date) {
@@ -86,19 +89,19 @@ class TripCollection extends BaseCollection {
       updateData.mpg = mpg;
     }
     this._collection.update(docID, { $set: updateData });
-  }
+  } */
 
   /**
    * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt(name) {
+  /* removeIt(name) {
     const doc = this.findDoc(name);
     check(doc, Object);
     this._collection.remove(doc._id);
     return true;
-  }
+  } */
 
   /**
    * Default publication method for entities.
@@ -112,14 +115,15 @@ class TripCollection extends BaseCollection {
       Meteor.publish(tripPublications.trip, function publish() {
         if (this.userId) {
           const username = Meteor.users.findOne(this.userId).username;
-          return instance._collection.find({ owner: username });
+          const county = Meteor.users.findOne(this.userId).profile.county;
+          return instance._collection.find({ owner: username, county: county });
         }
         return this.ready();
       });
 
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-      Meteor.publish(tripPublications.tripAdmin, function publish() {
-        if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+      /** This subscription publishes all documents regardless of user. */
+      Meteor.publish(tripPublications.tripCommunity, function publish() {
+        if (this.userId) {
           return instance._collection.find();
         }
         return this.ready();
@@ -138,12 +142,12 @@ class TripCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for admin users.
+   * Subscription method.
    * It subscribes to the entire collection.
    */
-  subscribeTripAdmin() {
+  subscribeTripCommunity() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(tripPublications.tripAdmin);
+      return Meteor.subscribe(tripPublications.tripCommunity);
     }
     return null;
   }

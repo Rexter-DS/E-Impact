@@ -15,6 +15,8 @@ class TripItem extends React.Component {
           <Table.Cell>{this.props.trip.distance}</Table.Cell>
           <Table.Cell>{(this.props.trip.distance / this.props.trip.mpg).toFixed(2)}</Table.Cell>
           <Table.Cell>{((this.props.trip.distance / this.props.trip.mpg) * 19.6).toFixed(2)}</Table.Cell>
+          <Table.Cell>{this.props.trip.owner}</Table.Cell>
+          <Table.Cell>{this.props.trip.county}</Table.Cell>
         </Table.Row>
     );
   }
