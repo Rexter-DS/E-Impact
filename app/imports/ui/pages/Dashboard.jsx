@@ -1,197 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Grid, Container, Card } from 'semantic-ui-react';
-import { ResponsiveContainer, LineChart, Line, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { VictoryPie } from 'victory';
-import SidebarVisible from '../components/SideBar';
+import { withTracker } from 'meteor/react-meteor-data';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import { Trips } from '../../api/trip/TripCollection';
+import { Users } from '../../api/user/UserCollection';
+import DashboardContent from '../components/DashboardContent';
 
-function Overall() {
-  const [totalMiles, setTotalMiles] = useState(0);
+// This page contains the graphs that will visualize the user's data in a more meaningful way.
+// The page waits for the data to load first and shows a loading page. Then once the collection is ready, we show the dashboard.
+function Dashboard(
+    {
+      tripReady,
+      userReady,
+      milesSavedTotal,
+      milesSavedPerDay,
+      modesOfTransport,
+      userProfile,
+      ghgReducedPerDay,
+      fuelSavedPerDay,
+    },
+    ) {
 
-  useEffect(() => {
-    Meteor.call('getMilesTotal', function (error, result) {
-      if (!error) {
-        setTotalMiles(result);
-      }
-    });
-  }, [totalMiles]);
-
-  const [fuelSaved, setFuelSaved] = useState(0);
-
-  useEffect(() => {
-    Meteor.call('getFuelSaved', function (error, result) {
-      if (!error) {
-        setFuelSaved(result);
-      }
-    });
-  }, [fuelSaved]);
-
-  const [ghgReduced, setGHGReduced] = useState(0);
-
-  useEffect(() => {
-    Meteor.call('getGHGReduced', function (error, result) {
-      if (!error) {
-        setGHGReduced(result);
-      }
-    });
-  }, [ghgReduced]);
-
-  return (
-      <Grid id="overall-container" style={{ height: '100%' }}>
-        <Grid.Column stretched>
-          <Grid.Row id="overall-total-miles">
-            <Grid.Row>
-              <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
-                { totalMiles }
-              </Container>
-            </Grid.Row>
-            <Grid.Row>
-              <Container fluid text textAlign="center">
-                Total Miles
-              </Container>
-            </Grid.Row>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Row>
-              <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
-                { fuelSaved } lbs
-              </Container>
-            </Grid.Row>
-            <Grid.Row>
-              <Container fluid text textAlign="center">
-                of fuel saved
-              </Container>
-            </Grid.Row>
-          </Grid.Row>
-          <Grid.Row>
-
-            <Grid.Row>
-              <Container fluid text style={{ fontSize: '50px' }} textAlign="center">
-                { ghgReduced } lbs
-              </Container>
-            </Grid.Row>
-            <Grid.Row>
-              <Container fluid text textAlign="center">
-                of GHG reduced
-              </Container>
-            </Grid.Row>
-          </Grid.Row>
-        </Grid.Column>
-      </Grid>
+  return ((tripReady && userReady) ?
+      <DashboardContent
+          milesSavedTotal={milesSavedTotal}
+          milesSavedPerDay={milesSavedPerDay}
+          modesOfTransport={modesOfTransport}
+          userProfile={userProfile}
+          ghgReducedPerDay={ghgReducedPerDay}
+          fuelSavedPerDay={fuelSavedPerDay}
+      /> :
+      <Dimmer active>
+        <Loader>Loading Data</Loader>
+      </Dimmer>
   );
 }
 
-function ModesOfTransport() {
+Dashboard.propTypes = {
+  milesSavedTotal: PropTypes.number,
+  milesSavedPerDay: PropTypes.object,
+  modesOfTransport: PropTypes.object,
+  userProfile: PropTypes.any,
+  ghgReducedPerDay: PropTypes.object,
+  fuelSavedPerDay: PropTypes.object,
+  tripReady: PropTypes.bool.isRequired,
+  userReady: PropTypes.bool.isRequired,
+};
 
-  const [modesOfTransport, setModesOfTransport] = useState([]);
-
-  useEffect(() => {
-    Meteor.call('getModesOfTransport', function (error, result) {
-      if (!error) {
-        setModesOfTransport(result);
-      }
-    });
-  }, [modesOfTransport]);
-
-  return (
-      <div>
-        <VictoryPie
-            data={modesOfTransport}
-            x="mode"
-            y="value"
-            colorScale={['#093c69', '#177fc5', '#0c4d85']}
-            innerRadius={70}
-        />
-      </div>
-  );
-}
-
-function MilesSavedPerDay() {
-  const [milesSaved, setMilesSaved] = useState([]);
-
-  useEffect(() => {
-    Meteor.call('getMilesSavedPerDay', function (error, result) {
-      if (!error) {
-        setMilesSaved(result);
-      }
-    });
-  }, [milesSaved]);
-
-  return (
-      <ResponsiveContainer width='100%' height={250}>
-        <BarChart data={milesSaved}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="miles" fill="#8884d8" />
-        </BarChart>
-      </ResponsiveContainer>
-  );
-}
-
-function MonthlyGHGReport() {
-  const [monthlyReport, setMonthlyReport] = useState([]);
-
-  useEffect(() => {
-    Meteor.call('getMonthlyGHGReport', function (error, result) {
-      if (!error) {
-        setMonthlyReport(result);
-      }
-    });
-  }, [monthlyReport]);
-
-  return (
-      <ResponsiveContainer width='100%' height={250}>
-        <LineChart data={monthlyReport}
-                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='month'/>
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type='monotone' dataKey='GHGReduced' stroke='#8884d8' />
-        </LineChart>
-      </ResponsiveContainer>
-  );
-}
-/* The dashboard that contains graphs that contains the graphs to display data to the user */
-function Dashboard() {
-
-  return (
-      <div id="dashboard-container">
-        <SidebarVisible/>
-        <Card.Group id="dashboard-content" itemsPerRow={1}>
-          <Card id="overall-card">
-            <Card.Content>
-              <Card.Header>Overall</Card.Header>
-              <Grid container columns={2}>
-                <Grid.Column>
-                  <Overall/>
-                </Grid.Column>
-                <Grid.Column>
-                  <ModesOfTransport/>
-                </Grid.Column>
-              </Grid>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Content>
-              <Card.Header style={{ marginBottom: 30 }}>Miles Saved Per Day</Card.Header>
-              <MilesSavedPerDay/>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Content>
-              <Card.Header style={{ marginBottom: 30 }}>Monthly GHG Reduced</Card.Header>
-              <MonthlyGHGReport/>
-            </Card.Content>
-          </Card>
-        </Card.Group>
-      </div>
-  );
-}
-
-export default Dashboard;
+export default withTracker(({ match }) => {
+  const tripSubscribe = Trips.subscribeTrip();
+  const userSubscribe = Users.subscribeUser();
+  const username = match.params._id;
+  const milesSavedTotal = Trips.getMilesSavedTotal(username);
+  const milesSavedPerDay = Trips.getMilesSavedPerDay(username);
+  const modesOfTransport = Trips.getModesOfTransport(username);
+  const userProfile = Users.getUserProfile(username);
+  const ghgReducedPerDay = Trips.getGHGReducedPerDay(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
+  const fuelSavedPerDay = Trips.getFuelSavedPerDay(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
+  return {
+    tripReady: tripSubscribe.ready(),
+    userReady: userSubscribe.ready(),
+    milesSavedTotal,
+    milesSavedPerDay,
+    modesOfTransport,
+    userProfile,
+    ghgReducedPerDay,
+    fuelSavedPerDay,
+  };
+})(Dashboard);

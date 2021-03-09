@@ -20,7 +20,7 @@ class TripHistory extends React.Component {
         <div>
           <NavBar/>
           <Container>
-            <Header as="h2" textAlign="center">Trip History</Header>
+            <Header as="h2" textAlign="center">Trip History - Using to Test</Header>
             <Table celled>
               <Table.Header>
                 <Table.Row>
@@ -54,7 +54,7 @@ TripHistory.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Trip documents.
-  const subscription = Trips.subscribeTrip();
+  const subscription = Trips.subscribeTripCommunity();
   return {
     trips: Trips.find({}).fetch(),
     ready: subscription.ready(),

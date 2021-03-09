@@ -20,6 +20,7 @@ Meteor.methods({
         case 'W':
         case 'C':
         case 'E':
+        case 'G':
           numberOfTrips += 1;
           break;
       }
@@ -43,6 +44,7 @@ Meteor.methods({
         case 'W':
         case 'C':
         case 'E':
+        case 'G':
           numberOfTrips += 1;
           break;
       }
@@ -68,6 +70,7 @@ Meteor.methods({
         case 'W':
         case 'C':
         case 'E':
+        case 'G':
           numberOfTrips += 1;
           break;
       }
@@ -137,6 +140,14 @@ Meteor.methods({
             result.value += 1;
           }
           break;
+        case 'G':
+          result = modes.find(({ mode }) => mode === 'Gas Car');
+          if (result == null) {
+            modes.push({ mode: 'Gas Car', value: 1 });
+          } else {
+            result.value += 1;
+          }
+          break;
       }
     });
 
@@ -183,6 +194,9 @@ Meteor.methods({
           case 6:
             milesSaved[6].miles += data[3].homeRoundTrip;
             break;
+          case 7:
+            milesSaved[7].miles += data[3].homeRoundTrip;
+            break;
         }
       }
       index += 1;
@@ -210,7 +224,8 @@ Meteor.methods({
         case 'W':
         case 'C':
         case 'E':
-          month = trip.date.split("-");
+        case 'G':
+          month = trip.date.split('-');
           switch (month[1]) {
             default:
               break;

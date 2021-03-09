@@ -23,7 +23,7 @@ const SidebarVisible = () => {
     <Menu.Item as={NavLink}
                activeClassName=""
                exact
-               to="/Dashboard"
+               to={`/Dashboard/${Meteor.user().username}`}
                style={{ color: '#0c4d85' }}>
       <Icon name='grid layout'/>
       Dashboard
