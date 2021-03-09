@@ -155,11 +155,22 @@ dark-blue: 0C4D85
 }
 
 .compare-image-card {
-  height: 450px;
-  background-color: #FFFFFF !important;
 
+}
+
+.compare-image-card img {
+
+}
+
+.slider-information-side {
+  font-size: 1.75rem;
+  padding: 15px !important;
 }
 
 .compare-slider {
   background-color: #FFFFFF !important;
+}
+
+.ui.grid .row {
+  padding: 15px;
 }
