@@ -5,7 +5,7 @@ import { Menu, Button, Table, Grid, Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import SidebarVisible from '../components/SideBar';
-import { Trips, tripPublications, tripModes } from '../../api/trip/TripCollection';
+import { Trips, tripPublications } from '../../api/trip/TripCollection';
 import TripItem from '../components/TripItem';
 
 class Daily extends React.Component {
@@ -25,7 +25,7 @@ class Daily extends React.Component {
         monthlySum += add;
       }
     }
-    const myTrips = _.filter(this.props.trips, (trip) => trip.owner === this.props.username);
+    // const myTrips = _.filter(this.props.trips, (trip) => trip.owner === this.props.username);
 
     return (
         <div id='daily-container' style={{ marginLeft: '150px' }}>
