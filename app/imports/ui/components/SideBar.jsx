@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Icon, Image, Menu, Sidebar } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const SidebarVisible = () => {
-  const currentUser = Meteor.userId() ? Meteor.userId() : '';
-  // console.log(currentUser);
-  return (currentUser ? <div><Sidebar
+const SideBar = (props) => (
+    props.currentUser ? <div><Sidebar
       as={Menu}
       animation='overlay'
       icon='labeled'
@@ -23,7 +23,7 @@ const SidebarVisible = () => {
     <Menu.Item as={NavLink}
                activeClassName=""
                exact
-               to={`/Dashboard/${Meteor.user().username}`}
+               to={`/Dashboard/${Meteor.user()?.username}`}
                style={{ color: '#0c4d85' }}>
       <Icon name='grid layout'/>
       Dashboard
@@ -68,5 +68,14 @@ const SidebarVisible = () => {
       {Meteor.user() ? Meteor.user().username : 'Guest'}
     </Menu.Item>
   </Sidebar></div> : '');
-};
-export default SidebarVisible;
+
+SideBar.propTypes = {
+  currentUser: PropTypes.string,
+}
+
+export default withTracker(() => {
+  const currentUser = Meteor.userId() ? Meteor.userId() : '';
+  return {
+    currentUser,
+  };
+})(SideBar);
