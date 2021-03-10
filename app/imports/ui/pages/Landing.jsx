@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Button, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import LandingNavBar from '../components/LandingNavBar';
+import Footer from '../components/Footer';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -48,7 +49,7 @@ class Landing extends React.Component {
               </Button>
             </Grid.Column>
           </Grid>
-
+        <Footer id={'landing-footer'}/>
         </div>
     );
   }

@@ -4,6 +4,13 @@ import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
 
+const countyOptions = [
+  { text: 'Hawaii', value: 'Hawaii' },
+  { text: 'Honolulu', value: 'Honolulu' },
+  { text: 'Kauai', value: 'Kauai' },
+  { text: 'Maui', value: 'Maui' },
+];
+
 /**
  * Signup component is similar to signin component, but we create a new user instead.
  */
@@ -49,17 +56,17 @@ class Signup extends React.Component {
                       Register your account
                     </Header>
                     <Image size='medium' verticalAlign='centered' src="/images/EImpactLogo.png"/>
-                    <Form.Input
-                        label="County"
+                    <Form.Select
+                        label="Location"
                         id="signup-form-county"
-                        icon="map"
-                        iconPosition="left"
                         name="county"
                         type="county"
-                        placeholder="County"
+                        placeholder="Select County"
+                        options={countyOptions}
                         onChange={this.handleChange}
+                        required
                     />
-                      <Form.Input
+                    <Form.Input
                           label='First Name'
                           icon='user'
                           iconPosition='left'
@@ -68,8 +75,8 @@ class Signup extends React.Component {
                           placeholder="First Name"
                           onChange={this.handleChange}
                           required
-                      />
-                      <Form.Input
+                     />
+                     <Form.Input
                           label='Last Name'
                           icon='user'
                           name='last'
@@ -78,7 +85,7 @@ class Signup extends React.Component {
                           placeholder="Last Name"
                           onChange={this.handleChange}
                           required
-                      />
+                    />
                     <Form.Input
                       label="Email"
                       id="signup-form-email"

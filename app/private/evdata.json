@@ -1,6 +1,7 @@
 [
   {
     "car": "2020 Tesla Model Y",
+    "brandLogo": "https://cdn.mos.cms.futurecdn.net/BQwukuZwwwXrg27B9Le2Q6.png",
     "image": "https://s.aolcdn.com/commerce/autodata/images/USD00TSS021A021001.jpg",
     "cashPrice": "48,990",
     "range": "326",
@@ -9,7 +10,8 @@
   },
   {
     "car": "2021 Hyundai Kona EV",
-    "image": "https://images.dealer.com/ddc/vehicles/2021/Hyundai/Kona/SUV/trim_SE_e03b2e/color/Chalk%20White-P6W-234%2C234%2C234-640-en_US.jpg?impolicy=resize&w=640",
+    "brandLogo": "https://www.carlogos.org/logo/Hyundai-logo-silver-2560x1440.png",
+    "image": "https://img.sm360.ca/ir/w540h360c/images/newcar/ca/2021/hyundai/kona-electrique/preferred-2-tone/suv/exteriorColors/14119_cc0640_032_p61.png",
     "cashPrice": "37,390",
     "range": "258",
     "batteryCapacity": "64",
@@ -17,7 +19,8 @@
   },
   {
     "car": "2020 Chevrolet Bolt EV",
-    "image": "https://assets.newcars.com/images/car-pictures/original/2020-Chevrolet-Bolt-EV-Wagon-LT-4dr-Wagon-Photo-13.png",
+    "brandLogo": "https://1000logos.net/wp-content/uploads/2019/12/Chevrolet-logo.png",
+    "image": "https://drivegreenrentals.com/wp-content/uploads/2019/10/chevy-bolt.jpg",
     "cashPrice": "43,000",
     "range": "259",
     "batteryCapacity": "66",
