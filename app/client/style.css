@@ -118,6 +118,13 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+/* Public Community Page */
+#public-community-container {
+  padding-top: 50px;
+  padding-bottom: 150px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+}
+
 
 .quick-access-container {
   padding-bottom: 150px;

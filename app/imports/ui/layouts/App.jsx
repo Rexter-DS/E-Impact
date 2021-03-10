@@ -21,6 +21,7 @@ import Dashboard from '../pages/Dashboard';
 import Daily from '../pages/Daily';
 // import SidebarVisible from '../components/SideBar';
 import Community from '../pages/Community';
+import PublicCommunity from '../pages/PublicCommunity';
 import MapTest from '../pages/MapTest';
 import Compare from '../pages/Compare';
 
@@ -39,6 +40,7 @@ class App extends React.Component {
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/map" component={MapTest}/>
+              <Route path="/publiccommunity" component={PublicCommunity}/>
               <Route path="/quickaccess" component={QuickAccess}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
