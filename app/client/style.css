@@ -182,6 +182,10 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+#county-information {
+  padding-top: 400px;
+}
+
 
 .quick-access-container {
   padding-bottom: 150px;
@@ -199,10 +203,6 @@ dark-blue: 0C4D85
 #card-bottom {
   background-color: #1C7DC1;
   color: white;
-}
-
-#community-bottom {
-  padding-top: 400px;
 }
 
 /* Compare */

@@ -1,31 +1,12 @@
 import React from 'react';
-import { Card, Divider, Dropdown, Header, Popup } from 'semantic-ui-react';
+import { Card, Divider, Header, Popup } from 'semantic-ui-react';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
-import State from '../components/State';
-import Kauai from '../components/Kauai';
-import Maui from '../components/Maui';
-import Honolulu from '../components/Honolulu';
-import Hawaii from '../components/Hawaii';
-
-const countyOptions = [
-  { value: 'State', text: 'State' },
-  { value: 'Hawaii', text: 'Hawaii County' },
-  { value: 'Honolulu', text: 'Honolulu' },
-  { value: 'Kauai', text: 'Kauai' },
-  { value: 'Maui', text: 'Maui' },
-];
 
 class Community extends React.Component {
-  state = {
-    value: '',
-  }
-
-  handleChange = (e, { value }) => this.setState({ value })
 
   render() {
-    const { value } = this.state;
     return (
       <div>
         <div id='community-container'>
@@ -34,19 +15,6 @@ class Community extends React.Component {
             <Map/>
           </div>
           <div id='community-bottom'>
-            <Dropdown
-                placeholder='Select County'
-                selection
-                options={countyOptions}
-                onChange={this.handleChange}
-                value={value}
-            />
-            {value === '' && <State/>}
-            {value === 'State' && <State/>}
-            {value === 'Hawaii' && <Hawaii/>}
-            {value === 'Honolulu' && <Honolulu/>}
-            {value === 'Kauai' && <Kauai/>}
-            {value === 'Maui' && <Maui/>}
             <Divider horizontal>
               <Header as='h3'>
                 Get Involved

@@ -1,5 +1,13 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import { Button, Icon } from 'semantic-ui-react';
+import State from '../components/State';
+import Kauai from '../components/Kauai';
+import Maui from '../components/Maui';
+import Honolulu from '../components/Honolulu';
+import Hawaii from '../components/Hawaii';
+import Kalawao from '../components/Kalawao';
+import { NavLink } from 'react-router-dom';
 
 const mapStyles = {
   height: '400px',
@@ -14,6 +22,7 @@ export class MapContainer extends React.Component {
     mauiCounty: false,
     kauaiCounty: false,
     kalawaoCounty: false,
+    allCounties: true,
     activeMarker: {},
     selectedPlace: {},
   };
@@ -32,6 +41,7 @@ export class MapContainer extends React.Component {
     kauaiCounty: false,
     mauiCounty: false,
     hawaiiCounty: false,
+    allCounties: false,
   });
 
   onHawaiiClick = (props, marker) => this.setState({
@@ -43,6 +53,7 @@ export class MapContainer extends React.Component {
     kauaiCounty: false,
     honoluluCounty: false,
     mauiCounty: false,
+    allCounties: false,
   });
 
   onMauiClick = (props, marker) => this.setState({
@@ -54,6 +65,7 @@ export class MapContainer extends React.Component {
     kauaiCounty: false,
     honoluluCounty: false,
     hawaiiCounty: false,
+    allCounties: false,
   });
 
   onKauaiClick = (props, marker) => this.setState({
@@ -65,6 +77,7 @@ export class MapContainer extends React.Component {
     honoluluCounty: false,
     mauiCounty: false,
     hawaiiCounty: false,
+    allCounties: false,
   });
 
   onKalawaoClick = (props, marker) => this.setState({
@@ -76,6 +89,7 @@ export class MapContainer extends React.Component {
     honoluluCounty: false,
     mauiCounty: false,
     hawaiiCounty: false,
+    allCounties: false,
   });
 
   // showHonolulu = () => this.setState({
@@ -99,6 +113,7 @@ export class MapContainer extends React.Component {
   render() {
 
     return (
+        <div>
         <Map
             /* eslint-disable-next-line react/prop-types */
             google={this.props.google}
@@ -109,6 +124,12 @@ export class MapContainer extends React.Component {
               lng: -157.5,
             }}
         >
+          {/*<Button animated>*/}
+          {/*  <Button.Content visible>Take me there!</Button.Content>*/}
+          {/*  <Button.Content hidden>*/}
+          {/*    <Icon name='long arrow alternate right'/>*/}
+          {/*  </Button.Content>*/}
+          {/*</Button>*/}
           <Marker onClick={this.onHonoluluClick}
                   // onMouseEnter={this.showInfo}
                   // onMouseExit={this.closeInfo}
@@ -139,10 +160,19 @@ export class MapContainer extends React.Component {
                   position={{ lat: 21.1950, lng: -156.9750 }}
           />
         </Map>
+          <div id='county-information'>
+          { this.state.kauaiCounty === true ? <Kauai/> : ''}
+          { this.state.honoluluCounty === true ? <Honolulu/> : ''}
+          { this.state.mauiCounty === true ? <Maui/> : ''}
+          { this.state.hawaiiCounty === true ? <Hawaii/> : ''}
+          { this.state.kalawaoCounty === true ? <Kalawao/> : ''}
+          { this.state.allCounties === true ? <State/> : ''}
+          </div>
+        </div>
     );
   }
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'INSERT API KEY HERE',
+  apiKey: 'AIzaSyAbV-z-8r_Ez5Pv1sfjoMdGy4V600Y1yKw',
 })(MapContainer);
