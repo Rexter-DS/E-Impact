@@ -63,7 +63,7 @@ const SideBar = (props) => (
       <Icon name='sign-out'/>
       Sign Out
     </Menu.Item>
-    <Menu.Item style={{ color: '#0c4d85' }}>
+    <Menu.Item style={{ color: '#0c4d85', position: 'fixed', bottom: '0' }}>
       <Icon name='user circle outline'/>
       {Meteor.user() ? Meteor.user().username : 'Guest'}
     </Menu.Item>
