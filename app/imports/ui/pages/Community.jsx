@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Divider, Header, Popup } from 'semantic-ui-react';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
-import Map from '../components/Map';
+import Map from '../components/MapContainer';
 
 class Community extends React.Component {
 
