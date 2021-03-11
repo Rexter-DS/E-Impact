@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Button, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import LandingNavBar from '../components/LandingNavBar';
+import Footer from '../components/Footer';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -18,7 +19,7 @@ class Landing extends React.Component {
 
           {/* This controls the bottom half of the landing page */}
           <Grid id="landing-bottom" verticalAlign='middle' textAlign='center' container>
-            <Grid.Column width={8}>
+            <Grid.Column width={4}>
               <h1>Use our GHC estimator to calculate your GHG emissions for a single trip</h1>
               <Button as={NavLink} exact to='/quickaccess' animated>
                 <Button.Content visible>Take me there!</Button.Content>
@@ -27,7 +28,8 @@ class Landing extends React.Component {
                 </Button.Content>
               </Button>
             </Grid.Column>
-            <Grid.Column width={8}>
+
+            <Grid.Column width={4}>
               <h1>Create an account to keep track of the emissions of your daily transit</h1>
               <Button as={NavLink} exact to='/signup' animated>
                 <Button.Content visible>Take me there!</Button.Content>
@@ -36,8 +38,18 @@ class Landing extends React.Component {
                 </Button.Content>
               </Button>
             </Grid.Column>
-          </Grid>
 
+            <Grid.Column width={4}>
+              <h1>View the Community&apos;s Progress</h1>
+              <Button as={NavLink} exact to='/publiccommunity' animated>
+                <Button.Content visible>Take me there!</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='long arrow alternate right'/>
+                </Button.Content>
+              </Button>
+            </Grid.Column>
+          </Grid>
+        <Footer id={'landing-footer'}/>
         </div>
     );
   }
