@@ -19,6 +19,8 @@ import QuickAccess from '../pages/QuickAccess';
 import Dashboard from '../pages/Dashboard';
 import Daily from '../pages/Daily';
 import Community from '../pages/Community';
+import PublicCommunity from '../pages/PublicCommunity';
+import MapTest from '../pages/MapTest';
 import Compare from '../pages/Compare';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -32,6 +34,8 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
+              <Route path="/map" component={MapTest}/>
+              <Route path="/publiccommunity" component={PublicCommunity}/>
               <Route path="/quickaccess" component={QuickAccess}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
