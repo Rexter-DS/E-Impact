@@ -11,6 +11,7 @@ function DashboardContent(
       milesSavedPerDay,
       modesOfTransport,
       userProfile,
+      ghgProducedTotal,
       ghgReducedPerDay,
       fuelSavedPerDay,
     },
@@ -20,22 +21,18 @@ function DashboardContent(
     x: milesSavedPerDay.date,
     y: milesSavedPerDay.distance,
     type: 'bar',
-    name: 'Miles saved',
     text: milesSavedPerDay.mode,
   }];
 
-  console.log(milesSavedPerDay.date);
-  console.log(milesSavedPerDay.date[0]);
-  console.log(milesSavedPerDay.date[7]);
-  console.log(Math.max(...milesSavedPerDay.distance));
   const milesSavedPerDayLayout = {
+    autosize: true,
     xaxis: {
-      //range: [milesSavedPerDay.date[0], milesSavedPerDay[7]],
-      rangeslider: { range: [milesSavedPerDay[0], milesSavedPerDay[milesSavedPerDay.length - 1]] },
+      range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
+      rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
       type: 'date',
     },
     yaxis: {
-      autorange: true,
+      title: 'Miles Saved (miles)',
       range: [0, Math.max(...milesSavedPerDay.distance)],
       type: 'linear',
     },
@@ -43,21 +40,38 @@ function DashboardContent(
 
   const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
 
-  const fuelSavedPerDayData = [{
+  const fuelSavedPerDayData = {
     x: fuelSavedPerDay.date,
     y: fuelSavedPerDay.fuel,
-    name: 'Fuel Saved',
-    type: 'bar',
-  }];
+    name: 'Fuel Saved (gallons)',
+    type: 'scatter',
+    mode: 'lines+markers',
+  };
 
   const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
 
-  const ghgReducedPerDayData = [{
+  const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
     y: ghgReducedPerDay.ghg,
-    name: 'GHG Reduced',
-    type: 'bar',
-  }];
+    name: 'GHG Reduced (pounds)',
+    type: 'scatter',
+    mode: 'lines+markers',
+  };
+
+  const fuelAndGhgPerDayLayout = {
+    autosize: true,
+    showlegend: true,
+    xaxis: {
+      range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
+      rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
+      type: 'date',
+    },
+    yaxis: {
+      title: 'Fuel and GHG saved',
+      range: [0, Math.max(...ghgReducedPerDay.ghg)],
+      type: 'linear',
+    },
+  };
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -75,7 +89,7 @@ function DashboardContent(
   return (
       <div id='dashboard-container'>
         <SideBar/>
-        <Card.Group centered stackable>
+        <Card.Group centered stackable itemsPerRow={4}>
           <Card>
             <Card.Header style={{ paddingLeft: '10px' }}>
               Vehicle Miles Traveled (VMT) Reduced
@@ -95,6 +109,17 @@ function DashboardContent(
               <Statistic>
                 <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
                 <Statistic.Label>gallons</Statistic.Label>
+              </Statistic>
+            </Card.Content>
+          </Card>
+          <Card>
+            <Card.Header style={{ paddingLeft: '10px' }}>
+              Green House Gas (GHG) Produced
+            </Card.Header>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value>{ghgProducedTotal}</Statistic.Value>
+                <Statistic.Label>pounds</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
@@ -138,20 +163,10 @@ function DashboardContent(
           <Grid.Column>
             <Card fluid>
               <Card.Header style={{ paddingLeft: '10px' }}>
-                Fuel Saved per Day
+                Fuel Saved and GHG Reduced per Day
               </Card.Header>
               <Card.Content>
-                <Chart chartData={fuelSavedPerDayData} chartLayout={defaultLayout}/>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
-          <Grid.Column>
-            <Card fluid>
-              <Card.Header style={{ paddingLeft: '10px' }}>
-                GHG Reduced per Day
-              </Card.Header>
-              <Card.Content>
-                <Chart chartData={ghgReducedPerDayData} chartLayout={defaultLayout}/>
+                <Chart chartData={[fuelSavedPerDayData, ghgReducedPerDayData]} chartLayout={fuelAndGhgPerDayLayout}/>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -165,6 +180,7 @@ DashboardContent.propTypes = {
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.object,
+  ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
 };
