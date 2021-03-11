@@ -230,6 +230,28 @@ class TripCollection extends BaseCollection {
   }
 
   /**
+   * Returns the GHG that the specified user produced. GHG is produced whenever the user uses the Carpool and Gas Car modes.
+   * @param username the username of the user.
+   * @param userMPG the MPG of the user
+   * @returns {string} the amount of GHG that the user produced. It is a string because the function does a .toFixed(2) to round
+   * the number to two decimal places.
+   */
+  getGHGProducedTotal(username, userMPG) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    const ghgPerGallon = 19.6;
+    let ghgProduced = 0;
+
+    _.forEach(userTrips, function (objects) {
+      if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
+        ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
+      }
+    });
+
+    return ghgProduced.toFixed(2);
+  }
+
+  /**
    * Gets the GHG that the user has reduced each day.
    * @param username the username of the user.
    * @param userMPG the MPG of the user.
