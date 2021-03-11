@@ -19,14 +19,27 @@ function DashboardContent(
   const milesSavedPerDayData = [{
     x: milesSavedPerDay.date,
     y: milesSavedPerDay.distance,
-    type: 'scatter',
-    mode: 'markers',
+    type: 'bar',
     name: 'Miles saved',
     text: milesSavedPerDay.mode,
-    marker: {
-      size: 10,
-    },
   }];
+
+  console.log(milesSavedPerDay.date);
+  console.log(milesSavedPerDay.date[0]);
+  console.log(milesSavedPerDay.date[7]);
+  console.log(Math.max(...milesSavedPerDay.distance));
+  const milesSavedPerDayLayout = {
+    xaxis: {
+      //range: [milesSavedPerDay.date[0], milesSavedPerDay[7]],
+      rangeslider: { range: [milesSavedPerDay[0], milesSavedPerDay[milesSavedPerDay.length - 1]] },
+      type: 'date',
+    },
+    yaxis: {
+      autorange: true,
+      range: [0, Math.max(...milesSavedPerDay.distance)],
+      type: 'linear',
+    },
+  };
 
   const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
 
@@ -105,7 +118,7 @@ function DashboardContent(
                   Miles Saved Per Day
                 </Card.Header>
                 <Card.Content>
-                  <Chart chartData={milesSavedPerDayData} chartLayout={defaultLayout}/>
+                  <Chart chartData={milesSavedPerDayData} chartLayout={milesSavedPerDayLayout}/>
                 </Card.Content>
               </Card>
             </Grid.Column>

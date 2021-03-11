@@ -168,6 +168,7 @@ class TripCollection extends BaseCollection {
       { mode: 'Walk', value: 0 },
       { mode: 'Carpool', value: 0 },
       { mode: 'Electric Vehicle', value: 0 },
+      { mode: 'Gar Car', value: 0 },
     ];
 
     // iterate over user's trips and increment each value of mode they used.
