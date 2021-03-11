@@ -189,7 +189,6 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
-
 .quick-access-container {
   padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
@@ -201,6 +200,12 @@ dark-blue: 0C4D85
 .quick-access-grid{
   background-color: white;
   /* width: 900px; */
+}
+.quick-access-form{
+  align-content: center;
+  background-color: white;
+  margin-right: 275px;
+  margin-left: 275px;
 }
 
 #card-bottom {
