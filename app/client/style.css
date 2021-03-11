@@ -37,9 +37,10 @@
 
 #sign {
   padding-top: 150px;
-  padding-bottom: 150px;
+  /*padding-bottom: 150px;*/
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
+  padding-bottom: 150px;
 }
 
 #dashboard-container {
@@ -54,14 +55,71 @@
   height: 10%;
 }
 
-
-#footer {
+#compare-footer {
   background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
   color: white !important;
-  /*padding: 0 !important;*/
-  padding: 20px 0;
-  /*padding-left: 150px;*/
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  margin-top: 200px;
+  padding: 15px 0;
+}
+
+#signin-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0;
+  /*margin-top: 50px;*/
+  padding: 15px 0;
+}
+
+#community-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0;
+  margin-top: 200px;
+  padding: 15px 0;
+}
+
+#landing-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 15px 0;
+}
+
+#dashboard-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  margin-top: 200px;
+  padding: 15px 0;
+}
+
+#daily-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0px;
+  padding: 15px 0;
 }
 
 .link {
@@ -103,7 +161,7 @@ dark-blue: 0C4D85
 }
 
 .daily-table {
-  padding-bottom: 175px;
+  padding-bottom: 15px;
   margin: 0 !important;
 }
 
@@ -124,6 +182,12 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+/* Public Community Page */
+#public-community-container {
+  padding-top: 50px;
+  padding-bottom: 150px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+}
 
 .quick-access-container {
   padding-bottom: 150px;
@@ -136,6 +200,12 @@ dark-blue: 0C4D85
 .quick-access-grid{
   background-color: white;
   /* width: 900px; */
+}
+.quick-access-form{
+  align-content: center;
+  background-color: white;
+  margin-right: 275px;
+  margin-left: 275px;
 }
 
 #card-bottom {

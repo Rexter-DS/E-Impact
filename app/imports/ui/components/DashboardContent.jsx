@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Card, Statistic } from 'semantic-ui-react';
-import SidebarVisible from './SideBar';
+import SideBar from './SideBar';
 import Chart from './Chart';
 
 // Contains the graphs that visualizes the user's data.
@@ -74,7 +74,7 @@ function DashboardContent(
 
   return (
       <div id='dashboard-container'>
-        <SidebarVisible/>
+        <SideBar/>
         <Card.Group centered stackable>
           <Card>
             <Card.Header style={{ paddingLeft: '10px' }}>

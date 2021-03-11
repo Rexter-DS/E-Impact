@@ -24,7 +24,7 @@ class TripCollection extends BaseCollection {
       mode: {
         type: String,
         allowedValues: tripModes,
-        defaultValue: 'Telework',
+        defaultValue: 'Gas Car',
       },
       mpg: Number,
       owner: String,

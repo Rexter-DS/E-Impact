@@ -5,6 +5,8 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
 import DashboardContent from '../components/DashboardContent';
+import Footer from '../components/Footer';
+
 
 // This page contains the graphs that will visualize the user's data in a more meaningful way.
 // The page waits for the data to load first and shows a loading page. Then once the collection is ready, we show the dashboard.
@@ -22,14 +24,17 @@ function Dashboard(
     ) {
 
   return ((tripReady && userReady) ?
-      <DashboardContent
-          milesSavedTotal={milesSavedTotal}
-          milesSavedPerDay={milesSavedPerDay}
-          modesOfTransport={modesOfTransport}
-          userProfile={userProfile}
-          ghgReducedPerDay={ghgReducedPerDay}
-          fuelSavedPerDay={fuelSavedPerDay}
-      /> :
+      <div>
+          <DashboardContent
+            milesSavedTotal={milesSavedTotal}
+            milesSavedPerDay={milesSavedPerDay}
+            modesOfTransport={modesOfTransport}
+            userProfile={userProfile}
+            ghgReducedPerDay={ghgReducedPerDay}
+            fuelSavedPerDay={fuelSavedPerDay}
+          />
+          <Footer id={'dashboard-footer'}/>
+      </div> :
       <Dimmer active>
         <Loader>Loading Data</Loader>
       </Dimmer>
