@@ -186,6 +186,12 @@ dark-blue: 0C4D85
   padding-top: 400px;
 }
 
+#map-button {
+  margin-left: 74vw;
+  margin-top: 10px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
 
 .quick-access-container {
   padding-bottom: 150px;

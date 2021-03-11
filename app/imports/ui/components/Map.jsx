@@ -7,7 +7,6 @@ import Maui from '../components/Maui';
 import Honolulu from '../components/Honolulu';
 import Hawaii from '../components/Hawaii';
 import Kalawao from '../components/Kalawao';
-import { NavLink } from 'react-router-dom';
 
 const mapStyles = {
   height: '400px',
@@ -92,6 +91,15 @@ export class MapContainer extends React.Component {
     allCounties: false,
   });
 
+  showState = () => this.setState({
+    kalawaoCounty: false,
+    kauaiCounty: false,
+    honoluluCounty: false,
+    mauiCounty: false,
+    hawaiiCounty: false,
+    allCounties: true,
+  })
+
   // showHonolulu = () => this.setState({
   //   showingInfoWindow: true,
   // });
@@ -124,12 +132,16 @@ export class MapContainer extends React.Component {
               lng: -157.5,
             }}
         >
-          {/*<Button animated>*/}
-          {/*  <Button.Content visible>Take me there!</Button.Content>*/}
-          {/*  <Button.Content hidden>*/}
-          {/*    <Icon name='long arrow alternate right'/>*/}
-          {/*  </Button.Content>*/}
-          {/*</Button>*/}
+          <Button id='map-button'
+                  color='red'
+                  inverted
+                  onClick={this.showState}
+                  animated>
+            <Button.Content visible>Reset to State Wide</Button.Content>
+            <Button.Content hidden>
+              <Icon name='long arrow alternate right'/>
+            </Button.Content>
+          </Button>
           <Marker onClick={this.onHonoluluClick}
                   // onMouseEnter={this.showInfo}
                   // onMouseExit={this.closeInfo}
@@ -174,5 +186,5 @@ export class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAbV-z-8r_Ez5Pv1sfjoMdGy4V600Y1yKw',
+  apiKey: 'INSERT API KEY HERE',
 })(MapContainer);

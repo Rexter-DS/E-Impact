@@ -14,21 +14,21 @@ class Kauai extends React.Component {
 
   renderPage() {
     // const users = _.map(Meteor.users.find({ 'profile.county': 'Kauai' }).fetch(), 'username');
-    const totalUsers = Meteor.users.find({ 'profile.county': 'Kauai' }).count();
+    const totalUsers = Meteor.users.find({ 'profile.county': 'Kalawao' }).count();
 
     // const cardistances = _.map(users, username => _.map(Trips.find({ owner: username, mode: 'Gas Car' }).fetch(), 'distance'));
-    const carDistances = _.map(Trips.find({ county: 'Kauai', mode: 'Gas Car' }).fetch(), 'distance');
+    const carDistances = _.map(Trips.find({ county: 'Kalawao', mode: 'Gas Car' }).fetch(), 'distance');
     // const carmpgs = _.map(users, username => _.map(Trips.find({ owner: username, mode: 'Gas Car' }).fetch(), 'mpg'));
-    const carMpgs = _.map(Trips.find({ county: 'Kauai', mode: 'Gas Car' }).fetch(), 'mpg');
+    const carMpgs = _.map(Trips.find({ county: 'Kalawao', mode: 'Gas Car' }).fetch(), 'mpg');
     const fuelUsed = _.zipWith(carDistances, carMpgs, (distance, mpg) => distance / mpg);
     const totalFuelUsed = _.sum(fuelUsed).toFixed(2);
     const totalGhgProduced = (totalFuelUsed * 19.6).toFixed(2);
 
-    const otherDistances = _.map(Trips.find({ county: 'Kauai', mode: { $not: 'Gas Car' } }).fetch(), 'distance');
+    const otherDistances = _.map(Trips.find({ county: 'Kalawao', mode: { $not: 'Gas Car' } }).fetch(), 'distance');
     // const otherdistances = users.map(username => _.map(Trips.find({ owner: username, mode: { $not: 'Gas Car' } }).fetch(), 'distance'));
     const totalMilesSaved = _.sum(otherDistances).toFixed(2);
     // const othermpgs = users.map(username => _.map(Trips.find({ owner: username, mode: { $not: 'Gas Car' } }).fetch(), 'mpg'));
-    const otherMpgs = _.map(Trips.find({ county: 'Kauai', mode: { $not: 'Gas Car' } }).fetch(), 'mpg');
+    const otherMpgs = _.map(Trips.find({ county: 'Kalawao', mode: { $not: 'Gas Car' } }).fetch(), 'mpg');
     const fuelSaved = _.zipWith(otherDistances, otherMpgs, (distance, mpg) => distance / mpg);
     const totalFuelSaved = _.sum(fuelSaved).toFixed(2);
     const totalGhgReduced = (totalFuelSaved * 19.6).toFixed(2);
