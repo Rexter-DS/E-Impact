@@ -138,6 +138,18 @@ dark-blue: 0C4D85
   background-color: #0c4d85 !important;
 }
 
+.daily-arrow-button {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+  background-color: #0c4d85 !important;
+}
+
+.daily-today-button {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+  background-color: #0c4d85 !important;
+}
+
 #daily-top {
   font-family: "Barlow Semi Condensed", sans-serif;
   color: #0c4d85 !important;
@@ -156,7 +168,7 @@ dark-blue: 0C4D85
 }
 
 .daily-header-sums {
-  color: #0c4d85 !important;
+  color: #0c4d85;
   font-weight: 900 !important;
 }
 
