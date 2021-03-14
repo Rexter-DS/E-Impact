@@ -138,10 +138,24 @@ dark-blue: 0C4D85
   background-color: #0c4d85 !important;
 }
 
+.daily-date-item {
+  padding: 0 !important;
+  color: #0c4d85 !important;
+  font-weight: 900 !important;
+}
+
+.daily-date-button {
+  /*padding: 35px !important;*/
+  margin: 0 !important;
+  color: #0c4d85 !important;
+  font-weight: 900 !important;
+  background-color: #FFFFFF !important;
+}
+
 .daily-arrow-button {
-  color: #FFFFFF !important;
+  color: #0c4d85 !important;
   font-size: 16px !important;
-  background-color: #0c4d85 !important;
+  background-color: #FFFFFF !important;
 }
 
 .daily-today-button {
@@ -170,6 +184,11 @@ dark-blue: 0C4D85
 .daily-header-sums {
   color: #0c4d85;
   font-weight: 900 !important;
+}
+
+.monthly-sum {
+  font-size: 35px;
+  font-weight: 700 !important;
 }
 
 .daily-table {

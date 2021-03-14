@@ -64,41 +64,40 @@ const Daily = (props) => {
               <SideBar/>
               <Menu borderless
                     id="daily-top">
-                <Menu.Item>
-                <Button className='daily-today-button' style={{ fontSize: '16px' }} onClick={handleClickToday}>
-                  This Month
-                </Button>
-                </Menu.Item>
-                <Grid style={{ width: '100%' }}>
-                  <Grid.Column width={4} verticalAlign='middle'>
-                    <Menu.Item className='daily-header-sums'>
-                      <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickPrev}>
-                        <Button.Content visible><Icon className='arrow left icon'/></Button.Content>
-                        <Button.Content hidden>
-                          Prev
-                        </Button.Content>
-                      </Button>
-                        {`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}
-                      <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickNext}>
-                        <Button.Content visible><Icon className='arrow right icon'/></Button.Content>
-                        <Button.Content hidden>
-                          Next
-                        </Button.Content>
-                      </Button>
-                  </Menu.Item>
+                <Grid className={'middle aligned'} style={{ width: '100%', marginLeft: '25px' }}>
+                  <Grid.Column width={1} verticalAlign='middle'>
+                    <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickPrev}>
+                      <Button.Content visible><Icon size='large' className='angle left'/></Button.Content>
+                      <Button.Content hidden>
+                        Prev
+                      </Button.Content>
+                    </Button>
+                  </Grid.Column>
+                  <Grid.Column width={3} verticalAlign='middle' style={{ marginRight: '100px' }}>
+                    <Button size='massive' className={'daily-date-button'} animated={'fade'} onClick={handleClickToday} style={{ width: '400px' }}>
+                      <Button.Content visible verticalAlign='middle' style={{ fontSize: '35px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
+                      <Button.Content hidden verticalAlign='middle'>
+                        Go to current month
+                      </Button.Content>
+                    </Button>
+                  </Grid.Column>
+                  <Grid.Column width={1} verticalAlign='middle'>
+                    <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickNext}>
+                      <Button.Content visible><Icon size='large' className='angle right'/></Button.Content>
+                      <Button.Content hidden>
+                        Next
+                      </Button.Content>
+                    </Button>
                   </Grid.Column>
                   <Grid.Column width={6} textAlign='center'><Menu.Item className='daily-header-sums'>Total Net GHG:</Menu.Item>
-                    <Menu.Item className='daily-header-sums' style={monthlySumStyle}>
+                    <Menu.Item className='monthly-sum' style={monthlySumStyle}>
                       {abs(monthlySum).toFixed(2)} lbs {monthlySum === 0 ? '' : monthlySum > 0 ? 'Produced' : 'Reduced'}
                     </Menu.Item></Grid.Column>
-
-                  <Grid.Column width={4}
-                               textAlign='center'><Menu.Item className='daily-header-sums'></Menu.Item></Grid.Column>
-                  <Grid.Column width={2}
-                               verticalAlign='middle'><Menu.Item>
-                    <Button className='daily-add-button'
-                            href={'#/addTrip'}>Add</Button>
-                  </Menu.Item></Grid.Column>
+                  {/*<Grid.Column verticalAlign='middle' width={2}>*/}
+                    <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
+                    <Button className='daily-add-button' href={'#/addTrip'}>Add</Button>
+                  </Menu.Item>
+                {/*</Grid.Column>*/}
                 </Grid>
               </Menu>
               <Table fixed
