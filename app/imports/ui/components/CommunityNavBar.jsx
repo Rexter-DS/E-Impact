@@ -18,7 +18,7 @@ class NavBar extends React.Component {
     return (
       <Menu id='community-nav' style={menuStyle} className='ui borderless top fixed menu'>
         <a href={'/#'}>
-          <Image size='medium' src="/images/EImpactLogoWhite.png"/>
+          <Image size='medium' src="/images/EImpactLogo.png"/>
         </a>
         <Menu.Item position="right">
           <a className='community-menu-item' href={'#/publiccommunity'}><p>Community Progress</p></a>

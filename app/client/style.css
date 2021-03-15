@@ -197,6 +197,7 @@ dark-blue: 0C4D85
   padding-right: 5%;
   font-family: "Barlow Semi Condensed", sans-serif;
 }
+
 .community-menu-item {
   font-family: "Barlow Semi Condensed", sans-serif;
   color: #000000 !important;
@@ -204,11 +205,19 @@ dark-blue: 0C4D85
   padding-right: 30px;
 }
 
+#community-engagement {
+  /*padding-bottom: 50px;*/
+}
+
+#community-section {
+  padding-top: 500px;
+}
+
 #community-nav {
-  height: 100px;
+  height: 120px;
   width: 100%;
   position: fixed;
-  background: transparent;
+  background: #ffffff;
   border-bottom: none;
   box-shadow: none;
 }
