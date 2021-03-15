@@ -16,10 +16,7 @@
   font-family: "Barlow Semi Condensed", sans-serif;
   color: #FFFFFF !important;
   font-size: 30px;
-  padding-right: 50px;
-}
-.fake-menu-item:after {
-
+  padding-right: 30px;
 }
 
 #landing {
@@ -195,9 +192,25 @@ dark-blue: 0C4D85
 
 /* Public Community Page */
 #public-community-container {
-  padding-top: 50px;
-  padding-bottom: 150px;
+  padding-top: 150px;
+  padding-left: 5%;
+  padding-right: 5%;
   font-family: "Barlow Semi Condensed", sans-serif;
+}
+.community-menu-item {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: #000000 !important;
+  font-size: 30px;
+  padding-right: 30px;
+}
+
+#community-nav {
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .quick-access-container {
