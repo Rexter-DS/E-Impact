@@ -205,6 +205,10 @@ dark-blue: 0C4D85
   padding-right: 30px;
 }
 
+.organizations {
+  align-items: center;
+}
+
 #community-engagement {
   /*padding-bottom: 50px;*/
 }

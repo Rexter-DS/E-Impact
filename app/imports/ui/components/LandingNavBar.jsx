@@ -21,7 +21,7 @@ class NavBar extends React.Component {
           <Image size='medium' src="/images/EImpactLogoWhite.png"/>
         </a>
         <Menu.Item position="right">
-          <a className='fake-menu-item' href={'#/publiccommunity'}><p>Community Progress</p></a>
+          <a className='fake-menu-item' href={'#/publiccommunity'}><p>Get Involved</p></a>
         </Menu.Item>
         <Menu.Item>
           <a className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
