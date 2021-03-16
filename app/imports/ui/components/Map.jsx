@@ -1,5 +1,6 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { Button, Icon } from 'semantic-ui-react';
 import State from '../components/State';
 import Kauai from '../components/Kauai';
@@ -25,12 +26,6 @@ export class MapContainer extends React.Component {
     activeMarker: {},
     selectedPlace: {},
   };
-
-  // onMarkerClick = (props, marker, e) => this.setState({
-  //       selectedPlace: props,
-  //       activeMarker: marker,
-  //       showingInfoWindow: true,
-  //     });
 
   onHonoluluClick = (props, marker) => this.setState({
     selectedPlace: props,
@@ -100,24 +95,6 @@ export class MapContainer extends React.Component {
     allCounties: true,
   })
 
-  // showHonolulu = () => this.setState({
-  //   showingInfoWindow: true,
-  // });
-  //
-  // closeHonolulu = () => this.setState({
-  // showingInfoWindow: false,
-  //   activeMarker: null,
-  // });
-
-  // onClose = props => {
-  //   if (this.state.showingInfoWindow) {
-  //     this.setState({
-  //       showingInfoWindow: false,
-  //       activeMarker: null,
-  //     });
-  //   }
-  // };
-
   render() {
 
     return (
@@ -143,18 +120,9 @@ export class MapContainer extends React.Component {
             </Button.Content>
           </Button>
           <Marker onClick={this.onHonoluluClick}
-                  // onMouseEnter={this.showInfo}
-                  // onMouseExit={this.closeInfo}
                   name={'Honolulu County'}
                   position={{ lat: 21.4389, lng: -158.0001 }}
           />
-           {/* <InfoWindow */}
-           {/*    marker={this.state.activeMarker} */}
-           {/*    visible={this.state.showingInfoWindow}> */}
-           {/*  <div> */}
-           {/*    <h1>Honolulu County</h1> */}
-           {/*  </div> */}
-           {/* </InfoWindow> */}
           <Marker onClick={this.onHawaiiClick}
                   name={'Hawaii County'}
                   position={{ lat: 19.5429, lng: -155.6659 }}
@@ -186,5 +154,5 @@ export class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'INSERT API KEY HERE',
+  apiKey: Meteor.settings.defaultKey,
 })(MapContainer);

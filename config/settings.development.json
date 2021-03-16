@@ -12,12 +12,6 @@
     { "county": "Kalawao", "first": "John", "last": "Adams", "email": "john@foo.com", "password": "changeme" }
   ],
 
-  "defaultData": [
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
-  ],
-
   "defaultUsers": [
     { "username": "admin@foo.com", "autoMPG": 25, "homeRoundTrip": 26 },
     { "username": "jcamarao@foo.com", "autoMPG": 21, "homeRoundTrip": 125 },
