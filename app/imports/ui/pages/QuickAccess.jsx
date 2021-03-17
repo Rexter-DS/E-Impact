@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Form, Card, Image, Header, Popup, Button, Icon } from 'semantic-ui-react';
+import { Grid, Form, Card, Image, Header, Popup, Button, Icon, Checkbox } from 'semantic-ui-react';
 import '../../../client/style.css';
 
 const QuickAccess = () => {
@@ -7,8 +7,6 @@ const QuickAccess = () => {
   const [mpg, setMpg] = useState(1);
   const [ghg, setGhg] = useState(0);
   const [transportationMethod, setTransportation] = useState('produced');
-  // TODO: Maybe a brief description would be helpful. What, Why, Where, answer why the user wants or needs to be on this page. Shaded box, separate logo and intro.
-  // TODO: Look into suggestion regarding withTracker() for constants?
   const updateProduced = (updatedMiles, updatedMpg) => {
     setGhg((updatedMiles / updatedMpg) * 19.64);
   };
@@ -47,6 +45,9 @@ const QuickAccess = () => {
         </div>
         <div className="quick-access-form">
           <Grid className="quick-access-grid">
+            <Grid.Row right>
+              <Checkbox label='DarkMode' toggle/>
+            </Grid.Row>
             <Grid.Row centered>
               <Image src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
             </Grid.Row>
@@ -104,7 +105,7 @@ const QuickAccess = () => {
             </Grid.Row>
             <Grid.Row floated="left" centered>
               <Grid.Column width={4}>
-                <Header as="h3">Mileage of test vehicle</Header>
+                <Header as="h3">Miles Per Gallon of test vehicle</Header>
                 <Popup
                     trigger={ <Icon name="question circle outline"/>
                     }
@@ -122,19 +123,8 @@ const QuickAccess = () => {
             </Grid.Row>
             <Grid.Row centered>
               <Grid.Column width={5}>
-                <Card>
-                  {// Temporary Image from:https://favpng.com/png_view/array-health-greenhouse-gas-lyocell-material-logo-png/M35VccaZ
-                  }
-                  <Image src={'/images/GHGLogo.png'} wrapped ui={false} alt="GHG Logo"/>
-                  <Card.Content>
-                    <Card.Header>GHG Produced</Card.Header>
-                    <Card.Description>You {transportationMethod} a total of {ghg.toFixed(2)} lb. of Carbon Dioxide(CO2)</Card.Description>
-                  </Card.Content>
-                </Card>
-              </Grid.Column>
-              <Grid.Column width={5}>
                 <Card href='https://projectfootprint.com/'>
-                  <Image src={'/images/ProjectFootPrint.png'} width={100} height={100} wrapped ui={false} alt="PFP Logo"/>
+                  <img src={'/images/ProjectFootPrint.png'} width={100} height={100} alt="PFP Logo"/>
                   <Card.Content>
                     <Card.Header>Reduce Your CO2 Footprint</Card.Header>
                     <Card.Description>
@@ -145,9 +135,20 @@ const QuickAccess = () => {
               </Grid.Column>
               <Grid.Column width={5}>
                 <Card>
-                  {// Tmporary Image from:https://www.cleanpng.com/png-cost-reduction-saving-money-service-1541224/
+                  {// Temporary Image from:https://favpng.com/png_view/array-health-greenhouse-gas-lyocell-material-logo-png/M35VccaZ
+                  }
+                  <img src={'/images/GHGLogo.png'} width={100} height={100} alt="GHG Logo"/>
+                  <Card.Content>
+                    <Card.Header>GHG {transportationMethod}</Card.Header>
+                    <Card.Description>You {transportationMethod} a total of <strong>{ghg.toFixed(2)} lb. of Carbon Dioxide(CO2)</strong></Card.Description>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={5}>
+                <Card>
+                  {// Temporary Image from:https://www.cleanpng.com/png-cost-reduction-saving-money-service-1541224/
                     }
-                  <Image src={'/images/SavingMoney.png'} wrapped ui={false} alt="Saving Money Logo"/>
+                  <img src={'/images/SavingMoney.png'} width={100} height={100} alt="Saving Money Logo"/>
                   <Card.Content>
                     <Card.Header>Save Gas Money</Card.Header>
                     <Card.Description>Using an electric car cuts the cost of Gas every month and reduces the amount of Green House Gases you produce.</Card.Description>
