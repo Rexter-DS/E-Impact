@@ -205,16 +205,38 @@ dark-blue: 0C4D85
   padding-right: 30px;
 }
 
+.organization-name {
+  font-size: 15px;
+  font-family: "Noyh", "Barlow Semi Condensed", sans-serif;
+  color: #44a047;
+}
+
+.organization-name:hover {
+  color: #024731;
+}
+
 .organizations {
-  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #community-engagement {
-  /*padding-bottom: 50px;*/
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+#community-engagement-header {
+  color: #267cc1;
+}
+
+#community-engagement-paragraph {
+  font-size: 15px;
 }
 
 #community-section {
-  padding-top: 500px;
+  padding-top: 440px;
 }
 
 #community-nav {
