@@ -31,40 +31,48 @@ class PublicCommunity extends React.Component {
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://www.sustainablecoastlineshawaii.org/' target='_blank'>Sustainable Coastlines Hawaii</a>
                   </div>
-                  <p>
-                  Conserving Hawaii&apos;s lands and waters by hosting beach cleanups.
-                    Educating our communities to sustain better green lifestyles.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                    Conserving Hawaii&apos;s lands and waters by hosting beach cleanups.
+                      Educating our communities to sustain better green lifestyles.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/hawaii-conservation-alliance.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://www.hawaiiconservation.org/' target='_blank'>Hawaii Conservation Alliance</a>
                   </div>
-                  <p>
-                  Combines science and hardwork to perserve Hawaii&apos;s ecosystems.
-                    Continuous research lifts our knowledge to allow the state to thrive.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                    Combines science and hardwork to perserve Hawaii&apos;s ecosystems.
+                      Continuous research lifts our knowledge to allow the state to thrive.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/808cleanups.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://808cleanups.org/' target='_blank'>808 Cleanups</a>
                   </div>
-                  <p>
-                    Engaging the community to work together to clean up the islands.
-                    Building a greener future for Hawaii&apos;s youth.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Engaging the community to work together to clean up the islands.
+                      Building a greener future for Hawaii&apos;s youth.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/hawaii-wildlife-fund.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://www.wildhawaii.org/' target='_blank'>Hawaii Wildlife Fund</a>
                   </div>
-                  <p>
-                    Saving hawaii&apos;s coastal wildlife by advocacy, research, and community engagement.
-                    Teaching Hawaii&apos;s next generation green practices.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Saving hawaii&apos;s coastal wildlife by advocacy, research, and community engagement.
+                      Teaching Hawaii&apos;s next generation green practices.
+                    </p>
+                  </div>
                 </Grid.Column>
               </Grid>
               <Grid>
@@ -73,40 +81,48 @@ class PublicCommunity extends React.Component {
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://sierraclubhig.org/' target='_blank'>Sierra Club Hawaii</a>
                   </div>
-                  <p>
-                    Hawaii&apos;s local branch of a nation wide initiative to preserve our planet.
-                    One of the oldest organizations keeping Hawaii green.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Hawaii&apos;s local branch of a nation wide initiative to preserve our planet.
+                      One of the oldest organizations keeping Hawaii green.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/marine-resource-council.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://www.mauireefs.org/' target='_blank'>Marine Resource Council</a>
                   </div>
-                  <p>
-                    Preserving our waters and reefs to be crystal clear and full of live.
-                    Keeping maui clean and the community safe by research.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Preserving our waters and reefs to be crystal clear and full of live.
+                      Keeping maui clean and the community safe by research.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/waiwai-ola.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://waterkeepershi.org/' target='_blank'>Waiwai Ola Waterkeepers Hawaii</a>
                   </div>
-                  <p>
-                    Cleansing the water quality statewide through determination and beautification.
-                    Saving native oysters and marine wildlife.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Cleansing the water quality statewide through determination and beautification.
+                      Saving native oysters and marine wildlife.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/kokee-resource.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://www.krcp.org/' target='_blank'>Kōkeʻe Resource Conservation Program</a>
                   </div>
-                  <p>
-                    Saving Kauai&apos;s native plants by safely removing invasive plant species.
-                    Promoting the forest&apos;s biodiversity in an engaging manner.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Saving Kauai&apos;s native plants by safely removing invasive plant species.
+                      Promoting the forest&apos;s biodiversity in an engaging manner.
+                    </p>
+                  </div>
                 </Grid.Column>
               </Grid>
               <Grid>
@@ -115,40 +131,48 @@ class PublicCommunity extends React.Component {
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://www.kauaiisc.org/' target='_blank'>Kauaʻi Invasive Species Committee</a>
                   </div>
-                  <p>
-                    Saving Kauai&apos;s plant and animal species from facing extinction.
-                    Working with lawmakers to remove invasive species harming the biodiversity.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Saving Kauai&apos;s plant and animal species from facing extinction.
+                      Working with lawmakers to remove invasive species harming the biodiversity.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/ka-honua-momona.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://kahonuamomona.org/' target='_blank'>Ka Honua Momona</a>
                   </div>
-                  <p>
-                    Based in Molokai, promoting sustainability through old practices.
-                    Educating and fostering community engagement to preserve Hawaii&apos;s cultural heritage.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Based in Molokai, promoting sustainability through old practices.
+                      Educating and fostering community engagement to preserve Hawaii&apos;s cultural heritage.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/lanai-culture.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://lanaichc.org/' target='_blank'>Lāna‘i Culture & Heritage Center</a>
                   </div>
-                  <p>
-                    Promoting community engagement by spreading cultural awareness.
-                    Teaching safe land practices and cultural literacy for the Lanai&apos;s community.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Promoting community engagement by spreading cultural awareness.
+                      Teaching safe land practices and cultural literacy for the Lanai&apos;s community.
+                    </p>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={4}>
                   <Image size='medium' src="/organizations/ke-ao-halii.png"/>
                   <div className='organizations'>
                     <a rel='noreferrer' className='organization-name' href='https://savehanacoast.org/' target='_blank'>Ke Ao Hali‘i</a>
                   </div>
-                  <p>
-                    Maintaining Hāna Hawaii land to conserving cultural heritage and the environment.
-                    Educating the community by teaching responsible coastal usage and practices.
-                  </p>
+                  <div className='organization-description'>
+                    <p>
+                      Maintaining Hāna Hawaii land to conserving cultural heritage and the environment.
+                      Educating the community by teaching responsible coastal usage and practices.
+                    </p>
+                  </div>
                 </Grid.Column>
               </Grid>
             </div>

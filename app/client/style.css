@@ -239,6 +239,10 @@ dark-blue: 0C4D85
   padding-top: 440px;
 }
 
+.organization-description {
+  width: 300px;
+}
+
 #community-nav {
   height: 120px;
   width: 100%;
