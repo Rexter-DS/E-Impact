@@ -73,10 +73,10 @@ const Daily = (props) => {
                       </Button.Content>
                     </Button>
                   </Grid.Column>
-                  <Grid.Column width={3} verticalAlign='middle' style={{ marginRight: '100px' }}>
-                    <Button size='massive' className={'daily-date-button'} animated={'fade'} onClick={handleClickToday} style={{ width: '400px' }}>
-                      <Button.Content visible verticalAlign='middle' style={{ fontSize: '35px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
-                      <Button.Content hidden verticalAlign='middle'>
+                  <Grid.Column width={3} verticalAlign='middle'>
+                    <Button size='massive' className={'daily-date-button'} animated={'fade'} onClick={handleClickToday} fluid>
+                      <Button.Content visible style={{ fontSize: '35px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
+                      <Button.Content hidden>
                         Go to current month
                       </Button.Content>
                     </Button>
@@ -93,11 +93,9 @@ const Daily = (props) => {
                     <Menu.Item className='monthly-sum' style={monthlySumStyle}>
                       {abs(monthlySum).toFixed(2)} lbs {monthlySum === 0 ? '' : monthlySum > 0 ? 'Produced' : 'Reduced'}
                     </Menu.Item></Grid.Column>
-                  {/*<Grid.Column verticalAlign='middle' width={2}>*/}
                     <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
                     <Button className='daily-add-button' href={'#/addTrip'}>Add</Button>
                   </Menu.Item>
-                {/*</Grid.Column>*/}
                 </Grid>
               </Menu>
               <Table fixed
