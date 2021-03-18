@@ -119,7 +119,6 @@ const Daily = (props) => {
                     <Table.Cell>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
                 </Table.Body>
               </Table>
-              <Footer id={'daily-footer'}/>
             </div>
         );
   }
