@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Form, Card, Image, Header, Popup, Button, Icon, Checkbox } from 'semantic-ui-react';
+import { Grid, Form, Card, Image, Header, Popup, Button, Icon } from 'semantic-ui-react';
 import '../../../client/style.css';
 
 const QuickAccess = () => {
@@ -45,9 +45,9 @@ const QuickAccess = () => {
         </div>
         <div className="quick-access-form">
           <Grid className="quick-access-grid">
-            <Grid.Row right>
-              <Checkbox label='DarkMode' toggle/>
-            </Grid.Row>
+            {/* <Grid.Row right> */}
+            {/*  <Checkbox label='DarkMode' toggle/> */}
+            {/* </Grid.Row> */}
             <Grid.Row centered>
               <Image src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
             </Grid.Row>
@@ -122,9 +122,9 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column width={5}>
+              <Card.Group>
                 <Card href='https://projectfootprint.com/'>
-                  <img src={'/images/ProjectFootPrint.png'} width={100} height={100} alt="PFP Logo"/>
+                  <img src={'/images/ProjectFootPrint.png'} width={280} height={280} alt="PFP Logo"/>
                   <Card.Content>
                     <Card.Header>Reduce Your CO2 Footprint</Card.Header>
                     <Card.Description>
@@ -132,29 +132,25 @@ const QuickAccess = () => {
                     </Card.Description>
                   </Card.Content>
                 </Card>
-              </Grid.Column>
-              <Grid.Column width={5}>
                 <Card>
                   {// Temporary Image from:https://favpng.com/png_view/array-health-greenhouse-gas-lyocell-material-logo-png/M35VccaZ
                   }
-                  <img src={'/images/GHGLogo.png'} width={100} height={100} alt="GHG Logo"/>
+                  <img src={'/images/GHGLogo.png'} width={280} height={280} alt="GHG Logo"/>
                   <Card.Content>
                     <Card.Header>GHG {transportationMethod}</Card.Header>
                     <Card.Description>You {transportationMethod} a total of <strong>{ghg.toFixed(2)} lb. of Carbon Dioxide(CO2)</strong></Card.Description>
                   </Card.Content>
                 </Card>
-              </Grid.Column>
-              <Grid.Column width={5}>
                 <Card>
                   {// Temporary Image from:https://www.cleanpng.com/png-cost-reduction-saving-money-service-1541224/
                     }
-                  <img src={'/images/SavingMoney.png'} width={100} height={100} alt="Saving Money Logo"/>
+                  <img src={'/images/SavingMoney.png'} width={280} height={280} alt="Saving Money Logo"/>
                   <Card.Content>
                     <Card.Header>Save Gas Money</Card.Header>
                     <Card.Description>Using an electric car cuts the cost of Gas every month and reduces the amount of Green House Gases you produce.</Card.Description>
                   </Card.Content>
                 </Card>
-              </Grid.Column>
+              </Card.Group>
             </Grid.Row>
           </Grid>
         </div>
