@@ -141,14 +141,14 @@ dark-blue: 0C4D85
 .daily-date-item {
   padding: 0 !important;
   color: #0c4d85 !important;
-  font-weight: 900 !important;
+  /*font-weight: 900 !important;*/
 }
 
 .daily-date-button {
   /*padding: 35px !important;*/
   margin: 0 !important;
   color: #0c4d85 !important;
-  font-weight: 900 !important;
+  /*font-weight: 900 !important;*/
   background-color: #FFFFFF !important;
 }
 

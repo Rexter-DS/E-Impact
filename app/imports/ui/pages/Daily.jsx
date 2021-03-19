@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import { Menu, Button, Table, Grid, Loader, Icon } from 'semantic-ui-react';
+import { Menu, Button, Table, Grid, Loader, Icon, Statistic } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import SideBar from '../components/SideBar';
@@ -27,6 +27,7 @@ const Daily = (props) => {
     }
   }
   const monthlySumStyle = monthlySum > 0 ? { color: 'red' } : { color: 'green' };
+  const monthlySumColor = monthlySum > 0 ? 'red' : 'green';
 
   function handleClickNext() {
     const m = (currentMonthYr[0] + 1) % 12;
@@ -34,7 +35,7 @@ const Daily = (props) => {
     if (m === 0) {
       y = currentMonthYr[1] + 1;
     }
-    setCurrentMonthYr([m, y])
+    setCurrentMonthYr([m, y]);
   }
 
   function handleClickPrev() {
@@ -43,7 +44,7 @@ const Daily = (props) => {
     if (m === 11) {
       y -= 1;
     }
-    setCurrentMonthYr([m, y])
+    setCurrentMonthYr([m, y]);
   }
 
   function handleClickToday() {
@@ -75,7 +76,7 @@ const Daily = (props) => {
                   </Grid.Column>
                   <Grid.Column width={3} verticalAlign='middle'>
                     <Button size='massive' className={'daily-date-button'} animated={'fade'} onClick={handleClickToday} fluid>
-                      <Button.Content visible style={{ fontSize: '35px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
+                      <Button.Content visible style={{ fontSize: '30px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
                       <Button.Content hidden>
                         Go to current month
                       </Button.Content>
@@ -89,10 +90,12 @@ const Daily = (props) => {
                       </Button.Content>
                     </Button>
                   </Grid.Column>
-                  <Grid.Column width={6} textAlign='center'><Menu.Item className='daily-header-sums'>Total Net GHG:</Menu.Item>
-                    <Menu.Item className='monthly-sum' style={monthlySumStyle}>
-                      {abs(monthlySum).toFixed(2)} lbs {monthlySum === 0 ? '' : monthlySum > 0 ? 'Produced' : 'Reduced'}
-                    </Menu.Item></Grid.Column>
+                  <Grid.Column width={4} textAlign='center'>
+                    <Statistic size='small' color={monthlySumColor}>
+                      <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
+                      <Statistic.Label style={{ fontSize: '18px' }}>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs Produced' : 'lbs Reduced'}</Statistic.Label>
+                    </Statistic>
+                  </Grid.Column>
                     <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
                     <Button className='daily-add-button' href={'#/addTrip'}>Add</Button>
                   </Menu.Item>
