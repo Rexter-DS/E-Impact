@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, Form, Card, Image, Header, Popup, Button, Icon } from 'semantic-ui-react';
+import { Grid, Form, Card, Image, Header, Popup, Button, Menu } from 'semantic-ui-react';
 import '../../../client/style.css';
+import Footer from '../components/Footer';
 
 const QuickAccess = () => {
   const [miles, setMiles] = useState(1);
@@ -38,16 +39,21 @@ const QuickAccess = () => {
 
   return (
       <div className="quick-access-container">
-        <div className="quick-access-navbar">
-          <a href={'/#'}>
-            <Image src={'/images/EImpactLogoWhite.png'} height={131.27} width={300} alt="Home"/>
-          </a>
+        <div>
+          <Menu id={'quick-access-navbar'}>
+            <a href={'/#'}>
+              <Image size='medium' src="/images/EImpactLogoWhite.png"/>
+            </a>
+            <Menu.Item position="right">
+              <a className='fake-menu-item' href={'#/get-involved'}><p>Get Involved</p></a>
+            </Menu.Item>
+            <Menu.Item>
+              <a className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
+            </Menu.Item>
+          </Menu>
         </div>
         <div className="quick-access-form">
           <Grid className="quick-access-grid">
-            {/* <Grid.Row right> */}
-            {/*  <Checkbox label='DarkMode' toggle/> */}
-            {/* </Grid.Row> */}
             <Grid.Row centered>
               <Image src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
             </Grid.Row>
@@ -106,12 +112,6 @@ const QuickAccess = () => {
             <Grid.Row floated="left" centered>
               <Grid.Column width={4}>
                 <Header as="h3">Miles Per Gallon of test vehicle</Header>
-                <Popup
-                    trigger={ <Icon name="question circle outline"/>
-                    }
-                    content="If your mode of transportation wasn't your car, inputting the mpg of your car can be used to determine how much ghg you saved by not using it."
-                    size="mini"
-                />
               </Grid.Column>
               <Grid.Column width={4}>
                 <Form align="left">
@@ -135,7 +135,7 @@ const QuickAccess = () => {
                 <Card>
                   {// Temporary Image from:https://favpng.com/png_view/array-health-greenhouse-gas-lyocell-material-logo-png/M35VccaZ
                   }
-                  <img src={'/images/GHGLogo.png'} width={280} height={280} alt="GHG Logo"/>
+                  <img src={'/images/LeafLogo.png'} width={280} height={280} alt="GHG Logo"/>
                   <Card.Content>
                     <Card.Header>GHG {transportationMethod}</Card.Header>
                     <Card.Description>You {transportationMethod} a total of <strong>{ghg.toFixed(2)} lb. of Carbon Dioxide(CO2)</strong></Card.Description>
@@ -144,7 +144,7 @@ const QuickAccess = () => {
                 <Card>
                   {// Temporary Image from:https://www.cleanpng.com/png-cost-reduction-saving-money-service-1541224/
                     }
-                  <img src={'/images/SavingMoney.png'} width={280} height={280} alt="Saving Money Logo"/>
+                  <img src={'/images/SavingMoneyLogo.png'} width={280} height={280} alt="Saving Money Logo"/>
                   <Card.Content>
                     <Card.Header>Save Gas Money</Card.Header>
                     <Card.Description>Using an electric car cuts the cost of Gas every month and reduces the amount of Green House Gases you produce.</Card.Description>
@@ -154,7 +154,9 @@ const QuickAccess = () => {
             </Grid.Row>
           </Grid>
         </div>
+        <Footer id={'quick-access-footer'}/>
       </div>
   );
 };
+
 export default QuickAccess;
