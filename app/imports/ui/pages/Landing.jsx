@@ -10,7 +10,6 @@ class Landing extends React.Component {
     return (
         <div id="landing">
           <LandingNavBar/>
-
           {/* This controls the top half of the landing page */}
           <div style={{ paddingLeft: '250px', paddingRight: '250px' }} className="ui center aligned container">
             <p>Help keep our air clean and monitor your Green House Gas emissions!</p>
@@ -39,8 +38,9 @@ class Landing extends React.Component {
               </Button>
             </Grid.Column>
           </Grid>
-        <Footer id={'landing-footer'}/>
+            <Footer id={'landing-footer'}/>
         </div>
+
     );
   }
 }
