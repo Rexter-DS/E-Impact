@@ -12,7 +12,8 @@ function Dashboard(
     {
       tripReady,
       userReady,
-      milesSavedTotal,
+      vehicleMilesTraveled,
+      milesTotal,
       milesSavedPerDay,
       modesOfTransport,
       userProfile,
@@ -25,7 +26,9 @@ function Dashboard(
   return ((tripReady && userReady) ?
           <div>
             <DashboardContent
-                milesSavedTotal={milesSavedTotal}
+                vehicleMilesSaved={vehicleMilesTraveled.milesSaved}
+                vehicleMilesAdded={vehicleMilesTraveled.milesAdded}
+                milesTotal={milesTotal}
                 milesSavedPerDay={milesSavedPerDay}
                 modesOfTransport={modesOfTransport}
                 userProfile={userProfile}
@@ -41,7 +44,8 @@ function Dashboard(
 }
 
 Dashboard.propTypes = {
-  milesSavedTotal: PropTypes.number,
+  vehicleMilesTraveled: PropTypes.object,
+  milesTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.any,
@@ -56,7 +60,8 @@ export default withTracker(({ match }) => {
   const tripSubscribe = Trips.subscribeTrip();
   const userSubscribe = Users.subscribeUser();
   const username = match.params._id;
-  const milesSavedTotal = Trips.getMilesSavedTotal(username);
+  const vehicleMilesTraveled = Trips.getVehicleMilesTraveled(username);
+  const milesTotal = Trips.getMilesTotal(username);
   const milesSavedPerDay = Trips.getMilesSavedPerDay(username);
   const modesOfTransport = Trips.getModesOfTransport(username);
   const userProfile = Users.getUserProfile(username);
@@ -66,7 +71,8 @@ export default withTracker(({ match }) => {
   return {
     tripReady: tripSubscribe.ready(),
     userReady: userSubscribe.ready(),
-    milesSavedTotal,
+    vehicleMilesTraveled,
+    milesTotal,
     milesSavedPerDay,
     modesOfTransport,
     userProfile,

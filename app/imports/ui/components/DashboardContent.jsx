@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Card, Statistic } from 'semantic-ui-react';
+import { Grid, Popup, Card, Statistic, Icon } from 'semantic-ui-react';
 import SideBar from './SideBar';
 import Chart from './Chart';
 
 // Contains the graphs that visualizes the user's data.
 function DashboardContent(
     {
-      milesSavedTotal,
+      vehicleMilesSaved,
+      vehicleMilesAdded,
       milesSavedPerDay,
       modesOfTransport,
       userProfile,
-      ghgProducedTotal,
       ghgReducedPerDay,
       fuelSavedPerDay,
     },
@@ -38,7 +38,8 @@ function DashboardContent(
     },
   };
 
-  const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
+  const fuelSavedTotal = (vehicleMilesSaved / userProfile.autoMPG).toFixed(2);
+  const fuelCostTotal = (vehicleMilesAdded / userProfile.autoMPG).toFixed(2);
 
   const fuelSavedPerDayData = {
     x: fuelSavedPerDay.date,
@@ -48,30 +49,28 @@ function DashboardContent(
     mode: 'lines+markers',
   };
 
+  const dollarSavedPerFuelData = {
+    x: fuelSavedPerDay.date,
+    y: fuelSavedPerDay.price,
+    name: 'Money Saved per Fuel Saved (dollars)',
+    type: 'scatter',
+    mode: 'lines+markers',
+  };
+
+  const ghgProducedTotal = (fuelCostTotal * 19.6).toFixed(2);
+
   const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
 
   const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
     y: ghgReducedPerDay.ghg,
     name: 'GHG Reduced (pounds)',
-    type: 'scatter',
-    mode: 'lines+markers',
+    type: 'bar',
   };
 
-  const fuelAndGhgPerDayLayout = {
-    autosize: true,
-    showlegend: true,
-    xaxis: {
-      range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
-      rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Fuel and GHG saved',
-      range: [0, Math.max(...ghgReducedPerDay.ghg)],
-      type: 'linear',
-    },
-  };
+  // 100,000 trees = 2,400 tons of CO2 or 4,800,000 pounds of CO2
+  // 1 tree = 48 pounds of CO2
+  const treesPlanted = (ghgReducedTotal / 48).toFixed(0);
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -86,54 +85,147 @@ function DashboardContent(
     showlegend: true,
   };
 
+  const fuelAndDollarPerDayLayout = {
+    autosize: true,
+    showlegend: true,
+    xaxis: {
+      range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
+      rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
+      type: 'date',
+    },
+    yaxis: {
+      title: 'Fuel and Money saved',
+      range: [0, Math.max(...fuelSavedPerDay.price)],
+      type: 'linear',
+    },
+  };
+
+  const ghgReducedPerDayLayout = {
+    autosize: true,
+    showlegend: true,
+    xaxis: {
+      range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
+      rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
+      type: 'date',
+    },
+    yaxis: {
+      title: 'GHG Reduced ',
+      range: [0, Math.max(...ghgReducedPerDay.ghg)],
+      type: 'linear',
+    },
+  };
+
   return (
       <div id='dashboard-container'>
         <SideBar/>
         <Card.Group centered stackable itemsPerRow={4}>
-          <Card>
-            <Card.Header style={{ paddingLeft: '10px' }}>
-              Vehicle Miles Traveled (VMT) Reduced
-            </Card.Header>
-            <Card.Content textAlign='center'>
-              <Statistic>
-                <Statistic.Value>{milesSavedTotal}</Statistic.Value>
-                <Statistic.Label>miles</Statistic.Label>
-              </Statistic>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Header style={{ paddingLeft: '10px' }}>
-              Gallons of Fuel Saved
-            </Card.Header>
-            <Card.Content textAlign='center'>
-              <Statistic>
-                <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
-                <Statistic.Label>gallons</Statistic.Label>
-              </Statistic>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Header style={{ paddingLeft: '10px' }}>
-              Green House Gas (GHG) Produced
-            </Card.Header>
-            <Card.Content textAlign='center'>
-              <Statistic>
-                <Statistic.Value>{ghgProducedTotal}</Statistic.Value>
-                <Statistic.Label>pounds</Statistic.Label>
-              </Statistic>
-            </Card.Content>
-          </Card>
-          <Card>
-            <Card.Header style={{ paddingLeft: '10px' }}>
-              Green House Gas (GHG) Reduced
-            </Card.Header>
-            <Card.Content textAlign='center'>
-              <Statistic>
-                <Statistic.Value>{ghgReducedTotal}</Statistic.Value>
-                <Statistic.Label>pounds</Statistic.Label>
-              </Statistic>
-            </Card.Content>
-          </Card>
+          <Popup
+              trigger={
+                <Card>
+                  <Card.Header style={{ paddingLeft: '10px' }}>
+                    Vehicle Miles Traveled (VMT)
+                  </Card.Header>
+                  <Card.Content textAlign='center'>
+                    <Statistic>
+                      <Statistic.Value>{vehicleMilesSaved}</Statistic.Value>
+                      <Statistic.Label>miles saved</Statistic.Label>
+                    </Statistic>
+                  </Card.Content>
+                  <Card.Content textAlign='center'>
+                    <Statistic>
+                      <Statistic.Value>{vehicleMilesAdded}</Statistic.Value>
+                      <Statistic.Label>miles traveled</Statistic.Label>
+                    </Statistic>
+                  </Card.Content>
+                </Card>
+              }
+          >
+            <Popup.Content>
+              The top number represents how many miles you traveled using environmentally conscious modes of transportation.<br/>
+              The bottom number represents how many miles you traveled using a gas-powered car.
+            </Popup.Content>
+          </Popup>
+          <Popup
+              trigger={
+                <Card>
+                  <Card.Header style={{ paddingLeft: '10px' }}>
+                    Gallons of Fuel
+                  </Card.Header>
+                  <Card.Content textAlign='center'>
+                    <Statistic>
+                      <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
+                      <Statistic.Label>gallons saved</Statistic.Label>
+                    </Statistic>
+                  </Card.Content>
+                  <Card.Content textAlign='center'>
+                    <Statistic>
+                      <Statistic.Value>{fuelCostTotal}</Statistic.Value>
+                      <Statistic.Label>gallons spent</Statistic.Label>
+                    </Statistic>
+                  </Card.Content>
+                </Card>
+              }
+          >
+            <Popup.Content>
+              The top number represents how many gallons of fuel you saved by using other modes of transportation.<br/>
+              The bottom number represents how many gallons of fuel you spent by traveling using a gas-powered car.
+            </Popup.Content>
+          </Popup>
+          <Popup
+              trigger={
+                <Card>
+                  <Card.Header style={{ paddingLeft: '10px' }}>
+                    Green House Gas (GHG)
+                  </Card.Header>
+                  <Card.Content textAlign='center'>
+                    <Statistic>
+                      <Statistic.Value>{ghgReducedTotal}</Statistic.Value>
+                      <Statistic.Label>pounds reduced</Statistic.Label>
+                    </Statistic>
+                  </Card.Content>
+                  <Card.Content textAlign='center'>
+                    <Statistic>
+                      <Statistic.Value>{ghgProducedTotal}</Statistic.Value>
+                      <Statistic.Label>pounds produced</Statistic.Label>
+                    </Statistic>
+                  </Card.Content>
+                </Card>
+              }
+          >
+            <Popup.Content>
+              The top number represents how many pounds of GHG you reduced by using other modes of transportation.<br/>
+              The bottom number represents how many pounds of GHG you produced by using a gas-powered car.
+            </Popup.Content>
+          </Popup>
+          <Popup
+              trigger={
+                <Card>
+                  <Card.Header style={{ paddingLeft: '10px' }}>
+                    Trees per GHG reduced
+                  </Card.Header>
+                  <Card.Content>
+                    <Grid verticalAlign='middle' centered style={{ height: '100%' }}>
+                      <Grid.Column textAlign='center'>
+                        <Icon
+                            name='tree'
+                            size='huge'
+                            style={{ marginBottom: '10px' }}
+                        />
+                        <Statistic>
+                          <Statistic.Value>{treesPlanted}</Statistic.Value>
+                          <Statistic.Label>trees</Statistic.Label>
+                        </Statistic>
+                      </Grid.Column>
+                    </Grid>
+                  </Card.Content>
+                </Card>
+              }
+          >
+            <Popup.Content>
+              One tree alone absorbs 48 pounds of CO<sub>2</sub> each year.<br/>
+              Based on the amount of GHG you have reduced, you have made a contribution equivalent to {treesPlanted} trees.
+            </Popup.Content>
+          </Popup>
         </Card.Group>
         <Grid stackable>
           <Grid.Row>
@@ -159,14 +251,23 @@ function DashboardContent(
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid stackable columns='equal'>
+        <Grid stackable>
           <Grid.Column>
             <Card fluid>
               <Card.Header style={{ paddingLeft: '10px' }}>
-                Fuel Saved and GHG Reduced per Day
+                Fuel Saved per Day
               </Card.Header>
               <Card.Content>
-                <Chart chartData={[fuelSavedPerDayData, ghgReducedPerDayData]} chartLayout={fuelAndGhgPerDayLayout}/>
+                <Chart chartData={[fuelSavedPerDayData, dollarSavedPerFuelData]} chartLayout={fuelAndDollarPerDayLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid>
+        <Grid stackable>
+          <Grid.Column>
+            <Card fluid>
+              <Card.Content>
+                <Chart chartData={[ghgReducedPerDay]} chartLayout={ghgReducedPerDayLayout}/>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -176,7 +277,9 @@ function DashboardContent(
 }
 
 DashboardContent.propTypes = {
-  milesSavedTotal: PropTypes.number,
+  vehicleMilesSaved: PropTypes.number,
+  vehicleMilesAdded: PropTypes.number,
+  milesTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.object,

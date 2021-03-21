@@ -26,6 +26,10 @@ class TripCollection extends BaseCollection {
         allowedValues: tripModes,
         defaultValue: 'Gas Car',
       },
+      passenger: {
+        type: Number,
+        defaultValue: 0,
+      },
       mpg: Number,
       owner: String,
       county: String,
@@ -42,11 +46,12 @@ class TripCollection extends BaseCollection {
    * @param county the county of the owner.
    * @return {String} the docID of the new document.
    */
-  define({ date, distance, mode, mpg, owner, county }) {
+  define({ date, distance, mode, passenger, mpg, owner, county }) {
     const docID = this._collection.insert({
       date,
       distance,
       mode,
+      passenger,
       mpg,
       owner,
       county,
@@ -54,8 +59,8 @@ class TripCollection extends BaseCollection {
     return docID;
   }
 
-  defineWithMessage({ date, distance, mode, mpg, owner, county }) {
-    const docID = this._collection.insert({ date, distance, mode, mpg, owner, county },
+  defineWithMessage({ date, distance, mode, passenger, mpg, owner, county }) {
+    const docID = this._collection.insert({ date, distance, mode, passenger, mpg, owner, county },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
@@ -192,11 +197,37 @@ class TripCollection extends BaseCollection {
   }
 
   /**
-   * Returns the total miles that the user has saved.
+   * Gets the number of miles traveled using green modes of transport and miles traveled using gas car.
+   * @param username the username of the user.
+   * @returns {{milesAdded: number, milesSaved: number}} milesAdded is the miles traveled using gas car and miles saved is the number
+   * of miles using green modes of transport.
+   */
+  getVehicleMilesTraveled(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    let milesSaved = 0;
+    let milesAdded = 0;
+
+    _.forEach(userTrips, function (objects) {
+      if (objects.mode === 'Gas Car') {
+        milesAdded += objects.distance;
+      } else if (objects.mode === 'Carpool') {
+        milesAdded += (objects.distance * objects.passenger);
+        milesSaved += objects.distance;
+      } else {
+        milesSaved += objects.distance;
+      }
+    });
+
+    return { milesSaved: milesSaved, milesAdded: milesAdded };
+  }
+
+  /**
+   * Returns the total miles that the user has traveled.
    * @param username the username of the user.
    * @returns {number} the total miles.
    */
-  getMilesSavedTotal(username) {
+  getMilesTotal(username) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
     let milesSaved = 0;
@@ -275,24 +306,28 @@ class TripCollection extends BaseCollection {
   }
 
   /**
-   * Gets the fuel that the user saved per day.
+   * Gets the fuel that the user saved per day as well as the dollar saved.
    * @param username the username of the user.
    * @param userMPG the MPG of the user.
-   * @returns {{date: [], fuel: []}}
-   * An object that contains an array of dates and an array of fuel saved for the respective date.
+   * @returns {{date: [], fuel: [], price: []}}
+   * An object that contains an array of dates and an array of fuel and dollar saved for the respective date.
    */
   getFuelSavedPerDay(username, userMPG) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
     const date = [];
     const fuel = [];
+    const price = [];
 
     _.forEach(userTrips, function (objects) {
       date.push(objects.date);
       fuel.push((objects.distance / userMPG).toFixed(2));
+      price.push(((objects.distance / userMPG) * 3.77).toFixed(2));
     });
 
-    return { date: date, fuel: fuel };
+    console.log(price);
+
+    return { date: date, fuel: fuel, price: price };
   }
 }
 
