@@ -292,22 +292,41 @@ dark-blue: 0C4D85
 }
 
 .quick-access-container {
+  position: relative;
   padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
 }
-.quick-access-navbar{
-  padding-bottom: 30px;
-}
+
 .quick-access-grid{
   background-color: white;
-  /* width: 900px; */
 }
 .quick-access-form{
   align-content: center;
-  background-color: white;
-  margin-right: 275px;
-  margin-left: 275px;
+  margin-right: 265px;
+  margin-left: 265px;
+  padding-top: 150px;
+}
+
+#quick-access-navbar{
+  position: absolute !important;
+  padding-bottom: 35px;
+  height: 100px;
+  width: 100%;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+#quick-access-footer{
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 15px 0;
 }
 
 #card-bottom {
