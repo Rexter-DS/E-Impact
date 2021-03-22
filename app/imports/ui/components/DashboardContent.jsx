@@ -56,7 +56,7 @@ function DashboardContent(
 
   // 100,000 trees = 2,400 tons of CO2 or 4,800,000 pounds of CO2
   // 1 tree = 48 pounds of CO2
-  const treesPlanted = (ghgReducedTotal / 48).toFixed(0);
+  const treesPlanted = (ghgProducedTotal / 48).toFixed(0);
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -205,7 +205,7 @@ function DashboardContent(
               trigger={
                 <Card>
                   <Card.Header style={{ paddingLeft: '10px' }}>
-                    Trees per GHG reduced
+                    Trees per GHG produced
                   </Card.Header>
                   <Card.Content>
                     <Grid verticalAlign='middle' centered style={{ height: '100%' }}>
@@ -228,7 +228,7 @@ function DashboardContent(
           >
             <Popup.Content>
               One tree alone absorbs 48 pounds of CO<sub>2</sub> each year.<br/>
-              Based on the amount of GHG you have reduced, you have made a contribution equivalent to {treesPlanted} trees.
+              Based on the amount of GHG you have produced, you would need to plant {treesPlanted} trees.
             </Popup.Content>
           </Popup>
         </Card.Group>
