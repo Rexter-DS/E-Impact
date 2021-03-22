@@ -24,20 +24,6 @@ function DashboardContent(
     text: milesSavedPerDay.mode,
   }];
 
-  const milesSavedPerDayLayout = {
-    autosize: true,
-    xaxis: {
-      range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
-      rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Miles Saved (miles)',
-      range: [0, Math.max(...milesSavedPerDay.distance)],
-      type: 'linear',
-    },
-  };
-
   const fuelSavedTotal = (vehicleMilesSaved / userProfile.autoMPG).toFixed(2);
   const fuelCostTotal = (vehicleMilesAdded / userProfile.autoMPG).toFixed(2);
 
@@ -85,9 +71,28 @@ function DashboardContent(
     showlegend: true,
   };
 
+  const milesSavedPerDayLayout = {
+    autosize: true,
+    xaxis: {
+      range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
+      rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
+      type: 'date',
+    },
+    yaxis: {
+      title: 'Miles Saved (miles)',
+      range: [0, Math.max(...milesSavedPerDay.distance)],
+      type: 'linear',
+    },
+  };
+
   const fuelAndDollarPerDayLayout = {
     autosize: true,
     showlegend: true,
+    legend: {
+      orientation: 'h',
+      x: 0,
+      y: 1.3,
+    },
     xaxis: {
       range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
       rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
@@ -102,14 +107,13 @@ function DashboardContent(
 
   const ghgReducedPerDayLayout = {
     autosize: true,
-    showlegend: true,
     xaxis: {
       range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
       rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
       type: 'date',
     },
     yaxis: {
-      title: 'GHG Reduced ',
+      title: 'GHG Reduced (pounds)',
       range: [0, Math.max(...ghgReducedPerDay.ghg)],
       type: 'linear',
     },
@@ -208,6 +212,7 @@ function DashboardContent(
                       <Grid.Column textAlign='center'>
                         <Icon
                             name='tree'
+                            color='green'
                             size='huge'
                             style={{ marginBottom: '10px' }}
                         />
@@ -231,7 +236,7 @@ function DashboardContent(
           <Grid.Row>
             <Grid.Column width={9}>
               <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px' }}>
+                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
                   Miles Saved Per Day
                 </Card.Header>
                 <Card.Content>
@@ -241,7 +246,7 @@ function DashboardContent(
             </Grid.Column>
             <Grid.Column width={7}>
               <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px' }}>
+                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
                   Modes of Transportation Used
                 </Card.Header>
                 <Card.Content>
@@ -251,10 +256,10 @@ function DashboardContent(
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid stackable>
+        <Grid stackable columns='equal'>
           <Grid.Column>
             <Card fluid>
-              <Card.Header style={{ paddingLeft: '10px' }}>
+              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
                 Fuel Saved per Day
               </Card.Header>
               <Card.Content>
@@ -262,12 +267,13 @@ function DashboardContent(
               </Card.Content>
             </Card>
           </Grid.Column>
-        </Grid>
-        <Grid stackable>
           <Grid.Column>
             <Card fluid>
+              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+                GHG Reduced per Day
+              </Card.Header>
               <Card.Content>
-                <Chart chartData={[ghgReducedPerDay]} chartLayout={ghgReducedPerDayLayout}/>
+                <Chart chartData={[ghgReducedPerDayData]} chartLayout={ghgReducedPerDayLayout}/>
               </Card.Content>
             </Card>
           </Grid.Column>

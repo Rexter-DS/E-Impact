@@ -325,8 +325,6 @@ class TripCollection extends BaseCollection {
       price.push(((objects.distance / userMPG) * 3.77).toFixed(2));
     });
 
-    console.log(price);
-
     return { date: date, fuel: fuel, price: price };
   }
 }
