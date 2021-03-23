@@ -208,9 +208,9 @@ function DashboardContent(
                   <Card.Header style={{ paddingLeft: '10px' }}>
                     Trees per GHG
                   </Card.Header>
-                  <Card.Content textAlign='center'>
+                  <Card.Content>
                     <Grid>
-                      <Grid.Column textAlign='right' width={6} style={{ paddingRight: '0px' }}>
+                      <Grid.Column width={5}>
                         <Icon
                             name='tree'
                             color='green'
@@ -218,19 +218,19 @@ function DashboardContent(
                             style={{ paddingLeft: '10px', paddingTop: '10px' }}
                         />
                       </Grid.Column>
-                      <Grid.Column width={10} style={{ paddingLeft: '0px' }}>
-                        <Statistic>
+                      <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '5px' }}>
+                        <Statistic >
                           <Statistic.Value>
                             {treesPerGhgReduced}
                           </Statistic.Value>
-                          <Statistic.Label>trees per ghg reduced</Statistic.Label>
+                          <Statistic.Label>tree equivalence to ghg reduced</Statistic.Label>
                         </Statistic>
                       </Grid.Column>
                     </Grid>
                   </Card.Content>
                   <Card.Content>
                     <Grid>
-                      <Grid.Column textAlign='right' width={6} style={{ paddingRight: '0px' }}>
+                      <Grid.Column width={5}>
                         <Icon
                             name='tree'
                             color='red'
@@ -238,12 +238,12 @@ function DashboardContent(
                             style={{ paddingLeft: '10px', paddingTop: '10px' }}
                         />
                       </Grid.Column>
-                      <Grid.Column width={10} style={{ paddingLeft: '0px' }}>
-                        <Statistic>
+                      <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '5px' }}>
+                        <Statistic >
                           <Statistic.Value>
                             {treesPerGhgProduced}
                           </Statistic.Value>
-                          <Statistic.Label>trees per ghg produced</Statistic.Label>
+                          <Statistic.Label>tree equivalence to ghg produced</Statistic.Label>
                         </Statistic>
                       </Grid.Column>
                     </Grid>
@@ -254,7 +254,7 @@ function DashboardContent(
             <Popup.Content>
               One tree alone absorbs 48 pounds of CO<sub>2</sub> each year.<br/>
               Based on the amount of GHG you have reduced, you have made a contribution of reducing GHG equal to {treesPerGhgReduced} trees.<br/>
-              Based on the amount of GHG you have produced, you would need to plant {treesPerGhgProduced} trees.
+              Based on the amount of GHG you have produced, you would need to plant {treesPerGhgProduced} trees in order to offset the GHG produced.
             </Popup.Content>
           </Popup>
         </Card.Group>
