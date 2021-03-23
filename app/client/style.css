@@ -21,24 +21,23 @@
 
 #landing {
   /* Set rules to fill background */
-  min-height: 100%;
-  min-width: 1024px;
+  /*min-height: 100%;*/
+  /*min-width: 1024px;*/
 
-  /* Set up proportionate scaling */
-  width: 100%;
-  height: auto;
+  /*!* Set up proportionate scaling *!*/
+  /*width: 100%;*/
+  /*height: auto;*/
 
-  /* Set up positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
+  /*!* Set up positioning *!*/
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*left: 0;*/
 
   padding-top: 130px;
-  color: white;
+  /*color: white;*/
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 30px;
-  background: url("/images/OahuBackground.jpeg") no-repeat center center;
-  background-size: cover;
+  /*background-size: cover;*/
 }
 
 #landing-info1 {
@@ -48,6 +47,13 @@
 
 #landing-bottom {
   padding-top: 150px;
+}
+
+#greet {
+  height: 425px;
+  padding: 50px;
+  background: url("/images/OahuBackground.jpeg") no-repeat center center;
+  /*background-size: cover;*/
 }
 
 #sign {
@@ -105,13 +111,12 @@
 }
 
 #landing-footer {
-  background-color: #ffffff;
+  background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 14px;
-  color: black !important;
+  color: white !important;
   position: absolute;
   width: 100%;
-  bottom: 0;
   padding: 15px 0;
 }
 
