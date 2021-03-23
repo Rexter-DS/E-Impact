@@ -11,7 +11,7 @@ export default class Signout extends React.Component {
           <Header id="signout-page" as="h2" textAlign="center" inverted>
             <p>You are signed out.</p>
               {/* After one second, user will be redirect to landing page. */}
-              <meta httpEquiv="refresh" content="1; url=/#/"/>
+              {/*<meta httpEquiv="refresh" content="1; url=/#/"/>*/}
           </Header>
         </div>
     );

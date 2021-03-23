@@ -40,16 +40,22 @@
   background: url("/images/OahuBackground.jpeg") no-repeat center center;
   background-size: cover;
 }
+
+#landing-info1 {
+  height: 375px;
+  padding: 50px;
+}
+
 #landing-bottom {
   padding-top: 150px;
 }
 
 #sign {
   padding-top: 150px;
-  /*padding-bottom: 150px;*/
+  padding-bottom: 125px;
+  height: 100%;
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
-  padding-bottom: 150px;
 }
 
 #dashboard-container {
