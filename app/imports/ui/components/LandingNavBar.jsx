@@ -17,9 +17,9 @@ class NavBar extends React.Component {
 
     return (
         <div>
-          <Menu id='landing-nav' style={menuStyle} className='ui borderless top fixed menu'>
+          <Menu id='community-nav' style={menuStyle} className='ui borderless top fixed menu'>
             <a href={'/#'}>
-              <Image size='medium' src="/images/EImpactLogoWhite.png"/>
+              <Image size='medium' src="/images/EImpactLogo.png"/>
             </a>
             <Menu.Item position="right">
               <a className='fake-menu-item' href={'#/get-involved'}><p>Get Involved</p></a>

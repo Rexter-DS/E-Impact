@@ -8,13 +8,13 @@
   height: 100px;
   width: 100%;
   position: fixed;
-  background: transparent;
+  background: #ffffff;
   border-bottom: none;
   box-shadow: none;
 }
 .fake-menu-item {
   font-family: "Barlow Semi Condensed", sans-serif;
-  color: #FFFFFF !important;
+  color: black !important;
   font-size: 30px;
   padding-right: 30px;
 }
@@ -34,7 +34,7 @@
   left: 0;
 
   padding-top: 130px;
-  color: #FFFFFF;
+  color: white;
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 30px;
   background: url("/images/OahuBackground.jpeg") no-repeat center center;
@@ -105,10 +105,10 @@
 }
 
 #landing-footer {
-  background-color: #093c69;
+  background-color: #ffffff;
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 14px;
-  color: white !important;
+  color: black !important;
   position: absolute;
   width: 100%;
   bottom: 0;
