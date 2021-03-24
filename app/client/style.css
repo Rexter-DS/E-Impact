@@ -41,7 +41,7 @@
 }
 
 #landing-info1 {
-  height: 375px;
+  height: 425px;
   padding: 50px;
 }
 
@@ -50,16 +50,16 @@
 }
 
 #greet {
-  height: 425px;
+  height: 500px;
   padding: 50px;
-  background: url("/images/OahuBackground.jpeg") no-repeat center center;
-  /*background-size: cover;*/
+  background: url("/images/OahuBackgroundBrighter.jpeg") no-repeat center center;
+  background-size: cover;
 }
 
 #sign {
-  padding-top: 150px;
-  padding-bottom: 125px;
-  height: 100%;
+  padding-top: 180px;
+  width: 100%;
+  height: 100vh;
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
 }
@@ -95,7 +95,7 @@
   color: white !important;
   width: 100%;
   bottom: 0;
-  /*margin-top: 50px;*/
+  position: absolute;
   padding: 15px 0;
 }
 
@@ -116,6 +116,27 @@
   font-size: 14px;
   color: white !important;
   position: absolute;
+  width: 100%;
+  padding: 15px 0;
+}
+
+#landing-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  padding: 15px 0;
+}
+
+#sign-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   padding: 15px 0;
 }
@@ -304,7 +325,7 @@ dark-blue: 0C4D85
 
 .quick-access-container {
   position: relative;
-  padding-bottom: 150px;
+  padding-bottom: 250px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
   background-size: 100% 100%;
 }
