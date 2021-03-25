@@ -83,7 +83,8 @@ export default class Signin extends React.Component {
                     </Segment>
                   </Form>
                   <Message>
-                    <Link to="/signup">Don't have an account? Click here to creat one!</Link>
+                    {/*<Link to="/signup">Don't have an account? Click here to create one!</Link>*/}
+                    Don't have an account? <Link to='signup'>Click here to create one!</Link>
                   </Message>
                   {this.state.error === '' ? (
                     ''
