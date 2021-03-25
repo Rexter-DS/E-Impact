@@ -39,6 +39,7 @@ const QuickAccess = () => {
 
   return (
       <div className="quick-access-container">
+        <a name='top'></a>
         <div>
           <Menu id={'quick-access-navbar'}>
             <a href={'/#'}>

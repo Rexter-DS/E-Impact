@@ -20,7 +20,7 @@
 }
 
 #landing {
-  padding-top: 130px;
+  padding-top: 120px;
   /*color: white;*/
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 30px;
@@ -30,6 +30,7 @@
 #landing-info1 {
   height: 425px;
   padding: 50px;
+  background: #ffffff;
 }
 
 .landing-info-center {
@@ -43,7 +44,7 @@
 #greet {
   height: 500px;
   padding: 50px;
-  background: url("/images/OahuBackground.jpeg") no-repeat center center;
+  background: url("/images/OahuBackgroundBrighter2.jpeg") no-repeat center center;
   background-size: cover;
 }
 

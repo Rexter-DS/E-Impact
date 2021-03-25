@@ -8,16 +8,18 @@ class Info2 extends React.Component {
         return (
             <div id='landing-info1'>
                 <Grid>
-                    <Grid.Column width={4}>
-                        <Icon disabled name='chain' size='massive'/>
+                    <Grid.Column width={5} className='landing-info-center' verticalAlign='middle'>
+                        <a href='#/signup'>
+                            <Icon link name='car' size='massive'/>
+                        </a>
                     </Grid.Column>
                     <Grid.Column width={8}>
-                        <h1>Create an account to keep track of the emissions of your daily transit</h1>
-                        <Button as={NavLink} exact to='/signup' animated>
-                            <Button.Content visible>Take me there!</Button.Content>
-                            <Button.Content hidden>
-                                <Icon name='long arrow alternate right'/>
-                            </Button.Content>
+                        <h1>Join the Community!</h1>
+                        <hr/>
+                        <h2>Create an account to keep track of the emissions of your daily transit and
+                        see the changes you are making within your community!</h2>
+                        <Button as={NavLink} exact to='/signup'>
+                            <Button.Content visible>Sign me up!</Button.Content>
                         </Button>
                     </Grid.Column>
                 </Grid>
