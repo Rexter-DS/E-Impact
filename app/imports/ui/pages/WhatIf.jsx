@@ -1,11 +1,10 @@
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimmer, Loader, Button } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
+import ChoseScenario from '../components/ChoseScenario';
 import DashboardContent from '../components/DashboardContent';
 
 // This page contains the graphs that will visualize the user's data in a more meaningful way.
@@ -25,7 +24,8 @@ function Dashboard(
 ) {
 
   return ((tripReady && userReady) ?
-          <div>
+          <div style={{ width: '100%' }}>
+            <ChoseScenario></ChoseScenario>
             <DashboardContent
                 milesSavedTotal={milesSavedTotal}
                 milesSavedPerDay={milesSavedPerDay}

@@ -226,6 +226,16 @@ dark-blue: 0C4D85
   box-shadow: none;
 }
 
+#calendar-container {
+  display: block;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+#calendar-form {
+  margin-left: 300px;
+}
+
 .quick-access-container {
   padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
