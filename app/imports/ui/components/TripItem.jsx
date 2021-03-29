@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Table, Button, Confirm } from 'semantic-ui-react';
+import { Table, Button, Confirm, Segment, } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
+import { SavedTrips } from '../../api/trip/SavedTripCollection';
 import { Users } from '../../api/user/UserCollection';
+import SaveTripModal from './SaveTripModal';
 
 /** Renders a single row in the List Trip table. See pages/ListTrip.jsx. */
 const TripItem = (props) => {
@@ -29,7 +31,7 @@ const TripItem = (props) => {
     setConfirmState(false);
   }
 
-  function handleConfirm() {
+  function handleConfirmDel() {
     handleClickDel();
     setConfirmState(false);
   }
@@ -44,7 +46,6 @@ const TripItem = (props) => {
     }
     return val;
   }
-
   return (
       <Table.Row>
         <Table.Cell>{props.trip.date.toLocaleDateString()}</Table.Cell>
@@ -57,8 +58,11 @@ const TripItem = (props) => {
             open={confirmState}
             header='Delete Trip?'
             onCancel={handleCancel}
-            onConfirm={handleConfirm}
+            onConfirm={handleConfirmDel}
         /></Table.Cell>
+        <Table.Cell>
+          <SaveTripModal trip={props.trip}/>
+        </Table.Cell>
       </Table.Row>
   );
 }
