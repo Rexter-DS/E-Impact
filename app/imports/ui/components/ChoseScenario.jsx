@@ -19,8 +19,10 @@ function ChoseScenario(
     },
 ) {
 
-    // Turns milesSavedPerDay into array while formatting date to YYYY-MM-DD
-    const formatDate = _.map(milesSavedPerDay.date, function (date, i) {
+    /*
+        Creates array from milesSavedPerDay's fields for use in fullcalendar
+     */
+    const events = _.map(milesSavedPerDay.date, function (date, i) {
         const year = `${date.getFullYear()}`;
         let month = `${date.getMonth() + 1}`;
         let day = `${date.getDate()}`;
@@ -33,19 +35,10 @@ function ChoseScenario(
             day = `0${day}`;
         }
 
-        return { ID: i, mode: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
+        return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
     });
 
-    // Extract individual fields of formatDate
-    const index = _.pluck(formatDate, 'ID');
-    const transportMode = _.pluck(formatDate, 'mode');
-    const date = _.pluck(formatDate, 'date');
-
-    // Create array Events for fullcalendar using transportMode and date of formatDate
-    const events = _.map(index, function (i) {
-       return { title: `${transportMode[i]}`, date: `${date[i]}` };
-    });
-
+    // save date user selects
     const handleCalendarSelect = (info) => {
         swal(`selected ${info.startStr} to ${info.endStr}`);
     };
