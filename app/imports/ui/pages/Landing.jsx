@@ -20,10 +20,7 @@ class Landing extends React.Component {
                 <hr/>
               </div>
             </div>
-          {/* This controls the bottom half of the landing page */}
           <Info1/>
-          <hr/>
-          <Info2/>
           <br/>
           <Footer id={'landing-footer'}/>
         </div>

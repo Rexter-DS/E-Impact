@@ -28,9 +28,25 @@
 }
 
 #landing-info1 {
-  height: 425px;
-  padding: 50px;
+  height: 675px;
+  /*color: #ffffff;*/
   background: #ffffff;
+}
+
+.landing-white-text {
+  color: white;
+}
+
+#landing-info1-left {
+  padding: 15px;
+  background: url("/images/car_dashboard.jpeg") no-repeat center center;
+  background-size: cover;
+}
+
+#landing-bottom {
+  position: relative;
+  /*bottom: 0;*/
+  /*height: 36px;*/
 }
 
 .landing-info-center {
@@ -46,6 +62,7 @@
   padding: 50px;
   background: url("/images/OahuBackgroundBrighter2.jpeg") no-repeat center center;
   background-size: cover;
+
 }
 
 #sign {
