@@ -59,7 +59,7 @@ const SaveTripModal = (props) => {
         </Modal.Content>
         <Modal.Actions>
           <Button color='black' onClick={() => setOpen(false)}>
-            Nope
+            No Thanks
           </Button>
         </Modal.Actions>
       </Modal>
