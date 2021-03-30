@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import React, { useState } from 'react';
-import { Button, Header, Modal, Form } from 'semantic-ui-react';
-
+import React from 'react';
+import { Button, Header, Modal, Form, Segment, Icon } from 'semantic-ui-react';
 import { SavedTrips } from '../../api/trip/SavedTripCollection';
-import { Trips } from '../../api/trip/TripCollection';
+import { AutoForm, DateField, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-semantic';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
 
 const SaveTripModal = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -16,7 +17,17 @@ const SaveTripModal = (props) => {
     const owner = Meteor.user().username;
     const county = Meteor.user().profile.county;
     SavedTrips.defineWithMessage({ description, mode, distance, mpg, owner, county });
+    setOpen(false);
   }
+
+  const formSchema1 = new SimpleSchema({
+    description: {
+      type: String,
+      defaultValue: `Saved Trip ${new Date().toDateString()}`,
+    },
+  });
+  const bridge = new SimpleSchema2Bridge(formSchema1);
+  let fRef = null;
 
   return (
       <Modal
@@ -38,28 +49,26 @@ const SaveTripModal = (props) => {
             <p>Mode of transportation: {props.trip.mode}</p>
             <p>Vehicle mpg: {props.trip.mpg}</p>
           </Modal.Description>
-          <Form onSubmit={handleSubmit}>
-              <Form.Input
-                  placeholder={'\"Work to Home\"'}
-                  name='description'
-              />
-              <Form.Button content='Submit' />
-          </Form>
+          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => handleSubmit(data, fRef)}>
+            <Segment>
+              <TextField name={'description'}/>
+              <SubmitField value='Submit'/>
+              <ErrorsField/>
+            </Segment>
+          </AutoForm>
         </Modal.Content>
         <Modal.Actions>
           <Button color='black' onClick={() => setOpen(false)}>
             Nope
           </Button>
-          <Button
-              content="Yep, save it!"
-              labelPosition='right'
-              icon='checkmark'
-              onClick={() => setOpen(false)}
-              positive
-          />
         </Modal.Actions>
       </Modal>
   );
 };
-
+// SaveTripModal.propTypes = {
+//   trip: PropTypes.Object,
+//   mode: PropTypes.string.isRequired,
+//   distance: PropTypes.number.isRequired,
+//   mpg: PropTypes.number.isRequired,
+// };
 export default SaveTripModal;

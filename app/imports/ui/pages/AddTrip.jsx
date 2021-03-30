@@ -1,20 +1,21 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Loader, Segment } from 'semantic-ui-react';
+import { Grid, Header, Icon, Loader, Segment, Button } from 'semantic-ui-react';
 import { AutoForm, DateField, ErrorsField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import PropTypes from 'prop-types';
 import { tripPublications, Trips } from '../../api/trip/TripCollection';
-import { SavedTrips } from '../../api/trip/SavedTripCollection';
+import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
 import SidebarVisible from '../components/SideBar';
 
 const AddTrip = (props) => {
 
   /** Create a schema to specify the structure of the data to appear in the form. */
   // const userSavedTrips = _.filter(SavedTrips, (trip) => trip.owner === Meteor.user()?.username);
-  const userSavedTrips = SavedTrips.find({owner: Meteor.user()?.username})
+  const userSavedTrips = SavedTrips.find({owner: props.username}).fetch();
   let descList;
   if (userSavedTrips.length === 0) {
     descList = [''];
@@ -62,18 +63,28 @@ const AddTrip = (props) => {
 
   function submitSaved(data, formRef) {
     const { date, desc } = data;
-    const savedTrip = _.filter(userSavedTrips, (trip) => trip.description === desc)
+    const savedTrip = _.filter(userSavedTrips, (trip) => trip.description === desc)[0];
     const { mode, distance, mpg } = savedTrip;
     const owner = Meteor.user().username;
     const county = Meteor.user().profile.county;
+    console.log('Add Trip submit saved')
+    console.log(date, desc, savedTrip, mode, distance, mpg);
     if (Trips.defineWithMessage({ date, mode, distance, mpg, owner, county })) {
       formRef.reset();
     }
   }
 
+  function deleteSavedTrips() {
+    function removeTrip(trip, index) {
+      SavedTrips.removeIt(trip);
+    }
+    SavedTrips.find({}).fetch().forEach(removeTrip);
+    console.log(`add trip: deleteSavedTrips(): ${SavedTrips.find({}).fetch()}`);
+  }
+
   let fRef = null;
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
-    return !props.ready ? <Loader active>Loading data</Loader> : (
+    return (!props.readyTrips || !props.readySaved) ? <Loader active>Loading Page</Loader> : (
         <div id='add-trip-container'>
           <SidebarVisible/>
           <Grid container centered>
@@ -103,19 +114,32 @@ const AddTrip = (props) => {
                   <ErrorsField/>
                 </Segment>
               </AutoForm>
+              <Button color='red' onClick={deleteSavedTrips}>Delete Saved Trips</Button>
             </Grid.Column>
           </Grid>
         </div>
     );
 }
 
+AddTrip.propTypes = {
+  readyTrips: PropTypes.bool.isRequired,
+  readySaved: PropTypes.bool.isRequired,
+  trips: PropTypes.array.isRequired,
+  savedTrips: PropTypes.array.isRequired,
+  username: PropTypes.string,
+};
+
 export default withTracker(() => {
   const username = Meteor.user()?.username;
-  const ready = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
+  const readyTrips = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
+  const readySaved = Meteor.subscribe(savedTripPublications.savedTrip).ready() && username !== undefined;
   const trips = Trips.find({}).fetch();
+  const savedTrips = SavedTrips.find({}).fetch();
   return {
-    ready,
+    readyTrips,
+    readySaved,
     trips,
+    savedTrips,
     username,
   };
 })(AddTrip);
