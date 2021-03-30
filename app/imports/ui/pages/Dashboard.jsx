@@ -1,9 +1,7 @@
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimmer, Loader, Button } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
 import DashboardContent from '../components/DashboardContent';
