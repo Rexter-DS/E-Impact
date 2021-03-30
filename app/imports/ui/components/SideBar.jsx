@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Icon, Image, Menu, Sidebar } from 'semantic-ui-react';
+import { Icon, Image, Menu, Sidebar, Checkbox } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -63,6 +63,9 @@ const SideBar = (props) => (
       <Icon name='sign-out'/>
       Sign Out
     </Menu.Item>
+      <Menu.Item>
+        <Checkbox toggle />
+      </Menu.Item>
     <Menu.Item style={{ color: '#0c4d85', position: 'fixed', bottom: '0' }}>
       <Icon name='user circle outline'/>
       {Meteor.user() ? Meteor.user().username : 'Guest'}

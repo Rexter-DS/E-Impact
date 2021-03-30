@@ -22,6 +22,7 @@ import Community from '../pages/Community';
 import PublicCommunity from '../pages/PublicCommunity';
 import MapTest from '../pages/MapTest';
 import Compare from '../pages/Compare';
+//import '../../../client/styles/Themes.less';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {

@@ -1,0 +1,15 @@
+@import "./Style.less";
+
+//Light mode
+@light-bg: #ffffff;
+@light-font: #000000;
+body.light {
+  .theme(@light-bg, @light-font);
+}
+
+//Dark mode
+@dark-bg: #000000;
+@dark-font: #ffffff;
+body.dark {
+  .theme(@dark-bg, @dark-font);
+}
