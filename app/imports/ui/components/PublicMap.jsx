@@ -263,8 +263,8 @@ export class MapContainer extends React.Component {
             zoom={7}
             style={mapStyles}
             initialCenter={{
-              lat: 20.5,
-              lng: -157.5,
+              lat: 20.6,
+              lng: -157.6,
             }}
         >
           <Marker onClick={this.onHCAClick}

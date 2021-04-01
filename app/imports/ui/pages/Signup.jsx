@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
+import LandingNavBar from '../components/LandingNavBar';
 
 const countyOptions = [
   { text: 'Hawaii', value: 'Hawaii' },
   { text: 'Honolulu', value: 'Honolulu' },
+  { text: 'Kalawao', value: 'Kalawao' },
   { text: 'Kauai', value: 'Kauai' },
   { text: 'Maui', value: 'Maui' },
 ];
@@ -47,6 +49,7 @@ class Signup extends React.Component {
     }
     return (
         <div id='sign'>
+          <LandingNavBar/>
           <Container id="signup-page">
             <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
               <Grid.Column>
@@ -55,7 +58,7 @@ class Signup extends React.Component {
                     <Header as="h2" textAlign="center">
                       Register your account
                     </Header>
-                    <Image size='medium' verticalAlign='centered' src="/images/EImpactLogo.png"/>
+                    <Image size='medium' src="/images/EImpactLogo.png" centered/>
                     <Form.Select
                         label="Location"
                         id="signup-form-county"
@@ -112,7 +115,7 @@ class Signup extends React.Component {
                   </Segment>
                 </Form>
                 <Message>
-                  Already have an account? Login <Link to="/signin">here</Link>
+                  Already have an account? <Link to="/signin">Login here!</Link>
                 </Message>
                 {this.state.error === '' ? (
                   ''

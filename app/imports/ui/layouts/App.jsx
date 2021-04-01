@@ -30,7 +30,6 @@ class App extends React.Component {
   render() {
     return (
         <Router>
-          <div>
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
@@ -52,7 +51,6 @@ class App extends React.Component {
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
-          </div>
         </Router>
     );
   }

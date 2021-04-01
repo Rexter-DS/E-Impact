@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Grid, Form, Card, Image, Header, Popup, Button, Icon } from 'semantic-ui-react';
+import { Grid, Form, Card, Image, Header, Popup, Button, Menu } from 'semantic-ui-react';
 import '../../../client/style.css';
+import Footer from '../components/Footer';
+import LandingNavBar from '../components/LandingNavBar';
 
 const QuickAccess = () => {
   const [miles, setMiles] = useState(1);
   const [mpg, setMpg] = useState(1);
   const [ghg, setGhg] = useState(0);
   const [transportationMethod, setTransportation] = useState('produced');
-  // TODO: Maybe a brief description would be helpful. What, Why, Where, answer why the user wants or needs to be on this page. Shaded box, separate logo and intro.
-  // TODO: Look into suggestion regarding withTracker() for constants?
   const updateProduced = (updatedMiles, updatedMpg) => {
     setGhg((updatedMiles / updatedMpg) * 19.64);
   };
@@ -40,10 +40,8 @@ const QuickAccess = () => {
 
   return (
       <div className="quick-access-container">
-        <div className="quick-access-navbar">
-          <a href={'/#'}>
-            <Image src={'/images/EImpactLogoWhite.png'} height={131.27} width={300} alt="Home"/>
-          </a>
+        <div id="landing">
+          <LandingNavBar/>
         </div>
         <div className="quick-access-form">
           <Grid className="quick-access-grid">
@@ -51,7 +49,7 @@ const QuickAccess = () => {
               <Image src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Popup
                     trigger={ <Button secondary>What is the Quick Access Page?</Button>
                     }
@@ -60,7 +58,7 @@ const QuickAccess = () => {
                     inverted
                 />
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Popup
                     trigger={ <Button secondary>How Does this Page Work?</Button>
                     }
@@ -71,10 +69,10 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Header as="h3">Distance Traveled(mi)</Header>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Form align="left">
                   <Form.Field>
                     <input type="number" placeholder="ex. 0-9" maxLength="5" onChange={e => handleMiles(e)}/>
@@ -83,10 +81,10 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
-              <Grid.Column width={4} >
+              <Grid.Column width={5} >
                 <Header as="h3">Mode of Transport</Header>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Form>
                   <Form.Field>
                     <select onChange={e => handleTransportation(e)}>
@@ -103,16 +101,10 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
-              <Grid.Column width={4}>
-                <Header as="h3">Mileage of test vehicle</Header>
-                <Popup
-                    trigger={ <Icon name="question circle outline"/>
-                    }
-                    content="If your mode of transportation wasn't your car, inputting the mpg of your car can be used to determine how much ghg you saved by not using it."
-                    size="mini"
-                />
+              <Grid.Column width={5}>
+                <Header as="h3">Miles Per Gallon of test vehicle</Header>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Form align="left">
                   <Form.Field>
                     <input type="number" placeholder="ex. 0-9" maxLength="4" onChange={e => handleMpg(e)}/>
@@ -121,20 +113,9 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column width={5}>
-                <Card>
-                  {// Temporary Image from:https://favpng.com/png_view/array-health-greenhouse-gas-lyocell-material-logo-png/M35VccaZ
-                  }
-                  <Image src={'/images/GHGLogo.png'} wrapped ui={false} alt="GHG Logo"/>
-                  <Card.Content>
-                    <Card.Header>GHG Produced</Card.Header>
-                    <Card.Description>You {transportationMethod} a total of {ghg.toFixed(2)} lb. of Carbon Dioxide(CO2)</Card.Description>
-                  </Card.Content>
-                </Card>
-              </Grid.Column>
-              <Grid.Column width={5}>
+              <Card.Group>
                 <Card href='https://projectfootprint.com/'>
-                  <Image src={'/images/ProjectFootPrint.png'} width={100} height={100} wrapped ui={false} alt="PFP Logo"/>
+                  <img src={'/images/ProjectFootPrint.png'} width={280} height={280} alt="PFP Logo"/>
                   <Card.Content>
                     <Card.Header>Reduce Your CO2 Footprint</Card.Header>
                     <Card.Description>
@@ -142,22 +123,31 @@ const QuickAccess = () => {
                     </Card.Description>
                   </Card.Content>
                 </Card>
-              </Grid.Column>
-              <Grid.Column width={5}>
                 <Card>
-                  {// Tmporary Image from:https://www.cleanpng.com/png-cost-reduction-saving-money-service-1541224/
+                  {// Temporary Image from:https://favpng.com/png_view/array-health-greenhouse-gas-lyocell-material-logo-png/M35VccaZ
+                  }
+                  <img src={'/images/LeafLogo.png'} width={280} height={280} alt="GHG Logo"/>
+                  <Card.Content>
+                    <Card.Header>GHG {transportationMethod}</Card.Header>
+                    <Card.Description>You {transportationMethod} a total of <strong>{ghg.toFixed(2)} lb. of Carbon Dioxide(CO2)</strong></Card.Description>
+                  </Card.Content>
+                </Card>
+                <Card>
+                  {// Temporary Image from:https://www.cleanpng.com/png-cost-reduction-saving-money-service-1541224/
                     }
-                  <Image src={'/images/SavingMoney.png'} wrapped ui={false} alt="Saving Money Logo"/>
+                  <img src={'/images/SavingMoneyLogo.png'} width={280} height={280} alt="Saving Money Logo"/>
                   <Card.Content>
                     <Card.Header>Save Gas Money</Card.Header>
                     <Card.Description>Using an electric car cuts the cost of Gas every month and reduces the amount of Green House Gases you produce.</Card.Description>
                   </Card.Content>
                 </Card>
-              </Grid.Column>
+              </Card.Group>
             </Grid.Row>
           </Grid>
         </div>
+        <Footer id={'landing-footer'}/>
       </div>
   );
 };
+
 export default QuickAccess;
