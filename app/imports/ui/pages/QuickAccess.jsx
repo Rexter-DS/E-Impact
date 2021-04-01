@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Form, Card, Image, Header, Popup, Button, Menu } from 'semantic-ui-react';
 import '../../../client/style.css';
 import Footer from '../components/Footer';
+import LandingNavBar from '../components/LandingNavBar';
 
 const QuickAccess = () => {
   const [miles, setMiles] = useState(1);
@@ -39,18 +40,8 @@ const QuickAccess = () => {
 
   return (
       <div className="quick-access-container">
-        <div>
-          <Menu id={'quick-access-navbar'}>
-            <a href={'/#'}>
-              <Image size='medium' src="/images/EImpactLogoWhite.png"/>
-            </a>
-            <Menu.Item position="right">
-              <a className='fake-menu-item' href={'#/get-involved'}><p>Get Involved</p></a>
-            </Menu.Item>
-            <Menu.Item>
-              <a className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
-            </Menu.Item>
-          </Menu>
+        <div id="landing">
+          <LandingNavBar/>
         </div>
         <div className="quick-access-form">
           <Grid className="quick-access-grid">
@@ -58,7 +49,7 @@ const QuickAccess = () => {
               <Image src={'/images/QuickAccessLogo.png'} height={102} width={271} alt="Quick Access"/>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Popup
                     trigger={ <Button secondary>What is the Quick Access Page?</Button>
                     }
@@ -67,7 +58,7 @@ const QuickAccess = () => {
                     inverted
                 />
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Popup
                     trigger={ <Button secondary>How Does this Page Work?</Button>
                     }
@@ -78,10 +69,10 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Header as="h3">Distance Traveled(mi)</Header>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Form align="left">
                   <Form.Field>
                     <input type="number" placeholder="ex. 0-9" maxLength="5" onChange={e => handleMiles(e)}/>
@@ -90,10 +81,10 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
-              <Grid.Column width={4} >
+              <Grid.Column width={5} >
                 <Header as="h3">Mode of Transport</Header>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Form>
                   <Form.Field>
                     <select onChange={e => handleTransportation(e)}>
@@ -110,10 +101,10 @@ const QuickAccess = () => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row floated="left" centered>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Header as="h3">Miles Per Gallon of test vehicle</Header>
               </Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column width={5}>
                 <Form align="left">
                   <Form.Field>
                     <input type="number" placeholder="ex. 0-9" maxLength="4" onChange={e => handleMpg(e)}/>
@@ -154,7 +145,7 @@ const QuickAccess = () => {
             </Grid.Row>
           </Grid>
         </div>
-        <Footer id={'quick-access-footer'}/>
+        <Footer id={'landing-footer'}/>
       </div>
   );
 };
