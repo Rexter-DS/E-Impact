@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Icon, Container, List, Image } from 'semantic-ui-react';
+import { Grid, Container, List, Image } from 'semantic-ui-react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = (props) => (
     <Container id={props.id}>
       <Grid divided stackable inverted>
-          <Grid.Row columns={2} style={{ padding:'25px' }}>
+          <Grid.Row columns={2} style={{ padding: '25px' }}>
               <Grid.Column>
                   <List link inverted>
-                      <List.Item as="a" href="/">Home</List.Item>
-                      <List.Item as='a'>Calculator</List.Item>
-                      <List.Item as='a'>Sign in</List.Item>
-                      <List.Item as='a'>About</List.Item>
+                      <List.Item as="a" href="/#">Home</List.Item>
+                      <List.Item as='a' href="/#/quickaccess">Calculator</List.Item>
+                      <List.Item as='a' href="/#/signin">Sign in</List.Item>
+                      <List.Item as='a' target="_blank" href="https://environment-overflow.github.io/ ">About</List.Item>
                   </List>
               </Grid.Column>
               <Grid.Column>
