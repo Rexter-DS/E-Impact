@@ -51,6 +51,7 @@
     { "date": "2020-04-07", "distance": 26, "mode": "Telework", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
     { "date": "2020-04-08", "distance": 26, "mode": "Telework", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
     { "date": "2020-04-09", "distance": 26, "mode": "Telework", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
+    { "date": "2021-04-01", "distance": 40, "mode": "Carpool", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
     { "date": "2020-03-04", "distance": 41, "mode": "Carpool", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-10", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-11", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },

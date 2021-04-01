@@ -237,6 +237,10 @@ dark-blue: 0C4D85
   margin-left: 300px;
 }
 
+#defaultButton {
+  margin-left: 600px;
+}
+
 .quick-access-container {
   padding-bottom: 150px;
   background: url("/images/OahuBackground.jpeg")  no-repeat fixed;

@@ -1,10 +1,10 @@
 import { _ } from 'meteor/underscore';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import swal from 'sweetalert';
-import { Form } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 function ChoseScenario(
@@ -19,8 +19,26 @@ function ChoseScenario(
     },
 ) {
 
-    // Creates array from milesSavedPerDay's fields for use in fullcalendar
-    const events = _.map(milesSavedPerDay.date, function (date, i) {
+    const defaultData = useRef(true);
+
+    const isEventSelected = useRef(false);
+
+    // change to useState()
+    let nMilesSavedPerDay = useRef(_.map(milesSavedPerDay.mode, (mode, i) => ({
+        date: milesSavedPerDay.date[i],
+        distance: milesSavedPerDay.distance[i],
+        mode: mode,
+    })));
+
+    let nModesOfTransport = useRef(_.map(modesOfTransport.label, (mode, i) => ({
+        label: mode,
+        value: modesOfTransport.value[i],
+    })));
+
+    let nGHGProducedTotal = useRef(ghgProducedTotal);
+
+    // state for events in fullcalendar
+    const [events, setEvents] = useState(() => _.map(milesSavedPerDay.date, function (date, i) {
         const year = `${date.getFullYear()}`;
         let month = `${date.getMonth() + 1}`;
         let day = `${date.getDate()}`;
@@ -34,64 +52,105 @@ function ChoseScenario(
         }
 
         return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
-    });
+    }));
 
-    const handleEventSelect = (info) => {
-        swal(`Events: ${info.event.id} ${info.event.title} ${info.event.start}`);
-        const eventDate = info.event.start.toString();
-        const year = eventDate.slice(11, 15);
-        let month = eventDate.slice(4, 7);
-        switch (month) {
-            case 'Jan':
-                month = '01';
-                break;
-            case 'Feb':
-                month = '02';
-                break;
-            case 'Mar':
-                month = '03';
-                break;
-            case 'Apr':
-                month = '04';
-                break;
-            case 'May':
-                month = '05';
-                break;
-            case 'Jun':
-                month = '06';
-                break;
-            case 'Jul':
-                month = '07';
-                break;
-            case 'Aug':
-                month = '08';
-                break;
-            case 'Sep':
-                month = '09';
-                break;
-            case 'Oct':
-                month = '10';
-                break;
-            case 'Nov':
-                month = '11';
-                break;
-            case 'Dec':
-                month = '12';
-                break;
-            default:
-                break;
-        }
-        const day = eventDate.slice(8, 10);
-        const selectedEvent = { id: info.event.id, title: info.event.title, date: [year, month, day].join('-') };
-    };
+    // state for event user selected in fullcalendar
+    const [selectedEvent, setSelectedEvent] = useState(() => ({ id: null, title: null, date: 'no date selected' }));
 
     // state for transport user selected in form
     const [transport, setTransport] = useState();
 
-    // on clicking submit button, swal message appears
+    // sets events back to user's original data
+    function defaultEvents() {
+        setEvents(() => _.map(milesSavedPerDay.date, function (date, i) {
+            const year = `${date.getFullYear()}`;
+            let month = `${date.getMonth() + 1}`;
+            let day = `${date.getDate()}`;
+
+            // Adjust month and day to have 2 numbers if necessary
+            if (month.length < 2) {
+                month = `0${month}`;
+            }
+            if (day.length < 2) {
+                day = `0${day}`;
+            }
+
+            return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
+        }));
+    }
+
+    // on clicking event, it stores event information in state selectedEvent
+    const handleEventSelect = (info) => {
+        const year = `${info.event.start.getFullYear()}`;
+        let month = `${info.event.start.getMonth() + 1}`;
+        let day = `${info.event.start.getDate()}`;
+
+        // Adjust month and day to have 2 numbers if necessary
+        if (month.length < 2) {
+            month = `0${month}`;
+        }
+        if (day.length < 2) {
+            day = `0${day}`;
+        }
+
+        // update state selectEvent with event user selected on fullcalendar
+        setSelectedEvent(() => ({ id: info.event.id, title: info.event.title, date: [year, month, day].join('-'), oldDateFormat: info.event.start }));
+        defaultData.current = false;
+        isEventSelected.current = true;
+    };
+
+    // on clicking submit button, updates state events with new info
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        swal('Success');
+        // check that event is selected to change
+        if (isEventSelected.current === true) {
+            // store event state in array
+            const eventArr = [...events];
+            // update array with new event info
+            eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date };
+            // update state events with array
+            setEvents(eventArr);
+
+            // update nMilesSavedPerDay with new info
+            nMilesSavedPerDay.current[selectedEvent.id] = {
+                date: selectedEvent.oldDateFormat,
+                distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
+                mode: nMilesSavedPerDay.current[selectedEvent.id].mode,
+            };
+
+            // get index of original mode
+            const indexOfOldTransport = nModesOfTransport.current.findIndex(({ label }) => label === selectedEvent.title);
+            // decrement value of original mode
+            nModesOfTransport.current[indexOfOldTransport] = { label: nModesOfTransport.current[indexOfOldTransport].label, value: nModesOfTransport.current[indexOfOldTransport].value - 1 };
+            // get index of what if mode
+            const indexOfNewTransport = nModesOfTransport.current.findIndex(({ label }) => label === transport);
+            if (indexOfNewTransport === -1) {
+                nModesOfTransport.current.push({ label: transport, value: 1 });
+            } else {
+                // increment index of what if mode
+                nModesOfTransport.current[indexOfNewTransport] = {
+                    label: transport,
+                    value: nModesOfTransport.current[indexOfNewTransport].value + 1,
+                };
+            }
+
+            // update nGHGProducedTotal
+            // ! check for if user doesn't have autoMPG registered
+            let ghgProduced = 0;
+            const userMPG = userProfile.autoMPG;
+            const ghgPerGallon = 19.6;
+            _.forEach(nMilesSavedPerDay.current, function (objects) {
+                if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
+                    console.log(`distance: ${objects.distance}`);
+                    ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
+                    console.log(ghgProduced);
+                }
+            });
+            nGHGProducedTotal.current = ghgProduced;
+            console.log(nGHGProducedTotal);
+        } else {
+            swal('Pick a date');
+        }
     };
 
     // updates selected state transport
@@ -113,6 +172,9 @@ function ChoseScenario(
 
             {/* render form to select mode of transportation */}
             <Form id='calendar-form' onSubmit={handleSubmit}>
+                <Form.Field>
+                    Selected date: {selectedEvent.date}
+                </Form.Field>
                 <Form.Radio
                     label='Bike'
                     checked={transport === 'Bike'}
@@ -166,6 +228,8 @@ function ChoseScenario(
                     <Form.Button content='submit'/>
                 </Form.Field>
             </Form>
+
+            <Button id='defaultButton' onClick={defaultEvents}>Default</Button>
         </div>
     );
 }
