@@ -1,12 +1,14 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { Statistic } from 'semantic-ui-react';
+import { Trips } from '../../api/trip/TripCollection';
 import DashboardStatisticsCard from './DashboardStatisticsCard';
 
 function DashboardMilesCard(
     {
-      vehicleMilesSaved,
-      vehicleMilesAdded,
+      milesSaved,
+      milesAdded,
     },
 ) {
 
@@ -15,14 +17,14 @@ function DashboardMilesCard(
           cardHeader='Vehicle Miles Traveled'
           topContent={
             <Statistic>
-              <Statistic.Value>{vehicleMilesSaved}</Statistic.Value>
+              <Statistic.Value>{milesSaved}</Statistic.Value>
               <Statistic.Label>miles saved</Statistic.Label>
             </Statistic>
           }
           popupTop='This number represents how many miles you traveled using environmentally conscious modes of transportation.'
           bottomContent={
             <Statistic>
-              <Statistic.Value>{vehicleMilesAdded}</Statistic.Value>
+              <Statistic.Value>{milesAdded}</Statistic.Value>
               <Statistic.Label>miles traveled</Statistic.Label>
             </Statistic>
           }
@@ -38,8 +40,8 @@ function DashboardMilesCard(
 }
 
 DashboardMilesCard.propTypes = {
-  vehicleMilesSaved: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  vehicleMilesAdded: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  milesSaved: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  milesAdded: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default DashboardMilesCard;

@@ -40,6 +40,7 @@ function DashboardStatisticsCard(
         </Card.Content>
         <Card.Content extra>
           <Modal
+              closeIcon
               open={openMore}
               onOpen={() => setOpenMore(true)}
               onClose={() => setOpenMore(false)}

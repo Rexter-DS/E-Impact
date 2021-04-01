@@ -1,3 +1,4 @@
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Card } from 'semantic-ui-react';
@@ -129,8 +130,8 @@ function DashboardContent(
         <SideBar/>
         <Card.Group centered stackable itemsPerRow={4}>
           <DashboardMilesCard
-              vehicleMilesSaved={vehicleMilesSaved}
-              vehicleMilesAdded={vehicleMilesAdded}
+              milesSaved={vehicleMilesSaved}
+              milesAdded={vehicleMilesAdded}
           />
           <DashboardFuelCard
               fuelCostTotal={fuelCostTotal}
