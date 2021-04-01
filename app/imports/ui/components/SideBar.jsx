@@ -29,6 +29,14 @@ const SideBar = (props) => (
       Dashboard
     </Menu.Item>
     <Menu.Item as={NavLink}
+               activeClassName=""
+               exact
+               to={`/WhatIf/${Meteor.user()?.username}`}
+               style={{ color: '#0c4d85' }}>
+      <Icon name='grid layout'/>
+      What If
+    </Menu.Item>
+    <Menu.Item as={NavLink}
                activeClassName="active"
                exact
                to="/daily"

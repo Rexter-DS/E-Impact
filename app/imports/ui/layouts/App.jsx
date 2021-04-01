@@ -17,6 +17,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import QuickAccess from '../pages/QuickAccess';
 import Dashboard from '../pages/Dashboard';
+import WhatIf from '../pages/WhatIf';
 import Daily from '../pages/Daily';
 import Community from '../pages/Community';
 import PublicCommunity from '../pages/PublicCommunity';
@@ -41,6 +42,7 @@ class App extends React.Component {
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/dashboard/:_id" component={Dashboard}/>
+              <ProtectedRoute path="/whatif/:_id" component={WhatIf}/>
               <ProtectedRoute path="/daily" component={Daily}/>
               <ProtectedRoute path="/addTrip" component={AddTrip}/>
               <ProtectedRoute path="/compare" component={Compare}/>
