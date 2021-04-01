@@ -65,7 +65,7 @@ const SideBar = (props) => (
     <Menu.Item as={NavLink}
                activeClassName="active"
                exact
-               to="/signout"
+               to="/"
                key='signout'
                style={{ color: '#0c4d85' }}>
       <Icon name='sign-out'/>
