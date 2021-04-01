@@ -137,14 +137,14 @@ function WhatIfContent(
         {
           font: { size: 15 },
           showarrow: false,
-          text: 'Original',
+          text: 'Old',
           x: 0.17,
           y: 0.5,
         },
       {
         font: { size: 15 },
         showarrow: false,
-        text: 'What If',
+        text: 'New',
         x: 0.82,
         y: 0.5,
       }],
