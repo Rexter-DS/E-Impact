@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Popup, Card, Statistic, Icon } from 'semantic-ui-react';
+import { Grid, Card } from 'semantic-ui-react';
 import SideBar from './SideBar';
 import Chart from './Chart';
+import DashboardMilesCard from './DashboardMilesCard';
+import DashboardFuelCard from './DashboardFuelCard';
+import DashboardGhgCard from './DashboardGhgCard';
+import DashboardTreeCard from './DashboardTreeCard';
 
 // Contains the graphs that visualizes the user's data.
 function DashboardContent(
@@ -124,139 +128,22 @@ function DashboardContent(
       <div id='dashboard-container'>
         <SideBar/>
         <Card.Group centered stackable itemsPerRow={4}>
-          <Popup
-              trigger={
-                <Card>
-                  <Card.Header style={{ paddingLeft: '10px' }}>
-                    Vehicle Miles Traveled (VMT)
-                  </Card.Header>
-                  <Card.Content textAlign='center'>
-                    <Statistic>
-                      <Statistic.Value>{vehicleMilesSaved}</Statistic.Value>
-                      <Statistic.Label>miles saved</Statistic.Label>
-                    </Statistic>
-                  </Card.Content>
-                  <Card.Content textAlign='center'>
-                    <Statistic>
-                      <Statistic.Value>{vehicleMilesAdded}</Statistic.Value>
-                      <Statistic.Label>miles traveled</Statistic.Label>
-                    </Statistic>
-                  </Card.Content>
-                </Card>
-              }
-          >
-            <Popup.Content>
-              The top number represents how many miles you traveled using environmentally conscious modes of transportation.<br/>
-              The bottom number represents how many miles you traveled using a gas-powered car.
-            </Popup.Content>
-          </Popup>
-          <Popup
-              trigger={
-                <Card>
-                  <Card.Header style={{ paddingLeft: '10px' }}>
-                    Gallons of Fuel
-                  </Card.Header>
-                  <Card.Content textAlign='center'>
-                    <Statistic>
-                      <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
-                      <Statistic.Label>gallons saved</Statistic.Label>
-                    </Statistic>
-                  </Card.Content>
-                  <Card.Content textAlign='center'>
-                    <Statistic>
-                      <Statistic.Value>{fuelCostTotal}</Statistic.Value>
-                      <Statistic.Label>gallons spent</Statistic.Label>
-                    </Statistic>
-                  </Card.Content>
-                </Card>
-              }
-          >
-            <Popup.Content>
-              The top number represents how many gallons of fuel you saved by using other modes of transportation.<br/>
-              The bottom number represents how many gallons of fuel you spent by traveling using a gas-powered car.
-            </Popup.Content>
-          </Popup>
-          <Popup
-              trigger={
-                <Card>
-                  <Card.Header style={{ paddingLeft: '10px' }}>
-                    Green House Gas (GHG)
-                  </Card.Header>
-                  <Card.Content textAlign='center'>
-                    <Statistic>
-                      <Statistic.Value>{ghgReducedTotal}</Statistic.Value>
-                      <Statistic.Label>pounds reduced</Statistic.Label>
-                    </Statistic>
-                  </Card.Content>
-                  <Card.Content textAlign='center'>
-                    <Statistic>
-                      <Statistic.Value>{ghgProducedTotal}</Statistic.Value>
-                      <Statistic.Label>pounds produced</Statistic.Label>
-                    </Statistic>
-                  </Card.Content>
-                </Card>
-              }
-          >
-            <Popup.Content>
-              The top number represents how many pounds of GHG you reduced by using other modes of transportation.<br/>
-              The bottom number represents how many pounds of GHG you produced by using a gas-powered car.
-            </Popup.Content>
-          </Popup>
-          <Popup
-              trigger={
-                <Card>
-                  <Card.Header style={{ paddingLeft: '10px' }}>
-                    Trees per GHG
-                  </Card.Header>
-                  <Card.Content>
-                    <Grid>
-                      <Grid.Column width={5}>
-                        <Icon
-                            name='tree'
-                            color='green'
-                            size='huge'
-                            style={{ paddingLeft: '10px', paddingTop: '10px' }}
-                        />
-                      </Grid.Column>
-                      <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '5px' }}>
-                        <Statistic >
-                          <Statistic.Value>
-                            {treesPerGhgReduced}
-                          </Statistic.Value>
-                          <Statistic.Label>tree equivalence to ghg reduced</Statistic.Label>
-                        </Statistic>
-                      </Grid.Column>
-                    </Grid>
-                  </Card.Content>
-                  <Card.Content>
-                    <Grid>
-                      <Grid.Column width={5}>
-                        <Icon
-                            name='tree'
-                            color='red'
-                            size='huge'
-                            style={{ paddingLeft: '10px', paddingTop: '10px' }}
-                        />
-                      </Grid.Column>
-                      <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '5px' }}>
-                        <Statistic >
-                          <Statistic.Value>
-                            {treesPerGhgProduced}
-                          </Statistic.Value>
-                          <Statistic.Label>tree equivalence to ghg produced</Statistic.Label>
-                        </Statistic>
-                      </Grid.Column>
-                    </Grid>
-                  </Card.Content>
-                </Card>
-              }
-          >
-            <Popup.Content>
-              One tree alone absorbs 48 pounds of CO<sub>2</sub> each year.<br/>
-              Based on the amount of GHG you have reduced, you have made a contribution of reducing GHG equal to {treesPerGhgReduced} trees.<br/>
-              Based on the amount of GHG you have produced, you would need to plant {treesPerGhgProduced} trees in order to offset the GHG produced.
-            </Popup.Content>
-          </Popup>
+          <DashboardMilesCard
+              vehicleMilesSaved={vehicleMilesSaved}
+              vehicleMilesAdded={vehicleMilesAdded}
+          />
+          <DashboardFuelCard
+              fuelCostTotal={fuelCostTotal}
+              fuelSavedTotal={fuelSavedTotal}
+          />
+          <DashboardGhgCard
+              ghgProducedTotal={ghgProducedTotal}
+              ghgReducedTotal={ghgReducedTotal}
+          />
+          <DashboardTreeCard
+              treesPerGhgProduced={treesPerGhgProduced}
+              treesPerGhgReduced={treesPerGhgReduced}
+          />
         </Card.Group>
         <Grid stackable>
           <Grid.Row>
