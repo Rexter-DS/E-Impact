@@ -42,6 +42,12 @@ function WhatIf(
                     ghgProducedTotal={ghgProducedTotal}
                     ghgReducedPerDay={ghgReducedPerDay}
                     fuelSavedPerDay={fuelSavedPerDay}
+                    // milesSavedTotalWI={milesSavedTotal}
+                    milesSavedPerDayWI={milesSavedPerDay}
+                    modesOfTransportWI={modesOfTransport}
+                    // ghgProducedTotalWI={ghgProducedTotal}
+                    ghgReducedPerDayWI={ghgReducedPerDay}
+                    fuelSavedPerDayWI={fuelSavedPerDay}
                 />
             </div> :
             <Dimmer active>

@@ -14,24 +14,34 @@ function WhatIfContent(
       ghgProducedTotal,
       ghgReducedPerDay,
       fuelSavedPerDay,
+      // milesSavedTotalWI,
+      milesSavedPerDayWI,
+      modesOfTransportWI,
+      // ghgProducedTotalWI,
+      ghgReducedPerDayWI,
+      fuelSavedPerDayWI,
     },
 ) {
 
   const milesSavedPerDayData = [{
     x: milesSavedPerDay.date,
     y: milesSavedPerDay.distance,
-    type: 'histogram',
+    type: 'bar',
     text: milesSavedPerDay.mode,
+    name: 'Original',
   },
     {
-      x: milesSavedPerDay.date,
-      y: milesSavedPerDay.distance,
-      type: 'histogram',
-      text: milesSavedPerDay.mode,
+      x: milesSavedPerDayWI.date,
+      y: milesSavedPerDayWI.distance,
+      type: 'bar',
+      text: milesSavedPerDayWI.mode,
+      name: 'What If',
+      marker: { color: 'rgb(173,216,230)' },
     }];
 
   const milesSavedPerDayLayout = {
     autosize: true,
+    barmode: 'group',
     xaxis: {
       range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
       rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
@@ -46,42 +56,48 @@ function WhatIfContent(
 
   const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
 
-  const fuelSavedPerDayData = [{
+  const fuelSavedPerDayData = {
     x: fuelSavedPerDay.date,
     y: fuelSavedPerDay.fuel,
-    name: 'Fuel Saved (gallons)',
+    name: 'Original Fuel Saved (gallons)',
     type: 'scatter',
     mode: 'lines+markers',
-    line: { width: 1 },
-  },
-    {
-      x: fuelSavedPerDay.date,
-      y: fuelSavedPerDay.fuel,
-      name: 'Fuel Saved (gallons)',
-      type: 'scatter',
-      mode: 'lines+markers',
-      line: { width: 3 },
-    }];
+    line: {
+      width: 7 },
+  };
+  const fuelSavedPerDayDataWI = {
+    x: fuelSavedPerDayWI.date,
+    y: fuelSavedPerDayWI.fuel,
+    name: 'What If Fuel Saved (gallons)',
+    type: 'scatter',
+    mode: 'lines+markers',
+    line: {
+      color: 'rgb(176,216,230)',
+      width: 1 },
+  };
 
   const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
 
-  const ghgReducedPerDayData = [{
+  const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
     y: ghgReducedPerDay.ghg,
-    name: 'GHG Reduced (pounds)',
+    name: 'Original GHG Reduced (pounds)',
     type: 'scatter',
     mode: 'lines+markers',
-    line: { width: 1 },
-  },
-    {
-      x: ghgReducedPerDay.date,
-      y: ghgReducedPerDay.ghg,
-      name: 'GHG Reduced (pounds)',
-      type: 'scatter',
-      mode: 'lines+markers',
-      line: { width: 3 },
-  }];
-
+    line: {
+      color: 'rgb(44,160,44)',
+      width: 7 },
+  };
+  const ghgReducedPerDayDataWI = {
+    x: ghgReducedPerDayWI.date,
+    y: ghgReducedPerDayWI.ghg,
+    name: 'What If GHG Reduced (pounds)',
+    type: 'scatter',
+    mode: 'lines+markers',
+    line: {
+      color: 'rgb(0,229,0)',
+      width: 2 },
+  };
   const fuelAndGhgPerDayLayout = {
     autosize: true,
     showlegend: true,
@@ -103,13 +119,15 @@ function WhatIfContent(
     type: 'pie',
     hole: 0.4,
     hoverinfo: 'label+percent',
+    domain: { column: 0 },
   },
     {
-      values: modesOfTransport.value,
-      labels: modesOfTransport.label,
+      values: modesOfTransportWI.value,
+      labels: modesOfTransportWI.label,
       type: 'pie',
       hole: 0.4,
       hoverinfo: 'label+percent',
+      domain: { column: 1 },
     }];
 
   const defaultLayout = {
@@ -117,10 +135,16 @@ function WhatIfContent(
     showlegend: true,
     annotations: [
         {
+          font: { size: 15 },
+          showarrow: false,
+          text: 'Original',
           x: 0.17,
           y: 0.5,
         },
       {
+        font: { size: 15 },
+        showarrow: false,
+        text: 'What If',
         x: 0.82,
         y: 0.5,
       }],
@@ -207,7 +231,7 @@ function WhatIfContent(
                 Fuel Saved and GHG Reduced per Day
               </Card.Header>
               <Card.Content>
-                <Chart chartData={[fuelSavedPerDayData, ghgReducedPerDayData]} chartLayout={fuelAndGhgPerDayLayout}/>
+                <Chart chartData={[fuelSavedPerDayData, ghgReducedPerDayData, fuelSavedPerDayDataWI, ghgReducedPerDayDataWI]} chartLayout={fuelAndGhgPerDayLayout}/>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -224,6 +248,12 @@ WhatIfContent.propTypes = {
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
+  // milesSavedTotalWI: PropTypes.number,
+  milesSavedPerDayWI: PropTypes.object,
+  modesOfTransportWI: PropTypes.object,
+  // ghgProducedTotalWI: PropTypes.string,
+  ghgReducedPerDayWI: PropTypes.object,
+  fuelSavedPerDayWI: PropTypes.object,
 };
 
 export default WhatIfContent;
