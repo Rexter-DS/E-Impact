@@ -34,7 +34,7 @@ const SaveTripModal = (props) => {
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open}
-          trigger={<Button>Save Trip</Button>}
+          trigger={<Button className='daily-save-button' href={'#/addTrip'}>Save Trip</Button>}
       >
         <Modal.Header>Save Trip</Modal.Header>
         <Modal.Content>
@@ -65,10 +65,5 @@ const SaveTripModal = (props) => {
       </Modal>
   );
 };
-// SaveTripModal.propTypes = {
-//   trip: PropTypes.Object,
-//   mode: PropTypes.string.isRequired,
-//   distance: PropTypes.number.isRequired,
-//   mpg: PropTypes.number.isRequired,
-// };
+
 export default SaveTripModal;

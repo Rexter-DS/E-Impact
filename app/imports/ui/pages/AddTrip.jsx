@@ -10,12 +10,13 @@ import PropTypes from 'prop-types';
 import { tripPublications, Trips } from '../../api/trip/TripCollection';
 import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
 import SidebarVisible from '../components/SideBar';
+import DeleteSavedModal from '../components/DeleteSavedModal';
 
 const AddTrip = (props) => {
 
   /** Create a schema to specify the structure of the data to appear in the form. */
   // const userSavedTrips = _.filter(SavedTrips, (trip) => trip.owner === Meteor.user()?.username);
-  const userSavedTrips = SavedTrips.find({owner: props.username}).fetch();
+  const userSavedTrips = SavedTrips.find({ owner: props.username }).fetch();
   let descList;
   if (userSavedTrips.length === 0) {
     descList = [''];
@@ -89,7 +90,7 @@ const AddTrip = (props) => {
           <SidebarVisible/>
           <Grid container centered>
             <Grid.Column>
-              <Header as="h2" textAlign="center">Add Trip</Header>
+              <Header as="h2" textAlign="center">Add New Trip</Header>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge1} onSubmit={data => submit(data, fRef)}>
                 <Segment>
                   <DateField name='date'/>
@@ -104,17 +105,18 @@ const AddTrip = (props) => {
                   <ErrorsField/>
                 </Segment>
               </AutoForm>
-              <Header as="h2" textAlign="center">OR</Header>
+              <Header as="h2" textAlign="center">OR Add Saved Trip</Header>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge2} onSubmit={data => submitSaved(data, fRef)}>
                 <Segment>
                   <DateField name='date'/>
                   <SelectField name='desc' label={'Saved Trips'}/>
-                  <Icon name='question circle outline'/>Something about how to save trips.<br/><br/>
+                  <p><Icon name='question circle outline'/>You can simply select your saved trip here to skip adding the same details again and again.<br/>
+                  {'To save more trips, click the "Save Trip" button on the Daily page.'}</p>
                   <SubmitField value='Submit'/>
                   <ErrorsField/>
                 </Segment>
               </AutoForm>
-              <Button color='red' onClick={deleteSavedTrips}>Delete Saved Trips</Button>
+              <Grid.Row><DeleteSavedModal/></Grid.Row>
             </Grid.Column>
           </Grid>
         </div>
