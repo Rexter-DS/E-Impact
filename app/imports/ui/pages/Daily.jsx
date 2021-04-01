@@ -93,11 +93,11 @@ const Daily = (props) => {
                   <Grid.Column width={4} textAlign='center'>
                     <Statistic size='small' color={monthlySumColor}>
                       <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
-                      <Statistic.Label style={{ fontSize: '18px' }}>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs Produced' : 'lbs Reduced'}</Statistic.Label>
+                      <Statistic.Label style={{ fontSize: '18px' }}>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced'}</Statistic.Label>
                     </Statistic>
                   </Grid.Column>
                     <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
-                    <Button className='daily-add-button' href={'#/addTrip'}>Add</Button>
+                    <Button className='daily-add-button' href={'#/addTrip'}>Add Trip</Button>
                   </Menu.Item>
                 </Grid>
               </Menu>
@@ -112,12 +112,13 @@ const Daily = (props) => {
                     <Table.HeaderCell className='daily-table-header'>Net Gallons</Table.HeaderCell>
                     <Table.HeaderCell className='daily-table-header'>Net GHG</Table.HeaderCell>
                     <Table.HeaderCell className='daily-table-header'>Delete Trip</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>Save Trip</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
                   {monthTrips.map((trip) => <TripItem key={trip._id} trip={trip}/>)}
                   <Table.Row>
-                    <Table.Cell>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
+                    <Table.Cell className='daily-table-data'>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
                 </Table.Body>
               </Table>
             </div>
