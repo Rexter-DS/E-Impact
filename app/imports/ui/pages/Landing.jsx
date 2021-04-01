@@ -9,6 +9,7 @@ import Info2 from '../components/Info2';
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
   render() {
+    document.body.classList.remove('dark');
     return (
         <div id="landing">
           <LandingNavBar/>

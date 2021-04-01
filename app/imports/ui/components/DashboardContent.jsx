@@ -120,9 +120,15 @@ function DashboardContent(
     },
   };
 
+  const theme = userProfile.theme;
+
+  if (userProfile.theme === 'dark') {
+    document.body.classList.add('dark');
+  }
+
   return (
       <div id='dashboard-container'>
-        <SideBar/>
+        <SideBar theme={theme}/>
         <Card.Group centered stackable itemsPerRow={4}>
           <Popup
               trigger={

@@ -3,6 +3,20 @@
   HEI's font family: "Barlow Semi Condensed", sans-serif;
  */
 
+.dark {
+  background-color: black !important;
+  color: red !important;
+}
+
+body {
+  background-color: #FFFFFF;
+}
+
+#sidebar {
+  background-color: inherit;
+  color: inherit;
+}
+
 /* landing page CSS */
 #landing-nav {
   height: 100px;
@@ -61,7 +75,7 @@
   padding: 50px 100px;
   margin-left: 150px;
   font-family: "Barlow Semi Condensed", sans-serif;
-  background-color: white;
+  background-color: inherit;
 }
 
 #dashboard-total-row {

@@ -17,6 +17,7 @@ class UserCollection extends BaseCollection {
       username: String,
       autoMPG: Number,
       homeRoundTrip: Number,
+      theme: String,
     }));
   }
 
@@ -30,16 +31,19 @@ class UserCollection extends BaseCollection {
    * @return {String} the docID of the new document.
    */
   define({ username, autoMPG, homeRoundTrip }) {
+    const theme = 'light';
     const docID = this._collection.insert({
       username,
       autoMPG,
       homeRoundTrip,
+      theme,
     });
     return docID;
   }
 
   defineWithMessage({ username, autoMPG, homeRoundTrip }) {
-    const docID = this._collection.insert({ username, autoMPG, homeRoundTrip },
+    const theme = 'light';
+    const docID = this._collection.insert({ username, autoMPG, homeRoundTrip, theme },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
@@ -58,6 +62,17 @@ class UserCollection extends BaseCollection {
   getUserProfile(username) {
     const user = this._collection.findOne({ username: username });
     return user;
+  }
+
+  // Updates the theme to either light or dark.
+  updateTheme(username) {
+    const user = this._collection.findOne({ username: username });
+    const id = user._id;
+    if (user.theme === 'light') {
+      this._collection.update(id, { $set: { theme: 'dark' } });
+    } else {
+      this._collection.update(id, { $set: { theme: 'light' } });
+    }
   }
 
   /**
