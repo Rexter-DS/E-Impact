@@ -26,7 +26,7 @@
 
   "defaultTrips": [
     { "date": "2020-03-01", "distance": 40, "mode": "Carpool", "passenger": 2, "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
-    { "date": "2020-03-04", "distance": 26, "mode": "Telework", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
+    { "date": "2020-03-04", "distance": 26, "mode": "Gas Car", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
     { "date": "2020-03-05", "distance": 26, "mode": "Telework", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
     { "date": "2020-03-06", "distance": 26, "mode": "Telework", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
     { "date": "2020-03-10", "distance": 34, "mode": "Bike", "mpg": 25, "owner":  "admin@foo.com", "county": "Honolulu" },
@@ -56,7 +56,7 @@
     { "date": "2020-03-11", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-13", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-16", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
-    { "date": "2020-03-17", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
+    { "date": "2020-03-17", "distance": 39, "mode": "Gas Car", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-18", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-19", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
     { "date": "2020-03-20", "distance": 39, "mode": "Telework", "mpg": 30, "owner":  "Rexter-DS@foo.com", "county": "Honolulu" },
@@ -79,7 +79,7 @@
     { "date": "2020-03-16", "distance": 125, "mode": "Telework", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
     { "date": "2020-03-17", "distance": 125, "mode": "Telework", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
     { "date": "2020-03-18", "distance": 125, "mode": "Telework", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
-    { "date": "2020-03-19", "distance": 125, "mode": "Telework", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
+    { "date": "2020-03-19", "distance": 125, "mode": "Gas Car", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
     { "date": "2020-03-20", "distance": 125, "mode": "Telework", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
     { "date": "2020-03-24", "distance": 130, "mode": "Carpool", "passenger": 3, "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
     { "date": "2020-03-25", "distance": 125, "mode": "Telework", "mpg": 21, "owner":  "jcamarao@foo.com", "county": "Maui" },
@@ -112,7 +112,7 @@
     { "date": "2020-03-23", "distance": 3.5, "mode": "Telework", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
     { "date": "2020-03-24", "distance": 3.5, "mode": "Telework", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
     { "date": "2020-03-25", "distance": 3.5, "mode": "Telework", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
-    { "date": "2020-03-26", "distance": 3.5, "mode": "Telework", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
+    { "date": "2020-03-26", "distance": 3.5, "mode": "Gas Car", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
     { "date": "2020-03-27", "distance": 3.5, "mode": "Telework", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
     { "date": "2020-03-30", "distance": 3.5, "mode": "Telework", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
     { "date": "2020-03-31", "distance": 18, "mode": "Bike", "mpg": 17, "owner":  "tiffanywilliams@foo.com", "county": "Maui" },
@@ -133,7 +133,7 @@
     { "date": "2020-03-06", "distance": 9.2, "mode": "Telework", "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
     { "date": "2020-03-16", "distance": 9.2, "mode": "Telework", "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
     { "date": "2020-03-17", "distance": 12, "mode": "Carpool", "passenger": 2, "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
-    { "date": "2020-03-18", "distance": 9.2, "mode": "Telework", "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
+    { "date": "2020-03-18", "distance": 9.2, "mode": "Gas Car", "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
     { "date": "2020-03-19", "distance": 9.2, "mode": "Telework", "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
     { "date": "2020-03-20", "distance": 15, "mode": "Carpool", "passenger": 1, "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
     { "date": "2020-03-23", "distance": 9.2, "mode": "Telework", "mpg": 17, "owner":  "justin-mar@foo.com", "county": "Hawaii" },
@@ -159,7 +159,7 @@
     { "date": "2020-03-10", "distance": 81, "mode": "Electric Vehicle", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
     { "date": "2020-03-11", "distance": 44, "mode": "Electric Vehicle", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
     { "date": "2020-03-12", "distance": 61, "mode": "Electric Vehicle", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
-    { "date": "2020-03-13", "distance": 44, "mode": "Telework", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
+    { "date": "2020-03-13", "distance": 44, "mode": "Gas Car", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
     { "date": "2020-03-16", "distance": 44, "mode": "Telework", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
     { "date": "2020-03-17", "distance": 44, "mode": "Telework", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
     { "date": "2020-03-18", "distance": 44, "mode": "Telework", "mpg": 113.7, "owner":  "jkalaulau@foo.com", "county": "Hawaii" },
@@ -195,7 +195,7 @@
     { "date": "2020-04-03", "distance": 23, "mode": "Telework", "mpg": 23, "owner":  "nicholasmp@foo.com", "county": "Honolulu" },
     { "date": "2020-04-06", "distance": 23, "mode": "Telework", "mpg": 23, "owner":  "nicholasmp@foo.com", "county": "Honolulu" },
     { "date": "2020-04-07", "distance": 23, "mode": "Telework", "mpg": 23, "owner":  "nicholasmp@foo.com", "county": "Honolulu" },
-    { "date": "2020-04-08", "distance": 23, "mode": "Telework", "mpg": 23, "owner":  "nicholasmp@foo.com", "county": "Honolulu" },
+    { "date": "2020-04-08", "distance": 23, "mode": "Gas Car", "mpg": 23, "owner":  "nicholasmp@foo.com", "county": "Honolulu" },
     { "date": "2020-03-03", "distance": 12, "mode": "Carpool", "passenger": 2, "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
     { "date": "2020-03-04", "distance": 20, "mode": "Carpool", "passenger": 2, "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
     { "date": "2020-03-05", "distance": 26, "mode": "Carpool", "passenger": 2, "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
@@ -217,7 +217,7 @@
     { "date": "2020-04-03", "distance": 9, "mode": "Telework", "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
     { "date": "2020-04-07", "distance": 9, "mode": "Telework", "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
     { "date": "2020-04-08", "distance": 9, "mode": "Telework", "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
-    { "date": "2020-04-09", "distance": 9, "mode": "Telework", "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
+    { "date": "2020-04-09", "distance": 9, "mode": "Gas Car", "mpg": 19, "owner":  "lcaraang@foo.com", "county": "Kauai" },
     { "date": "2020-03-01", "distance": 55, "mode": "Carpool", "passenger": 2, "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
     { "date": "2020-03-02", "distance": 45, "mode": "Carpool", "passenger": 2, "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
     { "date": "2020-03-03", "distance": 64, "mode": "Carpool", "passenger": 2, "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
@@ -247,10 +247,8 @@
     { "date": "2020-04-06", "distance": 45, "mode": "Telework", "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
     { "date": "2020-04-07", "distance": 45, "mode": "Telework", "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
     { "date": "2020-04-08", "distance": 45, "mode": "Telework", "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
-    { "date": "2020-04-09", "distance": 45, "mode": "Telework", "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
+    { "date": "2020-04-09", "distance": 45, "mode": "Gas Car", "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
     { "date": "2020-04-10", "distance": 45, "mode": "Carpool", "passenger": 1, "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" },
     { "date": "2020-04-11", "distance": 45, "mode": "Carpool", "passenger": 1, "mpg": 26, "owner": "wongk711@foo.com", "county": "Kauai" }
   ]
 }
-
-

@@ -1,12 +1,18 @@
 import React from 'react';
-import { Card, Divider, Header, Popup } from 'semantic-ui-react';
+import { Card, Divider, Header, Loader, Popup } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
+import { Trips } from '../../api/trip/TripCollection';
 
 class Community extends React.Component {
-
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
     return (
       <div>
         <div id='community-container'>
@@ -15,6 +21,7 @@ class Community extends React.Component {
             <Map/>
           </div>
           <div id='community-bottom'>
+            <br/>
             <Divider horizontal>
               <Header as='h3'>
                 Get Involved
@@ -114,4 +121,18 @@ class Community extends React.Component {
   }
 }
 
-export default Community;
+/** Require an array of Trip documents in the props. */
+Community.propTypes = {
+  trips: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Get access to Trip documents.
+  const subscription = Trips.subscribeTripCommunity();
+  return {
+    trips: Trips.find({}).fetch(),
+    ready: subscription.ready(),
+  };
+})(Community);
