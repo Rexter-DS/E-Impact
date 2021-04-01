@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
-import Footer from '../components/Footer';
 import LandingNavBar from '../components/LandingNavBar';
 
 const countyOptions = [
   { text: 'Hawaii', value: 'Hawaii' },
   { text: 'Honolulu', value: 'Honolulu' },
+  { text: 'Kalawao', value: 'Kalawao' },
   { text: 'Kauai', value: 'Kauai' },
   { text: 'Maui', value: 'Maui' },
 ];
@@ -58,7 +58,7 @@ class Signup extends React.Component {
                     <Header as="h2" textAlign="center">
                       Register your account
                     </Header>
-                    <Image size='medium'  src="/images/EImpactLogo.png" centered/>
+                    <Image size='medium' src="/images/EImpactLogo.png" centered/>
                     <Form.Select
                         label="Location"
                         id="signup-form-county"
