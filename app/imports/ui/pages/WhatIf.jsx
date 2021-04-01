@@ -72,7 +72,9 @@ export default withTracker(({ match }) => {
     const tripSubscribe = Trips.subscribeTrip();
     const userSubscribe = Users.subscribeUser();
     const username = match.params._id;
-    const milesSavedTotal = Trips.getMilesSavedTotal(username);
+
+    const milesSavedTotal = Trips.getMilesTotal(username);
+
     const milesSavedPerDay = Trips.getMilesSavedPerDay(username);
     const modesOfTransport = Trips.getModesOfTransport(username);
     const userProfile = Users.getUserProfile(username);
@@ -82,7 +84,9 @@ export default withTracker(({ match }) => {
     return {
         tripReady: tripSubscribe.ready(),
         userReady: userSubscribe.ready(),
+
         milesSavedTotal,
+
         milesSavedPerDay,
         modesOfTransport,
         userProfile,
