@@ -5,16 +5,15 @@ import { Icon, Image, Menu, Sidebar, Checkbox } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Users } from '../../api/user/UserCollection';
-//import '../../../client/styles/Themes.less';
 
-const handleChange = (e, value) => {
+const handleChange = () => {
   Users.updateTheme(Meteor.user()?.username);
   if (Users.getUserProfile(Meteor.user()?.username).theme === 'dark') {
     document.body.classList.add('dark');
   } else {
     document.body.classList.remove('dark');
   }
-  console.log(Users.getUserProfile(Meteor.user()?.username).theme);
+  //console.log(Users.getUserProfile(Meteor.user()?.username).theme);
 };
 
 const SideBar = (props) => (

@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 import { Card, Divider, Header, Popup } from 'semantic-ui-react';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
+import { Users } from '../../api/user/UserCollection';
 
-class Community extends React.Component {
+const Community = () => {
 
-  render() {
-    return (
+  return (
       <div>
         <div id='community-container'>
           <SideBar/>
@@ -110,8 +113,21 @@ class Community extends React.Component {
         </div>
         <Footer id={'community-footer'}/>
       </div>
-    );
-  }
-}
+  );
+};
 
-export default Community;
+Community.propTypes = {
+  username: PropTypes.string,
+  userProfile: PropTypes.object,
+  userReady: PropTypes.bool.isRequired,
+};
+
+export default withTracker(() => {
+  const userSubscribe = Users.subscribeUser();
+  const username = Meteor.user()?.username;
+  const userProfile = Users.getUserProfile(username);
+  return {
+    userReady: userSubscribe.ready(),
+    userProfile: userProfile,
+  };
+})(Community);
