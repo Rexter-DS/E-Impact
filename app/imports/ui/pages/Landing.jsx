@@ -5,6 +5,7 @@ import LandingNavBar from '../components/LandingNavBar';
 import Footer from '../components/Footer';
 import Info1 from '../components/Info1';
 import Info2 from '../components/Info2';
+import TempAddData from '../components/TempAddData';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -17,6 +18,7 @@ class Landing extends React.Component {
                 <Header size='huge' textAlign='center'>Welcome to E-Impact!</Header>
               <div style={{ paddingLeft: '250px', paddingRight: '250px', color:'black' }} className="ui center aligned container">
                 <p>Help keep our air clean by monitoring your Green House Gas emissions!</p>
+                <TempAddData/>
                 <hr/>
               </div>
             </div>
