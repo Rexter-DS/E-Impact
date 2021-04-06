@@ -81,7 +81,7 @@ const TripItem = (props) => {
         </Table.Cell>}
       </Table.Row>
   );
-}
+};
 
 /** Require a document to be passed to this component. */
 TripItem.propTypes = {

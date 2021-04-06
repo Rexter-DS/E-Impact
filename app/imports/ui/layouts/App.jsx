@@ -23,6 +23,7 @@ import Community from '../pages/Community';
 import PublicCommunity from '../pages/PublicCommunity';
 import MapTest from '../pages/MapTest';
 import Compare from '../pages/Compare';
+import Admin from '../pages/Admin';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -39,6 +40,7 @@ class App extends React.Component {
               <Route path="/quickaccess" component={QuickAccess}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
+              <ProtectedRoute path="/admin" component={Admin}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/dashboard/:_id" component={Dashboard}/>
