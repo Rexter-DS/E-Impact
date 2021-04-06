@@ -1,7 +1,8 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, NavLink } from 'react-router-dom';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class UserItem extends React.Component {
@@ -12,7 +13,7 @@ class UserItem extends React.Component {
           <Table.Cell>{this.props.user.profile.last}</Table.Cell>
           <Table.Cell>{this.props.user.username}</Table.Cell>
           <Table.Cell>
-            <Link to={`/edit/${this.props.user._id}`}>Edit</Link>
+            <Link as={NavLink} to={`/trips/${this.props.user.username}`}>Trips</Link>
           </Table.Cell>
         </Table.Row>
     );
