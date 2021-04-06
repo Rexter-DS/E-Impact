@@ -8,39 +8,52 @@
   height: 100px;
   width: 100%;
   position: fixed;
-  background: transparent;
+  background: #ffffff;
   border-bottom: none;
   box-shadow: none;
 }
 .fake-menu-item {
   font-family: "Barlow Semi Condensed", sans-serif;
-  color: #FFFFFF !important;
+  color: black !important;
   font-size: 30px;
-  padding-right: 50px;
-}
-.fake-menu-item:after {
-
+  padding-right: 30px;
 }
 
 #landing {
-  padding-top: 150px;
-  padding-bottom: 150px;
-  color: #FFFFFF;
+  padding-top: 120px;
+  /*color: white;*/
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 30px;
-  background: url("/images/OahuBackground.jpeg") no-repeat fixed center center;
-  background-size: 100% 100%;
+  /*background-size: cover;*/
 }
+
+#landing-info1 {
+  height: 425px;
+  padding: 50px;
+  background: #ffffff;
+}
+
+.landing-info-center {
+  text-align: center;
+}
+
 #landing-bottom {
   padding-top: 150px;
 }
 
+#greet {
+  height: 500px;
+  padding: 50px;
+  background: url("/images/OahuBackgroundBrighter2.jpeg") no-repeat center center;
+  background-size: cover;
+}
+
 #sign {
-  padding-top: 150px;
-  /*padding-bottom: 150px;*/
+  padding-top: 180px;
+  width: 100%;
+  height: 100vh;
   background-color: rgba(12, 77 ,133, 0.8);
   font-family: "Barlow Semi Condensed", sans-serif;
-  padding-bottom: 150px;
 }
 
 #dashboard-container {
@@ -74,7 +87,7 @@
   color: white !important;
   width: 100%;
   bottom: 0;
-  /*margin-top: 50px;*/
+  position: absolute;
   padding: 15px 0;
 }
 
@@ -96,7 +109,27 @@
   color: white !important;
   position: absolute;
   width: 100%;
+  padding: 15px 0;
+}
+
+#landing-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
+  width: 100%;
+  padding: 15px 0;
+}
+
+#sign-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  position: absolute;
   bottom: 0;
+  width: 100%;
   padding: 15px 0;
 }
 
@@ -138,6 +171,43 @@ dark-blue: 0C4D85
   background-color: #0c4d85 !important;
 }
 
+.daily-table-data {
+  color: #0c4d85 !important;
+  /*font-weight: bold;*/
+}
+
+.daily-save-button {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+  background-color: #0c4d85 !important;
+}
+
+.daily-date-item {
+  padding: 0 !important;
+  color: #0c4d85 !important;
+  /*font-weight: 900 !important;*/
+}
+
+.daily-date-button {
+  /*padding: 35px !important;*/
+  margin: 0 !important;
+  color: #0c4d85 !important;
+  /*font-weight: 900 !important;*/
+  background-color: #FFFFFF !important;
+}
+
+.daily-arrow-button {
+  color: #0c4d85 !important;
+  font-size: 16px !important;
+  background-color: #FFFFFF !important;
+}
+
+.daily-today-button {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+  background-color: #0c4d85 !important;
+}
+
 #daily-top {
   font-family: "Barlow Semi Condensed", sans-serif;
   color: #0c4d85 !important;
@@ -156,8 +226,13 @@ dark-blue: 0C4D85
 }
 
 .daily-header-sums {
-  color: #0c4d85 !important;
+  color: #0c4d85;
   font-weight: 900 !important;
+}
+
+.monthly-sum {
+  font-size: 35px;
+  font-weight: 700 !important;
 }
 
 .daily-table {
@@ -182,34 +257,114 @@ dark-blue: 0C4D85
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+#county-information {
+  padding-top: 400px;
+}
+
+#map-button {
+  margin-left: 74vw;
+  margin-top: 10px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
 /* Public Community Page */
 #public-community-container {
-  padding-top: 50px;
-  padding-bottom: 150px;
+  padding-top: 150px;
+  padding-left: 5%;
+  padding-right: 5%;
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+.community-menu-item {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  color: #000000 !important;
+  font-size: 30px;
+  padding-right: 30px;
+}
+
+.organization-name {
+  font-size: 15px;
+  font-family: "Noyh", "Barlow Semi Condensed", sans-serif;
+  color: #44a047;
+}
+
+.organization-name:hover {
+  color: #024731;
+}
+
+.organizations {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#community-engagement {
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+#community-engagement-header {
+  color: #267cc1;
+}
+
+#community-engagement-paragraph {
+  font-size: 15px;
+}
+
+#community-section {
+  padding-top: 440px;
+}
+
+#community-nav {
+  height: 120px;
+  width: 100%;
+  position: fixed;
+  background: #ffffff;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+#calendar-container {
+  display: block;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+#calendar-form {
+  margin-top: 25px;
+  margin-left: 300px;
+}
+
+#defaultButton {
+  margin-left: 600px;
+}
 
 .quick-access-container {
+  position: relative;
   padding-bottom: 150px;
-  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  background-color: #FFFFFF;
   background-size: 100% 100%;
 }
-.quick-access-navbar{
-  padding-bottom: 30px;
-}
+
 .quick-access-grid{
   background-color: white;
-  /* width: 900px; */
+  box-shadow: 10px 10px 5px darkgrey;
+  outline: grey solid 1px;
+  max-width: 1000px;
+}
+.quick-access-form{
+  align-content: center;
+  justify-content: center;
+  margin-right: 265px;
+  margin-left: 265px;
+  padding-top: 50px;
 }
 
 #card-bottom {
   background-color: #1C7DC1;
   color: white;
-}
-
-#community-bottom {
-  padding-top: 400px;
 }
 
 /* Compare */

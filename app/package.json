@@ -4,6 +4,9 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@esri/react-arcgis": "^5.1.0",
+    "@fullcalendar/daygrid": "^5.5.0",
+    "@fullcalendar/interaction": "^5.5.0",
+    "@fullcalendar/react": "^5.5.0",
     "classnames": "^2.2.6",
     "core-js": "^3.8.3",
     "esri-leaflet": "^3.0.0",
@@ -47,6 +50,7 @@
   },
   "scripts": {
     "start": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json",
+    "start-production": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --production --settings ../config/settings.production.json",
     "lint": "eslint --quiet --ext .jsx --ext .js ./imports",
     "testcafe-development": "testcafe chrome tests/*.testcafe.js",
     "testcafe": "testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\""

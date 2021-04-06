@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Trips } from '../../api/trip/TripCollection.js';
 import { Users } from '../../api/user/UserCollection';
+import { SavedTrips } from '../../api/trip/SavedTripCollection';
 
 /* eslint-disable no-console */
 

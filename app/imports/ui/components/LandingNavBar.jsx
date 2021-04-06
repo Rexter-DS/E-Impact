@@ -16,14 +16,19 @@ class NavBar extends React.Component {
     };
 
     return (
-      <Menu id='landing-nav' style={menuStyle} className='ui borderless top fixed menu'>
-        <a href={'/#'}>
-          <Image size='medium' src="/images/EImpactLogoWhite.png"/>
-        </a>
-        <Menu.Item position="right">
-          <a className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
-        </Menu.Item>
-      </Menu>
+        <div>
+          <Menu id='community-nav' style={menuStyle} className='ui borderless top fixed menu'>
+            <a href={'/#'}>
+              <Image size='medium' src="/images/EImpactLogo.png"/>
+            </a>
+            <Menu.Item position="right">
+              <a className='fake-menu-item' href={'#/get-involved'}><p>Get Involved</p></a>
+            </Menu.Item>
+            <Menu.Item>
+              <a id="sign-in-button" className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
+            </Menu.Item>
+          </Menu>
+        </div>
     );
   }
 }

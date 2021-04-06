@@ -1,8 +1,11 @@
 import React from 'react';
-import { Grid, Button, Icon } from 'semantic-ui-react';
+import { Grid, Button, Icon, Header } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import LandingNavBar from '../components/LandingNavBar';
 import Footer from '../components/Footer';
+import Info1 from '../components/Info1';
+import Info2 from '../components/Info2';
+import TempAddData from '../components/TempAddData';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -10,47 +13,23 @@ class Landing extends React.Component {
     return (
         <div id="landing">
           <LandingNavBar/>
-
-          {/* This controls the top half of the landing page */}
-          <div style={{ paddingLeft: '250px', paddingRight: '250px' }} className="ui center aligned container">
-            <p>Help keep our air clean and monitor your Green House Gas emissions!</p>
-            <hr/>
-          </div>
-
+            {/* This controls the top half of the landing page */}
+            <div id="greet">
+                <Header size='huge' textAlign='center'>Welcome to E-Impact!</Header>
+              <div style={{ paddingLeft: '250px', paddingRight: '250px', color:'black' }} className="ui center aligned container">
+                <p>Help keep our air clean by monitoring your Green House Gas emissions!</p>
+                <TempAddData/>
+                <hr/>
+              </div>
+            </div>
           {/* This controls the bottom half of the landing page */}
-          <Grid id="landing-bottom" verticalAlign='middle' textAlign='center' container>
-            <Grid.Column width={4}>
-              <h1>Use our GHC estimator to calculate your GHG emissions for a single trip</h1>
-              <Button as={NavLink} exact to='/quickaccess' animated>
-                <Button.Content visible>Take me there!</Button.Content>
-                <Button.Content hidden>
-                  <Icon name='long arrow alternate right'/>
-                </Button.Content>
-              </Button>
-            </Grid.Column>
-
-            <Grid.Column width={4}>
-              <h1>Create an account to keep track of the emissions of your daily transit</h1>
-              <Button as={NavLink} exact to='/signup' animated>
-                <Button.Content visible>Take me there!</Button.Content>
-                <Button.Content hidden>
-                  <Icon name='long arrow alternate right'/>
-                </Button.Content>
-              </Button>
-            </Grid.Column>
-
-            <Grid.Column width={4}>
-              <h1>View the Community&apos;s Progress</h1>
-              <Button as={NavLink} exact to='/publiccommunity' animated>
-                <Button.Content visible>Take me there!</Button.Content>
-                <Button.Content hidden>
-                  <Icon name='long arrow alternate right'/>
-                </Button.Content>
-              </Button>
-            </Grid.Column>
-          </Grid>
-        <Footer id={'landing-footer'}/>
+          <Info1/>
+          <hr/>
+          <Info2/>
+          <br/>
+          <Footer id={'landing-footer'}/>
         </div>
+
     );
   }
 }

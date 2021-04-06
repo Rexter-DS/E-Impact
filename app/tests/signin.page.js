@@ -1,9 +1,9 @@
 import { Selector } from 'testcafe';
-import { navBar } from './navbar.component';
+import { sideBar } from './sidebar.component';
 
 class SigninPage {
   constructor() {
-    this.pageId = '#signin-page';
+    this.pageId = '#sign';
     this.pageSelector = Selector(this.pageId);
   }
 
@@ -18,7 +18,7 @@ class SigninPage {
     await testController.typeText('#signin-form-email', username);
     await testController.typeText('#signin-form-password', password);
     await testController.click('#signin-form-submit');
-    await navBar.isLoggedIn(testController, username);
+//    await sideBar.isLoggedIn(testController, username);
   }
 }
 

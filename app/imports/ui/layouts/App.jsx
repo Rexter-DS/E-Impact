@@ -17,6 +17,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import QuickAccess from '../pages/QuickAccess';
 import Dashboard from '../pages/Dashboard';
+import WhatIf from '../pages/WhatIf';
 import Daily from '../pages/Daily';
 import Community from '../pages/Community';
 import PublicCommunity from '../pages/PublicCommunity';
@@ -29,19 +30,19 @@ class App extends React.Component {
   render() {
     return (
         <Router>
-          <div>
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/map" component={MapTest}/>
-              <Route path="/publiccommunity" component={PublicCommunity}/>
+              <Route path="/get-involved" component={PublicCommunity}/>
               <Route path="/quickaccess" component={QuickAccess}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/dashboard/:_id" component={Dashboard}/>
+              <ProtectedRoute path="/whatif/:_id" component={WhatIf}/>
               <ProtectedRoute path="/daily" component={Daily}/>
               <ProtectedRoute path="/addTrip" component={AddTrip}/>
               <ProtectedRoute path="/compare" component={Compare}/>
@@ -50,7 +51,6 @@ class App extends React.Component {
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
-          </div>
         </Router>
     );
   }

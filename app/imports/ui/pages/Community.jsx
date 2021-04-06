@@ -1,31 +1,18 @@
 import React from 'react';
-import { Card, Divider, Dropdown, Header, Popup } from 'semantic-ui-react';
+import { Card, Divider, Header, Loader, Popup } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
-import State from '../components/State';
-import Kauai from '../components/Kauai';
-import Maui from '../components/Maui';
-import Honolulu from '../components/Honolulu';
-import Hawaii from '../components/Hawaii';
-
-const countyOptions = [
-  { value: 'State', text: 'State' },
-  { value: 'Hawaii', text: 'Hawaii County' },
-  { value: 'Honolulu', text: 'Honolulu' },
-  { value: 'Kauai', text: 'Kauai' },
-  { value: 'Maui', text: 'Maui' },
-];
+import { Trips } from '../../api/trip/TripCollection';
 
 class Community extends React.Component {
-  state = {
-    value: '',
+  render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
-  handleChange = (e, { value }) => this.setState({ value })
-
-  render() {
-    const { value } = this.state;
+  renderPage() {
     return (
       <div>
         <div id='community-container'>
@@ -34,19 +21,7 @@ class Community extends React.Component {
             <Map/>
           </div>
           <div id='community-bottom'>
-            <Dropdown
-                placeholder='Select County'
-                selection
-                options={countyOptions}
-                onChange={this.handleChange}
-                value={value}
-            />
-            {value === '' && <State/>}
-            {value === 'State' && <State/>}
-            {value === 'Hawaii' && <Hawaii/>}
-            {value === 'Honolulu' && <Honolulu/>}
-            {value === 'Kauai' && <Kauai/>}
-            {value === 'Maui' && <Maui/>}
+            <br/>
             <Divider horizontal>
               <Header as='h3'>
                 Get Involved
@@ -146,4 +121,18 @@ class Community extends React.Component {
   }
 }
 
-export default Community;
+/** Require an array of Trip documents in the props. */
+Community.propTypes = {
+  trips: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Get access to Trip documents.
+  const subscription = Trips.subscribeTripCommunity();
+  return {
+    trips: Trips.find({}).fetch(),
+    ready: subscription.ready(),
+  };
+})(Community);

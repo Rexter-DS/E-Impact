@@ -29,6 +29,14 @@ const SideBar = (props) => (
       Dashboard
     </Menu.Item>
     <Menu.Item as={NavLink}
+               activeClassName=""
+               exact
+               to={`/WhatIf/${Meteor.user()?.username}`}
+               style={{ color: '#0c4d85' }}>
+      <Icon name='grid layout'/>
+      What If
+    </Menu.Item>
+    <Menu.Item as={NavLink}
                activeClassName="active"
                exact
                to="/daily"
@@ -57,13 +65,13 @@ const SideBar = (props) => (
     <Menu.Item as={NavLink}
                activeClassName="active"
                exact
-               to="/signout"
+               to="/"
                key='signout'
                style={{ color: '#0c4d85' }}>
       <Icon name='sign-out'/>
       Sign Out
     </Menu.Item>
-    <Menu.Item style={{ color: '#0c4d85' }}>
+    <Menu.Item id="sidebar-current-user" style={{ color: '#0c4d85', position: 'fixed', bottom: '0' }}>
       <Icon name='user circle outline'/>
       {Meteor.user() ? Meteor.user().username : 'Guest'}
     </Menu.Item>
@@ -71,7 +79,7 @@ const SideBar = (props) => (
 
 SideBar.propTypes = {
   currentUser: PropTypes.string,
-}
+};
 
 export default withTracker(() => {
   const currentUser = Meteor.userId() ? Meteor.userId() : '';
