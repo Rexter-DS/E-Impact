@@ -1,4 +1,4 @@
-name: ci-e-impact
+name: ci-testcafe-E-Impact
 
 on:
   push:
