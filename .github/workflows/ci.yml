@@ -1,9 +1,10 @@
-name: ci-e-impact
+name: ci-testcafe-E-Impact
 
 on:
   push:
     branches:
       - main
+      - issue-029
 
 defaults:
   run:
@@ -33,5 +34,5 @@ jobs:
 
       - uses: meteorengineer/setup-meteor@v1
       - run: meteor npm install
-      - run: meteor npm run lint
+     # - run: meteor npm run lint
       - run: meteor npm run testcafe
