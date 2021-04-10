@@ -23,6 +23,9 @@ function Dashboard(
     },
 ) {
 
+
+
+
   return ((tripReady && userReady) ?
           <div>
             <DashboardContent

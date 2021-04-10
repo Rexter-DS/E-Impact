@@ -20,7 +20,7 @@ const handleChange = () => {
 const SideBar = (props) => {
 
   if (props.userReady && (document.getElementById('sidebar'))) {
-   // console.log(document.getElementsByClassName('sidebar-item'));
+    // console.log(document.getElementsByClassName('sidebar-item'));
 
     const sidebarItems = document.getElementsByClassName('sidebar-item');
 
@@ -77,6 +77,14 @@ const SideBar = (props) => {
           Daily
         </Menu.Item>
         <Menu.Item as={NavLink}
+                   activeClassName=""
+                   exact
+                   to={`/WhatIf/${Meteor.user()?.username}`}
+        >
+          <Icon name='grid layout'/>
+          What If
+        </Menu.Item>
+        <Menu.Item as={NavLink}
                    className='sidebar-item'
                    activeClassName="active"
                    exact
@@ -97,13 +105,13 @@ const SideBar = (props) => {
                    className='sidebar-item'
                    activeClassName="active"
                    exact
-                   to="/signout"
+                   to="/"
                    key='signout'>
           <Icon name='sign-out'/>
           Sign Out
         </Menu.Item>
         <Menu.Item>
-          <Checkbox toggle checked={props.theme === 'dark'} onChange={handleChange} />
+          <Checkbox toggle checked={props.theme === 'dark'} onChange={handleChange}/>
         </Menu.Item>
         <Menu.Item
             className='sidebar-item'

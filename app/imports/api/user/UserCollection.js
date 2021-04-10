@@ -21,15 +21,13 @@ class UserCollection extends BaseCollection {
     }));
   }
 
-  /**
-   * Defines a new Trip item.
-   * @param date of trip.
-   * @param distance traveled.
-   * @param mode of transportation.
-   * @param mpg of vehicle.
-   * @param owner the owner of the item.
-   * @return {String} the docID of the new document.
-   */
+    /**
+     * Defines a new User item
+     * @param username: the username of the user.
+     * @param autoMPG: the mpg of the user's vehicle.
+     * @param homeRoundTrip: the round trip distance between the user's house and their work.
+     * @return {String} the docID of the new document.
+     */
   define({ username, autoMPG, homeRoundTrip }) {
     const theme = 'light';
     const docID = this._collection.insert({

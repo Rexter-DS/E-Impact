@@ -211,7 +211,18 @@ box: #2a4253
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 30px;
   margin: 0 !important;
-  background-color: inherit;             /*HERE*/
+  background-color: inherit; /*HERE*/
+}
+
+.daily-table-data {
+  color: #0c4d85 !important;
+  /*font-weight: bold;*/
+}
+
+.daily-save-button {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+  background-color: #0c4d85 !important;
 }
 
 #daily-add-button {
@@ -381,42 +392,40 @@ box: #2a4253
   box-shadow: none;
 }
 
+#calendar-container {
+  display: block;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+#calendar-form {
+  margin-top: 25px;
+  margin-left: 300px;
+}
+
+#defaultButton {
+  margin-left: 600px;
+}
+
 .quick-access-container {
   position: relative;
-  padding-bottom: 250px;
-  background: url("/images/OahuBackground.jpeg")  no-repeat fixed;
+  padding-bottom: 150px;
+  background-color: #FFFFFF;
   background-size: 100% 100%;
 }
 
 .quick-access-grid{
   background-color: white;
+  box-shadow: 10px 10px 5px darkgrey;
+  outline: grey solid 1px;
+  max-width: 1000px;
 }
 .quick-access-form{
   align-content: center;
+  justify-content: center;
   margin-right: 265px;
   margin-left: 265px;
-  padding-top: 150px;
-}
-
-#quick-access-navbar{
-  position: absolute !important;
-  padding-bottom: 35px;
-  height: 100px;
-  width: 100%;
-  background: transparent;
-  border-bottom: none;
-  box-shadow: none;
-}
-
-#quick-access-footer{
-  background-color: #093c69;
-  font-family: "Barlow Semi Condensed", sans-serif;
-  font-size: 14px;
-  color: white !important;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  padding: 15px 0;
+  padding-top: 50px;
 }
 
 #card-bottom {
