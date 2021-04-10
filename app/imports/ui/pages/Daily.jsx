@@ -59,9 +59,35 @@ const Daily = (props) => {
     return val;
   }
 
-  if (props.userReady) {
+  if (props.userReady && (document.getElementById('daily-container'))) {
+    const dailyArrows = document.getElementsByClassName('daily-arrow-button');
+    const dailyTableHeader = document.getElementsByClassName('daily-table-header');
     if (props.userProfile.theme === 'dark') {
-      document.body.classList.add('dark');
+      document.getElementById('daily-date-button').classList.add('dark-daily');
+      document.getElementById('daily-table').classList.add('dark-daily-table');
+      document.getElementById('daily-date-button').classList.remove('light-daily');
+      document.getElementById('daily-table').classList.remove('light-daily-table');
+      for (let i = 0; i < dailyArrows.length; i++) {
+        dailyArrows[i].classList.add('dark-daily');
+        dailyArrows[i].classList.remove('light-daily');
+      }
+      for (let i = 0; i < dailyTableHeader.length; i++) {
+        dailyTableHeader[i].classList.add('dark-daily-table');
+        dailyTableHeader[i].classList.remove('light-daily-table-header');
+      }
+    } else {
+      document.getElementById('daily-table').classList.add('light-daily-table');
+      document.getElementById('daily-date-button').classList.add('light-daily');
+      document.getElementById('daily-date-button').classList.remove('dark-daily');
+      document.getElementById('daily-table').classList.remove('dark-daily-table');
+      for (let i = 0; i < dailyArrows.length; i++) {
+        dailyArrows[i].classList.add('light-daily');
+        dailyArrows[i].classList.remove('dark-daily');
+      }
+      for (let i = 0; i < dailyTableHeader.length; i++) {
+        dailyTableHeader[i].classList.add('light-daily-table-header');
+        dailyTableHeader[i].classList.remove('dark-daily-table');
+      }
     }
   }
 
@@ -82,7 +108,7 @@ const Daily = (props) => {
                   </Button>
                 </Grid.Column>
                 <Grid.Column width={3} verticalAlign='middle'>
-                  <Button size='massive' className={'daily-date-button'} animated={'fade'} onClick={handleClickToday}
+                  <Button size='massive' id={'daily-date-button'} animated={'fade'} onClick={handleClickToday}
                           fluid>
                     <Button.Content visible
                                     style={{ fontSize: '30px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
@@ -102,17 +128,17 @@ const Daily = (props) => {
                 <Grid.Column width={4} textAlign='center'>
                   <Statistic size='small' color={monthlySumColor}>
                     <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
-                    <Statistic.Label
-                        style={{ fontSize: '18px' }}>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs Produced' : 'lbs Reduced'}</Statistic.Label>
+                    <Statistic.Label id='daily-statistic-label'>
+                      {monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs Produced' : 'lbs Reduced'}</Statistic.Label>
                   </Statistic>
                 </Grid.Column>
                 <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
-                  <Button className='daily-add-button' href={'#/addTrip'}>Add</Button>
+                  <Button id='daily-add-button' href={'#/addTrip'}>Add</Button>
                 </Menu.Item>
               </Grid>
             </Menu>
             <Table fixed
-                   className='daily-table'>
+                   id='daily-table'>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>

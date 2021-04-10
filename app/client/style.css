@@ -4,17 +4,35 @@
  */
 
 .dark {
-  background-color: black !important;
-  color: red !important;
+  background-color: #0e283d;
+  color: #FFFFFF;
 }
 
 body {
   background-color: #FFFFFF;
 }
 
+/* SIDEBAR CSS */
 #sidebar {
   background-color: inherit;
   color: inherit;
+}
+
+.sidebar-item {
+  color: inherit;
+}
+
+.light-sidebar-item {
+  color: #0c4d85 !important;
+}
+
+.dark-sidebar {
+  background-color: #0c4d85 !important;
+}
+
+.dark-sidebar-item {
+  color: #FFFFFF !important;
+  border-top-color: red !important;
 }
 
 /* landing page CSS */
@@ -159,50 +177,98 @@ body {
   padding: 15px 0;
 }
 
-#daily-footer {
-  background-color: #093c69;
-  font-family: "Barlow Semi Condensed", sans-serif;
-  font-size: 14px;
-  color: white !important;
-  width: 100%;
-  bottom: 0px;
-  padding: 15px 0;
-}
-
 .link {
   color: #177fc5;
 }
 
 /*
-Daily Page
+DAILY
 light-blue: 3FADE2
 mid-blue: 1C7DC1 / 177fc5
 dark-blue: 0C4D85
+
+DARK
+background: #0e283d
+box-header: #3d5362
+box: #2a4253
 */
-.daily-add-button {
+.light-daily {
+  color: #0c4d85 !important;
+}
+
+.dark-daily {
+  color: #FFFFFF !important;
+}
+
+#daily-container {
+  font-size: 20px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  height: 100vh !important;
+  color: inherit;
+}
+
+#daily-top {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 30px;
+  margin: 0 !important;
+  background-color: inherit;             /*HERE*/
+}
+
+#daily-add-button {
   color: #FFFFFF !important;
   font-size: 20px !important;
   background-color: #0c4d85 !important;
 }
 
-.daily-date-item {
-  padding: 0 !important;
-  color: #0c4d85 !important;
+#daily-date-button {
+  color: inherit;
+  background-color: inherit;
+  /*padding: 35px !important;*/
+  margin: 0 !important;
   /*font-weight: 900 !important;*/
 }
 
-.daily-date-button {
-  /*padding: 35px !important;*/
+#daily-statistic-label {
+  font-size: 18px;
+  color: inherit;
+}
+
+#daily-table {
+  padding-bottom: 15px;
   margin: 0 !important;
-  color: #0c4d85 !important;
-  /*font-weight: 900 !important;*/
-  background-color: #FFFFFF !important;
+  background-color: inherit;
+  color: inherit;
+}
+
+.dark-daily-table {
+  background-color: #153955 !important;
+  color: #FFFFFF !important;
+}
+
+.light-daily-table {
+  color: #a9a9a9 !important;
+}
+
+.daily-table-header {
+  color: inherit;
+  background-color: inherit;
+}
+
+.light-daily-table-header {
+  color: #1C7DC1 !important;
 }
 
 .daily-arrow-button {
-  color: #0c4d85 !important;
   font-size: 16px !important;
-  background-color: #FFFFFF !important;
+  color: inherit;
+  background-color: inherit !important;
+}
+
+/*
+.daily-date-item {
+  padding: 0 !important;
+  color: #0c4d85 !important;
+  /*font-weight: 900 !important;
 }
 
 .daily-today-button {
@@ -211,22 +277,6 @@ dark-blue: 0C4D85
   background-color: #0c4d85 !important;
 }
 
-#daily-top {
-  font-family: "Barlow Semi Condensed", sans-serif;
-  color: #0c4d85 !important;
-  font-size: 30px;
-  margin: 0 !important;
-}
-
-#daily-container {
-  font-size: 20px;
-  font-family: "Barlow Semi Condensed", sans-serif;
-  height: 100vh !important;
-}
-
-.daily-table-header {
-  color: #1C7DC1 !important;
-}
 
 .daily-header-sums {
   color: #0c4d85;
@@ -238,14 +288,16 @@ dark-blue: 0C4D85
   font-weight: 700 !important;
 }
 
-.daily-table {
-  padding-bottom: 15px;
-  margin: 0 !important;
+#daily-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0px;
+  padding: 15px 0;
 }
-
-.ui.table {
-  color: darkgrey !important;
-}
+ */
 
 /* Add Trip */
 #add-trip-container {
