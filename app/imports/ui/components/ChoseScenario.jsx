@@ -37,6 +37,26 @@ function ChoseScenario(
 
     let nGHGProducedTotal = useRef(ghgProducedTotal);
 
+    function colorType (type) {
+      let color = '';
+      if (type === 'Telework') {
+        color = '#1f77b4';
+      } else if (type === 'Carpool') {
+        color = '#ff7f0e';
+      } else if (type === 'Bike') {
+        color = '#2ca02c';
+      } else if (type === 'Walk') {
+        color = '#d62728';
+      } else if (type === 'Electric Vehicle') {
+        color = '#9467bd';
+      } else if (type === 'Gas Car') {
+        color = '#8c564b';
+      } else {
+        color = '#e377c2';
+      }
+      return (color);
+    };
+
     // state for events in fullcalendar
     const [events, setEvents] = useState(() => _.map(milesSavedPerDay.date, function (date, i) {
         const year = `${date.getFullYear()}`;
@@ -51,7 +71,7 @@ function ChoseScenario(
             day = `0${day}`;
         }
 
-        return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
+        return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-'), color: colorType(milesSavedPerDay.mode[i]) };
     }));
 
     // state for event user selected in fullcalendar
@@ -75,7 +95,7 @@ function ChoseScenario(
                 day = `0${day}`;
             }
 
-            return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
+            return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-'), color: colorType(milesSavedPerDay.mode[i]) };
         }));
     }
 
@@ -175,54 +195,51 @@ function ChoseScenario(
                 <Form.Field>
                     Selected date: {selectedEvent.date}
                 </Form.Field>
-                <Form.Radio
+                <Form.Group inline>
+                  <Form.Radio
                     label='Bike'
                     checked={transport === 'Bike'}
                     value='Bike'
                     onClick={handleChange}
-                />
+                  />
 
-                <Form.Radio
-                    label='Carpool'
-                    checked={transport === 'Carpool'}
-                    value='Carpool'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Electric Vehicle'
-                    checked={transport === 'Electric Vehicle'}
-                    value='Electric Vehicle'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Gas Car'
-                    checked={transport === 'Gas Car'}
-                    value='Gas Car'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Public Transportation'
-                    checked={transport === 'Public Transportation'}
-                    value='Public Transportation'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Telework'
-                    checked={transport === 'Telework'}
-                    value='Telework'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Walk'
-                    checked={transport === 'Walk'}
-                    value='Walk'
-                    onClick={handleChange}
-                />
+                  <Form.Radio
+                      label='Carpool'
+                      checked={transport === 'Carpool'}
+                      value='Carpool'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Electric Vehicle'
+                      checked={transport === 'Electric Vehicle'}
+                      value='Electric Vehicle'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Gas Car'
+                      checked={transport === 'Gas Car'}
+                      value='Gas Car'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Public Transportation'
+                      checked={transport === 'Public Transportation'}
+                      value='Public Transportation'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Telework'
+                      checked={transport === 'Telework'}
+                      value='Telework'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Walk'
+                      checked={transport === 'Walk'}
+                      value='Walk'
+                      onClick={handleChange}
+                  />
+                </Form.Group>
 
                 <Form.Field>
                     <Form.Button content='submit'/>
