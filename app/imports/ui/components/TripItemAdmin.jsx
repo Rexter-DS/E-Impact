@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
 import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
 import { Users } from '../../api/user/UserCollection';
-import SaveTripModal from './SaveTripModal';
 
 /** Renders a single row in the List Trip table. See pages/ListTrip.jsx. */
 const TripItem = (props) => {
@@ -69,7 +68,7 @@ const TripItem = (props) => {
         <Table.Cell className='daily-table-data'>{props.trip.mpg}</Table.Cell>
         <Table.Cell style={gStyle}>{gallons === 0 ? 0 : `${abs(gallons).toFixed(2)} gal`}</Table.Cell>
         <Table.Cell style={gStyle}>{ghg === 0 ? 0 : `${abs(ghg).toFixed(2)} lbs`}</Table.Cell>
-        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}></Button><Confirm
+        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}/><Confirm
             open={confirmState}
             header='Delete Trip?'
             onCancel={handleCancel}
