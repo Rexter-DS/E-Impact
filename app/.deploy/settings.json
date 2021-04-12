@@ -1,8 +1,4 @@
 {
-  "defaultKey": [
-    { "apiKey":  "AIzaSyAbV-z-8r_Ez5Pv1sfjoMdGy4V600Y1yKw" }
-  ],
-
   "defaultAccounts": [
     { "county": "Honolulu", "first": "John", "last": "Smith", "email": "admin@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Maui", "first": "Jake", "last": "Camarao", "email": "jcamarao@foo.com", "password": "changeme", "role": "admin" },
