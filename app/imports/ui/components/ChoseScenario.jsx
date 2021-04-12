@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 import { Button, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+
 function ChoseScenario(
     {
         milesSavedTotal,
@@ -141,13 +142,10 @@ function ChoseScenario(
             const ghgPerGallon = 19.6;
             _.forEach(nMilesSavedPerDay.current, function (objects) {
                 if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
-                    console.log(`distance: ${objects.distance}`);
                     ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
-                    console.log(ghgProduced);
                 }
             });
             nGHGProducedTotal.current = ghgProduced;
-            console.log(nGHGProducedTotal);
         } else {
             swal('Pick a date');
         }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
-import ChoseScenario from '../components/ChoseScenario';
+import ChoseScenario, { nMilesSavedPerDay } from '../components/ChoseScenario';
 import WhatIfContent from '../components/WhatIfContent';
 
 // This page contains the graphs that will visualize the user's data in a more meaningful way.
@@ -35,7 +35,7 @@ function WhatIf(
                     fuelSavedPerDay={fuelSavedPerDay}
                 />
                 <WhatIfContent
-                    milesSavedTotal={milesSavedTotal}
+                    milesSavedTotal={nMilesSavedPerDay}
                     milesSavedPerDay={milesSavedPerDay}
                     modesOfTransport={modesOfTransport}
                     userProfile={userProfile}
