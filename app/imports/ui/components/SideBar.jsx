@@ -62,6 +62,15 @@ const SideBar = (props) => (
       <Icon name='globe'/>
       Community
     </Menu.Item>
+      <Menu.Item as={NavLink}
+                 activeClassName="active"
+                 exact
+                 to="/admin"
+                 key='admin'
+                 style={{ color: '#0c4d85' }}>
+        <Icon name='cog'/>
+        Admin Page
+      </Menu.Item>
     <Menu.Item as={NavLink}
                activeClassName="active"
                exact
