@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { Menu, Button, Table, Grid, Loader, Icon, Statistic } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { useParams } from 'react-router-dom';
 import SideBar from '../components/SideBar';
 import { Trips, tripPublications } from '../../api/trip/TripCollection';
 import TripItemAdmin from '../components/TripItemAdmin';
@@ -123,16 +124,14 @@ const Daily = (props) => {
 Daily.propTypes = {
   ready: PropTypes.bool.isRequired,
   trips: PropTypes.array.isRequired,
-  username: PropTypes.string,
 };
 
 export default withTracker(() => {
-  const username = Meteor.user()?.username;
-  const ready = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
-  const trips = Trips.find({}).fetch();
+  const { owner } = useParams();
+  const ready = Meteor.subscribe(tripPublications.tripCommunity).ready();
+  const trips = Trips.find({ owner }).fetch();
   return {
     ready,
     trips,
-    username,
   };
 })(Daily);
