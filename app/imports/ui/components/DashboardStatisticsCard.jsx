@@ -21,8 +21,8 @@ function DashboardStatisticsCard(
   console.log(userProfile);
 
   return (
-      <Card className='dark-general-card '>
-        <Card.Header style={{ paddingLeft: '1rem' }}>{cardHeader}</Card.Header>
+      <Card>
+        <Card.Header style={{ paddingLeft: '1rem', color: '#4183C4' }}>{cardHeader}</Card.Header>
         <Card.Content textAlign='center'>
           <Popup
               on='hover'

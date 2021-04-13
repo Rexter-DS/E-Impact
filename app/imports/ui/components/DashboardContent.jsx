@@ -7,6 +7,7 @@ import DashboardMilesCard from './DashboardMilesCard';
 import DashboardFuelCard from './DashboardFuelCard';
 import DashboardGhgCard from './DashboardGhgCard';
 import DashboardTreeCard from './DashboardTreeCard';
+import { ghgPerGallonFuel, poundsOfGhgPerTree } from '../../api/trip/TripCollection';
 
 // Contains the graphs that visualizes the user's data.
 function DashboardContent(
@@ -15,9 +16,16 @@ function DashboardContent(
       vehicleMilesAdded,
       milesSavedPerDay,
       modesOfTransport,
+      milesPerMode,
       userProfile,
       ghgReducedPerDay,
       fuelSavedPerDay,
+      milesSavedAvg,
+      milesTraveledAvg,
+      fuelSavedAvg,
+      fuelSpentAvg,
+      ghgReducedAvg,
+      ghgProducedAvg,
     },
 ) {
 
@@ -47,9 +55,9 @@ function DashboardContent(
     mode: 'lines+markers',
   };
 
-  const ghgProducedTotal = (fuelCostTotal * 19.6).toFixed(2);
+  const ghgProducedTotal = (fuelCostTotal * ghgPerGallonFuel).toFixed(2);
 
-  const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
+  const ghgReducedTotal = (fuelSavedTotal * ghgPerGallonFuel).toFixed(2);
 
   const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
@@ -60,8 +68,8 @@ function DashboardContent(
 
   // 100,000 trees = 2,400 tons of CO2 or 4,800,000 pounds of CO2
   // 1 tree = 48 pounds of CO2
-  const treesPerGhgProduced = (ghgProducedTotal / 48).toFixed(0);
-  const treesPerGhgReduced = (ghgReducedTotal / 48).toFixed(0);
+  const treesPerGhgProduced = (ghgProducedTotal / poundsOfGhgPerTree).toFixed(0);
+  const treesPerGhgReduced = (ghgReducedTotal / poundsOfGhgPerTree).toFixed(0);
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -234,16 +242,35 @@ function DashboardContent(
           <DashboardMilesCard
               milesSaved={vehicleMilesSaved}
               milesAdded={vehicleMilesAdded}
+              milesSavedAvgPerYear={milesSavedAvg.year}
+              milesSavedAvgPerMonth={milesSavedAvg.month}
+              milesSavedAvgPerDay={milesSavedAvg.day}
+              milesTraveledAvgPerYear={milesTraveledAvg.year}
+              milesTraveledAvgPerMonth={milesTraveledAvg.month}
+              milesTraveledAvgPerDay={milesTraveledAvg.day}
+              milesPerMode={milesPerMode}
               userProfile={userProfile}
           />
           <DashboardFuelCard
               fuelCostTotal={fuelCostTotal}
               fuelSavedTotal={fuelSavedTotal}
+              fuelSavedAvgPerYear={fuelSavedAvg.year}
+              fuelSavedAvgPerMonth={fuelSavedAvg.month}
+              fuelSavedAvgPerDay={fuelSavedAvg.day}
+              fuelSpentAvgPerYear={fuelSpentAvg.year}
+              fuelSpentAvgPerMonth={fuelSpentAvg.month}
+              fuelSpentAvgPerDay={fuelSpentAvg.day}
               userProfile={userProfile}
           />
           <DashboardGhgCard
               ghgProducedTotal={ghgProducedTotal}
               ghgReducedTotal={ghgReducedTotal}
+              ghgReducedAvgPerYear={ghgReducedAvg.year}
+              ghgReducedAvgPerMonth={ghgReducedAvg.month}
+              ghgReducedAvgPerDay={ghgReducedAvg.day}
+              ghgProducedAvgPerYear={ghgProducedAvg.year}
+              ghgProducedAvgPerMonth={ghgProducedAvg.month}
+              ghgProducedAvgPerDay={ghgProducedAvg.day}
               userProfile={userProfile}
           />
           <DashboardTreeCard
@@ -308,10 +335,17 @@ DashboardContent.propTypes = {
   milesTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
+  milesPerMode: PropTypes.array,
   userProfile: PropTypes.object,
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
+  milesSavedAvg: PropTypes.object,
+  milesTraveledAvg: PropTypes.object,
+  fuelSavedAvg: PropTypes.object,
+  fuelSpentAvg: PropTypes.object,
+  ghgReducedAvg: PropTypes.object,
+  ghgProducedAvg: PropTypes.object,
 };
 
 export default DashboardContent;
