@@ -3,6 +3,8 @@ import { Grid, Header, Icon, Container, Button, Image } from 'semantic-ui-react'
 import { Link, withRouter, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+//'/quickaccess'
+
 class Info1 extends React.Component {
     render() {
         return (
@@ -15,15 +17,7 @@ class Info1 extends React.Component {
                                 <hr/>
                                 <h2 className='landing-white-text'>Use our GHC estimator to calculate your GHG emissions for a single trip.
                                 We also include carpool calculations.</h2>
-                                <br/>
-                                <a href='#/quickaccess'>
-                                    <Icon name='calculator' size='massive'/>
-                                </a>
-                                <br/><br/><br/>
-                                <Button as={NavLink} exact to='/quickaccess'>
-                                    <Button.Content visible>Show me!</Button.Content>
-                                </Button>
-                                <br/>
+                                <a href={'#/quickaccess'}><p>Click here to check it out!</p></a>
                             </div>
                         </Grid.Column>
                         <Grid.Column className='landing-info-center' verticalAlign='middle'>

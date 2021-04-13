@@ -39,8 +39,9 @@
 
 #landing-info1-left {
   padding: 15px;
-  background: url("/images/car_dashboard.jpeg") no-repeat center center;
-  background-size: cover;
+  background: url("/images/low_emission_vehicle.jpg") center center;
+  background-repeat: no-repeat;
+  background-size: auto 645px;
 }
 
 #landing-bottom {
