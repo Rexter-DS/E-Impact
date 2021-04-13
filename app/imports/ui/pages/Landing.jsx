@@ -17,7 +17,7 @@ class Landing extends React.Component {
                 <Header size='huge' textAlign='center'>Welcome to E-Impact!</Header>
               <div style={{ paddingLeft: '250px', paddingRight: '250px', color:'black' }} className="ui center aligned container">
                 <p>Help keep our air clean by monitoring your Green House Gas emissions!</p>
-                <hr/>
+                <hr color='black'/>
               </div>
             </div>
           <Info1/>
