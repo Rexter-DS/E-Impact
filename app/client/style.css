@@ -38,10 +38,10 @@
 }
 
 #landing-info1-left {
-  padding: 15px;
-  background: url("/images/low_emission_vehicle.jpg") center center;
+  padding: 45px;
+  background: url("/images/low_emission_vehicle_v2.jpg") center center;
   background-repeat: no-repeat;
-  background-size: auto 645px;
+  height: 520px;
 }
 
 #landing-bottom {
