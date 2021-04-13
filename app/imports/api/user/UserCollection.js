@@ -17,29 +17,31 @@ class UserCollection extends BaseCollection {
       username: String,
       autoMPG: Number,
       homeRoundTrip: Number,
+      theme: String,
     }));
   }
 
-  /**
-   * Defines a new Trip item.
-   * @param date of trip.
-   * @param distance traveled.
-   * @param mode of transportation.
-   * @param mpg of vehicle.
-   * @param owner the owner of the item.
-   * @return {String} the docID of the new document.
-   */
+    /**
+     * Defines a new User item
+     * @param username: the username of the user.
+     * @param autoMPG: the mpg of the user's vehicle.
+     * @param homeRoundTrip: the round trip distance between the user's house and their work.
+     * @return {String} the docID of the new document.
+     */
   define({ username, autoMPG, homeRoundTrip }) {
+    const theme = 'light';
     const docID = this._collection.insert({
       username,
       autoMPG,
       homeRoundTrip,
+      theme,
     });
     return docID;
   }
 
   defineWithMessage({ username, autoMPG, homeRoundTrip }) {
-    const docID = this._collection.insert({ username, autoMPG, homeRoundTrip },
+    const theme = 'light';
+    const docID = this._collection.insert({ username, autoMPG, homeRoundTrip, theme },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
@@ -58,6 +60,17 @@ class UserCollection extends BaseCollection {
   getUserProfile(username) {
     const user = this._collection.findOne({ username: username });
     return user;
+  }
+
+  // Updates the theme to either light or dark.
+  updateTheme(username) {
+    const user = this._collection.findOne({ username: username });
+    const id = user._id;
+    if (user.theme === 'light') {
+      this._collection.update(id, { $set: { theme: 'dark' } });
+    } else {
+      this._collection.update(id, { $set: { theme: 'light' } });
+    }
   }
 
   /**
@@ -139,6 +152,26 @@ class UserCollection extends BaseCollection {
       return Meteor.subscribe(userPublications.userAdmin);
     }
     return null;
+  }
+
+  communityStyling(props) {
+    const communityCard = document.getElementsByClassName('community-card');
+    const communityCardHeader = document.getElementsByClassName('community-card-header');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.add('dark-community-card');
+      }
+      for (let i = 0; i < communityCardHeader.length; i++) {
+        communityCardHeader[i].classList.add('dark-community-card-header');
+      }
+    } else {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.remove('dark-community-card');
+      }
+      for (let i = 0; i < communityCardHeader.length; i++) {
+        communityCardHeader[i].classList.remove('dark-community-card-header');
+      }
+    }
   }
 }
 

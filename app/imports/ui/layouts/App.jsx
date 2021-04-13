@@ -17,11 +17,14 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import QuickAccess from '../pages/QuickAccess';
 import Dashboard from '../pages/Dashboard';
+import WhatIf from '../pages/WhatIf';
 import Daily from '../pages/Daily';
 import Community from '../pages/Community';
 import PublicCommunity from '../pages/PublicCommunity';
 import MapTest from '../pages/MapTest';
 import Compare from '../pages/Compare';
+import Admin from '../pages/Admin';
+import AdminDaily from '../pages/AdminDaily';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -38,9 +41,12 @@ class App extends React.Component {
               <Route path="/quickaccess" component={QuickAccess}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/add" component={AddStuff}/>
+              <ProtectedRoute path="/admin" component={Admin}/>
+              <ProtectedRoute path="/trips/:owner" component={AdminDaily}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/dashboard/:_id" component={Dashboard}/>
+              <ProtectedRoute path="/whatif/:_id" component={WhatIf}/>
               <ProtectedRoute path="/daily" component={Daily}/>
               <ProtectedRoute path="/addTrip" component={AddTrip}/>
               <ProtectedRoute path="/compare" component={Compare}/>

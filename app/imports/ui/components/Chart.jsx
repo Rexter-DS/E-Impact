@@ -6,7 +6,9 @@ import Plot from 'react-plotly.js';
 // chartData is formatted as an array of objects with each object being a specific chart.
 // chartLayout is formatted as an object that contains any custom look of the chart
 // Refer to https://plotly.com/javascript/
-function Chart({ chartData, chartLayout }) {
+function Chart({ chartData, chartLayout, chartStyle }) {
+
+  const style = chartStyle || { width: '100%', height: '100%' };
 
   return (
       <div>
@@ -14,7 +16,7 @@ function Chart({ chartData, chartLayout }) {
             data={chartData}
             layout={chartLayout}
             useResizeHandler={true}
-            style={{ width: '100%', height: '100%'}}
+            style={style}
         />
       </div>
   );
@@ -23,6 +25,7 @@ function Chart({ chartData, chartLayout }) {
 Chart.propTypes = {
   chartData: PropTypes.array.isRequired,
   chartLayout: PropTypes.object.isRequired,
+  chartStyle: PropTypes.object,
 };
 
 export default Chart;
