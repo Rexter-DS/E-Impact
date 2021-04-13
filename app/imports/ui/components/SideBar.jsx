@@ -110,6 +110,15 @@ const SideBar = (props) => {
           <Icon name='sign-out'/>
           Sign Out
         </Menu.Item>
+        <Menu.Item as={NavLink}
+                   activeClassName="active"
+                   exact
+                   to="/admin"
+                   key='admin'
+                   style={{ color: '#0c4d85' }}>
+          <Icon name='cog'/>
+          Admin Page
+        </Menu.Item>
         <Menu.Item>
           <Checkbox toggle checked={props.theme === 'dark'} onChange={handleChange}/>
         </Menu.Item>

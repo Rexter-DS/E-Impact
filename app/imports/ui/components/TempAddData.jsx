@@ -37,7 +37,7 @@ const TempAddData = (props) => {
             const distance = Math.floor(Math.random() * 45) + 5;
             const mode = ['Telework', 'Public Transportation', 'Bike', 'Walk', 'Carpool', 'Electric Vehicle', 'Gas Car'][Math.floor(Math.random() * 5)];
             const mpg = Math.floor(Math.random() * 30) + 15;
-            const county = ['Hawaii', 'Honolulu', 'Kalawao', 'Kauai', 'Maui'][Math.floor(Math.random() * 5)]
+            const county = ['Hawaii', 'Honolulu', 'Kalawao', 'Kauai', 'Maui'][Math.floor(Math.random() * 5)];
             const owner = email;
             Trips.defineWithMessage({ date, mode, distance, mpg, owner, county });
           }
