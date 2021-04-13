@@ -77,10 +77,10 @@ const SideBar = (props) => {
           Daily
         </Menu.Item>
         <Menu.Item as={NavLink}
+                   className='sidebar-item'
                    activeClassName=""
                    exact
-                   to={`/WhatIf/${Meteor.user()?.username}`}
-        >
+                   to={`/WhatIf/${Meteor.user()?.username}`}>
           <Icon name='grid layout'/>
           What If
         </Menu.Item>

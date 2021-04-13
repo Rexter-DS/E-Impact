@@ -59,15 +59,19 @@ const Daily = (props) => {
     return val;
   }
 
+  /* Styling */
   if (props.userReady && (document.getElementById('daily-container'))) {
+    console.log('first if');
     const dailyArrows = document.getElementsByClassName('daily-arrow-button');
     const dailyTableHeader = document.getElementsByClassName('daily-table-header');
     if (props.userProfile.theme === 'dark') {
+      console.log('second if');
       document.getElementById('daily-date-button').classList.add('dark-daily');
       document.getElementById('daily-table').classList.add('dark-daily-table');
       document.getElementById('daily-date-button').classList.remove('light-daily');
       document.getElementById('daily-table').classList.remove('light-daily-table');
       for (let i = 0; i < dailyArrows.length; i++) {
+        console.log('third if');
         dailyArrows[i].classList.add('dark-daily');
         dailyArrows[i].classList.remove('light-daily');
       }

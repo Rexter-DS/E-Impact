@@ -43,23 +43,23 @@ function SliderHandler() {
               <Image className='compare-image-card' src={value.brandLogo} size='small'/>
               <Image className='compare-image-card' src={value.image} size='large' href={value.website}
                      target='_blank'/>
-              <Header textAlign='center'>{value.car}</Header>
+              <Header id='compare-car' textAlign='center'>{value.car}</Header>
             </Grid.Column>
-            <Grid.Column width={10} className='slider-information-side'>
+            <Grid.Column id='compare-slider-information-side' width={10}>
               <Grid.Row textAlign='left'>Starting From: ${value.cashPrice}</Grid.Row>
               <Grid.Row textAlign='left'>Range: {value.range} mi</Grid.Row>
               <Grid.Row textAlign='left'>Battery Capacity: {value.batteryCapacity} kWh</Grid.Row>
               <Grid.Row>
                   <Header className='cost-per-header' textAlign='center'>Cost Per 100 mi</Header>
-                  <Card.Group className='cost-per-inner-cards' centered itemsPerRow={2}>
-                    <Card fluid>
+                  <Card.Group centered itemsPerRow={2}>
+                    <Card className='compare-cost-per-inner-card' fluid>
                       <Card.Content textAlign='center'>
                         Electric Vehicle
                         <Divider/>
                         ${((100 / (value.range / value.batteryCapacity)) * costPerkWh).toFixed(2)}
                       </Card.Content>
                     </Card>
-                    <Card fluid>
+                    <Card className='compare-cost-per-inner-card' fluid>
                       <Card.Content textAlign='center'>
                         Gas
                         <Divider />

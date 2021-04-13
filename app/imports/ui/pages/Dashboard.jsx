@@ -23,8 +23,12 @@ function Dashboard(
     },
 ) {
 
-
-
+  if (userReady) {
+    this.theme = true;
+    if (userProfile.theme === 'dark') {
+      this.theme = false;
+    }
+  }
 
   return ((tripReady && userReady) ?
           <div>
@@ -40,7 +44,7 @@ function Dashboard(
                 fuelSavedPerDay={fuelSavedPerDay}
             />
           </div> :
-          <Dimmer active>
+          <Dimmer inverted={this.theme} active>
             <Loader>Loading Data</Loader>
           </Dimmer>
   );

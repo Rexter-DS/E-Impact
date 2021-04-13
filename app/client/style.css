@@ -4,7 +4,7 @@
  */
 
 .dark {
-  background-color: #0e283d;
+  background-color: #05304F;
   color: #FFFFFF;
 }
 
@@ -214,17 +214,6 @@ box: #2a4253
   background-color: inherit; /*HERE*/
 }
 
-.daily-table-data {
-  color: #0c4d85 !important;
-  /*font-weight: bold;*/
-}
-
-.daily-save-button {
-  color: #FFFFFF !important;
-  font-size: 16px !important;
-  background-color: #0c4d85 !important;
-}
-
 #daily-add-button {
   color: #FFFFFF !important;
   font-size: 20px !important;
@@ -276,6 +265,12 @@ box: #2a4253
 }
 
 /*
+ .daily-save-button {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+  background-color: #0c4d85 !important;
+}
+
 .daily-date-item {
   padding: 0 !important;
   color: #0c4d85 !important;
@@ -310,9 +305,26 @@ box: #2a4253
 }
  */
 
-/* Add Trip */
+/* ADD TRIP */
 #add-trip-container {
   margin: 50px 0 0 150px;
+}
+
+.add-trip-header {
+  color: inherit !important;
+}
+
+.add-trip-form {
+  background-color: inherit;
+  color: inherit;
+}
+
+.dark-trip-form {
+  background-color: #154E77 !important;
+}
+
+.ui.form .field > label {
+  color: inherit !important;
 }
 
 /* Community */
@@ -433,7 +445,7 @@ box: #2a4253
   color: white;
 }
 
-/* Compare */
+/* COMPARE */
 #compare-container {
   margin: 50px 0px 0px 150px;
   padding: 30px;
@@ -441,14 +453,26 @@ box: #2a4253
   line-height: 1.5 !important;
 }
 
-.slider-information-side {
+#compare-car {
+  color: inherit !important;
+}
+
+#compare-slider-car-side {
+  background-color: #FFFFFF;
+}
+
+#compare-slider-information-side {
   font-size: 1.75rem;
   padding: 20px !important;
   margin-top: 50px;
 }
 
+.compare-cost-per-inner-card {
+  background-color: inherit !important;
+}
+
 .compare-slider {
-  background-color: #FFFFFF !important;
+  background-color: inherit !important;
 }
 
 .cost-per-outer-card {
@@ -456,11 +480,25 @@ box: #2a4253
   margin: 50px 20px 0px 20px !important;
 }
 
-.cost-per-inner-cards {
-  /*margin-top: 10px !important;*/
-}
-
 .cost-per-header{
   margin: 75px 0px 10px 0px !important;
   font-size: 1.75rem !important;
+  color: inherit !important;
+}
+
+/* USER COMMUNITY */
+#community-bottom-header {
+  color: inherit !important;
+}
+
+.dark-community {
+  color: #FFFFFF;
+}
+
+.community-statistic {
+  color: inherit !important;
+}
+
+.ui.progress > .label {
+  color: inherit !important;
 }

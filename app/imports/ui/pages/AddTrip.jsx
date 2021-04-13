@@ -9,6 +9,7 @@ import SimpleSchema from 'simpl-schema';
 import PropTypes from 'prop-types';
 import { tripPublications, Trips } from '../../api/trip/TripCollection';
 import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
+import { Users } from '../../api/user/UserCollection';
 import SidebarVisible from '../components/SideBar';
 import DeleteSavedModal from '../components/DeleteSavedModal';
 
@@ -68,7 +69,7 @@ const AddTrip = (props) => {
     const { mode, distance, mpg } = savedTrip;
     const owner = Meteor.user().username;
     const county = Meteor.user().profile.county;
-    console.log('Add Trip submit saved')
+    console.log('Add Trip submit saved');
     console.log(date, desc, savedTrip, mode, distance, mpg);
     if (Trips.defineWithMessage({ date, mode, distance, mpg, owner, county })) {
       formRef.reset();
@@ -83,16 +84,30 @@ const AddTrip = (props) => {
     console.log(`add trip: deleteSavedTrips(): ${SavedTrips.find({}).fetch()}`);
   }
 
+  /* Styling */
+  if (props.userReady) {
+    const addTripForms = document.getElementsByClassName('add-trip-form');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < addTripForms.length; i++) {
+        addTripForms[i].classList.add('dark-trip-form');
+      }
+    } else {
+      for (let i = 0; i < addTripForms.length; i++) {
+        addTripForms[i].classList.remove('dark-trip-form');
+      }
+    }
+  }
+
   let fRef = null;
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
-    return (!props.readyTrips || !props.readySaved) ? <Loader active>Loading Page</Loader> : (
+    return (!props.readyTrips || !props.readySaved || !props.userReady) ? <Loader active>Loading Page</Loader> : (
         <div id='add-trip-container'>
-          <SidebarVisible/>
+          <SidebarVisible theme={props.userProfile.theme}/>
           <Grid container centered>
             <Grid.Column>
-              <Header as="h2" textAlign="center">Add New Trip</Header>
+              <Header className='add-trip-header' as="h2" textAlign="center">Add New Trip</Header>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge1} onSubmit={data => submit(data, fRef)}>
-                <Segment>
+                <Segment className='add-trip-form'>
                   <DateField name='date'/>
                   <SelectField name='mode' label={'Mode of transportation'}/>
                   <Icon name='question circle outline'/>If teleworking, enter information based on your usual commute to
@@ -105,9 +120,9 @@ const AddTrip = (props) => {
                   <ErrorsField/>
                 </Segment>
               </AutoForm>
-              <Header as="h2" textAlign="center">OR Add Saved Trip</Header>
+              <Header className='add-trip-header' as="h2" textAlign="center">OR Add Saved Trip</Header>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge2} onSubmit={data => submitSaved(data, fRef)}>
-                <Segment>
+                <Segment className='add-trip-form'>
                   <DateField name='date'/>
                   <SelectField name='desc' label={'Saved Trips'}/>
                   <p><Icon name='question circle outline'/>You can simply select your saved trip here to skip adding the same details again and again.<br/>
@@ -121,27 +136,33 @@ const AddTrip = (props) => {
           </Grid>
         </div>
     );
-}
+};
 
 AddTrip.propTypes = {
+  username: PropTypes.string,
+  userProfile: PropTypes.object,
+  userReady: PropTypes.bool.isRequired,
   readyTrips: PropTypes.bool.isRequired,
   readySaved: PropTypes.bool.isRequired,
   trips: PropTypes.array.isRequired,
   savedTrips: PropTypes.array.isRequired,
-  username: PropTypes.string,
 };
 
 export default withTracker(() => {
   const username = Meteor.user()?.username;
+  const userProfile = Users.getUserProfile(username);
+  const userReady = Users.subscribeUser().ready();
   const readyTrips = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
   const readySaved = Meteor.subscribe(savedTripPublications.savedTrip).ready() && username !== undefined;
   const trips = Trips.find({}).fetch();
   const savedTrips = SavedTrips.find({}).fetch();
   return {
+    username,
+    userProfile,
+    userReady,
     readyTrips,
     readySaved,
     trips,
     savedTrips,
-    username,
   };
 })(AddTrip);
