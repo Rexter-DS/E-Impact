@@ -13,11 +13,11 @@ class Info1 extends React.Component {
                     <Grid.Column className='landing-info-center' verticalAlign='middle'>
                         <a href={'#/quickaccess'}>
                             <div id='landing-info1-left'>
-                                <h1 className='landing-white-text'>Want to calculate your carbon footprint?</h1>
+                                <Header as='h1' inverted>Want to calculate your carbon footprint?</Header>
                                 <hr className='landing-white-text'/>
-                                <h2 className='landing-white-text'>Use our GHC estimator to calculate your GHG emissions for a single trip.
-                                We also include carpool calculations.</h2>
-                                <p className='landing-white-text'>Click here to check it out!</p>
+                                <Header as='h2' inverted>Use our GHC estimator to calculate your GHG emissions for a single trip.
+                                We also include carpool calculations.</Header>
+                                <Header as='h6' inverted>Click here to check it out!</Header>
                             </div>
                         </a>
                     </Grid.Column>
