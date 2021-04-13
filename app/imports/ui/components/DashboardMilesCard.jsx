@@ -32,15 +32,15 @@ function DashboardMilesCard(
           cardHeader='Vehicle Miles Traveled'
           topContent={
             <Statistic>
-              <Statistic.Value>{milesSaved}</Statistic.Value>
-              <Statistic.Label>miles saved</Statistic.Label>
+              <Statistic.Value className='dashboard-statistic'>{milesSaved}</Statistic.Value>
+              <Statistic.Label className='dashboard-statistic'>miles saved</Statistic.Label>
             </Statistic>
           }
           popupTop='This number represents how many miles you traveled using environmentally conscious modes of transportation.'
           bottomContent={
             <Statistic>
-              <Statistic.Value>{milesAdded}</Statistic.Value>
-              <Statistic.Label>miles traveled</Statistic.Label>
+              <Statistic.Value className='dashboard-statistic'>{milesAdded}</Statistic.Value>
+              <Statistic.Label className='dashboard-statistic'>miles traveled</Statistic.Label>
             </Statistic>
           }
           popupBottom='This number represents how many you traveled using a gas-powered car'

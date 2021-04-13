@@ -41,7 +41,7 @@ body {
   border-top-color: red !important;
 }
 
-/* landing page CSS */
+/* LANDING PAGE */
 #landing-nav {
   height: 100px;
   width: 100%;
@@ -171,6 +171,11 @@ body {
   padding: 15px 0;
 }
 
+/* DASHBOARD */
+.dashboard-statistic {
+  color: inherit !important;
+}
+/*
 #dashboard-footer {
   background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
@@ -182,6 +187,7 @@ body {
   margin-top: 200px;
   padding: 15px 0;
 }
+*/
 
 .link {
   color: #177fc5;
@@ -556,24 +562,25 @@ body {
 }
 
 /* GENERAL CARD */
-.dark-general-card {
+.dark-card {
   background-color: #213c5c !important;
+  color: inherit !important;
 }
 
-.general-card-header {
-  padding-left: 10px;
+.card-header {
+  padding-left: 1rem;
   color: #4183C4;
 }
 
-.dark-general-card-header {
+.dark-card-header {
   color: #FFFFFF !important;
 }
 
-.general-card-button {
+.card-button {
   background-color: #1C7DC1 !important;
   color: #FFFFFF !important;
 }
 
-.general-card-modal {
+.card-modal {
   background-color: inherit !important;
 }

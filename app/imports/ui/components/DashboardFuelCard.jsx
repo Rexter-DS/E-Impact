@@ -22,15 +22,15 @@ function DashboardFuelCard(
           cardHeader='Gallons of Fuel'
           topContent={
             <Statistic>
-              <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
-              <Statistic.Label>gallons saved</Statistic.Label>
+              <Statistic.Value className='dashboard-statistic'>{fuelSavedTotal}</Statistic.Value>
+              <Statistic.Label className='dashboard-statistic'>gallons saved</Statistic.Label>
             </Statistic>
           }
           popupTop='This number represents how many gallons of fuel you saved by using other modes of transportation.'
           bottomContent={
             <Statistic>
-              <Statistic.Value>{fuelCostTotal}</Statistic.Value>
-              <Statistic.Label>gallons spent</Statistic.Label>
+              <Statistic.Value className='dashboard-statistic'>{fuelCostTotal}</Statistic.Value>
+              <Statistic.Label className='dashboard-statistic'>gallons spent</Statistic.Label>
             </Statistic>
           }
           popupBottom='This number represents how many gallons of fuel you spent by traveling using a gas-powered car.'

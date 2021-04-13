@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Header, Modal, Popup } from 'semantic-ui-react';
 
@@ -18,11 +18,23 @@ function DashboardStatisticsCard(
 
   const [openMore, setOpenMore] = useState(false);
 
-  console.log(userProfile);
+  /* DOM Styling */
+  useEffect(() => {
+    const dashboardCards = document.getElementsByClassName('general-card');
+    if (userProfile.theme === 'dark') {
+      for (let i = 0; i < dashboardCards.length; i++) {
+        dashboardCards[i].classList.add('dark-card');
+      }
+    } else {
+      for (let i = 0; i < dashboardCards.length; i++) {
+        dashboardCards[i].classList.remove('dark-card');
+      }
+    }
+  }, [userProfile]);
 
   return (
-      <Card>
-        <Card.Header style={{ paddingLeft: '1rem', color: '#4183C4' }}>{cardHeader}</Card.Header>
+      <Card className='general-card'>
+        <Card.Header>{cardHeader}</Card.Header>
         <Card.Content textAlign='center'>
           <Popup
               on='hover'
@@ -47,7 +59,7 @@ function DashboardStatisticsCard(
               open={openMore}
               onOpen={() => setOpenMore(true)}
               onClose={() => setOpenMore(false)}
-              trigger={<Button compact floated='right'>Show more</Button>}
+              trigger={<Button className='card-button' compact floated='right'>Show more</Button>}
           >
             <Header>{moreHeader}</Header>
             <Modal.Content>

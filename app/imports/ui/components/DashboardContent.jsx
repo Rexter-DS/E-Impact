@@ -233,7 +233,7 @@ function DashboardContent(
         generalCardHeader[i].classList.add('dark-general-card-header');
       }
     }
-  }, []);
+  }, [userProfile]);
 
   return (
       <div id='dashboard-container'>

@@ -26,10 +26,10 @@ function DashboardTreeCard(
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
-                  <Statistic.Value>
+                  <Statistic.Value className='dashboard-statistic'>
                     {treesPerGhgReduced}
                   </Statistic.Value>
-                  <Statistic.Label>tree equivalence to ghg reduced</Statistic.Label>
+                  <Statistic.Label className='dashboard-statistic'>tree equivalence to ghg reduced</Statistic.Label>
                 </Statistic>
               </Grid.Column>
             </Grid>
@@ -47,10 +47,10 @@ function DashboardTreeCard(
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
-                  <Statistic.Value>
+                  <Statistic.Value className='dashboard-statistic'>
                     {treesPerGhgProduced}
                   </Statistic.Value>
-                  <Statistic.Label>tree equivalence to ghg produced</Statistic.Label>
+                  <Statistic.Label className='dashboard-statistic'>tree equivalence to ghg produced</Statistic.Label>
                 </Statistic>
               </Grid.Column>
             </Grid>
