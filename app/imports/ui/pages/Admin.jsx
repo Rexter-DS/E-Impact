@@ -10,11 +10,18 @@ import SideBar from '../components/SideBar';
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class Admin extends React.Component {
   componentDidUpdate() {
+    const adminTableHeaders = document.getElementsByClassName('admin-table-headers');
     if (this.props.userReady && (document.getElementById('admin-container'))) {
       if (this.props.userProfile.theme === 'dark') {
         document.getElementById('admin-table').classList.add('dark-admin-table');
+        for (let i = 0; i < adminTableHeaders.length; i++) {
+          adminTableHeaders[i].classList.add('dark-admin-table-headers');
+        }
       } else {
         document.getElementById('admin-table').classList.remove('dark-admin-table');
+        for (let i = 0; i < adminTableHeaders.length; i++) {
+          adminTableHeaders[i].classList.remove('dark-admin-table-headers');
+        }
       }
     }
   }

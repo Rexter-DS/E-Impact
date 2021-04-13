@@ -557,11 +557,14 @@ body {
 }
 
 .admin-table-headers {
-  background-color: #1d3652 !important;
   color: inherit !important;
 }
 
-/* GENERAL CARD */
+.dark-admin-table-headers {
+  background-color: #1d3652 !important;
+}
+
+  /* GENERAL CARD */
 .dark-card {
   background-color: #213c5c !important;
   color: inherit !important;

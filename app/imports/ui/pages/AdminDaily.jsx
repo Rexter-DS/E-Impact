@@ -104,7 +104,7 @@ const AdminDaily = (props) => {
         (
             <div id='daily-container'
                  style={{ marginLeft: '150px' }}>
-              <SideBar/>
+              <SideBar theme={props.userProfile.theme}/>
               <Menu borderless
                     id="daily-top">
                 <Grid className={'middle aligned'} style={{ width: '100%', marginLeft: '25px' }}>

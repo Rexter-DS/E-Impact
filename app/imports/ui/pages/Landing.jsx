@@ -16,7 +16,7 @@ class Landing extends React.Component {
             {/* This controls the top half of the landing page */}
             <div id="greet">
                 <Header size='huge' textAlign='center'>Welcome to E-Impact!</Header>
-              <div style={{ paddingLeft: '250px', paddingRight: '250px', color:'black' }} className="ui center aligned container">
+              <div style={{ paddingLeft: '250px', paddingRight: '250px', color: 'black' }} className="ui center aligned container">
                 <p>Help keep our air clean by monitoring your Green House Gas emissions!</p>
                 <hr/>
               </div>
