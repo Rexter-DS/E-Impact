@@ -16,9 +16,16 @@ function DashboardContent(
       vehicleMilesAdded,
       milesSavedPerDay,
       modesOfTransport,
+      milesPerMode,
       userProfile,
       ghgReducedPerDay,
       fuelSavedPerDay,
+      milesSavedAvg,
+      milesTraveledAvg,
+      fuelSavedAvg,
+      fuelSpentAvg,
+      ghgReducedAvg,
+      ghgProducedAvg,
     },
 ) {
 
@@ -132,14 +139,33 @@ function DashboardContent(
           <DashboardMilesCard
               milesSaved={vehicleMilesSaved}
               milesAdded={vehicleMilesAdded}
+              milesSavedAvgPerYear={milesSavedAvg.year}
+              milesSavedAvgPerMonth={milesSavedAvg.month}
+              milesSavedAvgPerDay={milesSavedAvg.day}
+              milesTraveledAvgPerYear={milesTraveledAvg.year}
+              milesTraveledAvgPerMonth={milesTraveledAvg.month}
+              milesTraveledAvgPerDay={milesTraveledAvg.day}
+              milesPerMode={milesPerMode}
           />
           <DashboardFuelCard
               fuelCostTotal={fuelCostTotal}
               fuelSavedTotal={fuelSavedTotal}
+              fuelSavedAvgPerYear={fuelSavedAvg.year}
+              fuelSavedAvgPerMonth={fuelSavedAvg.month}
+              fuelSavedAvgPerDay={fuelSavedAvg.day}
+              fuelSpentAvgPerYear={fuelSpentAvg.year}
+              fuelSpentAvgPerMonth={fuelSpentAvg.month}
+              fuelSpentAvgPerDay={fuelSpentAvg.day}
           />
           <DashboardGhgCard
               ghgProducedTotal={ghgProducedTotal}
               ghgReducedTotal={ghgReducedTotal}
+              ghgReducedAvgPerYear={ghgReducedAvg.year}
+              ghgReducedAvgPerMonth={ghgReducedAvg.month}
+              ghgReducedAvgPerDay={ghgReducedAvg.day}
+              ghgProducedAvgPerYear={ghgProducedAvg.year}
+              ghgProducedAvgPerMonth={ghgProducedAvg.month}
+              ghgProducedAvgPerDay={ghgProducedAvg.day}
           />
           <DashboardTreeCard
               treesPerGhgProduced={treesPerGhgProduced}
@@ -202,10 +228,17 @@ DashboardContent.propTypes = {
   milesTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
+  milesPerMode: PropTypes.array,
   userProfile: PropTypes.object,
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
+  milesSavedAvg: PropTypes.object,
+  milesTraveledAvg: PropTypes.object,
+  fuelSavedAvg: PropTypes.object,
+  fuelSpentAvg: PropTypes.object,
+  ghgReducedAvg: PropTypes.object,
+  ghgProducedAvg: PropTypes.object,
 };
 
 export default DashboardContent;

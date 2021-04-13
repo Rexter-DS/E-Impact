@@ -240,10 +240,6 @@ dark-blue: 0C4D85
   margin: 0 !important;
 }
 
-.ui.table {
-  color: darkgrey !important;
-}
-
 /* Add Trip */
 #add-trip-container {
   margin: 50px 0 0 150px;
