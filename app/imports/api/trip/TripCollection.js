@@ -13,6 +13,10 @@ export const tripPublications = {
   tripCommunity: 'TripCommunity',
 };
 
+export const ghgPerGallonFuel = 19.6;
+export const poundsOfGhgPerTree = 48;
+export const fuelCost = 3.77;
+
 class TripCollection extends BaseCollection {
   constructor() {
     super('Trips', new SimpleSchema({
@@ -196,6 +200,28 @@ class TripCollection extends BaseCollection {
     return { value: modesOfTransportValue, label: modesOfTransportLabel };
   }
 
+  getMilesPerMode(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+    const modesOfTransport = [
+      { mode: 'Telework', miles: 0 },
+      { mode: 'Public Transportation', miles: 0 },
+      { mode: 'Bike', miles: 0 },
+      { mode: 'Walk', miles: 0 },
+      { mode: 'Carpool', miles: 0 },
+      { mode: 'Electric Vehicle', miles: 0 },
+      { mode: 'Gas Car', miles: 0 },
+    ];
+
+    _.forEach(userTrips, function (objects) {
+      const tripMode = objects.mode;
+
+      const mode = _.find(modesOfTransport, { mode: tripMode });
+      mode.miles += objects.distance;
+    });
+
+    return modesOfTransport;
+  }
+
   /**
    * Gets the number of miles traveled using green modes of transport and miles traveled using gas car.
    * @param username the username of the user.
@@ -212,8 +238,8 @@ class TripCollection extends BaseCollection {
       if (objects.mode === 'Gas Car') {
         milesAdded += objects.distance;
       } else if (objects.mode === 'Carpool') {
-        milesAdded += (objects.distance * objects.passenger);
-        milesSaved += objects.distance;
+        milesAdded += objects.distance;
+        milesSaved += (objects.distance * objects.passenger);
       } else {
         milesSaved += objects.distance;
       }
@@ -289,7 +315,7 @@ class TripCollection extends BaseCollection {
    * @returns {{date: [], ghg: []}}
    * An object that contains an array of dates for the trips and an array of GHG that they saved for each of the respective date.
    */
-  getGHGReducedPerDay(username, userMPG) {
+  getGHGReducedPerDay(username, userMpg) {
     const userTrips = this._collection.find({ owner: username }).fetch();
 
     const date = [];
@@ -299,7 +325,7 @@ class TripCollection extends BaseCollection {
 
     _.forEach(userTrips, function (objects) {
       date.push(objects.date);
-      ghg.push(((objects.distance / userMPG) * ghgPerGallon).toFixed(2));
+      ghg.push(((objects.distance / userMpg) * ghgPerGallon).toFixed(2));
     });
 
     return { date: date, ghg: ghg };
@@ -322,10 +348,276 @@ class TripCollection extends BaseCollection {
     _.forEach(userTrips, function (objects) {
       date.push(objects.date);
       fuel.push((objects.distance / userMPG).toFixed(2));
-      price.push(((objects.distance / userMPG) * 3.77).toFixed(2));
+      price.push(((objects.distance / userMPG) * fuelCost).toFixed(2));
     });
 
     return { date: date, fuel: fuel, price: price };
+  }
+
+  getMilesAvg(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    let currentYear = '';
+    let currentMonth = '';
+
+    const milesSavedPerYear = [];
+    const milesSavedPerMonth = [];
+
+    const milesTraveledPerYear = [];
+    const milesTraveledPerMonth = [];
+
+    let yearMilesSaved = 0;
+    let monthMilesSaved = 0;
+    let dayMilesSaved = 0;
+
+    let yearMilesTraveled = 0;
+    let monthMilesTraveled = 0;
+    let dayMilesTraveled = 0;
+
+    let totalTrips = 0;
+
+    _.forEach(userTrips, function (objects) {
+
+      const date = (objects.date.toString()).split(' ');
+      const mode = objects.mode;
+      const distance = objects.distance;
+      const numOfPassenger = objects.passenger;
+
+      const year = date[3];
+      const month = date[1];
+
+      if (currentYear === '') {
+
+        currentYear = year;
+      } else if (currentYear !== year) {
+
+        milesSavedPerYear.push(yearMilesSaved);
+        milesTraveledPerYear.push(yearMilesTraveled);
+
+        currentYear = year;
+        yearMilesSaved = 0;
+        yearMilesTraveled = 0;
+      }
+
+      if (currentMonth === '') {
+
+        currentMonth = month;
+      } else if (currentMonth !== month) {
+
+        milesSavedPerMonth.push(monthMilesSaved);
+        milesTraveledPerMonth.push(monthMilesTraveled);
+
+        currentMonth = month;
+        monthMilesSaved = 0;
+        monthMilesTraveled = 0;
+      }
+
+      if (mode === 'Gas Car') {
+
+        yearMilesTraveled += distance;
+        monthMilesTraveled += distance;
+        dayMilesTraveled += distance;
+      } else if (mode === 'Carpool') {
+
+        yearMilesTraveled += distance;
+        yearMilesSaved += (distance * numOfPassenger);
+
+        monthMilesTraveled += distance;
+        monthMilesSaved += (distance * numOfPassenger);
+
+        dayMilesTraveled += distance;
+        dayMilesSaved += (distance * numOfPassenger);
+      } else {
+
+        yearMilesSaved += distance;
+        monthMilesSaved += distance;
+        dayMilesSaved += distance;
+      }
+
+      totalTrips += 1;
+
+      // push if on the last trip
+      if (totalTrips === userTrips.length) {
+        milesSavedPerYear.push(yearMilesSaved);
+        milesSavedPerMonth.push(monthMilesSaved);
+        milesTraveledPerYear.push(yearMilesTraveled);
+        milesTraveledPerMonth.push(monthMilesTraveled);
+      }
+    });
+
+    // calculate average miles saved per time
+    const yearMilesSavedAvg = ((_.reduce(milesSavedPerYear, function (sum, n) {
+      return sum + n;
+    }, 0)) / milesSavedPerYear.length).toFixed(2);
+
+    const monthMilesSavedAvg = ((_.reduce(milesSavedPerMonth, function (sum, n) {
+      return sum + n;
+    }, 0)) / milesSavedPerMonth.length).toFixed(2);
+
+    const dayMilesSavedAvg = (dayMilesSaved / totalTrips).toFixed(2);
+
+    // calculate average miles traveled per time
+    const yearMilesTraveledAvg = ((_.reduce(milesTraveledPerYear, function (sum, n) {
+      return sum + n;
+    }, 0)) / milesTraveledPerYear.length).toFixed(2);
+
+    const monthMilesTraveledAvg = ((_.reduce(milesTraveledPerMonth, function (sum, n) {
+      return sum + n;
+    }, 0)) / milesTraveledPerMonth.length).toFixed(2);
+
+    const dayMilesTraveledAvg = (dayMilesTraveled / totalTrips).toFixed(2);
+
+    return {
+      milesSavedAvg: { year: yearMilesSavedAvg, month: monthMilesSavedAvg, day: dayMilesSavedAvg },
+      milesTraveledAvg: { year: yearMilesTraveledAvg, month: monthMilesTraveledAvg, day: dayMilesTraveledAvg },
+    };
+  }
+
+  getFuelAvg(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    let currentYear = '';
+    let currentMonth = '';
+
+    const fuelSavedPerYear = [];
+    const fuelSavedPerMonth = [];
+
+    const fuelSpentPerYear = [];
+    const fuelSpentPerMonth = [];
+
+    let yearFuelSaved = 0;
+    let monthFuelSaved = 0;
+    let dayFuelSaved = 0;
+
+    let yearFuelSpent = 0;
+    let monthFuelSpent = 0;
+    let dayFuelSpent = 0;
+
+    let totalTrips = 0;
+
+    _.forEach(userTrips, function (objects) {
+
+      const date = (objects.date.toString()).split(' ');
+      const mode = objects.mode;
+      const distance = objects.distance;
+      const numOfPassenger = objects.passenger;
+      const mpg = objects.mpg; // mpg may differ each trip
+
+      const year = date[3];
+      const month = date[1];
+
+      if (currentYear === '') {
+
+        currentYear = year;
+      } else if (currentYear !== year) {
+
+        fuelSavedPerYear.push(yearFuelSaved);
+        fuelSpentPerYear.push(yearFuelSpent);
+
+        currentYear = year;
+        yearFuelSaved = 0;
+        yearFuelSpent = 0;
+      }
+
+      if (currentMonth === '') {
+
+        currentMonth = month;
+      } else if (currentMonth !== month) {
+
+        fuelSavedPerMonth.push(monthFuelSaved);
+        fuelSpentPerMonth.push(monthFuelSpent);
+
+        currentMonth = month;
+        monthFuelSaved = 0;
+        monthFuelSpent = 0;
+      }
+
+      if (mode === 'Gas Car') {
+
+        yearFuelSaved += (distance / mpg);
+        monthFuelSaved += (distance / mpg);
+        dayFuelSaved += (distance / mpg);
+      } else if (mode === 'Carpool') {
+
+        yearFuelSpent += (distance / mpg);
+        yearFuelSaved += ((distance * numOfPassenger) / mpg);
+
+        monthFuelSpent += (distance / mpg);
+        monthFuelSaved += ((distance * numOfPassenger) / mpg);
+
+        dayFuelSpent += (distance / mpg);
+        dayFuelSaved += ((distance * numOfPassenger) / mpg);
+      } else {
+
+        yearFuelSaved += (distance / mpg);
+        monthFuelSaved += (distance / mpg);
+        dayFuelSaved += (distance / mpg);
+      }
+
+      totalTrips += 1;
+
+      // push if on the last trip
+      if (totalTrips === userTrips.length) {
+        fuelSavedPerYear.push(yearFuelSaved);
+        fuelSavedPerMonth.push(monthFuelSaved);
+        fuelSpentPerYear.push(yearFuelSpent);
+        fuelSpentPerMonth.push(monthFuelSpent);
+      }
+    });
+
+    // calculate average fuel saved per time
+    const yearFuelSavedAvg = ((_.reduce(fuelSavedPerYear, function (sum, n) {
+      return sum + n;
+    }, 0)) / fuelSavedPerYear.length).toFixed(2);
+
+    const monthFuelSavedAvg = ((_.reduce(fuelSavedPerMonth, function (sum, n) {
+      return sum + n;
+    }, 0)) / fuelSavedPerMonth.length).toFixed(2);
+
+    const dayFuelSavedAvg = (dayFuelSaved / totalTrips).toFixed(2);
+
+    // calculate average fuel spent per time
+    const yearFuelSpentAvg = ((_.reduce(fuelSpentPerYear, function (sum, n) {
+      return sum + n;
+    }, 0)) / fuelSpentPerYear.length).toFixed(2);
+
+    const monthFuelSpentAvg = ((_.reduce(fuelSavedPerMonth, function (sum, n) {
+      return sum + n;
+    }, 0)) / fuelSavedPerMonth.length).toFixed(2);
+
+    const dayFuelSpentAvg = (dayFuelSpent / totalTrips).toFixed(2);
+
+    return {
+      fuelSavedAvg: { year: yearFuelSavedAvg, month: monthFuelSavedAvg, day: dayFuelSavedAvg },
+      fuelSpentAvg: { year: yearFuelSpentAvg, month: monthFuelSpentAvg, day: dayFuelSpentAvg },
+    };
+  }
+
+  getGhgAvg(username) {
+    const fuelAvg = this.getFuelAvg(username);
+
+    const fuelSavedAvg = fuelAvg.fuelSavedAvg;
+    const yearGhgReducedAvg = (fuelSavedAvg.year * ghgPerGallonFuel).toFixed(2);
+    const monthGhgReducedAvg = (fuelSavedAvg.month * ghgPerGallonFuel).toFixed(2);
+    const dayGhgReducedAvg = (fuelSavedAvg.day * ghgPerGallonFuel).toFixed(2);
+
+    const fuelSpentAvg = fuelAvg.fuelSpentAvg;
+    const yearGhgProducedAvg = (fuelSpentAvg.year * ghgPerGallonFuel).toFixed(2);
+    const monthGhgProducedAvg = (fuelSpentAvg.month * ghgPerGallonFuel).toFixed(2);
+    const dayGhgProducedAvg = (fuelSpentAvg.day * ghgPerGallonFuel).toFixed(2);
+
+    return {
+      ghgReducedAvg: {
+        year: yearGhgReducedAvg,
+        month: monthGhgReducedAvg,
+        day: dayGhgReducedAvg,
+      },
+      ghgProducedAvg: {
+        year: yearGhgProducedAvg,
+        month: monthGhgProducedAvg,
+        day: dayGhgProducedAvg,
+      },
+    };
   }
 }
 

@@ -19,7 +19,7 @@ function DashboardStatisticsCard(
 
   return (
       <Card>
-        <Card.Header style={{ paddingLeft: '1rem' }}>{cardHeader}</Card.Header>
+        <Card.Header style={{ paddingLeft: '1rem', color: '#4183C4' }}>{cardHeader}</Card.Header>
         <Card.Content textAlign='center'>
           <Popup
               on='hover'
