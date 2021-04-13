@@ -23,12 +23,10 @@ function Dashboard(
     },
 ) {
 
-  if (userReady) {
     this.theme = true;
-    if (userProfile.theme === 'dark') {
+    if (document.body.classList.contains('dark')) {
       this.theme = false;
     }
-  }
 
   return ((tripReady && userReady) ?
           <div>

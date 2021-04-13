@@ -111,6 +111,7 @@ const SideBar = (props) => {
           Sign Out
         </Menu.Item>
         <Menu.Item as={NavLink}
+                   className='sidebar-item'
                    activeClassName="active"
                    exact
                    to="/admin"

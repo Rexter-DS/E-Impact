@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Menu, Button, Table, Grid, Loader, Icon, Statistic } from 'semantic-ui-react';
@@ -8,7 +8,6 @@ import SideBar from '../components/SideBar';
 import { Trips, tripPublications } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
 import TripItem from '../components/TripItem';
-//import Footer from '../components/Footer';
 
 const Daily = (props) => {
   const monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -60,45 +59,50 @@ const Daily = (props) => {
   }
 
   /* Styling */
-  if (props.userReady && (document.getElementById('daily-container'))) {
-    console.log('first if');
-    const dailyArrows = document.getElementsByClassName('daily-arrow-button');
-    const dailyTableHeader = document.getElementsByClassName('daily-table-header');
-    if (props.userProfile.theme === 'dark') {
-      console.log('second if');
-      document.getElementById('daily-date-button').classList.add('dark-daily');
-      document.getElementById('daily-table').classList.add('dark-daily-table');
-      document.getElementById('daily-date-button').classList.remove('light-daily');
-      document.getElementById('daily-table').classList.remove('light-daily-table');
-      for (let i = 0; i < dailyArrows.length; i++) {
-        console.log('third if');
-        dailyArrows[i].classList.add('dark-daily');
-        dailyArrows[i].classList.remove('light-daily');
-      }
-      for (let i = 0; i < dailyTableHeader.length; i++) {
-        dailyTableHeader[i].classList.add('dark-daily-table');
-        dailyTableHeader[i].classList.remove('light-daily-table-header');
-      }
-    } else {
-      document.getElementById('daily-table').classList.add('light-daily-table');
-      document.getElementById('daily-date-button').classList.add('light-daily');
-      document.getElementById('daily-date-button').classList.remove('dark-daily');
-      document.getElementById('daily-table').classList.remove('dark-daily-table');
-      for (let i = 0; i < dailyArrows.length; i++) {
-        dailyArrows[i].classList.add('light-daily');
-        dailyArrows[i].classList.remove('dark-daily');
-      }
-      for (let i = 0; i < dailyTableHeader.length; i++) {
-        dailyTableHeader[i].classList.add('light-daily-table-header');
-        dailyTableHeader[i].classList.remove('dark-daily-table');
+  useEffect(() => {
+    if (props.userReady && (document.getElementById('daily-container'))) {
+      const dailyArrows = document.getElementsByClassName('daily-arrow-button');
+      const dailyTableHeader = document.getElementsByClassName('daily-table-header');
+      const dailyTable = document.getElementsByClassName('daily-table');
+      if (props.userProfile.theme === 'dark') {
+        document.getElementById('daily-top').classList.add('dark-daily-top');
+        document.getElementById('daily-date-button').classList.add('dark-daily');
+        document.getElementById('daily-date-button').classList.remove('light-daily');
+        for (let i = 0; i < dailyArrows.length; i++) {
+          dailyArrows[i].classList.add('dark-daily');
+          dailyArrows[i].classList.remove('light-daily');
+        }
+        for (let i = 0; i < dailyTableHeader.length; i++) {
+          dailyTableHeader[i].classList.add('dark-daily-table-header');
+          dailyTableHeader[i].classList.remove('light-daily-table-header');
+        }
+        for (let i = 0; i < dailyTable.length; i++) {
+          dailyTable[i].classList.add('dark-daily-table');
+          dailyTable[i].classList.remove('light-daily-table');
+        }
+      } else {
+        document.getElementById('daily-date-button').classList.add('light-daily');
+        document.getElementById('daily-top').classList.remove('dark-daily-top');
+        document.getElementById('daily-date-button').classList.remove('dark-daily');
+        for (let i = 0; i < dailyArrows.length; i++) {
+          dailyArrows[i].classList.add('light-daily');
+          dailyArrows[i].classList.remove('dark-daily');
+        }
+        for (let i = 0; i < dailyTableHeader.length; i++) {
+          dailyTableHeader[i].classList.add('light-daily-table-header');
+          dailyTableHeader[i].classList.remove('dark-daily-table-header');
+        }
+        for (let i = 0; i < dailyTable.length; i++) {
+          dailyTable[i].classList.add('dark-daily-table');
+          dailyTable[i].classList.remove('light-daily-table');
+        }
       }
     }
-  }
+  }, [props]);
 
-  return (!props.ready && !props.userReady) ? <Loader active>Loading data</Loader> :
+  return (!props.ready || !props.userReady) ? <Loader active>Loading data</Loader> :
       (
-          <div id='daily-container'
-               style={{ marginLeft: '150px' }}>
+          <div id='daily-container'>
             <SideBar theme={props.userProfile.theme}/>
             <Menu borderless
                   id="daily-top">
@@ -142,7 +146,7 @@ const Daily = (props) => {
               </Grid>
             </Menu>
             <Table fixed
-                   id='daily-table'>
+                   className='daily-table'>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>
@@ -152,9 +156,10 @@ const Daily = (props) => {
                   <Table.HeaderCell className='daily-table-header'>Net Gallons</Table.HeaderCell>
                   <Table.HeaderCell className='daily-table-header'>Net GHG</Table.HeaderCell>
                   <Table.HeaderCell className='daily-table-header'>Delete Trip</Table.HeaderCell>
+                  <Table.HeaderCell className='daily-table-header'></Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
-              <Table.Body>
+              <Table.Body className='daily-table'>
                 {monthTrips.map((trip) => <TripItem key={trip._id} trip={trip}/>)}
                 <Table.Row>
                   <Table.Cell>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
@@ -168,8 +173,8 @@ Daily.propTypes = {
   ready: PropTypes.bool.isRequired,
   trips: PropTypes.array.isRequired,
   username: PropTypes.string,
-  userProfile: PropTypes.object,
   userReady: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {

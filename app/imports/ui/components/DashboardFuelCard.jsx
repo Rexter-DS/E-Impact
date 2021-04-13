@@ -7,6 +7,7 @@ function DashboardFuelCard(
     {
       fuelSavedTotal,
       fuelCostTotal,
+      userProfile,
     },
 ) {
 
@@ -33,6 +34,7 @@ function DashboardFuelCard(
               testing 1 2 3
             </p>
           }
+          userProfile={userProfile}
       />
   );
 }
@@ -40,6 +42,7 @@ function DashboardFuelCard(
 DashboardFuelCard.propTypes = {
   fuelSavedTotal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   fuelCostTotal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  userProfile: PropTypes.object,
 };
 
 export default DashboardFuelCard;

@@ -9,6 +9,15 @@ import SideBar from '../components/SideBar';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class Admin extends React.Component {
+  componentDidUpdate() {
+    if (this.props.userReady && (document.getElementById('admin-container'))) {
+      if (this.props.userProfile.theme === 'dark') {
+        document.getElementById('admin-table').classList.add('dark-admin-table');
+      } else {
+        document.getElementById('admin-table').classList.remove('dark-admin-table');
+      }
+    }
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -18,16 +27,16 @@ class Admin extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     return (
-        <div>
-          <SideBar/>
+        <div id='admin-container'>
+          <SideBar theme={this.props.userProfile.theme}/>
           <Container>
-            <Header as="h2" textAlign="center">All Users</Header>
-            <Table celled>
+            <Header id='admin-header' as="h2" textAlign="center">All Users</Header>
+            <Table id='admin-table' celled>
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>First Name</Table.HeaderCell>
-                  <Table.HeaderCell>Last Name</Table.HeaderCell>
-                  <Table.HeaderCell>Email</Table.HeaderCell>
+                  <Table.HeaderCell className='admin-table-headers'>First Name</Table.HeaderCell>
+                  <Table.HeaderCell className='admin-table-headers'>Last Name</Table.HeaderCell>
+                  <Table.HeaderCell className='admin-table-headers'>Email</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -44,15 +53,21 @@ class Admin extends React.Component {
 Admin.propTypes = {
   users: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
+  userReady: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to the Meteor.Accounts?
   const subscription = Users.subscribeUserAdmin();
+  const userSubscription = Users.subscribeUser();
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
     // users: Users.find({}).fetch(),
     users: Meteor.users.find({}).fetch(),
     ready: subscription.ready(),
+    userReady: userSubscription.ready(),
+    userProfile,
   };
 })(Admin);

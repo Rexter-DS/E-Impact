@@ -7,6 +7,7 @@ function DashboardTreeCard(
     {
       treesPerGhgReduced,
       treesPerGhgProduced,
+      userProfile,
     },
 ) {
 
@@ -62,6 +63,7 @@ function DashboardTreeCard(
               testing 1 2 3
             </p>
           }
+          userProfile={userProfile}
       />
   );
 }
@@ -69,6 +71,7 @@ function DashboardTreeCard(
 DashboardTreeCard.propTypes = {
   treesPerGhgReduced: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   treesPerGhgProduced: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  userProfile: PropTypes.object,
 };
 
 export default DashboardTreeCard;

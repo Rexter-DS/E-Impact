@@ -1,16 +1,21 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { Statistic } from 'semantic-ui-react';
-import { Trips } from '../../api/trip/TripCollection';
 import DashboardStatisticsCard from './DashboardStatisticsCard';
 
 function DashboardMilesCard(
     {
       milesSaved,
       milesAdded,
+      userProfile,
     },
 ) {
+
+  if (userProfile.theme === 'dark') {
+    //
+  } else {
+    //
+  }
 
   return (
       <DashboardStatisticsCard
@@ -35,6 +40,7 @@ function DashboardMilesCard(
               testing 1 2 3
             </p>
           }
+          userProfile={userProfile}
       />
   );
 }
@@ -42,6 +48,7 @@ function DashboardMilesCard(
 DashboardMilesCard.propTypes = {
   milesSaved: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   milesAdded: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  userProfile: PropTypes.object,
 };
 
 export default DashboardMilesCard;

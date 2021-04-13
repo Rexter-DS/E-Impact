@@ -12,13 +12,16 @@ function DashboardStatisticsCard(
       popupBottom,
       moreHeader,
       moreContent,
+      userProfile,
     },
 ) {
 
   const [openMore, setOpenMore] = useState(false);
 
+  console.log(userProfile);
+
   return (
-      <Card>
+      <Card className='dark-general-card '>
         <Card.Header style={{ paddingLeft: '1rem' }}>{cardHeader}</Card.Header>
         <Card.Content textAlign='center'>
           <Popup
@@ -65,6 +68,7 @@ DashboardStatisticsCard.propTypes = {
   popupBottom: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   moreHeader: PropTypes.string,
   moreContent: PropTypes.element,
+  userProfile: PropTypes.object,
 };
 
 export default DashboardStatisticsCard;

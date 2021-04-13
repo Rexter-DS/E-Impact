@@ -1,10 +1,16 @@
 /*
   HEI's blue color codes: #0c4d85 (header/footer), #177fc5 (text)
   HEI's font family: "Barlow Semi Condensed", sans-serif;
+
+  DARK MODE (lightest -> darkest)
+  213c5c
+  1d3652
+  13324E
+  002A47 (background)
  */
 
 .dark {
-  background-color: #05304F;
+  background-color: #002A47;
   color: #FFFFFF;
 }
 
@@ -19,7 +25,7 @@ body {
 }
 
 .sidebar-item {
-  color: inherit;
+  color: #0c4d85;
 }
 
 .light-sidebar-item {
@@ -181,17 +187,7 @@ body {
   color: #177fc5;
 }
 
-/*
-DAILY
-light-blue: 3FADE2
-mid-blue: 1C7DC1 / 177fc5
-dark-blue: 0C4D85
-
-DARK
-background: #0e283d
-box-header: #3d5362
-box: #2a4253
-*/
+/* DAILY */
 .light-daily {
   color: #0c4d85 !important;
 }
@@ -205,13 +201,18 @@ box: #2a4253
   font-family: "Barlow Semi Condensed", sans-serif;
   height: 100vh !important;
   color: inherit;
+  margin-left: 150px !important;
 }
 
 #daily-top {
   font-family: "Barlow Semi Condensed", sans-serif;
   font-size: 30px;
   margin: 0 !important;
-  background-color: inherit; /*HERE*/
+  background-color: inherit;
+}
+
+.dark-daily-top {
+  background-color: #1d3652 !important;
 }
 
 #daily-add-button {
@@ -233,16 +234,15 @@ box: #2a4253
   color: inherit;
 }
 
-#daily-table {
+.daily-table {
   padding-bottom: 15px;
   margin: 0 !important;
-  background-color: inherit;
-  color: inherit;
+  background-color: inherit !important;
+  color: inherit !important;
 }
 
 .dark-daily-table {
-  background-color: #153955 !important;
-  color: #FFFFFF !important;
+  background-color: inherit !important;
 }
 
 .light-daily-table {
@@ -256,6 +256,11 @@ box: #2a4253
 
 .light-daily-table-header {
   color: #1C7DC1 !important;
+}
+
+.dark-daily-table-header {
+  color: #FFFFFF !important;
+  background-color: #13324E !important;
 }
 
 .daily-arrow-button {
@@ -320,7 +325,7 @@ box: #2a4253
 }
 
 .dark-trip-form {
-  background-color: #154E77 !important;
+  background-color: #213c5c !important;
 }
 
 .ui.form .field > label {
@@ -488,11 +493,11 @@ box: #2a4253
 
 /* USER COMMUNITY */
 #community-bottom-header {
-  color: inherit !important;
+  color: inherit;
 }
 
 .dark-community {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .community-statistic {
@@ -501,4 +506,74 @@ box: #2a4253
 
 .ui.progress > .label {
   color: inherit !important;
+}
+
+.community-card {
+  background-color: inherit;
+}
+
+.dark-community-card {
+  background-color: #213c5c !important;
+}
+
+.community-card-header {
+  padding-left: 10px;
+  color: #4183C4;
+}
+
+.dark-community-card-header {
+  color: #FFFFFF !important;
+}
+
+.community-button {
+  background-color: #1C7DC1 !important;
+  color: #FFFFFF !important;
+}
+
+.community-modal {
+  background-color: inherit !important;
+}
+
+/* ADMIN */
+#admin-container {
+  margin-left: 150px !important;
+}
+#admin-header {
+  color: inherit;
+}
+
+#admin-table {
+  color: inherit;
+}
+
+.dark-admin-table {
+  background-color: #13324E !important;
+}
+
+.admin-table-headers {
+  background-color: #1d3652 !important;
+  color: inherit !important;
+}
+
+/* GENERAL CARD */
+.dark-general-card {
+  background-color: #213c5c !important;
+}
+
+.general-card-header {
+  padding-left: 10px;
+  color: #4183C4;
+}
+
+.dark-general-card-header {
+  color: #FFFFFF !important;
+}
+
+.general-card-button {
+  background-color: #1C7DC1 !important;
+  color: #FFFFFF !important;
+}
+
+.general-card-modal {
+  background-color: inherit !important;
 }

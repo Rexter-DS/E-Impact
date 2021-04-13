@@ -10,18 +10,21 @@ import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
 
 class Community extends React.Component {
+  componentDidUpdate() {
+    if (this.props.userReady && (document.getElementById('community-container'))) {
+      if (this.props.userProfile.theme === 'dark') {
+        document.getElementById('community-bottom-header').classList.add('dark-community');
+      } else {
+        document.getElementById('community-bottom-header').classList.remove('dark-community');
+      }
+    }
+  }
+
   render() {
     return (this.props.ready && this.props.userReady) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
   renderPage() {
-    // const container = document.getElementById('community-container');
-    // document.addEventListener('DOMContentLoaded', (event) => {
-    //   console.log('here');
-    // });
-
-    console.log(document.getElementById('community-bottom-header'));
-
     return (
       <div>
         <div id='community-container'>

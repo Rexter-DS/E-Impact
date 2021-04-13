@@ -7,6 +7,7 @@ function DashboardGhgCard(
     {
       ghgReducedTotal,
       ghgProducedTotal,
+      userProfile,
     },
 ) {
 
@@ -33,6 +34,7 @@ function DashboardGhgCard(
               testing 1 2 3
             </p>
           }
+          userProfile={userProfile}
       />
   );
 }
@@ -40,6 +42,7 @@ function DashboardGhgCard(
 DashboardGhgCard.propTypes = {
   ghgReducedTotal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ghgProducedTotal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  userProfile: PropTypes.object,
 };
 
 export default DashboardGhgCard;

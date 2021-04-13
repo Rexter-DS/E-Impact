@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Grid, Header, Icon, Loader, Segment, Button } from 'semantic-ui-react';
 import { AutoForm, DateField, ErrorsField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
@@ -85,18 +85,20 @@ const AddTrip = (props) => {
   }
 
   /* Styling */
-  if (props.userReady) {
-    const addTripForms = document.getElementsByClassName('add-trip-form');
-    if (props.userProfile.theme === 'dark') {
-      for (let i = 0; i < addTripForms.length; i++) {
-        addTripForms[i].classList.add('dark-trip-form');
-      }
-    } else {
-      for (let i = 0; i < addTripForms.length; i++) {
-        addTripForms[i].classList.remove('dark-trip-form');
+  useEffect(() => {
+    if (props.userReady) {
+      const addTripForms = document.getElementsByClassName('add-trip-form');
+      if (props.userProfile.theme === 'dark') {
+        for (let i = 0; i < addTripForms.length; i++) {
+          addTripForms[i].classList.add('dark-trip-form');
+        }
+      } else {
+        for (let i = 0; i < addTripForms.length; i++) {
+          addTripForms[i].classList.remove('dark-trip-form');
+        }
       }
     }
-  }
+  }, [props]);
 
   let fRef = null;
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */

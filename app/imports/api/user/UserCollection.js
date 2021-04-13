@@ -153,6 +153,26 @@ class UserCollection extends BaseCollection {
     }
     return null;
   }
+
+  communityStyling(props) {
+    const communityCard = document.getElementsByClassName('community-card');
+    const communityCardHeader = document.getElementsByClassName('community-card-header');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.add('dark-community-card');
+      }
+      for (let i = 0; i < communityCardHeader.length; i++) {
+        communityCardHeader[i].classList.add('dark-community-card-header');
+      }
+    } else {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.remove('dark-community-card');
+      }
+      for (let i = 0; i < communityCardHeader.length; i++) {
+        communityCardHeader[i].classList.remove('dark-community-card-header');
+      }
+    }
+  }
 }
 
 /**
