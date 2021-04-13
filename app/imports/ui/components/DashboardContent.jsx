@@ -1,4 +1,3 @@
-import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Card } from 'semantic-ui-react';
@@ -8,6 +7,7 @@ import DashboardMilesCard from './DashboardMilesCard';
 import DashboardFuelCard from './DashboardFuelCard';
 import DashboardGhgCard from './DashboardGhgCard';
 import DashboardTreeCard from './DashboardTreeCard';
+import { ghgPerGallonFuel, poundsOfGhgPerTree } from '../../api/trip/TripCollection';
 
 // Contains the graphs that visualizes the user's data.
 function DashboardContent(
@@ -55,9 +55,9 @@ function DashboardContent(
     mode: 'lines+markers',
   };
 
-  const ghgProducedTotal = (fuelCostTotal * 19.6).toFixed(2);
+  const ghgProducedTotal = (fuelCostTotal * ghgPerGallonFuel).toFixed(2);
 
-  const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
+  const ghgReducedTotal = (fuelSavedTotal * ghgPerGallonFuel).toFixed(2);
 
   const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
@@ -68,8 +68,8 @@ function DashboardContent(
 
   // 100,000 trees = 2,400 tons of CO2 or 4,800,000 pounds of CO2
   // 1 tree = 48 pounds of CO2
-  const treesPerGhgProduced = (ghgProducedTotal / 48).toFixed(0);
-  const treesPerGhgReduced = (ghgReducedTotal / 48).toFixed(0);
+  const treesPerGhgProduced = (ghgProducedTotal / poundsOfGhgPerTree).toFixed(0);
+  const treesPerGhgReduced = (ghgReducedTotal / poundsOfGhgPerTree).toFixed(0);
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
