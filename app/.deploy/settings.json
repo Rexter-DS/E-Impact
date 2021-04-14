@@ -58,7 +58,8 @@
     { "county": "Honolulu", "first": "Eric", "last": "Green", "email": "GreenE46@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Kalawao", "first": "Dominique", "last": "Russell", "email": "RussellD47@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Kauai", "first": "Brady", "last": "Castaneda", "email": "CastanedaB48@foo.com", "password": "changeme", "role": "admin" },
-    { "county": "Maui", "first": "Robert", "last": "Morales", "email": "MoralesR49@foo.com", "password": "changeme", "role": "admin" }
+    { "county": "Maui", "first": "Robert", "last": "Morales", "email": "MoralesR49@foo.com", "password": "changeme", "role": "admin" },
+    { "county": "Maui", "first": "Settings", "last": "Deploy", "email": "SDeploy@foo.com", "password": "changeme", "role": "admin" }
   ],
 
   "defaultUsers": [
@@ -120,6 +121,7 @@
     { "username": "GreenE46@foo.com", "autoMPG": 29, "homeRoundTrip": 34 },
     { "username": "RussellD47@foo.com", "autoMPG": 24, "homeRoundTrip": 21 },
     { "username": "CastanedaB48@foo.com", "autoMPG": 26, "homeRoundTrip": 18 },
-    { "username": "MoralesR49@foo.com", "autoMPG": 22, "homeRoundTrip": 40 }
+    { "username": "MoralesR49@foo.com", "autoMPG": 22, "homeRoundTrip": 40 },
+    { "username": "SDeploy@foo.com", "autoMPG": 22, "homeRoundTrip": 40 }
   ]
 }
