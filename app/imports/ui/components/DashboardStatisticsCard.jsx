@@ -10,6 +10,7 @@ function DashboardStatisticsCard(
       popupTop,
       bottomContent,
       popupBottom,
+      showMore,
       moreHeader,
       moreContent,
       userProfile,
@@ -17,6 +18,20 @@ function DashboardStatisticsCard(
 ) {
 
   const [openMore, setOpenMore] = useState(false);
+  const moreInfo = (showMore) ?
+      <Modal
+          closeIcon
+          open={openMore}
+          onOpen={() => setOpenMore(true)}
+          onClose={() => setOpenMore(false)}
+          trigger={<Button compact floated='right'>Show more</Button>}
+      >
+        <Header>{moreHeader}</Header>
+        <Modal.Content>
+          {moreContent}
+        </Modal.Content>
+      </Modal> :
+      <div></div>;
 
   /* DOM Styling */
   useEffect(() => {
@@ -54,18 +69,7 @@ function DashboardStatisticsCard(
           </Popup>
         </Card.Content>
         <Card.Content extra>
-          <Modal
-              closeIcon
-              open={openMore}
-              onOpen={() => setOpenMore(true)}
-              onClose={() => setOpenMore(false)}
-              trigger={<Button className='card-button' compact floated='right'>Show more</Button>}
-          >
-            <Header>{moreHeader}</Header>
-            <Modal.Content>
-              {moreContent}
-            </Modal.Content>
-          </Modal>
+          {moreInfo}
         </Card.Content>
       </Card>
 
@@ -78,7 +82,8 @@ DashboardStatisticsCard.propTypes = {
   popupTop: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   bottomContent: PropTypes.element,
   popupBottom: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  moreHeader: PropTypes.string,
+  showMore: PropTypes.bool,
+  moreHeader: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   moreContent: PropTypes.element,
   userProfile: PropTypes.object,
 };

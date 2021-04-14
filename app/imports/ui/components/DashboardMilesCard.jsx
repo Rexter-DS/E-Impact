@@ -44,6 +44,7 @@ function DashboardMilesCard(
             </Statistic>
           }
           popupBottom='This number represents how many you traveled using a gas-powered car'
+          showMore
           moreHeader='More information'
           moreContent={
             <Grid relaxed columns='equal'>

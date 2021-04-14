@@ -34,6 +34,7 @@ function DashboardGhgCard(
             </Statistic>
           }
           popupBottom='This number represents how many pounds of GHG you produced by traveling using a gas-powered car.'
+          showMore
           moreHeader='More information'
           moreContent={
             <Grid relaxed columns='equal'>
