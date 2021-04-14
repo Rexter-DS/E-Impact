@@ -91,7 +91,7 @@ export default withTracker(({ match }) => {
   const milesPerMode = Trips.getMilesPerMode(username);
 
   const userProfile = Users.getUserProfile(username);
-
+  
   const ghgProducedTotal = Trips.getGHGProducedTotal(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
   const ghgReducedPerDay = Trips.getGHGReducedPerDay(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
 
