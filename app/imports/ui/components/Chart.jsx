@@ -9,7 +9,7 @@ import Plot from 'react-plotly.js';
 function Chart({ chartData, chartLayout, chartStyle }) {
 
   const style = chartStyle || { width: '100%', height: '100%' };
-  
+
   return (
       <div>
         <Plot

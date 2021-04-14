@@ -1,9 +1,47 @@
 /*
   HEI's blue color codes: #0c4d85 (header/footer), #177fc5 (text)
   HEI's font family: "Barlow Semi Condensed", sans-serif;
+
+  DARK MODE (lightest -> darkest)
+  213c5c
+  1d3652
+  13324E
+  002A47 (background)
  */
 
-/* landing page CSS */
+.dark {
+  background-color: #002A47;
+  color: #FFFFFF;
+}
+
+body {
+  background-color: #FFFFFF;
+}
+
+/* SIDEBAR CSS */
+#sidebar {
+  background-color: inherit;
+  color: inherit;
+}
+
+.sidebar-item {
+  color: #0c4d85;
+}
+
+.light-sidebar-item {
+  color: #0c4d85 !important;
+}
+
+.dark-sidebar {
+  background-color: #0c4d85 !important;
+}
+
+.dark-sidebar-item {
+  color: #FFFFFF !important;
+  border-top-color: red !important;
+}
+
+/* LANDING PAGE */
 #landing-nav {
   height: 100px;
   width: 100%;
@@ -28,9 +66,27 @@
 }
 
 #landing-info1 {
-  height: 425px;
-  padding: 50px;
+  height: 675px;
+  /*color: #ffffff;*/
   background: #ffffff;
+}
+
+.landing-white-text {
+  color: white;
+}
+
+#landing-info1-left {
+  padding: 45px;
+  background: url("/images/low_emission_vehicle_v2.jpg") center center;
+  background-repeat: no-repeat;
+  height: 520px;
+  max-width: 720px;
+}
+
+#landing-bottom {
+  position: relative;
+  /*bottom: 0;*/
+  /*height: 36px;*/
 }
 
 .landing-info-center {
@@ -46,6 +102,7 @@
   padding: 50px;
   background: url("/images/OahuBackgroundBrighter2.jpeg") no-repeat center center;
   background-size: cover;
+
 }
 
 #sign {
@@ -61,7 +118,7 @@
   padding: 50px 100px;
   margin-left: 150px;
   font-family: "Barlow Semi Condensed", sans-serif;
-  background-color: white;
+  background-color: inherit;
 }
 
 #dashboard-total-row {
@@ -133,6 +190,11 @@
   padding: 15px 0;
 }
 
+/* DASHBOARD */
+.dashboard-statistic {
+  color: inherit !important;
+}
+/*
 #dashboard-footer {
   background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
@@ -144,39 +206,96 @@
   margin-top: 200px;
   padding: 15px 0;
 }
-
-#daily-footer {
-  background-color: #093c69;
-  font-family: "Barlow Semi Condensed", sans-serif;
-  font-size: 14px;
-  color: white !important;
-  width: 100%;
-  bottom: 0px;
-  padding: 15px 0;
-}
+*/
 
 .link {
   color: #177fc5;
 }
 
-/*
-Daily Page
-light-blue: 3FADE2
-mid-blue: 1C7DC1 / 177fc5
-dark-blue: 0C4D85
-*/
-.daily-add-button {
+/* DAILY */
+.light-daily {
+  color: #0c4d85 !important;
+}
+
+.dark-daily {
+  color: #FFFFFF !important;
+}
+
+#daily-container {
+  font-size: 20px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  height: 100vh !important;
+  color: inherit;
+  margin-left: 150px !important;
+}
+
+#daily-top {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 30px;
+  margin: 0 !important;
+  background-color: inherit;
+}
+
+.dark-daily-top {
+  background-color: #1d3652 !important;
+}
+
+#daily-add-button {
   color: #FFFFFF !important;
   font-size: 20px !important;
   background-color: #0c4d85 !important;
 }
 
-.daily-table-data {
-  color: #0c4d85 !important;
-  /*font-weight: bold;*/
+#daily-date-button {
+  color: inherit;
+  background-color: inherit;
+  /*padding: 35px !important;*/
+  margin: 0 !important;
+  /*font-weight: 900 !important;*/
 }
 
-.daily-save-button {
+#daily-statistic-label {
+  font-size: 18px;
+  color: inherit;
+}
+
+.daily-table {
+  padding-bottom: 15px;
+  margin: 0 !important;
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+.dark-daily-table {
+  background-color: inherit !important;
+}
+
+.light-daily-table {
+  color: #a9a9a9 !important;
+}
+
+.daily-table-header {
+  color: inherit;
+  background-color: inherit;
+}
+
+.light-daily-table-header {
+  color: #1C7DC1 !important;
+}
+
+.dark-daily-table-header {
+  color: #FFFFFF !important;
+  background-color: #13324E !important;
+}
+
+.daily-arrow-button {
+  font-size: 16px !important;
+  color: inherit;
+  background-color: inherit !important;
+}
+
+/*
+ .daily-save-button {
   color: #FFFFFF !important;
   font-size: 16px !important;
   background-color: #0c4d85 !important;
@@ -185,21 +304,7 @@ dark-blue: 0C4D85
 .daily-date-item {
   padding: 0 !important;
   color: #0c4d85 !important;
-  /*font-weight: 900 !important;*/
-}
-
-.daily-date-button {
-  /*padding: 35px !important;*/
-  margin: 0 !important;
-  color: #0c4d85 !important;
-  /*font-weight: 900 !important;*/
-  background-color: #FFFFFF !important;
-}
-
-.daily-arrow-button {
-  color: #0c4d85 !important;
-  font-size: 16px !important;
-  background-color: #FFFFFF !important;
+  /*font-weight: 900 !important;
 }
 
 .daily-today-button {
@@ -208,22 +313,6 @@ dark-blue: 0C4D85
   background-color: #0c4d85 !important;
 }
 
-#daily-top {
-  font-family: "Barlow Semi Condensed", sans-serif;
-  color: #0c4d85 !important;
-  font-size: 30px;
-  margin: 0 !important;
-}
-
-#daily-container {
-  font-size: 20px;
-  font-family: "Barlow Semi Condensed", sans-serif;
-  height: 100vh !important;
-}
-
-.daily-table-header {
-  color: #1C7DC1 !important;
-}
 
 .daily-header-sums {
   color: #0c4d85;
@@ -235,14 +324,37 @@ dark-blue: 0C4D85
   font-weight: 700 !important;
 }
 
-.daily-table {
-  padding-bottom: 15px;
-  margin: 0 !important;
+#daily-footer {
+  background-color: #093c69;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  color: white !important;
+  width: 100%;
+  bottom: 0px;
+  padding: 15px 0;
 }
+ */
 
-/* Add Trip */
+/* ADD TRIP */
 #add-trip-container {
   margin: 50px 0 0 150px;
+}
+
+.add-trip-header {
+  color: inherit !important;
+}
+
+.add-trip-form {
+  background-color: inherit;
+  color: inherit;
+}
+
+.dark-trip-form {
+  background-color: #213c5c !important;
+}
+
+.ui.form .field > label {
+  color: inherit !important;
 }
 
 /* Community */
@@ -363,7 +475,7 @@ dark-blue: 0C4D85
   color: white;
 }
 
-/* Compare */
+/* COMPARE */
 #compare-container {
   margin: 50px 0px 0px 150px;
   padding: 30px;
@@ -371,14 +483,26 @@ dark-blue: 0C4D85
   line-height: 1.5 !important;
 }
 
-.slider-information-side {
+#compare-car {
+  color: inherit !important;
+}
+
+#compare-slider-car-side {
+  background-color: #FFFFFF;
+}
+
+#compare-slider-information-side {
   font-size: 1.75rem;
   padding: 20px !important;
   margin-top: 50px;
 }
 
+.compare-cost-per-inner-card {
+  background-color: inherit !important;
+}
+
 .compare-slider {
-  background-color: #FFFFFF !important;
+  background-color: inherit !important;
 }
 
 .cost-per-outer-card {
@@ -386,11 +510,99 @@ dark-blue: 0C4D85
   margin: 50px 20px 0px 20px !important;
 }
 
-.cost-per-inner-cards {
-  /*margin-top: 10px !important;*/
-}
-
 .cost-per-header{
   margin: 75px 0px 10px 0px !important;
   font-size: 1.75rem !important;
+  color: inherit !important;
+}
+
+/* USER COMMUNITY */
+#community-bottom-header {
+  color: inherit;
+}
+
+.dark-community {
+  color: #FFFFFF !important;
+}
+
+.community-statistic {
+  color: inherit !important;
+}
+
+.ui.progress > .label {
+  color: inherit !important;
+}
+
+.community-card {
+  background-color: inherit;
+}
+
+.dark-community-card {
+  background-color: #213c5c !important;
+}
+
+.community-card-header {
+  padding-left: 10px;
+  color: #4183C4;
+}
+
+.dark-community-card-header {
+  color: #FFFFFF !important;
+}
+
+.community-button {
+  background-color: #1C7DC1 !important;
+  color: #FFFFFF !important;
+}
+
+.community-modal {
+  background-color: inherit !important;
+}
+
+/* ADMIN */
+#admin-container {
+  margin-left: 150px !important;
+}
+#admin-header {
+  color: inherit;
+}
+
+#admin-table {
+  color: inherit;
+}
+
+.dark-admin-table {
+  background-color: #13324E !important;
+}
+
+.admin-table-headers {
+  color: inherit !important;
+}
+
+.dark-admin-table-headers {
+  background-color: #1d3652 !important;
+}
+
+  /* GENERAL CARD */
+.dark-card {
+  background-color: #213c5c !important;
+  color: inherit !important;
+}
+
+.card-header {
+  padding-left: 1rem;
+  color: #4183C4;
+}
+
+.dark-card-header {
+  color: #FFFFFF !important;
+}
+
+.card-button {
+  background-color: #1C7DC1 !important;
+  color: #FFFFFF !important;
+}
+
+.card-modal {
+  background-color: inherit !important;
 }

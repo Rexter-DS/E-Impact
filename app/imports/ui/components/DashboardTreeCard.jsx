@@ -7,6 +7,7 @@ function DashboardTreeCard(
     {
       treesPerGhgReduced,
       treesPerGhgProduced,
+      userProfile,
     },
 ) {
 
@@ -25,10 +26,10 @@ function DashboardTreeCard(
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
-                  <Statistic.Value>
+                  <Statistic.Value className='dashboard-statistic'>
                     {treesPerGhgReduced}
                   </Statistic.Value>
-                  <Statistic.Label>tree equivalence to ghg reduced</Statistic.Label>
+                  <Statistic.Label className='dashboard-statistic'>tree equivalence to ghg reduced</Statistic.Label>
                 </Statistic>
               </Grid.Column>
             </Grid>
@@ -46,10 +47,10 @@ function DashboardTreeCard(
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
-                  <Statistic.Value>
+                  <Statistic.Value className='dashboard-statistic'>
                     {treesPerGhgProduced}
                   </Statistic.Value>
-                  <Statistic.Label>tree equivalence to ghg produced</Statistic.Label>
+                  <Statistic.Label className='dashboard-statistic'>tree equivalence to ghg produced</Statistic.Label>
                 </Statistic>
               </Grid.Column>
             </Grid>
@@ -62,6 +63,7 @@ function DashboardTreeCard(
               testing 1 2 3
             </p>
           }
+          userProfile={userProfile}
       />
   );
 }
@@ -69,6 +71,7 @@ function DashboardTreeCard(
 DashboardTreeCard.propTypes = {
   treesPerGhgReduced: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   treesPerGhgProduced: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  userProfile: PropTypes.object,
 };
 
 export default DashboardTreeCard;

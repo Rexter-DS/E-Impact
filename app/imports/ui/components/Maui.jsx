@@ -7,8 +7,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
 import Chart from './Chart';
+import { Users } from '../../api/user/UserCollection';
 
 class Maui extends React.Component {
+  componentDidUpdate() {
+    Users.communityStyling(this.props);
+  }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
@@ -114,11 +119,6 @@ class Maui extends React.Component {
       textposition: 'inside',
     }];
 
-    const modeLayout = {
-      autosize: true,
-      showlegend: true,
-    };
-
     const vmtReduced =
         { x: formattedDates,
           y: milesReduced,
@@ -132,18 +132,6 @@ class Maui extends React.Component {
           name: 'Produced' };
 
     const vmtData = [vmtReduced, vmtProduced];
-    const vmtLayout = {
-      showlegend: true,
-      autosize: true,
-      xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Vehicle miles traveled',
-        type: 'linear',
-      },
-    };
 
     const fuelSavings =
         { x: formattedDates,
@@ -159,18 +147,6 @@ class Maui extends React.Component {
 
     const fuelData = [fuelSavings, fuelUsage];
 
-    const fuelLayout = {
-      autosize: true,
-      xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Gallons of Gas',
-        type: 'linear',
-      },
-    };
-
     const ghgSavings =
         { x: formattedDates,
           y: ghgSavedByDay,
@@ -185,17 +161,116 @@ class Maui extends React.Component {
 
     const ghgData = [ghgSavings, ghgProduction];
 
-    const ghgLayout = {
-      autosize: true,
-      xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Pounds of CO2',
-        type: 'linear',
-      },
-    };
+    /* Graph Layouts */
+    const chartBgColor = '#213c5c';
+    const chartGridColor = '#5c5c5c';
+    let modeLayout = {};
+    let vmtLayout = {};
+    let fuelLayout = {};
+    let ghgLayout = {};
+
+    if (this.props.userProfile.theme === 'dark') {
+      modeLayout = {
+        autosize: true,
+        showlegend: true,
+        paper_bgcolor: chartBgColor,
+        font: {
+          color: '#FFFFFF',
+        },
+      };
+      vmtLayout = {
+        autosize: true,
+        xaxis: {
+          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          type: 'date',
+          gridcolor: chartGridColor,
+        },
+        yaxis: {
+          title: 'Vehicle miles traveled',
+          type: 'linear',
+          gridcolor: chartGridColor,
+        },
+        paper_bgcolor: chartBgColor,
+        plot_bgcolor: chartBgColor,
+        font: {
+          color: '#FFFFFF',
+        },
+      };
+      fuelLayout = {
+        autosize: true,
+        xaxis: {
+          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          type: 'date',
+          gridcolor: chartGridColor,
+        },
+        yaxis: {
+          title: 'Gallons of Gas',
+          type: 'linear',
+          gridcolor: chartGridColor,
+        },
+        paper_bgcolor: chartBgColor,
+        plot_bgcolor: chartBgColor,
+        font: {
+          color: '#FFFFFF',
+        },
+      };
+      ghgLayout = {
+        autosize: true,
+        xaxis: {
+          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          type: 'date',
+          gridcolor: chartGridColor,
+        },
+        yaxis: {
+          title: 'Pounds of CO2',
+          type: 'linear',
+          gridcolor: chartGridColor,
+        },
+        paper_bgcolor: chartBgColor,
+        plot_bgcolor: chartBgColor,
+        font: {
+          color: '#FFFFFF',
+        },
+      };
+    } else {
+      modeLayout = {
+        autosize: true,
+        showlegend: true,
+      };
+      vmtLayout = {
+        autosize: true,
+        xaxis: {
+          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          type: 'date',
+        },
+        yaxis: {
+          title: 'Vehicle miles traveled',
+          type: 'linear',
+        },
+      };
+      fuelLayout = {
+        autosize: true,
+        xaxis: {
+          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          type: 'date',
+        },
+        yaxis: {
+          title: 'Gallons of Gas',
+          type: 'linear',
+        },
+      };
+      ghgLayout = {
+        autosize: true,
+        xaxis: {
+          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          type: 'date',
+        },
+        yaxis: {
+          title: 'Pounds of CO2',
+          type: 'linear',
+        },
+      };
+    }
 
     return (
         <Grid centered>
@@ -204,15 +279,15 @@ class Maui extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3} textAlign='center'> <Statistic>
-              <Statistic.Value>
+              <Statistic.Value className='community-statistic'>
                 <Icon name='users'/>{totalUsers}
               </Statistic.Value>
-              <Statistic.Label>users</Statistic.Label>
+              <Statistic.Label className='community-statistic'>users</Statistic.Label>
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value><Icon name='car'/>{totalMilesSaved}</Statistic.Value>
-              <Statistic.Label>vehicle miles traveled (VMT) reduced</Statistic.Label>
+              <Statistic.Value className='community-statistic'><Icon name='car'/>{totalMilesSaved}</Statistic.Value>
+              <Statistic.Label className='community-statistic'>vehicle miles traveled (VMT) reduced</Statistic.Label>
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
@@ -222,12 +297,12 @@ class Maui extends React.Component {
           <Grid.Row>
             <Grid.Column width={3} textAlign='center'> <Statistic color="red">
               <Statistic.Value><Icon name='fire'/>{totalFuelUsed}</Statistic.Value>
-              <Statistic.Label>gallons of gas used</Statistic.Label>
+              <Statistic.Label className='community-statistic'>gallons of gas used</Statistic.Label>
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value><Icon name='fire'/>{totalFuelSaved}</Statistic.Value>
-              <Statistic.Label>gallons of gas saved</Statistic.Label>
+              <Statistic.Value className='community-statistic'><Icon name='fire'/>{totalFuelSaved}</Statistic.Value>
+              <Statistic.Label className='community-statistic'>gallons of gas saved</Statistic.Label>
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
@@ -237,12 +312,12 @@ class Maui extends React.Component {
           <Grid.Row>
             <Grid.Column width={3} textAlign='center'> <Statistic color="red">
               <Statistic.Value><Icon name='cloud'/>{totalGhgProduced}</Statistic.Value>
-              <Statistic.Label>pounds of C02 produced</Statistic.Label>
+              <Statistic.Label className='community-statistic'>pounds of C02 produced</Statistic.Label>
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value><Icon name='cloud'/>{totalGhgReduced}</Statistic.Value>
-              <Statistic.Label>pounds of CO2 reduced</Statistic.Label>
+              <Statistic.Value className='community-statistic'><Icon name='cloud'/>{totalGhgReduced}</Statistic.Value>
+              <Statistic.Label className='community-statistic'>pounds of CO2 reduced</Statistic.Label>
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
@@ -251,8 +326,8 @@ class Maui extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+              <Card className='community-card' fluid>
+                <Card.Header className='community-card-header'>
                   Modes of Transportation
                 </Card.Header>
                 <Card.Content>
@@ -261,8 +336,8 @@ class Maui extends React.Component {
               </Card>
             </Grid.Column>
             <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+              <Card className='community-card' fluid>
+                <Card.Header className='community-card-header'>
                   VMT Data
                 </Card.Header>
                 <Card.Content>
@@ -273,8 +348,8 @@ class Maui extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+              <Card className='community-card' fluid>
+                <Card.Header className='community-card-header'>
                   Fuel Data
                 </Card.Header>
                 <Card.Content>
@@ -283,8 +358,8 @@ class Maui extends React.Component {
               </Card>
             </Grid.Column>
             <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+              <Card className='community-card' fluid>
+                <Card.Header className='community-card-header'>
                   GHG Data
                 </Card.Header>
                 <Card.Content>
@@ -302,14 +377,17 @@ class Maui extends React.Component {
 Maui.propTypes = {
   trips: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
     trips: Trips.find({}).fetch(),
     ready: subscription.ready(),
+    userProfile,
   };
 })(Maui);

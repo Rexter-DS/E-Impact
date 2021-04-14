@@ -7,7 +7,7 @@ import { SavedTrips, savedTripPublications } from '../../api/trip/SavedTripColle
 import SavedTripItem from './SavedTripItem';
 
 function DeleteSavedModal(props) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
   return (
       <Modal

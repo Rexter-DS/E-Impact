@@ -30,6 +30,11 @@ function Dashboard(
     },
 ) {
 
+  this.theme = true;
+  if (document.body.classList.contains('dark')) {
+    this.theme = false;
+  }
+
   return ((tripReady && userReady) ?
           <div>
             <DashboardContent
@@ -51,7 +56,7 @@ function Dashboard(
                 ghgProducedAvg={ghgProducedAvg}
             />
           </div> :
-          <Dimmer active>
+          <Dimmer inverted={this.theme} active>
             <Loader>Loading Data</Loader>
           </Dimmer>
   );
