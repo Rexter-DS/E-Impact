@@ -3,11 +3,7 @@ import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { Button, Icon } from 'semantic-ui-react';
 import State from '../components/State';
-import Kauai from '../components/Kauai';
-import Maui from '../components/Maui';
-import Honolulu from '../components/Honolulu';
-import Hawaii from '../components/Hawaii';
-import Kalawao from '../components/Kalawao';
+import CommunityStats from '../components/CommunityStats';
 
 const mapStyles = {
   height: '400px',
@@ -141,11 +137,11 @@ export class MapContainer extends React.Component {
           />
         </Map>
           <div id='county-information'>
-          { this.state.kauaiCounty === true ? <Kauai/> : ''}
-          { this.state.honoluluCounty === true ? <Honolulu/> : ''}
-          { this.state.mauiCounty === true ? <Maui/> : ''}
-          { this.state.hawaiiCounty === true ? <Hawaii/> : ''}
-          { this.state.kalawaoCounty === true ? <Kalawao/> : ''}
+          { this.state.kauaiCounty === true ? <CommunityStats county='Kauai'/> : ''}
+          { this.state.honoluluCounty === true ? <CommunityStats county='Honolulu'/> : ''}
+          { this.state.mauiCounty === true ? <CommunityStats county='Maui'/> : ''}
+          { this.state.hawaiiCounty === true ? <CommunityStats county='Hawaii'/> : ''}
+          { this.state.kalawaoCounty === true ? <CommunityStats county='Kalawao'/> : ''}
           { this.state.allCounties === true ? <State/> : ''}
           </div>
         </div>
