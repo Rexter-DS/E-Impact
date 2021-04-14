@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Header, Statistic, Table } from 'semantic-ui-react';
+import { Grid, Header, Statistic, Popup, Table, Icon } from 'semantic-ui-react';
 import DashboardStatisticsCard from './DashboardStatisticsCard';
+import { fuelCost, eGallon } from '../../api/trip/TripCollection';
 
 function DashboardFuelCard(
     {
@@ -16,6 +17,18 @@ function DashboardFuelCard(
       userProfile,
     },
 ) {
+
+  const fuelSavedCostPerYear = (fuelSavedAvgPerYear * fuelCost).toFixed(2);
+  const fuelSavedCostPerMonth = (fuelSavedAvgPerMonth * fuelCost).toFixed(2);
+  const fuelSavedCostPerDay = (fuelSavedAvgPerDay * fuelCost).toFixed(2);
+
+  const fuelSpentCostPerYear = (fuelSpentAvgPerYear * fuelCost).toFixed(2);
+  const fuelSpentCostPerMonth = (fuelSpentAvgPerMonth * fuelCost).toFixed(2);
+  const fuelSpentCostPerDay = (fuelSpentAvgPerDay * fuelCost).toFixed(2);
+
+  const efuelSpentCostPerYear = (fuelSpentAvgPerYear * eGallon).toFixed(2);
+  const efuelSpentCostPerMonth = (fuelSpentAvgPerMonth * eGallon).toFixed(2);
+  const efuelSpentCostPerDay = (fuelSpentAvgPerDay * eGallon).toFixed(2);
 
   return (
       <DashboardStatisticsCard
@@ -34,49 +47,89 @@ function DashboardFuelCard(
             </Statistic>
           }
           popupBottom='This number represents how many gallons of fuel you spent by traveling using a gas-powered car.'
-          moreHeader='More information'
+          showMore
+          moreHeader={
+            <div>
+              More Info
+              <Popup
+                  hoverable
+                  trigger={<Icon link name='question circle outline'/>}
+              >
+                <Popup.Content>
+                  The Department of Energy reports that the cost of using a vehicle running on gasoline is $3.10/gallon while running the same vehicle only costs $2.65/eGallon. <br/>
+                  Using this data we can calculate the money that you saved as well as the money you spent on average. <br/>
+                  We can also use this data to calculate how much you would have spent if you used an electric vehicle instead when traveling the same distance <br/>
+                  <a href='https://www.energy.gov/maps/egallon' target='_blank' rel='noreferrer'>Source</a>
+                </Popup.Content>
+              </Popup>
+            </div>
+          }
           moreContent={
-            <Grid>
-              <Grid.Column>
-                <Grid.Row>
+            <Grid stackable columns='equal'>
+              <Grid.Row divided>
+                <Grid.Column>
                   <Header textAlign='center'>Average Gallons Saved per Time</Header>
                   <Table basic='very'>
+                    <Table.Header fullWidth>
+                      <Table.Row>
+                        <Table.HeaderCell/>
+                        <Table.HeaderCell textAlign='right'>Gallons</Table.HeaderCell>
+                        <Table.HeaderCell textAlign='right'>Savings</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
                         <Table.Cell textAlign='right'>{fuelSavedAvgPerYear} gallons</Table.Cell>
+                        <Table.Cell textAlign='right'>${fuelSavedCostPerYear}</Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell>Monthly</Table.Cell>
                         <Table.Cell textAlign='right'>{fuelSavedAvgPerMonth} gallons</Table.Cell>
+                        <Table.Cell textAlign='right'>${fuelSavedCostPerMonth}</Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell>Daily</Table.Cell>
                         <Table.Cell textAlign='right'>{fuelSavedAvgPerDay} gallons</Table.Cell>
+                        <Table.Cell textAlign='right'>${fuelSavedCostPerDay}</Table.Cell>
                       </Table.Row>
                     </Table.Body>
                   </Table>
-                </Grid.Row>
-                <Grid.Row>
+                </Grid.Column>
+                <Grid.Column>
                   <Header textAlign='center'>Average Gallons Spent per Time</Header>
                   <Table basic='very'>
+                    <Table.Header fullWidth>
+                      <Table.Row>
+                        <Table.HeaderCell/>
+                        <Table.HeaderCell textAlign='right'>Gallons</Table.HeaderCell>
+                        <Table.HeaderCell textAlign='right'>Spendings</Table.HeaderCell>
+                        <Table.HeaderCell textAlign='right'>E-Vehicle Spendings</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
                         <Table.Cell textAlign='right'>{fuelSpentAvgPerYear} gallons</Table.Cell>
+                        <Table.Cell textAlign='right'>${fuelSpentCostPerYear}</Table.Cell>
+                        <Table.Cell textAlign='right'>${efuelSpentCostPerYear}</Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell>Monthly</Table.Cell>
                         <Table.Cell textAlign='right'>{fuelSpentAvgPerMonth} gallons</Table.Cell>
+                        <Table.Cell textAlign='right'>${fuelSpentCostPerMonth}</Table.Cell>
+                        <Table.Cell textAlign='right'>${efuelSpentCostPerMonth}</Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell>Daily</Table.Cell>
                         <Table.Cell textAlign='right'>{fuelSpentAvgPerDay} gallons</Table.Cell>
+                        <Table.Cell textAlign='right'>${fuelSpentCostPerDay}</Table.Cell>
+                        <Table.Cell textAlign='right'>${efuelSpentCostPerDay}</Table.Cell>
                       </Table.Row>
                     </Table.Body>
                   </Table>
-                </Grid.Row>
-              </Grid.Column>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
           }
           userProfile={userProfile}

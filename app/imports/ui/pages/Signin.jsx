@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
-import Footer from '../components/Footer';
 import LandingNavBar from '../components/LandingNavBar';
 
 /**

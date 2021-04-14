@@ -15,7 +15,10 @@ export const tripPublications = {
 
 export const ghgPerGallonFuel = 19.6;
 export const poundsOfGhgPerTree = 48;
-export const fuelCost = 3.77;
+
+// Values taken from https://www.energy.gov/maps/egallon using Hawaii prices
+export const fuelCost = 3.10;
+export const eGallon = 2.65;
 
 class TripCollection extends BaseCollection {
   constructor() {
@@ -278,9 +281,25 @@ class TripCollection extends BaseCollection {
     const mode = [];
 
     _.forEach(userTrips, function (objects) {
-      date.push(objects.date);
-      distance.push(objects.distance);
-      mode.push(objects.mode);
+
+      const tripDate = objects.date;
+      const tripDistance = objects.distance;
+      const tripMode = objects.mode;
+
+      // const exists = _.findIndex(date, function (element) {
+      // return _.isEqual(element, tripDate);
+      // });
+
+     // if (exists === -1) {
+
+        date.push(tripDate);
+        distance.push(tripDistance);
+        mode.push(tripMode);
+      // } else {
+
+      // const lastDistanceIndex = (distance.length - 1);
+      // distance[lastDistanceIndex] += tripDistance;
+      // }
     });
 
     return { date: date, distance: distance, mode: mode };
@@ -468,8 +487,16 @@ class TripCollection extends BaseCollection {
     const dayMilesTraveledAvg = (dayMilesTraveled / totalTrips).toFixed(2);
 
     return {
-      milesSavedAvg: { year: yearMilesSavedAvg, month: monthMilesSavedAvg, day: dayMilesSavedAvg },
-      milesTraveledAvg: { year: yearMilesTraveledAvg, month: monthMilesTraveledAvg, day: dayMilesTraveledAvg },
+      milesSavedAvg: {
+        year: yearMilesSavedAvg || 0,
+        month: monthMilesSavedAvg || 0,
+        day: dayMilesSavedAvg || 0,
+      },
+      milesTraveledAvg: {
+        year: yearMilesTraveledAvg || 0,
+        month: monthMilesTraveledAvg || 0,
+        day: dayMilesTraveledAvg || 0,
+      },
     };
   }
 
@@ -534,9 +561,9 @@ class TripCollection extends BaseCollection {
 
       if (mode === 'Gas Car') {
 
-        yearFuelSaved += (distance / mpg);
-        monthFuelSaved += (distance / mpg);
-        dayFuelSaved += (distance / mpg);
+        yearFuelSpent += (distance / mpg);
+        monthFuelSpent += (distance / mpg);
+        dayFuelSpent += (distance / mpg);
       } else if (mode === 'Carpool') {
 
         yearFuelSpent += (distance / mpg);
@@ -581,15 +608,24 @@ class TripCollection extends BaseCollection {
       return sum + n;
     }, 0)) / fuelSpentPerYear.length).toFixed(2);
 
-    const monthFuelSpentAvg = ((_.reduce(fuelSavedPerMonth, function (sum, n) {
+    const monthFuelSpentAvg = ((_.reduce(fuelSpentPerMonth, function (sum, n) {
       return sum + n;
-    }, 0)) / fuelSavedPerMonth.length).toFixed(2);
+    }, 0)) / fuelSpentPerMonth.length).toFixed(2);
 
     const dayFuelSpentAvg = (dayFuelSpent / totalTrips).toFixed(2);
 
+    // return 0 if no data since it will return NaN otherwise
     return {
-      fuelSavedAvg: { year: yearFuelSavedAvg, month: monthFuelSavedAvg, day: dayFuelSavedAvg },
-      fuelSpentAvg: { year: yearFuelSpentAvg, month: monthFuelSpentAvg, day: dayFuelSpentAvg },
+      fuelSavedAvg: {
+        year: yearFuelSavedAvg || 0,
+        month: monthFuelSavedAvg || 0,
+        day: dayFuelSavedAvg || 0,
+      },
+      fuelSpentAvg: {
+        year: yearFuelSpentAvg || 0,
+        month: monthFuelSpentAvg || 0,
+        day: dayFuelSpentAvg || 0,
+      },
     };
   }
 
