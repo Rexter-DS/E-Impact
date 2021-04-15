@@ -27,6 +27,7 @@ function Dashboard(
       fuelSpentAvg,
       ghgReducedAvg,
       ghgProducedAvg,
+      evGhgProducedAvg,
     },
 ) {
 
@@ -54,6 +55,7 @@ function Dashboard(
                 fuelSpentAvg={fuelSpentAvg}
                 ghgReducedAvg={ghgReducedAvg}
                 ghgProducedAvg={ghgProducedAvg}
+                evGhgProducedAvg={evGhgProducedAvg}
             />
           </div> :
           <Dimmer inverted={this.theme} active>
@@ -123,5 +125,6 @@ export default withTracker(({ match }) => {
     fuelSpentAvg: fuelAvg.fuelSpentAvg,
     ghgReducedAvg: ghgAvg.ghgReducedAvg,
     ghgProducedAvg: ghgAvg.ghgProducedAvg,
+    evGhgProducedAvg: ghgAvg.evGhgProducedAvg,
   };
 })(Dashboard);

@@ -6,16 +6,17 @@ import DashboardStatisticsCard from './DashboardStatisticsCard';
 function DashboardGhgCard(
     {
       ghgReducedTotal,
+      ghgReducedAvg,
       ghgProducedTotal,
-      ghgReducedAvgPerYear,
-      ghgReducedAvgPerMonth,
-      ghgReducedAvgPerDay,
-      ghgProducedAvgPerYear,
-      ghgProducedAvgPerMonth,
-      ghgProducedAvgPerDay,
+      ghgProducedAvg,
+      evGhgProducedAvg,
       userProfile,
     },
 ) {
+
+  const { ghgProducedAvgPerYear, ghgProducedAvgPerMonth, ghgProducedAvgPerDay } = ghgProducedAvg;
+  const { ghgReducedAvgPerYear, ghgReducedAvgPerMonth, ghgReducedAvgPerDay } = ghgReducedAvg;
+  const { evGhgProducedAvgPerYear, evGhgProducedAvgPerMonth, evGhgProducedAvgPerDay } = evGhgProducedAvg;
 
   return (
       <DashboardStatisticsCard
@@ -38,10 +39,16 @@ function DashboardGhgCard(
           moreHeader='More information'
           moreContent={
             <Grid relaxed columns='equal'>
-              <Grid.Column>
-                <Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
                   <Header textAlign='center'>Average GHG Reduced per Time</Header>
                   <Table basic='very'>
+                    <Table.Header fullWidth>
+                      <Table.Row>
+                        <Table.HeaderCell/>
+                        <Table.HeaderCell textAlign='right'>GHG Reduced</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
@@ -57,27 +64,37 @@ function DashboardGhgCard(
                       </Table.Row>
                     </Table.Body>
                   </Table>
-                </Grid.Row>
-                <Grid.Row>
+                </Grid.Column>
+                <Grid.Column>
                   <Header textAlign='center'>Average GHG Produced per Time</Header>
                   <Table basic='very'>
+                    <Table.Header fullWidth>
+                      <Table.Row>
+                        <Table.HeaderCell/>
+                        <Table.HeaderCell textAlign='right'>GHG Produced</Table.HeaderCell>
+                        <Table.HeaderCell textAlign='right'>GHG Produced of an EV</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
                         <Table.Cell textAlign='right'>{ghgProducedAvgPerYear} pounds</Table.Cell>
+                        <Table.Cell textAlign='right'>{evGhgProducedAvgPerYear} pounds</Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell>Monthly</Table.Cell>
                         <Table.Cell textAlign='right'>{ghgProducedAvgPerMonth} pounds</Table.Cell>
+                        <Table.Cell textAlign='right'>{evGhgProducedAvgPerMonth} pounds</Table.Cell>
                       </Table.Row>
                       <Table.Row>
                         <Table.Cell>Daily</Table.Cell>
                         <Table.Cell textAlign='right'>{ghgProducedAvgPerDay} pounds</Table.Cell>
+                        <Table.Cell textAlign='right'>{evGhgProducedAvgPerDay} pounds</Table.Cell>
                       </Table.Row>
                     </Table.Body>
                   </Table>
-                </Grid.Row>
-              </Grid.Column>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
           }
           userProfile={userProfile}
@@ -87,13 +104,10 @@ function DashboardGhgCard(
 
 DashboardGhgCard.propTypes = {
   ghgReducedTotal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  ghgReducedAvg: PropTypes.object,
   ghgProducedTotal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ghgReducedAvgPerYear: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ghgReducedAvgPerMonth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ghgReducedAvgPerDay: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ghgProducedAvgPerYear: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ghgProducedAvgPerMonth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ghgProducedAvgPerDay: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  ghgProducedAvg: PropTypes.object,
+  evGhgProducedAvg: PropTypes.object,
   userProfile: PropTypes.object,
 };
 
