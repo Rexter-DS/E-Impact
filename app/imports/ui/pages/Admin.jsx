@@ -25,8 +25,8 @@ class Admin extends React.Component {
             <Table celled>
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell>First Name</Table.HeaderCell>
                   <Table.HeaderCell>Last Name</Table.HeaderCell>
+                  <Table.HeaderCell>First Name</Table.HeaderCell>
                   <Table.HeaderCell>Email</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
