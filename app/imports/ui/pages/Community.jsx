@@ -1,29 +1,41 @@
 import React from 'react';
-import { Card, Divider, Header, Loader, Popup } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Card, Divider, Header, Loader, Popup, Dimmer } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 import Map from '../components/Map';
 import { Trips } from '../../api/trip/TripCollection';
+import { Users } from '../../api/user/UserCollection';
 
 class Community extends React.Component {
+  componentDidUpdate() {
+    if (this.props.userReady && (document.getElementById('community-container'))) {
+      if (this.props.userProfile.theme === 'dark') {
+        document.getElementById('community-bottom-header').classList.add('dark-community');
+      } else {
+        document.getElementById('community-bottom-header').classList.remove('dark-community');
+      }
+    }
+  }
+
   render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+    return (this.props.ready && this.props.userReady) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
   renderPage() {
     return (
       <div>
         <div id='community-container'>
-          <SideBar/>
+          <SideBar theme={this.props.userProfile.theme}/>
           <div id='community-map'>
             <Map/>
           </div>
           <div id='community-bottom'>
             <br/>
             <Divider horizontal>
-              <Header as='h3'>
+              <Header id='community-bottom-header' as='h3'>
                 Get Involved
               </Header>
             </Divider>
@@ -125,14 +137,21 @@ class Community extends React.Component {
 Community.propTypes = {
   trips: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
+  username: PropTypes.string,
+  userReady: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
+  const userReady = Users.subscribeUser().ready();
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
     trips: Trips.find({}).fetch(),
     ready: subscription.ready(),
+    userReady,
+    userProfile,
   };
 })(Community);

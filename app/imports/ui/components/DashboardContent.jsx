@@ -1,5 +1,4 @@
-import { withTracker } from 'meteor/react-meteor-data';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Card } from 'semantic-ui-react';
 import SideBar from './SideBar';
@@ -8,6 +7,7 @@ import DashboardMilesCard from './DashboardMilesCard';
 import DashboardFuelCard from './DashboardFuelCard';
 import DashboardGhgCard from './DashboardGhgCard';
 import DashboardTreeCard from './DashboardTreeCard';
+import { ghgPerGallonFuel, poundsOfGhgPerTree } from '../../api/trip/TripCollection';
 
 // Contains the graphs that visualizes the user's data.
 function DashboardContent(
@@ -16,9 +16,17 @@ function DashboardContent(
       vehicleMilesAdded,
       milesSavedPerDay,
       modesOfTransport,
+      milesPerMode,
       userProfile,
       ghgReducedPerDay,
       fuelSavedPerDay,
+      milesSavedAvg,
+      milesTraveledAvg,
+      fuelSavedAvg,
+      fuelSpentAvg,
+      ghgReducedAvg,
+      ghgProducedAvg,
+      evGhgProducedAvg,
     },
 ) {
 
@@ -48,9 +56,9 @@ function DashboardContent(
     mode: 'lines+markers',
   };
 
-  const ghgProducedTotal = (fuelCostTotal * 19.6).toFixed(2);
+  const ghgProducedTotal = (fuelCostTotal * ghgPerGallonFuel).toFixed(2);
 
-  const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
+  const ghgReducedTotal = (fuelSavedTotal * ghgPerGallonFuel).toFixed(2);
 
   const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
@@ -61,8 +69,8 @@ function DashboardContent(
 
   // 100,000 trees = 2,400 tons of CO2 or 4,800,000 pounds of CO2
   // 1 tree = 48 pounds of CO2
-  const treesPerGhgProduced = (ghgProducedTotal / 48).toFixed(0);
-  const treesPerGhgReduced = (ghgReducedTotal / 48).toFixed(0);
+  const treesPerGhgProduced = (ghgProducedTotal / poundsOfGhgPerTree).toFixed(0);
+  const treesPerGhgReduced = (ghgReducedTotal / poundsOfGhgPerTree).toFixed(0);
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -72,10 +80,20 @@ function DashboardContent(
     hoverinfo: 'label+percent',
   }];
 
-  const defaultLayout = {
-    autosize: true,
-    showlegend: true,
-  };
+  /* Graph Layouts */
+  let chartBgColor = '';
+  let chartGridColor = '';
+  let chartFontColor = '';
+
+  if (userProfile.theme === 'dark') {
+    chartBgColor = '#213c5c';
+    chartGridColor = '#5c5c5c';
+    chartFontColor = '#FFFFFF';
+  } else {
+    chartBgColor = '';
+    chartGridColor = '';
+    chartFontColor = '';
+  }
 
   const milesSavedPerDayLayout = {
     autosize: true,
@@ -83,11 +101,27 @@ function DashboardContent(
       range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
       rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
       type: 'date',
+      gridcolor: chartGridColor,
     },
     yaxis: {
       title: 'Miles Saved (miles)',
       range: [0, Math.max(...milesSavedPerDay.distance)],
       type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+
+  const defaultLayout = {
+    autosize: true,
+    showlegend: true,
+    paper_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
     },
   };
 
@@ -103,11 +137,18 @@ function DashboardContent(
       range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
       rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
       type: 'date',
+      gridcolor: chartGridColor,
     },
     yaxis: {
       title: 'Fuel and Money saved',
       range: [0, Math.max(...fuelSavedPerDay.price)],
       type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
     },
   };
 
@@ -117,40 +158,87 @@ function DashboardContent(
       range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
       rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
       type: 'date',
+      gridcolor: chartGridColor,
     },
     yaxis: {
       title: 'GHG Reduced (pounds)',
       range: [0, Math.max(...ghgReducedPerDay.ghg)],
       type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
     },
   };
 
+  useEffect(() => {
+    const generalCard = document.getElementsByClassName('general-card');
+    const generalCardHeader = document.getElementsByClassName('general-card-header');
+    if (userProfile.theme === 'dark') {
+      for (let i = 0; i < generalCard.length; i++) {
+        generalCard[i].classList.add('dark-general-card');
+      }
+      for (let i = 0; i < generalCardHeader.length; i++) {
+        generalCardHeader[i].classList.add('dark-general-card-header');
+      }
+    } else {
+      for (let i = 0; i < generalCard.length; i++) {
+        generalCard[i].classList.remove('dark-general-card');
+      }
+      for (let i = 0; i < generalCardHeader.length; i++) {
+        generalCardHeader[i].classList.add('dark-general-card-header');
+      }
+    }
+  }, [userProfile]);
+
   return (
       <div id='dashboard-container'>
-        <SideBar/>
+        <SideBar theme={userProfile.theme}/>
         <Card.Group centered stackable itemsPerRow={4}>
           <DashboardMilesCard
               milesSaved={vehicleMilesSaved}
               milesAdded={vehicleMilesAdded}
+              milesSavedAvgPerYear={milesSavedAvg.year}
+              milesSavedAvgPerMonth={milesSavedAvg.month}
+              milesSavedAvgPerDay={milesSavedAvg.day}
+              milesTraveledAvgPerYear={milesTraveledAvg.year}
+              milesTraveledAvgPerMonth={milesTraveledAvg.month}
+              milesTraveledAvgPerDay={milesTraveledAvg.day}
+              milesPerMode={milesPerMode}
+              userProfile={userProfile}
           />
           <DashboardFuelCard
               fuelCostTotal={fuelCostTotal}
               fuelSavedTotal={fuelSavedTotal}
+              fuelSavedAvgPerYear={fuelSavedAvg.year}
+              fuelSavedAvgPerMonth={fuelSavedAvg.month}
+              fuelSavedAvgPerDay={fuelSavedAvg.day}
+              fuelSpentAvgPerYear={fuelSpentAvg.year}
+              fuelSpentAvgPerMonth={fuelSpentAvg.month}
+              fuelSpentAvgPerDay={fuelSpentAvg.day}
+              userProfile={userProfile}
           />
           <DashboardGhgCard
               ghgProducedTotal={ghgProducedTotal}
               ghgReducedTotal={ghgReducedTotal}
+              ghgProducedAvg={ghgProducedAvg}
+              ghgReducedAvg={ghgReducedAvg}
+              evGhgProducedAvg={evGhgProducedAvg}
+              userProfile={userProfile}
           />
           <DashboardTreeCard
               treesPerGhgProduced={treesPerGhgProduced}
               treesPerGhgReduced={treesPerGhgReduced}
+              userProfile={userProfile}
           />
         </Card.Group>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={9}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+              <Card className='general-card' fluid>
+                <Card.Header className='general-card-header'>
                   Miles Saved Per Day
                 </Card.Header>
                 <Card.Content>
@@ -159,8 +247,8 @@ function DashboardContent(
               </Card>
             </Grid.Column>
             <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+              <Card className='general-card' fluid>
+                <Card.Header className='general-card-header'>
                   Modes of Transportation Used
                 </Card.Header>
                 <Card.Content>
@@ -172,18 +260,19 @@ function DashboardContent(
         </Grid>
         <Grid stackable columns='equal'>
           <Grid.Column>
-            <Card fluid>
-              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+            <Card className='general-card' fluid>
+              <Card.Header className='general-card-header'>
                 Fuel Saved per Day
               </Card.Header>
               <Card.Content>
-                <Chart chartData={[fuelSavedPerDayData, dollarSavedPerFuelData]} chartLayout={fuelAndDollarPerDayLayout}/>
+                <Chart chartData={[fuelSavedPerDayData, dollarSavedPerFuelData]}
+                       chartLayout={fuelAndDollarPerDayLayout}/>
               </Card.Content>
             </Card>
           </Grid.Column>
           <Grid.Column>
-            <Card fluid>
-              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
+            <Card className='general-card' fluid>
+              <Card.Header className='general-card-header'>
                 GHG Reduced per Day
               </Card.Header>
               <Card.Content>
@@ -202,10 +291,18 @@ DashboardContent.propTypes = {
   milesTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
+  milesPerMode: PropTypes.array,
   userProfile: PropTypes.object,
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
+  milesSavedAvg: PropTypes.object,
+  milesTraveledAvg: PropTypes.object,
+  fuelSavedAvg: PropTypes.object,
+  fuelSpentAvg: PropTypes.object,
+  ghgReducedAvg: PropTypes.object,
+  ghgProducedAvg: PropTypes.object,
+  evGhgProducedAvg: PropTypes.object,
 };
 
 export default DashboardContent;

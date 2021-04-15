@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Card, Grid, Icon, Progress, Statistic, Modal, Button } from 'semantic-ui-react';
 import { _ } from 'lodash';
@@ -7,9 +7,10 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
 import Chart from './Chart';
+import { Users } from '../../api/user/UserCollection';
 
-function State() {
-const nonCarArr = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().map(function (element) {
+function State(props) {
+  const nonCarArr = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().map(function (element) {
     element.fuelSaved = element.distance / element.mpg;
     element.ghgSaved = element.fuelSaved * 19.6;
     return element;
@@ -43,7 +44,7 @@ const nonCarArr = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().map(function
     return element;
   });
 
-const carData = carArr.reduce(function (m, d) {
+  const carData = carArr.reduce(function (m, d) {
     if (!m[d.date]) {
       m[d.date] = { ...d, count: 1 };
       return m;
@@ -72,383 +73,515 @@ const carData = carArr.reduce(function (m, d) {
   const milesReduced = _.map(nonCarByDay, 'distance');
   const milesProduced = _.map(carByDay, 'distance');
   const fuelSavedByDay = _.map(nonCarByDay, 'fuelSaved');
- const fuelUsedByDay = _.map(carByDay, 'fuelUsed');
+  const fuelUsedByDay = _.map(carByDay, 'fuelUsed');
   const ghgSavedByDay = _.map(nonCarByDay, 'ghgSaved');
   const ghgProducedByDay = _.map(carByDay, 'ghgProduced');
 
-    const [open, setOpen] = React.useState(false);
-    const [open2, setOpen2] = React.useState(false);
-    const [open3, setOpen3] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
 
-    const totalUsers = Meteor.users.find().count();
+  const totalUsers = Meteor.users.find().count();
 
-    const carDistances = _.map(Trips.find({ mode: 'Gas Car' }).fetch(), 'distance');
-    const carMpgs = _.map(Trips.find({ mode: 'Gas Car' }).fetch(), 'mpg');
-    const fuelUsed = _.zipWith(carDistances, carMpgs, (distance, mpg) => distance / mpg);
-    const totalFuelUsed = _.sum(fuelUsed).toFixed(2);
-    const totalGhgProduced = (totalFuelUsed * 19.6).toFixed(2);
+  const carDistances = _.map(Trips.find({ mode: 'Gas Car' }).fetch(), 'distance');
+  const carMpgs = _.map(Trips.find({ mode: 'Gas Car' }).fetch(), 'mpg');
+  const fuelUsed = _.zipWith(carDistances, carMpgs, (distance, mpg) => distance / mpg);
+  const totalFuelUsed = _.sum(fuelUsed).toFixed(2);
+  const totalGhgProduced = (totalFuelUsed * 19.6).toFixed(2);
 
-    const otherDistances = _.map(Trips.find({ mode: { $not: 'Gas Car' } }).fetch(), 'distance');
-    const totalMilesSaved = _.sum(otherDistances).toFixed(2);
-    const otherMpgs = _.map(Trips.find({ mode: { $not: 'Gas Car' } }).fetch(), 'mpg');
-    const fuelSaved = _.zipWith(otherDistances, otherMpgs, (distance, mpg) => distance / mpg);
+  const otherDistances = _.map(Trips.find({ mode: { $not: 'Gas Car' } }).fetch(), 'distance');
+  const totalMilesSaved = _.sum(otherDistances).toFixed(2);
+  const otherMpgs = _.map(Trips.find({ mode: { $not: 'Gas Car' } }).fetch(), 'mpg');
+  const fuelSaved = _.zipWith(otherDistances, otherMpgs, (distance, mpg) => distance / mpg);
 
-    const totalFuelSaved = _.sum(fuelSaved).toFixed(2);
-    const totalGhgReduced = (totalFuelSaved * 19.6).toFixed(2);
+  const totalFuelSaved = _.sum(fuelSaved).toFixed(2);
+  const totalGhgReduced = (totalFuelSaved * 19.6).toFixed(2);
 
-    const bikeCount = _.size(Trips.find({ mode: 'Bike' }).fetch());
-    const carpoolCount = _.size(Trips.find({ mode: 'Carpool' }).fetch());
-    const evCount = _.size(Trips.find({ mode: 'Electric Vehicle' }).fetch());
-    const carCount = _.size(Trips.find({ mode: 'Gas Car' }).fetch());
-    const ptCount = _.size(Trips.find({ mode: 'Public Transportation' }).fetch());
-    const teleworkCount = _.size(Trips.find({ mode: 'Telework' }).fetch());
-    const walkCount = _.size(Trips.find({ mode: 'Walk' }).fetch());
+  const bikeCount = _.size(Trips.find({ mode: 'Bike' }).fetch());
+  const carpoolCount = _.size(Trips.find({ mode: 'Carpool' }).fetch());
+  const evCount = _.size(Trips.find({ mode: 'Electric Vehicle' }).fetch());
+  const carCount = _.size(Trips.find({ mode: 'Gas Car' }).fetch());
+  const ptCount = _.size(Trips.find({ mode: 'Public Transportation' }).fetch());
+  const teleworkCount = _.size(Trips.find({ mode: 'Telework' }).fetch());
+  const walkCount = _.size(Trips.find({ mode: 'Walk' }).fetch());
 
-    const modeDistribution = [{
-      type: 'pie',
-      hole: 0.4,
-      values: [bikeCount, carpoolCount, evCount, carCount, ptCount, teleworkCount, walkCount],
-      labels: ['Bike', 'Carpool', 'Electric Vehicle', 'Gas Car', 'Public Transportation', 'Telework', 'Walk'],
-      hoverinfo: 'label+percent',
-      textposition: 'inside',
-    }];
+  const modeDistribution = [{
+    type: 'pie',
+    hole: 0.4,
+    values: [bikeCount, carpoolCount, evCount, carCount, ptCount, teleworkCount, walkCount],
+    labels: ['Bike', 'Carpool', 'Electric Vehicle', 'Gas Car', 'Public Transportation', 'Telework', 'Walk'],
+    hoverinfo: 'label+percent',
+    textposition: 'inside',
+  }];
 
-    const modeLayout = {
-      autosize: true,
-      showlegend: true,
-    };
-
-    const vmtReduced =
-      { x: formattedDates,
+  const vmtReduced =
+      {
+        x: formattedDates,
         y: milesReduced,
         stackgroup: 'one',
-        name: 'Reduced' };
+        name: 'Reduced',
+      };
 
   const vmtProduced =
-      { x: formattedDates2,
+      {
+        x: formattedDates2,
         y: milesProduced,
         stackgroup: 'one',
-        name: 'Produced' };
+        name: 'Produced',
+      };
 
   const vmtData = [vmtReduced, vmtProduced];
 
-  const vmtLayout = {
-    autosize: true,
-    xaxis: {
-      rangeslider: { range: ['2020-01-01', '2021-12-31'] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Vehicle miles traveled',
-      type: 'linear',
-    },
-  };
-
   const fuelSavings =
-      { x: formattedDates,
+      {
+        x: formattedDates,
         y: fuelSavedByDay,
         stackgroup: 'one',
-        name: 'Saved' };
+        name: 'Saved',
+      };
 
   const fuelUsage =
-      { x: formattedDates2,
+      {
+        x: formattedDates2,
         y: fuelUsedByDay,
         stackgroup: 'one',
-        name: 'Used' };
+        name: 'Used',
+      };
 
   const fuelData = [fuelSavings, fuelUsage];
 
-  const fuelLayout = {
-    autosize: true,
-    xaxis: {
-      rangeslider: { range: ['2020-01-01', '2021-12-31'] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Gallons of Gas',
-      type: 'linear',
-    },
-  };
-
   const ghgSavings =
-      { x: formattedDates,
+      {
+        x: formattedDates,
         y: ghgSavedByDay,
         stackgroup: 'one',
-        name: 'Saved' };
+        name: 'Saved',
+      };
 
   const ghgProduction =
-      { x: formattedDates2,
+      {
+        x: formattedDates2,
         y: ghgProducedByDay,
         stackgroup: 'one',
-        name: 'Produced' };
+        name: 'Produced',
+      };
 
   const ghgData = [ghgSavings, ghgProduction];
 
-  const ghgLayout = {
-    autosize: true,
-    xaxis: {
-      rangeslider: { range: ['2020-01-01', '2021-12-31'] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Pounds of CO2',
-      type: 'linear',
-    },
-  };
-
   const vmtHawaii =
-      { x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
+      {
+        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
         y: [15, 13, 14, 15, 13],
         stackgroup: 'one',
-        name: 'Hawaii' };
+        name: 'Hawaii',
+      };
 
   const vmtHonolulu =
-      { x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
+      {
+        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
         y: [25, 20, 23, 26, 24],
         stackgroup: 'one',
-        name: 'Honolulu' };
+        name: 'Honolulu',
+      };
   const vmtKalawao =
-      { x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
+      {
+        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
         y: [10, 11, 10, 11, 11],
         stackgroup: 'one',
-        name: 'Kalawao' };
+        name: 'Kalawao',
+      };
 
   const vmtKauai =
-      { x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
+      {
+        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
         y: [20, 18, 15, 17, 22],
         stackgroup: 'one',
-        name: 'Kauai' };
+        name: 'Kauai',
+      };
 
   const vmtMaui =
-      { x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
+      {
+        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
         y: [14, 13, 18, 15, 13],
         stackgroup: 'one',
-        name: 'Maui' };
+        name: 'Maui',
+      };
 
   const vmtCounties = [vmtHawaii, vmtHonolulu, vmtKalawao, vmtKauai, vmtMaui];
 
-    return (
-        <Grid centered>
-          <Grid.Row>
-            <Grid.Column as="h2" textAlign='center'>State Wide</Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='center'> <Statistic>
-              <Statistic.Value>
+  /* Graph Layouts */
+  const chartBgColor = '#213c5c';
+  const chartGridColor = '#5c5c5c';
+  let modeLayout = {};
+  let vmtLayout = {};
+  let fuelLayout = {};
+  let ghgLayout = {};
+
+  if (props.userProfile.theme === 'dark') {
+    modeLayout = {
+      autosize: true,
+      showlegend: true,
+      paper_bgcolor: chartBgColor,
+      font: {
+        color: '#FFFFFF',
+      },
+    };
+    vmtLayout = {
+      autosize: true,
+      xaxis: {
+        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        type: 'date',
+        gridcolor: chartGridColor,
+      },
+      yaxis: {
+        title: 'Vehicle miles traveled',
+        type: 'linear',
+        gridcolor: chartGridColor,
+      },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: '#FFFFFF',
+      },
+    };
+    fuelLayout = {
+      autosize: true,
+      xaxis: {
+        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        type: 'date',
+        gridcolor: chartGridColor,
+      },
+      yaxis: {
+        title: 'Gallons of Gas',
+        type: 'linear',
+        gridcolor: chartGridColor,
+      },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: '#FFFFFF',
+      },
+    };
+    ghgLayout = {
+      autosize: true,
+      xaxis: {
+        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        type: 'date',
+        gridcolor: chartGridColor,
+      },
+      yaxis: {
+        title: 'Pounds of CO2',
+        type: 'linear',
+        gridcolor: chartGridColor,
+      },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: '#FFFFFF',
+      },
+    };
+  } else {
+    modeLayout = {
+      autosize: true,
+      showlegend: true,
+    };
+    vmtLayout = {
+      autosize: true,
+      xaxis: {
+        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        type: 'date',
+      },
+      yaxis: {
+        title: 'Vehicle miles traveled',
+        type: 'linear',
+      },
+    };
+    fuelLayout = {
+      autosize: true,
+      xaxis: {
+        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        type: 'date',
+      },
+      yaxis: {
+        title: 'Gallons of Gas',
+        type: 'linear',
+      },
+    };
+    ghgLayout = {
+      autosize: true,
+      xaxis: {
+        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        type: 'date',
+      },
+      yaxis: {
+        title: 'Pounds of CO2',
+        type: 'linear',
+      },
+    };
+  }
+
+  const vmtModal =
+      <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal'>VMT Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header>
+                    VMT Reduced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header>
+                    VMT Produced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  const fuelModal =
+      <Modal
+          onClose={() => setOpen2(false)}
+          onOpen={() => setOpen2(true)}
+          open={open2}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal'>Fuel Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    Fuel Saved By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    Fuel Used By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  const ghgModal =
+      <Modal
+          onClose={() => setOpen3(false)}
+          onOpen={() => setOpen3(true)}
+          open={open3}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal' >GHG Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    GHG Reduced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    GHG Produced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  /* DOM Styling */
+  useEffect(() => {
+    const communityCard = document.getElementsByClassName('community-card');
+    const communityCardHeader = document.getElementsByClassName('community-card-header');
+    const communityModal = document.getElementsByClassName('card-modal');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.add('dark-community-card');
+      }
+      for (let i = 0; i < communityCardHeader.length; i++) {
+        communityCardHeader[i].classList.add('dark-community-card-header');
+      }
+      for (let i = 0; i < communityModal.length; i++) {
+        communityModal[i].classList.add('dark-card');
+      }
+    } else {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.remove('dark-community-card');
+      }
+      for (let i = 0; i < communityCardHeader.length; i++) {
+        communityCardHeader[i].classList.remove('dark-community-card-header');
+      }
+      for (let i = 0; i < communityModal.length; i++) {
+        communityModal[i].classList.remove('dark-card');
+      }
+    }
+  }, [props, vmtModal, fuelModal, ghgModal]);
+
+  return (
+      <Grid centered>
+        <Grid.Row>
+          <Grid.Column as="h2" textAlign='center'>State Wide</Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={3} textAlign='center'>
+            <Statistic>
+              <Statistic.Value className='community-statistic'>
                 <Icon name='users'/>{totalUsers}
               </Statistic.Value>
-              <Statistic.Label>users</Statistic.Label>
+              <Statistic.Label className='community-statistic'>users</Statistic.Label>
             </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value><Icon name='car'/>{totalMilesSaved}</Statistic.Value>
-              <Statistic.Label>vehicle miles traveled (VMT) reduced</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Progress value={totalMilesSaved} total='20000' progress='percent'
-                        label="2021 GOAL: 100,000 VMT REDUCED" color="blue"/></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='center'> <Statistic color="red">
-              <Statistic.Value><Icon name='fire'/>{totalFuelUsed}</Statistic.Value>
-              <Statistic.Label>gallons of gas used</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value><Icon name='fire'/>{totalFuelSaved}</Statistic.Value>
-              <Statistic.Label>gallons of gas saved</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Progress value={totalFuelSaved} total='1000' progress='percent'
-                        label="2021 GOAL: 5,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='center'> <Statistic color="red">
-              <Statistic.Value><Icon name='cloud'/>{totalGhgProduced}</Statistic.Value>
-              <Statistic.Label>pounds of C02 produced</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value><Icon name='cloud'/>{totalGhgReduced}</Statistic.Value>
-              <Statistic.Label>pounds of CO2 reduced</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Progress value={totalGhgReduced} total='10000' progress='percent'
-                        label="2021 GOAL: 50,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                  Modes of Transportation
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={modeDistribution} chartLayout={modeLayout} />
-                  <br/>
-                  <br/>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }} textAlign='left'>
-                  VMT Data
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={vmtData} chartLayout={vmtLayout} />
-                  <Modal
-                      onClose={() => setOpen(false)}
-                      onOpen={() => setOpen(true)}
-                      open={open}
-                      trigger={<Button>Show Breakdown By County</Button>}
-                  >
-                    <Modal.Header>VMT Data Breakdown</Modal.Header>
-                    <Modal.Content>
-                      <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                              VMT Reduced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={vmtLayout} />
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                              VMT Produced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={vmtLayout} />
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                      </Grid>
-                    </Modal.Content>
-                  </Modal>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                  Fuel Data
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={fuelData} chartLayout={fuelLayout} />
-                  <Modal
-                      onClose={() => setOpen2(false)}
-                      onOpen={() => setOpen2(true)}
-                      open={open2}
-                      trigger={<Button>Show Breakdown By County</Button>}
-                  >
-                    <Modal.Header>Fuel Data Breakdown</Modal.Header>
-                    <Modal.Content>
-                      <Grid centered>
-                        <Grid.Row>
-                          <Grid.Column width={8}>
-                            <Card fluid>
-                              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                                Fuel Saved By County
-                              </Card.Header>
-                              <Card.Content>
-                                <Chart chartData={vmtCounties} chartLayout={fuelLayout} />
-                              </Card.Content>
-                            </Card>
-                          </Grid.Column>
-                          <Grid.Column width={8}>
-                            <Card fluid>
-                              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                                Fuel Used By County
-                              </Card.Header>
-                              <Card.Content>
-                                <Chart chartData={vmtCounties} chartLayout={fuelLayout} />
-                              </Card.Content>
-                            </Card>
-                          </Grid.Column>
-                        </Grid.Row>
-                      </Grid>
-                    </Modal.Content>
-                  </Modal>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Card fluid>
-                <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                  GHG Data
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={ghgData} chartLayout={ghgLayout} />
-                  <Modal
-                      onClose={() => setOpen3(false)}
-                      onOpen={() => setOpen3(true)}
-                      open={open3}
-                      trigger={<Button>Show Breakdown By County</Button>}
-                  >
-                    <Modal.Header>GHG Data Breakdown</Modal.Header>
-                    <Modal.Content>
-                      <Grid centered>
-                        <Grid.Row>
-                          <Grid.Column width={8}>
-                            <Card fluid>
-                              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                                GHG Reduced By County
-                              </Card.Header>
-                              <Card.Content>
-                                <Chart chartData={vmtCounties} chartLayout={ghgLayout} />
-                              </Card.Content>
-                            </Card>
-                          </Grid.Column>
-                          <Grid.Column width={8}>
-                            <Card fluid>
-                              <Card.Header style={{ paddingLeft: '10px', color: '#4183C4' }}>
-                                GHG Produced By County
-                              </Card.Header>
-                              <Card.Content>
-                                <Chart chartData={vmtCounties} chartLayout={ghgLayout} />
-                              </Card.Content>
-                            </Card>
-                          </Grid.Column>
-                        </Grid.Row>
-                      </Grid>
-                    </Modal.Content>
-                  </Modal>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+          </Grid.Column>
+          <Grid.Column width={5} textAlign='center'> <Statistic>
+            <Statistic.Value className='community-statistic'><Icon name='car'/>{totalMilesSaved}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>vehicle miles traveled (VMT) reduced</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Progress value={totalMilesSaved} total='20000' progress='percent'
+                      label="2021 GOAL: 100,000 VMT REDUCED" color="blue"/></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={3} textAlign='center'> <Statistic color="red">
+            <Statistic.Value><Icon name='fire'/>{totalFuelUsed}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>gallons of gas used</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5} textAlign='center'> <Statistic>
+            <Statistic.Value className='community-statistic'><Icon name='fire'/>{totalFuelSaved}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>gallons of gas saved</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Progress value={totalFuelSaved} total='1000' progress='percent'
+                      label="2021 GOAL: 5,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={3} textAlign='center'> <Statistic color="red">
+            <Statistic.Value><Icon name='cloud'/>{totalGhgProduced}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>pounds of C02 produced</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5} textAlign='center'> <Statistic>
+            <Statistic.Value className='community-statistic'><Icon name='cloud'/>{totalGhgReduced}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>pounds of CO2 reduced</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Progress value={totalGhgReduced} total='10000' progress='percent'
+                      label="2021 GOAL: 50,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={7}>
+            <Card fluid className='community-card'>
+              <Card.Header className='community-card-header'>
+                Modes of Transportation
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={modeDistribution} chartLayout={modeLayout}/>
+                <br/>
+                <br/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={7}>
+            <Card className='community-card' fluid>
+              <Card.Header className='community-card-header' textAlign='left'>
+                VMT Data
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={vmtData} chartLayout={vmtLayout}/>
+                {vmtModal}
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={7}>
+            <Card className='community-card' fluid>
+              <Card.Header className='community-card-header'>
+                Fuel Data
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={fuelData} chartLayout={fuelLayout}/>
+                {fuelModal}
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={7}>
+            <Card className='community-card' fluid>
+              <Card.Header className='community-card-header'>
+                GHG Data
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={ghgData} chartLayout={ghgLayout}/>
+                {ghgModal}
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
 
-    );
-  }
+  );
+}
 
 /** Require an array of Trip documents in the props. */
 State.propTypes = {
   groupsByDate: PropTypes.object,
   trips: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
     trips: Trips.find({}).fetch(),
     ready: subscription.ready(),
+    userProfile,
   };
 })(State);
-
 
 /* var data = [
   {date:"2020-04-09",distance:1, mpg:1},

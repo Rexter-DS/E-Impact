@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Menu, Button, Table, Grid, Loader, Icon, Statistic } from 'semantic-ui-react';
@@ -8,8 +8,9 @@ import { useParams } from 'react-router-dom';
 import SideBar from '../components/SideBar';
 import { Trips, tripPublications } from '../../api/trip/TripCollection';
 import TripItemAdmin from '../components/TripItemAdmin';
+import { Users } from '../../api/user/UserCollection';
 
-const Daily = (props) => {
+const AdminDaily = (props) => {
   const monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const today = new Date();
   const [currentMonthYr, setCurrentMonthYr] = useState([today.getMonth(), today.getFullYear()]);
@@ -58,11 +59,52 @@ const Daily = (props) => {
     return val;
   }
 
+  useEffect(() => {
+    if (props.userReady && (document.getElementById('daily-container'))) {
+      const dailyArrows = document.getElementsByClassName('daily-arrow-button');
+      const dailyTableHeader = document.getElementsByClassName('daily-table-header');
+      const dailyTable = document.getElementsByClassName('daily-table');
+      if (props.userProfile.theme === 'dark') {
+        document.getElementById('daily-top').classList.add('dark-daily-top');
+        document.getElementById('daily-date-button').classList.add('dark-daily');
+        document.getElementById('daily-date-button').classList.remove('light-daily');
+        for (let i = 0; i < dailyArrows.length; i++) {
+          dailyArrows[i].classList.add('dark-daily');
+          dailyArrows[i].classList.remove('light-daily');
+        }
+        for (let i = 0; i < dailyTableHeader.length; i++) {
+          dailyTableHeader[i].classList.add('dark-daily-table-header');
+          dailyTableHeader[i].classList.remove('light-daily-table-header');
+        }
+        for (let i = 0; i < dailyTable.length; i++) {
+          dailyTable[i].classList.add('dark-daily-table');
+          dailyTable[i].classList.remove('light-daily-table');
+        }
+      } else {
+        document.getElementById('daily-date-button').classList.add('light-daily');
+        document.getElementById('daily-top').classList.remove('dark-daily-top');
+        document.getElementById('daily-date-button').classList.remove('dark-daily');
+        for (let i = 0; i < dailyArrows.length; i++) {
+          dailyArrows[i].classList.add('light-daily');
+          dailyArrows[i].classList.remove('dark-daily');
+        }
+        for (let i = 0; i < dailyTableHeader.length; i++) {
+          dailyTableHeader[i].classList.add('light-daily-table-header');
+          dailyTableHeader[i].classList.remove('dark-daily-table-header');
+        }
+        for (let i = 0; i < dailyTable.length; i++) {
+          dailyTable[i].classList.add('dark-daily-table');
+          dailyTable[i].classList.remove('light-daily-table');
+        }
+      }
+    }
+  }, [props]);
+
   return !props.ready ? <Loader active>Loading data</Loader> :
         (
             <div id='daily-container'
                  style={{ marginLeft: '150px' }}>
-              <SideBar/>
+              <SideBar theme={props.userProfile.theme}/>
               <Menu borderless
                     id="daily-top">
                 <Grid className={'middle aligned'} style={{ width: '100%', marginLeft: '25px' }}>
@@ -75,7 +117,7 @@ const Daily = (props) => {
                     </Button>
                   </Grid.Column>
                   <Grid.Column width={3} verticalAlign='middle'>
-                    <Button size='massive' className={'daily-date-button'} animated={'fade'} onClick={handleClickToday} fluid>
+                    <Button size='massive' id={'daily-date-button'} animated={'fade'} onClick={handleClickToday} fluid>
                       <Button.Content visible style={{ fontSize: '30px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
                       <Button.Content hidden>
                         Go to current month
@@ -93,7 +135,7 @@ const Daily = (props) => {
                   <Grid.Column width={4} textAlign='center'>
                     <Statistic size='small' color={monthlySumColor}>
                       <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
-                      <Statistic.Label style={{ fontSize: '18px' }}>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced'}</Statistic.Label>
+                      <Statistic.Label id='daily-statistic-label'>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced'}</Statistic.Label>
                     </Statistic>
                   </Grid.Column>
                 </Grid>
@@ -111,7 +153,7 @@ const Daily = (props) => {
                     <Table.HeaderCell className='daily-table-header'>Delete Trip</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
-                <Table.Body>
+                <Table.Body className='daily-table'>
                   {monthTrips.map((trip) => <TripItemAdmin key={trip._id} trip={trip}/>)}
                   <Table.Row>
                     <Table.Cell className='daily-table-data'>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
@@ -121,17 +163,23 @@ const Daily = (props) => {
         );
   };
 
-Daily.propTypes = {
+AdminDaily.propTypes = {
   ready: PropTypes.bool.isRequired,
   trips: PropTypes.array.isRequired,
+  userReady: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
   const { owner } = useParams();
+  const userSubscribe = Users.subscribeUser();
   const ready = Meteor.subscribe(tripPublications.tripCommunity).ready();
   const trips = Trips.find({ owner }).fetch();
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
+    userReady: userSubscribe.ready(),
     ready,
     trips,
+    userProfile,
   };
-})(Daily);
+})(AdminDaily);

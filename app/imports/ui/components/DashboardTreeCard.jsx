@@ -7,12 +7,13 @@ function DashboardTreeCard(
     {
       treesPerGhgReduced,
       treesPerGhgProduced,
+      userProfile,
     },
 ) {
 
   return (
       <DashboardStatisticsCard
-          cardHeader='Gallons of Fuel'
+          cardHeader='Tree per GHG'
           topContent={
             <Grid>
               <Grid.Column width={5}>
@@ -25,15 +26,15 @@ function DashboardTreeCard(
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
-                  <Statistic.Value>
+                  <Statistic.Value className='dashboard-statistic'>
                     {treesPerGhgReduced}
                   </Statistic.Value>
-                  <Statistic.Label>tree equivalence to ghg reduced</Statistic.Label>
+                  <Statistic.Label className='dashboard-statistic'>tree equivalence to ghg reduced</Statistic.Label>
                 </Statistic>
               </Grid.Column>
             </Grid>
           }
-          popupTop='This number represents how many pounds of GHG you reduced by using other modes of transportation.'
+          popupTop='One tree absorbs 48 pounds of GHG each year. Based on the amount of GHG you reduced, this number represents your contribution in reducing GHG in terms of trees.'
           bottomContent={
             <Grid>
               <Grid.Column width={5}>
@@ -46,22 +47,17 @@ function DashboardTreeCard(
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
-                  <Statistic.Value>
+                  <Statistic.Value className='dashboard-statistic'>
                     {treesPerGhgProduced}
                   </Statistic.Value>
-                  <Statistic.Label>tree equivalence to ghg produced</Statistic.Label>
+                  <Statistic.Label className='dashboard-statistic'>tree equivalence to ghg produced</Statistic.Label>
                 </Statistic>
               </Grid.Column>
             </Grid>
 
           }
-          popupBottom='This number represents how many pounds of GHG you produced by traveling using a gas-powered car.'
-          moreHeader='More information'
-          moreContent={
-            <p>
-              testing 1 2 3
-            </p>
-          }
+          popupBottom='One tree absorbs 48 pounds of GHG each year. Based on the amount of GHG you produced, you would need to plant this many trees in order to offset the produced GHG.'
+          userProfile={userProfile}
       />
   );
 }
@@ -69,6 +65,7 @@ function DashboardTreeCard(
 DashboardTreeCard.propTypes = {
   treesPerGhgReduced: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   treesPerGhgProduced: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  userProfile: PropTypes.object,
 };
 
 export default DashboardTreeCard;
