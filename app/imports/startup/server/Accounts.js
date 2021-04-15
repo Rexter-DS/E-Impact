@@ -20,7 +20,6 @@ function createUser(county, first, last, email, password, role) {
     Roles.createRole(role, { unlessExists: true });
     Roles.addUsersToRoles(userID, 'admin');
   }
-  Meteor.users.insert(userID);
 }
 
 /** When running app for first time, pass a settings file to set up a default user account. */

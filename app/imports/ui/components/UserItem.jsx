@@ -8,8 +8,8 @@ class UserItem extends React.Component {
   render() {
     return (
         <Table.Row>
-          <Table.Cell>{this.props.user.last}</Table.Cell>
-          <Table.Cell>{this.props.user.first}</Table.Cell>
+          <Table.Cell>{this.props.user.profile.last}</Table.Cell>
+          <Table.Cell>{this.props.user.profile.first}</Table.Cell>
           <Table.Cell>
             <Link as={NavLink} to={`/trips/${this.props.user.username}`}>{this.props.user.username}</Link>
           </Table.Cell>
