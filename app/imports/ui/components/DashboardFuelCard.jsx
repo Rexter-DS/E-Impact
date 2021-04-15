@@ -18,6 +18,7 @@ function DashboardFuelCard(
     },
 ) {
 
+
   const fuelSavedCostPerYear = (fuelSavedAvgPerYear * fuelCost).toFixed(2);
   const fuelSavedCostPerMonth = (fuelSavedAvgPerMonth * fuelCost).toFixed(2);
   const fuelSavedCostPerDay = (fuelSavedAvgPerDay * fuelCost).toFixed(2);
@@ -50,7 +51,7 @@ function DashboardFuelCard(
           showMore
           moreHeader={
             <div>
-              More Info
+              More Information
               <Popup
                   hoverable
                   trigger={<Icon link name='question circle outline'/>}

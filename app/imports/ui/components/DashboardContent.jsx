@@ -26,6 +26,7 @@ function DashboardContent(
       fuelSpentAvg,
       ghgReducedAvg,
       ghgProducedAvg,
+      evGhgProducedAvg,
     },
 ) {
 
@@ -265,12 +266,9 @@ function DashboardContent(
           <DashboardGhgCard
               ghgProducedTotal={ghgProducedTotal}
               ghgReducedTotal={ghgReducedTotal}
-              ghgReducedAvgPerYear={ghgReducedAvg.year}
-              ghgReducedAvgPerMonth={ghgReducedAvg.month}
-              ghgReducedAvgPerDay={ghgReducedAvg.day}
-              ghgProducedAvgPerYear={ghgProducedAvg.year}
-              ghgProducedAvgPerMonth={ghgProducedAvg.month}
-              ghgProducedAvgPerDay={ghgProducedAvg.day}
+              ghgProducedAvg={ghgProducedAvg}
+              ghgReducedAvg={ghgReducedAvg}
+              evGhgProducedAvg={evGhgProducedAvg}
               userProfile={userProfile}
           />
           <DashboardTreeCard
@@ -346,6 +344,7 @@ DashboardContent.propTypes = {
   fuelSpentAvg: PropTypes.object,
   ghgReducedAvg: PropTypes.object,
   ghgProducedAvg: PropTypes.object,
+  evGhgProducedAvg: PropTypes.object,
 };
 
 export default DashboardContent;
