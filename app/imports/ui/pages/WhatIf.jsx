@@ -1,5 +1,5 @@
 import { withTracker } from 'meteor/react-meteor-data';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { Trips } from '../../api/trip/TripCollection';
@@ -22,7 +22,24 @@ function WhatIf(
         fuelSavedPerDay,
     },
 ) {
-
+  console.log(milesSavedPerDay);
+  const [milesSavedPerDayWI, setMSPDWI] = useState();
+  const [modesOfTransportWI, setMOTDWI] = useState();
+  const [ghgReducedPerDayWI, setGRPDWI] = useState();
+  const [fuelSavedPerDayWI, setFSPDWI] = useState();
+  useEffect(() => {
+    setMSPDWI(milesSavedPerDay);
+    setMOTDWI(modesOfTransport);
+    setGRPDWI(ghgReducedPerDay);
+    setFSPDWI(fuelSavedPerDay);
+  }, [fuelSavedPerDay]);
+  const testFP = (miles, mode, ghg, fuel) => {
+    console.log('update successful');
+    setMSPDWI(miles);
+    setMOTDWI(mode);
+    setGRPDWI(ghg);
+    setFSPDWI(fuel);
+  };
     return ((tripReady && userReady) ?
             <div style={{ width: '100%' }}>
                 <ChoseScenario
@@ -33,6 +50,7 @@ function WhatIf(
                     ghgProducedTotal={ghgProducedTotal}
                     ghgReducedPerDay={ghgReducedPerDay}
                     fuelSavedPerDay={fuelSavedPerDay}
+                    test={testFP}
                 />
                 <WhatIfContent
                     milesSavedTotal={nMilesSavedPerDay}
@@ -43,11 +61,11 @@ function WhatIf(
                     ghgReducedPerDay={ghgReducedPerDay}
                     fuelSavedPerDay={fuelSavedPerDay}
                     // milesSavedTotalWI={milesSavedTotal}
-                    milesSavedPerDayWI={milesSavedPerDay}
-                    modesOfTransportWI={modesOfTransport}
+                    milesSavedPerDayWI={milesSavedPerDayWI}
+                    modesOfTransportWI={modesOfTransportWI}
                     // ghgProducedTotalWI={ghgProducedTotal}
-                    ghgReducedPerDayWI={ghgReducedPerDay}
-                    fuelSavedPerDayWI={fuelSavedPerDay}
+                    ghgReducedPerDayWI={ghgReducedPerDayWI}
+                    fuelSavedPerDayWI={fuelSavedPerDayWI}
                 />
             </div> :
             <Dimmer active>
