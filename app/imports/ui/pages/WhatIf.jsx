@@ -22,7 +22,6 @@ function WhatIf(
         fuelSavedPerDay,
     },
 ) {
-  console.log(milesSavedPerDay);
   const [milesSavedPerDayWI, setMSPDWI] = useState();
   const [modesOfTransportWI, setMOTDWI] = useState();
   const [ghgReducedPerDayWI, setGRPDWI] = useState();
@@ -53,7 +52,7 @@ function WhatIf(
                     test={testFP}
                 />
                 <WhatIfContent
-                    milesSavedTotal={nMilesSavedPerDay}
+                    milesSavedTotal={milesSavedTotal}
                     milesSavedPerDay={milesSavedPerDay}
                     modesOfTransport={modesOfTransport}
                     userProfile={userProfile}
