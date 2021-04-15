@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Header, Statistic, Table } from 'semantic-ui-react';
+import { Grid, Header, Icon, Popup, Statistic, Table } from 'semantic-ui-react';
 import DashboardStatisticsCard from './DashboardStatisticsCard';
 
 function DashboardGhgCard(
@@ -36,7 +36,22 @@ function DashboardGhgCard(
           }
           popupBottom='This number represents how many pounds of GHG you produced by traveling using a gas-powered car.'
           showMore
-          moreHeader='More information'
+          moreHeader={
+            <div>
+              More Information
+              <Popup
+                  hoverable
+                  trigger={<Icon link name='question circle outline'/>}
+              >
+                <Popup.Content>
+                  This shows the average amount of GHG that you have produced as well as reduced. <br/>
+                  The Department of Energy states that the average energy consumption per mile of an Electric Vehicle is 320 Wh/mi. <br/>
+                  Using this value, we calculate the MPGe and used it to find out how much GHG you would have produced if you have driven an Electric Vehicle instead. <br/>
+                  <a href='https://afdc.energy.gov/vehicles/electric_emissions_sources.html' target='_blank' rel='noreferrer'>Source</a>
+                </Popup.Content>
+              </Popup>
+            </div>
+          }
           moreContent={
             <Grid relaxed columns='equal'>
               <Grid.Row>
