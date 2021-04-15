@@ -20,6 +20,15 @@ export const poundsOfGhgPerTree = 48;
 export const fuelCost = 3.10;
 export const eGallon = 2.65;
 
+// https://en.wikipedia.org/wiki/Miles_per_gallon_gasoline_equivalent#Conversion_to_MPGe
+// MPGe = (33,705 Wh/gal) / (Wh/mi of an electric car)
+
+// https://afdc.energy.gov/vehicles/electric_emissions_sources.html
+// average kWh/mi of an EV is 0.32 kWh/mi = 320 Wh/mi
+
+// average MPGe = (33,705 Wh/gal) / (320 Wh/mi) = 105.33 mi/gal
+export const avgMpge = 105;
+
 class TripCollection extends BaseCollection {
   constructor() {
     super('Trips', new SimpleSchema({
@@ -286,20 +295,9 @@ class TripCollection extends BaseCollection {
       const tripDistance = objects.distance;
       const tripMode = objects.mode;
 
-      // const exists = _.findIndex(date, function (element) {
-      // return _.isEqual(element, tripDate);
-      // });
-
-     // if (exists === -1) {
-
-        date.push(tripDate);
-        distance.push(tripDistance);
-        mode.push(tripMode);
-      // } else {
-
-      // const lastDistanceIndex = (distance.length - 1);
-      // distance[lastDistanceIndex] += tripDistance;
-      // }
+      date.push(tripDate);
+      distance.push(tripDistance);
+      mode.push(tripMode);
     });
 
     return { date: date, distance: distance, mode: mode };
@@ -465,37 +463,37 @@ class TripCollection extends BaseCollection {
     });
 
     // calculate average miles saved per time
-    const yearMilesSavedAvg = ((_.reduce(milesSavedPerYear, function (sum, n) {
+    const yearMilesSavedAvg = (_.reduce(milesSavedPerYear, function (sum, n) {
       return sum + n;
-    }, 0)) / milesSavedPerYear.length).toFixed(2);
+    }, 0)) / milesSavedPerYear.length;
 
-    const monthMilesSavedAvg = ((_.reduce(milesSavedPerMonth, function (sum, n) {
+    const monthMilesSavedAvg = (_.reduce(milesSavedPerMonth, function (sum, n) {
       return sum + n;
-    }, 0)) / milesSavedPerMonth.length).toFixed(2);
+    }, 0)) / milesSavedPerMonth.length;
 
-    const dayMilesSavedAvg = (dayMilesSaved / totalTrips).toFixed(2);
+    const dayMilesSavedAvg = dayMilesSaved / totalTrips;
 
     // calculate average miles traveled per time
-    const yearMilesTraveledAvg = ((_.reduce(milesTraveledPerYear, function (sum, n) {
+    const yearMilesTraveledAvg = (_.reduce(milesTraveledPerYear, function (sum, n) {
       return sum + n;
-    }, 0)) / milesTraveledPerYear.length).toFixed(2);
+    }, 0)) / milesTraveledPerYear.length;
 
-    const monthMilesTraveledAvg = ((_.reduce(milesTraveledPerMonth, function (sum, n) {
+    const monthMilesTraveledAvg = (_.reduce(milesTraveledPerMonth, function (sum, n) {
       return sum + n;
-    }, 0)) / milesTraveledPerMonth.length).toFixed(2);
+    }, 0)) / milesTraveledPerMonth.length;
 
-    const dayMilesTraveledAvg = (dayMilesTraveled / totalTrips).toFixed(2);
+    const dayMilesTraveledAvg = dayMilesTraveled / totalTrips;
 
     return {
       milesSavedAvg: {
-        year: yearMilesSavedAvg || 0,
-        month: monthMilesSavedAvg || 0,
-        day: dayMilesSavedAvg || 0,
+        year: (yearMilesSavedAvg) ? yearMilesSavedAvg.toFixed(2) : 0,
+        month: (monthMilesSavedAvg) ? monthMilesSavedAvg.toFixed(2) : 0,
+        day: (dayMilesSavedAvg) ? dayMilesSavedAvg.toFixed(2) : 0,
       },
       milesTraveledAvg: {
-        year: yearMilesTraveledAvg || 0,
-        month: monthMilesTraveledAvg || 0,
-        day: dayMilesTraveledAvg || 0,
+        year: (yearMilesTraveledAvg) ? yearMilesTraveledAvg.toFixed(2) : 0,
+        month: (monthMilesTraveledAvg) ? monthMilesTraveledAvg.toFixed(2) : 0,
+        day: (dayMilesTraveledAvg) ? dayMilesTraveledAvg.toFixed(2) : 0,
       },
     };
   }
@@ -593,43 +591,89 @@ class TripCollection extends BaseCollection {
     });
 
     // calculate average fuel saved per time
-    const yearFuelSavedAvg = ((_.reduce(fuelSavedPerYear, function (sum, n) {
+    const yearFuelSavedAvg = (_.reduce(fuelSavedPerYear, function (sum, n) {
       return sum + n;
-    }, 0)) / fuelSavedPerYear.length).toFixed(2);
+    }, 0)) / fuelSavedPerYear.length;
 
-    const monthFuelSavedAvg = ((_.reduce(fuelSavedPerMonth, function (sum, n) {
+    const monthFuelSavedAvg = (_.reduce(fuelSavedPerMonth, function (sum, n) {
       return sum + n;
-    }, 0)) / fuelSavedPerMonth.length).toFixed(2);
+    }, 0)) / fuelSavedPerMonth.length;
 
-    const dayFuelSavedAvg = (dayFuelSaved / totalTrips).toFixed(2);
+    const dayFuelSavedAvg = dayFuelSaved / totalTrips;
 
     // calculate average fuel spent per time
-    const yearFuelSpentAvg = ((_.reduce(fuelSpentPerYear, function (sum, n) {
+    const yearFuelSpentAvg = (_.reduce(fuelSpentPerYear, function (sum, n) {
       return sum + n;
-    }, 0)) / fuelSpentPerYear.length).toFixed(2);
+    }, 0)) / fuelSpentPerYear.length;
 
-    const monthFuelSpentAvg = ((_.reduce(fuelSpentPerMonth, function (sum, n) {
+    const monthFuelSpentAvg = (_.reduce(fuelSpentPerMonth, function (sum, n) {
       return sum + n;
-    }, 0)) / fuelSpentPerMonth.length).toFixed(2);
+    }, 0)) / fuelSpentPerMonth.length;
 
-    const dayFuelSpentAvg = (dayFuelSpent / totalTrips).toFixed(2);
+    const dayFuelSpentAvg = dayFuelSpent / totalTrips;
 
     // return 0 if no data since it will return NaN otherwise
     return {
       fuelSavedAvg: {
-        year: yearFuelSavedAvg || 0,
-        month: monthFuelSavedAvg || 0,
-        day: dayFuelSavedAvg || 0,
+        year: (yearFuelSavedAvg) ? yearFuelSavedAvg.toFixed(2) : 0,
+        month: (monthFuelSavedAvg) ? monthFuelSavedAvg.toFixed(2) : 0,
+        day: (dayFuelSavedAvg) ? dayFuelSavedAvg.toFixed(2) : 0,
       },
       fuelSpentAvg: {
-        year: yearFuelSpentAvg || 0,
-        month: monthFuelSpentAvg || 0,
-        day: dayFuelSpentAvg || 0,
+        year: (yearFuelSpentAvg) ? yearFuelSpentAvg.toFixed(2) : 0,
+        month: (monthFuelSpentAvg) ? monthFuelSpentAvg.toFixed(2) : 0,
+        day: (dayFuelSpentAvg) ? dayFuelSpentAvg.toFixed(2) : 0,
       },
     };
   }
 
   getGhgAvg(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    let currentYear = '';
+    let currentMonth = '';
+
+    let yearEvFuel = 0;
+    let numOfYear = 0;
+
+    let monthEvFuel = 0;
+    let numOfMonth = 0;
+
+    let dayEvFuel = 0;
+    let numOfDay = 0;
+
+    _.forEach(userTrips, function (objects) {
+
+      const date = (objects.date.toString()).split(' ');
+      const mode = objects.mode;
+      const distance = objects.distance;
+
+      const year = date[3];
+      const month = date[1];
+
+      if (currentYear !== year) {
+        currentYear = year;
+        numOfYear += 1;
+      }
+
+      if (currentMonth !== month) {
+        currentMonth = month;
+        numOfMonth += 1;
+      }
+
+      numOfDay += 1;
+
+      if (mode === 'Gas Car' || mode === 'Carpool') {
+        yearEvFuel += (distance / avgMpge);
+        monthEvFuel += (distance / avgMpge);
+        dayEvFuel += (distance / avgMpge);
+      }
+    });
+
+    const yearEvGhgAvg = (yearEvFuel / numOfYear) * ghgPerGallonFuel;
+    const monthEvGhgAvg = (monthEvFuel / numOfMonth) * ghgPerGallonFuel;
+    const dayEvGhgAvg = (dayEvFuel / numOfDay) * ghgPerGallonFuel;
+
     const fuelAvg = this.getFuelAvg(username);
 
     const fuelSavedAvg = fuelAvg.fuelSavedAvg;
@@ -644,14 +688,19 @@ class TripCollection extends BaseCollection {
 
     return {
       ghgReducedAvg: {
-        year: yearGhgReducedAvg,
-        month: monthGhgReducedAvg,
-        day: dayGhgReducedAvg,
+        ghgReducedAvgPerYear: yearGhgReducedAvg,
+        ghgReducedAvgPerMonth: monthGhgReducedAvg,
+        ghgReducedAvgPerDay: dayGhgReducedAvg,
       },
       ghgProducedAvg: {
-        year: yearGhgProducedAvg,
-        month: monthGhgProducedAvg,
-        day: dayGhgProducedAvg,
+        ghgProducedAvgPerYear: yearGhgProducedAvg,
+        ghgProducedAvgPerMonth: monthGhgProducedAvg,
+        ghgProducedAvgPerDay: dayGhgProducedAvg,
+      },
+      evGhgProducedAvg: {
+        evGhgProducedAvgPerYear: yearEvGhgAvg ? yearEvGhgAvg.toFixed(2) : '0.00',
+        evGhgProducedAvgPerMonth: monthEvGhgAvg ? monthEvGhgAvg.toFixed(2) : '0.00',
+        evGhgProducedAvgPerDay: dayEvGhgAvg ? dayEvGhgAvg.toFixed(2) : '0.00',
       },
     };
   }
