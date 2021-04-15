@@ -61,7 +61,7 @@ function DashboardGhgCard(
                     <Table.Header fullWidth>
                       <Table.Row>
                         <Table.HeaderCell/>
-                        <Table.HeaderCell textAlign='right'>GHG Reduced</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>GHG Reduced</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -86,8 +86,8 @@ function DashboardGhgCard(
                     <Table.Header fullWidth>
                       <Table.Row>
                         <Table.HeaderCell/>
-                        <Table.HeaderCell textAlign='right'>GHG Produced</Table.HeaderCell>
-                        <Table.HeaderCell textAlign='right'>GHG Produced of an EV</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>GHG Produced</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>GHG Produced of an EV</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>

@@ -320,11 +320,119 @@ function State(props) {
     };
   }
 
+  const vmtModal =
+      <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal'>VMT Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header>
+                    VMT Reduced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header>
+                    VMT Produced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  const fuelModal =
+      <Modal
+          onClose={() => setOpen2(false)}
+          onOpen={() => setOpen2(true)}
+          open={open2}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal'>Fuel Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    Fuel Saved By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    Fuel Used By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  const ghgModal =
+      <Modal
+          onClose={() => setOpen3(false)}
+          onOpen={() => setOpen3(true)}
+          open={open3}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal' >GHG Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    GHG Reduced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    GHG Produced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
   /* DOM Styling */
   useEffect(() => {
     const communityCard = document.getElementsByClassName('community-card');
     const communityCardHeader = document.getElementsByClassName('community-card-header');
-    const communityModal = document.getElementsByClassName('community-modal');
+    const communityModal = document.getElementsByClassName('card-modal');
     if (props.userProfile.theme === 'dark') {
       for (let i = 0; i < communityCard.length; i++) {
         communityCard[i].classList.add('dark-community-card');
@@ -333,7 +441,7 @@ function State(props) {
         communityCardHeader[i].classList.add('dark-community-card-header');
       }
       for (let i = 0; i < communityModal.length; i++) {
-        communityModal[i].classList.add('dark-community-modal');
+        communityModal[i].classList.add('dark-card');
       }
     } else {
       for (let i = 0; i < communityCard.length; i++) {
@@ -343,10 +451,10 @@ function State(props) {
         communityCardHeader[i].classList.remove('dark-community-card-header');
       }
       for (let i = 0; i < communityModal.length; i++) {
-        communityModal[i].classList.remove('dark-community-modal');
+        communityModal[i].classList.remove('dark-card');
       }
     }
-  }, [props]);
+  }, [props, vmtModal, fuelModal, ghgModal]);
 
   return (
       <Grid centered>
@@ -421,45 +529,7 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={vmtData} chartLayout={vmtLayout}/>
-
-
-
-                <Modal
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    trigger={<Button className='community-button'>Show Breakdown By County</Button>}
-                >
-                  <Modal.Header className='community-modal'>VMT Data Breakdown</Modal.Header>
-                  <Modal.Content className='community-modal'>
-                    <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header>
-                              VMT Reduced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header>
-                              VMT Produced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Modal.Content>
-                </Modal>
-
-
+                {vmtModal}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -472,40 +542,7 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={fuelData} chartLayout={fuelLayout}/>
-                <Modal
-                    onClose={() => setOpen2(false)}
-                    onOpen={() => setOpen2(true)}
-                    open={open2}
-                    trigger={<Button className='community-button'>Show Breakdown By County</Button>}
-                >
-                  <Modal.Header>Fuel Data Breakdown</Modal.Header>
-                  <Modal.Content>
-                    <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              Fuel Saved By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              Fuel Used By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Modal.Content>
-                </Modal>
+                {fuelModal}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -516,40 +553,7 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={ghgData} chartLayout={ghgLayout}/>
-                <Modal
-                    onClose={() => setOpen3(false)}
-                    onOpen={() => setOpen3(true)}
-                    open={open3}
-                    trigger={<Button className='community-button'>Show Breakdown By County</Button>}
-                >
-                  <Modal.Header>GHG Data Breakdown</Modal.Header>
-                  <Modal.Content>
-                    <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              GHG Reduced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              GHG Produced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Modal.Content>
-                </Modal>
+                {ghgModal}
               </Card.Content>
             </Card>
           </Grid.Column>

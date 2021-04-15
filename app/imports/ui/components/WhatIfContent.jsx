@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Card, Statistic } from 'semantic-ui-react';
 import SideBar from './SideBar';
@@ -38,21 +38,6 @@ function WhatIfContent(
       name: 'What If',
       marker: { color: 'rgb(173,216,230)' },
     }];
-
-  const milesSavedPerDayLayout = {
-    autosize: true,
-    barmode: 'group',
-    xaxis: {
-      range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
-      rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Miles Saved (miles)',
-      range: [0, Math.max(...milesSavedPerDay.distance)],
-      type: 'linear',
-    },
-  };
 
   const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
 
@@ -98,20 +83,6 @@ function WhatIfContent(
       color: 'rgb(0,229,0)',
       width: 2 },
   };
-  const fuelAndGhgPerDayLayout = {
-    autosize: true,
-    showlegend: true,
-    xaxis: {
-      range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
-      rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
-      type: 'date',
-    },
-    yaxis: {
-      title: 'Fuel and GHG saved',
-      range: [0, Math.max(...ghgReducedPerDay.ghg)],
-      type: 'linear',
-    },
-  };
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
@@ -130,17 +101,76 @@ function WhatIfContent(
       domain: { column: 1 },
     }];
 
+  /* Graph Layouts */
+  let chartBgColor = '';
+  let chartGridColor = '';
+  let chartFontColor = '';
+
+  if (userProfile.theme === 'dark') {
+    chartBgColor = '#213c5c';
+    chartGridColor = '#5c5c5c';
+    chartFontColor = '#FFFFFF';
+  } else {
+    chartBgColor = '';
+    chartGridColor = '';
+    chartFontColor = '';
+  }
+
+  const milesSavedPerDayLayout = {
+    autosize: true,
+    barmode: 'group',
+    xaxis: {
+      range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
+      rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Miles Saved (miles)',
+      range: [0, Math.max(...milesSavedPerDay.distance)],
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+
+  const fuelAndGhgPerDayLayout = {
+    autosize: true,
+    showlegend: true,
+    xaxis: {
+      range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
+      rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Fuel and GHG saved',
+      range: [0, Math.max(...ghgReducedPerDay.ghg)],
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+
   const defaultLayout = {
     autosize: true,
     showlegend: true,
     annotations: [
-        {
-          font: { size: 15 },
-          showarrow: false,
-          text: 'Old',
-          x: 0.17,
-          y: 0.5,
-        },
+      {
+        font: { size: 15 },
+        showarrow: false,
+        text: 'Old',
+        x: 0.17,
+        y: 0.5,
+      },
       {
         font: { size: 15 },
         showarrow: false,
@@ -149,53 +179,73 @@ function WhatIfContent(
         y: 0.5,
       }],
     grid: { rows: 1, columns: 2 },
+    paper_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
   };
 
+  /* DOM Styling */
+  useEffect(() => {
+    const whatifCards = document.getElementsByClassName('whatif-card');
+    if (userProfile.theme === 'dark') {
+      console.log(whatifCards);
+      for (let i = 0; i < whatifCards.length; i++) {
+        console.log('test');
+        whatifCards[i].classList.add('dark-card');
+      }
+    } else {
+      for (let i = 0; i < whatifCards.length; i++) {
+        whatifCards[i].classList.remove('dark-card');
+      }
+    }
+  }, [userProfile]);
+
   return (
-      <div id='dashboard-container'>
-        <SideBar/>
+      <div id='whatif-container'>
+        <SideBar theme={userProfile.theme}/>
         <Card.Group centered stackable itemsPerRow={4}>
-          <Card>
+          <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
               Vehicle Miles Traveled (VMT) Reduced
             </Card.Header>
             <Card.Content textAlign='center'>
               <Statistic>
-                <Statistic.Value>{milesSavedTotal}</Statistic.Value>
-                <Statistic.Label>miles</Statistic.Label>
+                <Statistic.Value className='whatif-statistic'>{milesSavedTotal}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>miles</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
-          <Card>
+          <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
               Gallons of Fuel Saved
             </Card.Header>
             <Card.Content textAlign='center'>
               <Statistic>
-                <Statistic.Value>{fuelSavedTotal}</Statistic.Value>
-                <Statistic.Label>gallons</Statistic.Label>
+                <Statistic.Value className='whatif-statistic'>{fuelSavedTotal}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>gallons</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
-          <Card>
+          <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
               Green House Gas (GHG) Produced
             </Card.Header>
             <Card.Content textAlign='center'>
               <Statistic>
-                <Statistic.Value>{ghgProducedTotal}</Statistic.Value>
-                <Statistic.Label>pounds</Statistic.Label>
+                <Statistic.Value className='whatif-statistic'>{ghgProducedTotal}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>pounds</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
-          <Card>
+          <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
               Green House Gas (GHG) Reduced
             </Card.Header>
             <Card.Content textAlign='center'>
               <Statistic>
-                <Statistic.Value>{ghgReducedTotal}</Statistic.Value>
-                <Statistic.Label>pounds</Statistic.Label>
+                <Statistic.Value className='whatif-statistic'>{ghgReducedTotal}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>pounds</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
@@ -203,7 +253,7 @@ function WhatIfContent(
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={9}>
-              <Card fluid>
+              <Card className='whatif-card' fluid>
                 <Card.Header style={{ paddingLeft: '10px' }}>
                   Miles Saved Per Day
                 </Card.Header>
@@ -213,7 +263,7 @@ function WhatIfContent(
               </Card>
             </Grid.Column>
             <Grid.Column width={7}>
-              <Card fluid>
+              <Card className='whatif-card' fluid>
                 <Card.Header style={{ paddingLeft: '10px' }}>
                   Modes of Transportation Used
                 </Card.Header>
@@ -226,7 +276,7 @@ function WhatIfContent(
         </Grid>
         <Grid stackable columns='equal'>
           <Grid.Column>
-            <Card fluid>
+            <Card className='whatif-card' fluid>
               <Card.Header style={{ paddingLeft: '10px' }}>
                 Fuel Saved and GHG Reduced per Day
               </Card.Header>
