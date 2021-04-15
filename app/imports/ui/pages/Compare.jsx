@@ -109,7 +109,7 @@ function Compare(props) {
             </Grid>
           </CarouselProvider>
         </div>
-        <Footer id={'compare-footer'}/>
+        {/*<Footer id={'compare-footer'}/>*/}
       </div>);
 }
 

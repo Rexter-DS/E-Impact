@@ -405,15 +405,100 @@ export const getStateData = () => {
   ghgProducedMaui.name = 'Maui';
 
   const vmtReducedCounties = [vmtReducedHawaii, vmtReducedHonolulu, vmtReducedKalawao, vmtReducedKauai, vmtReducedMaui];
-  const vmtProducedCounties = [vmtProducedHawaii, vmtProducedHonolulu, vmtProducedKalawao, vmtProducedKauai, vmtProducedMaui];
+  const vmtProducedCounties =
+      [vmtProducedHawaii, vmtProducedHonolulu, vmtProducedKalawao, vmtProducedKauai, vmtProducedMaui];
   const fuelSavedCounties = [fuelSavedHawaii, fuelSavedHonolulu, fuelSavedKalawao, fuelSavedKauai, fuelSavedMaui];
   const fuelUsedCounties = [fuelUsedHawaii, fuelUsedHonolulu, fuelUsedKalawao, fuelUsedKauai, fuelUsedMaui];
   const ghgSavedCounties = [ghgSavedHawaii, ghgSavedHonolulu, ghgSavedKalawao, ghgSavedKauai, ghgSavedMaui];
-  const ghgProducedCounties = [ghgProducedHawaii, ghgProducedHonolulu, ghgProducedKalawao, ghgProducedKauai, ghgProducedMaui];
+  const ghgProducedCounties =
+      [ghgProducedHawaii, ghgProducedHonolulu, ghgProducedKalawao, ghgProducedKauai, ghgProducedMaui];
+
+  const ed = moment();
+  const sd = moment().subtract(30, 'd');
+  const result = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const totalDays = ed.diff(sd, 'days') + 1;
+  const resultDistances = _.map(result, 'distance');
+  const resultMpgs = _.map(result, 'mpg');
+  const resultFuelSaved = _.zipWith(resultDistances, resultMpgs, (distance, mpg) => distance / mpg);
+  const resultGhgSaved = resultFuelSaved.map(i => i * 19.6);
+  const avgMilesReduced = (_.sum(resultDistances) / totalDays / totalUsers).toFixed(2);
+  const avgFuelSaved = (_.sum(resultFuelSaved) / totalDays / totalUsers).toFixed(2);
+  const avgGhgSaved = (_.sum(resultGhgSaved) / totalDays / totalUsers).toFixed(2);
+
+  const myNonCarTrips = Trips.find({ owner: Meteor.user()?.username, mode: { $not: 'Gas Car' } }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const myNonCarDistances = _.map(myNonCarTrips, 'distance');
+  const myNonCarMpgs = _.map(myNonCarTrips, 'mpg');
+  const myFuelSaved = _.zipWith(myNonCarDistances, myNonCarMpgs, (distance, mpg) => distance / mpg);
+  const myGhgReduced = myFuelSaved.map(i => i * 19.6);
+  const myAvgMilesReduced = (_.sum(myNonCarDistances) / totalDays).toFixed(2);
+  const myAvgFuelSaved = (_.sum(myFuelSaved) / totalDays).toFixed(2);
+  const myAvgGhgReduced = (_.sum(myGhgReduced) / totalDays).toFixed(2);
+
+  const AvgSaved = {
+    x: ['VMT Reduced', 'Fuel Saved', 'GHG Reduced'],
+    y: [avgMilesReduced, avgFuelSaved, avgGhgSaved],
+    name: 'Mean',
+    type: 'bar',
+  };
+
+  const userAvgSaved = {
+    x: ['VMT Reduced', 'Fuel Saved', 'GHG Reduced'],
+    y: [myAvgMilesReduced, myAvgFuelSaved, myAvgGhgReduced],
+    name: 'My Average',
+    type: 'bar',
+  };
+
+  const dataReduced = [AvgSaved, userAvgSaved];
+
+  const result2 = Trips.find({ mode: 'Gas Car' }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const resultDistances2 = _.map(result2, 'distance');
+  const resultMpgs2 = _.map(result2, 'mpg');
+  const resultFuelUsed = _.zipWith(resultDistances2, resultMpgs2, (distance, mpg) => distance / mpg);
+  const resultGhgProduced = resultFuelUsed.map(i => i * 19.6);
+  const avgMilesProduced = (_.sum(resultDistances2) / totalDays / totalUsers).toFixed(2);
+  const avgFuelUsed = (_.sum(resultFuelUsed) / totalDays / totalUsers).toFixed(2);
+  const avgGhgProduced = (_.sum(resultGhgProduced) / totalDays / totalUsers).toFixed(2);
+
+  const myCarTrips = Trips.find({ owner: Meteor.user()?.username, mode: 'Gas Car' }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const myCarDistances = _.map(myCarTrips, 'distance');
+  const myCarMpgs = _.map(myCarTrips, 'mpg');
+  const myFuelUsed = _.zipWith(myCarDistances, myCarMpgs, (distance, mpg) => distance / mpg);
+  const myGhgProduced = myFuelUsed.map(i => i * 19.6);
+  const myAvgMilesProduced = (_.sum(myCarDistances) / totalDays).toFixed(2);
+  const myAvgFuelUsed = (_.sum(myFuelUsed) / totalDays).toFixed(2);
+  const myAvgGhgProduced = (_.sum(myGhgProduced) / totalDays).toFixed(2);
+
+  const AvgProduced = {
+    x: ['VMT Produced', 'Fuel Used', 'GHG Produced'],
+    y: [avgMilesProduced, avgFuelUsed, avgGhgProduced],
+    name: 'Mean',
+    type: 'bar',
+  };
+
+  const userAvgProduced = {
+    x: ['VMT Produced', 'Fuel Used', 'GHG Produced'],
+    y: [myAvgMilesProduced, myAvgFuelUsed, myAvgGhgProduced],
+    name: 'My Average',
+    type: 'bar',
+  };
+
+  const dataProduced = [AvgProduced, userAvgProduced];
 
   return {
     totalUsers, totalMilesSaved, totalFuelUsed, totalFuelSaved, totalGhgProduced, totalGhgReduced, modeDistribution,
-    vmtReduced, vmtProduced, vmtData, fuelData, ghgData, vmtReducedCounties,
-    vmtProducedCounties, fuelSavedCounties, fuelUsedCounties, ghgSavedCounties, ghgProducedCounties,
+    vmtReduced, vmtProduced, vmtData, fuelData, ghgData, vmtReducedCounties, vmtProducedCounties, fuelSavedCounties,
+    fuelUsedCounties, ghgSavedCounties, ghgProducedCounties, dataReduced, dataProduced,
   };
 };

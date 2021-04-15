@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'lodash';
+import { Card, Grid, Icon, Progress, Statistic, Modal, Button } from 'semantic-ui-react';
 import moment from 'moment';
-import { Button, Card, Grid, Icon, Modal, Progress, Statistic } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
@@ -28,22 +27,24 @@ function State(props) {
   const fuelUsedCounties = data.fuelUsedCounties;
   const ghgSavedCounties = data.ghgSavedCounties;
   const ghgProducedCounties = data.ghgProducedCounties;
+  const dataReduced = data.dataReduced;
+  const dataProduced = data.dataProduced;
+
+  const endDate = moment().format('YYYY-MM-DD');
+  const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
 
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
 
- const endDate = moment().format('YYYY-MM-DD');
- const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
-
   /* Graph Layouts */
   const chartBgColor = '#213c5c';
   const chartGridColor = '#5c5c5c';
-  let layout = {};
   let modeLayout = {};
   let vmtLayout = {};
   let fuelLayout = {};
   let ghgLayout = {};
+  let avgLayout = {};
 
   if (props.userProfile.theme === 'dark') {
     modeLayout = {
@@ -111,7 +112,7 @@ function State(props) {
         color: '#FFFFFF',
       },
     };
-   layout = {
+    avgLayout = {
       autosize: true,
       showlegend: true,
       barmode: 'group',
@@ -162,7 +163,7 @@ function State(props) {
         type: 'linear',
       },
     };
-    layout = {
+    avgLayout = {
       autosize: true,
       showlegend: true,
       barmode: 'group',
@@ -170,11 +171,119 @@ function State(props) {
     };
   }
 
+  const vmtModal =
+      <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal'>VMT Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header>
+                    VMT Reduced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtReducedCounties} chartLayout={vmtLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header>
+                    VMT Produced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={vmtProducedCounties} chartLayout={vmtLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  const fuelModal =
+      <Modal
+          onClose={() => setOpen2(false)}
+          onOpen={() => setOpen2(true)}
+          open={open2}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal'>Fuel Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    Fuel Saved By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={fuelSavedCounties} chartLayout={fuelLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    Fuel Used By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={fuelUsedCounties} chartLayout={fuelLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
+  const ghgModal =
+      <Modal
+          onClose={() => setOpen3(false)}
+          onOpen={() => setOpen3(true)}
+          open={open3}
+          trigger={<Button className='community-button'>Show Breakdown By County</Button>}
+      >
+        <Modal.Header className='card-modal' >GHG Data Breakdown</Modal.Header>
+        <Modal.Content className='card-modal'>
+          <Grid centered>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    GHG Reduced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={ghgSavedCounties} chartLayout={ghgLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card className='card-modal' fluid>
+                  <Card.Header className='community-card-header'>
+                    GHG Produced By County
+                  </Card.Header>
+                  <Card.Content>
+                    <Chart chartData={ghgProducedCounties} chartLayout={ghgLayout}/>
+                  </Card.Content>
+                </Card>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>;
+
   /* DOM Styling */
   useEffect(() => {
     const communityCard = document.getElementsByClassName('community-card');
     const communityCardHeader = document.getElementsByClassName('community-card-header');
-    const communityModal = document.getElementsByClassName('community-modal');
+    const communityModal = document.getElementsByClassName('card-modal');
     if (props.userProfile.theme === 'dark') {
       for (let i = 0; i < communityCard.length; i++) {
         communityCard[i].classList.add('dark-community-card');
@@ -183,7 +292,7 @@ function State(props) {
         communityCardHeader[i].classList.add('dark-community-card-header');
       }
       for (let i = 0; i < communityModal.length; i++) {
-        communityModal[i].classList.add('dark-community-modal');
+        communityModal[i].classList.add('dark-card');
       }
     } else {
       for (let i = 0; i < communityCard.length; i++) {
@@ -193,93 +302,10 @@ function State(props) {
         communityCardHeader[i].classList.remove('dark-community-card-header');
       }
       for (let i = 0; i < communityModal.length; i++) {
-        communityModal[i].classList.remove('dark-community-modal');
+        communityModal[i].classList.remove('dark-card');
       }
     }
-  }, [props]);
-
-   const ed = moment();
- const sd = moment().subtract(30, 'd');
- const result = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().filter(d => {
-   const date = new Date(d.date);
- return (sd < date && date < ed);
-   });
-  const totalDays = ed.diff(sd, 'days') + 1;
-  const resultDistances = _.map(result, 'distance');
- const resultMpgs = _.map(result, 'mpg');
-  const resultFuelSaved = _.zipWith(resultDistances, resultMpgs, (distance, mpg) => distance / mpg);
- const resultGhgSaved = resultFuelSaved.map(i => i * 19.6);
-  const avgMilesReduced = (_.sum(resultDistances) / totalDays / totalUsers).toFixed(2);
- const avgFuelSaved = (_.sum(resultFuelSaved) / totalDays / totalUsers).toFixed(2);
- const avgGhgSaved = (_.sum(resultGhgSaved) / totalDays / totalUsers).toFixed(2);
-
-  const myNonCarTrips = Trips.find({ owner: Meteor.user()?.username, mode: { $not: 'Gas Car' } }).fetch().filter(d => {
-    const date = new Date(d.date);
-    return (sd < date && date < ed);
-  });
-  const myNonCarDistances = _.map(myNonCarTrips, 'distance');
-  const myNonCarMpgs = _.map(myNonCarTrips, 'mpg');
-  const myFuelSaved = _.zipWith(myNonCarDistances, myNonCarMpgs, (distance, mpg) => distance / mpg);
-  const myGhgReduced = myFuelSaved.map(i => i * 19.6);
-  const myAvgMilesReduced = (_.sum(myNonCarDistances) / totalDays).toFixed(2);
-  const myAvgFuelSaved = (_.sum(myFuelSaved) / totalDays).toFixed(2);
-  const myAvgGhgReduced = (_.sum(myGhgReduced) / totalDays).toFixed(2);
-
-  const AvgSaved = {
-    x: ['VMT Reduced', 'Fuel Saved', 'GHG Reduced'],
-    y: [avgMilesReduced, avgFuelSaved, avgGhgSaved],
-    name: 'Mean',
-    type: 'bar',
-  };
-
-  const userAvgSaved = {
-    x: ['VMT Reduced', 'Fuel Saved', 'GHG Reduced'],
-    y: [myAvgMilesReduced, myAvgFuelSaved, myAvgGhgReduced],
-    name: 'My Average',
-    type: 'bar',
-  };
-
-  const dataReduced = [AvgSaved, userAvgSaved];
-
-  const result2 = Trips.find({ mode: 'Gas Car' }).fetch().filter(d => {
-    const date = new Date(d.date);
-    return (sd < date && date < ed);
-  });
-  const resultDistances2 = _.map(result2, 'distance');
-  const resultMpgs2 = _.map(result2, 'mpg');
-  const resultFuelUsed = _.zipWith(resultDistances2, resultMpgs2, (distance, mpg) => distance / mpg);
-  const resultGhgProduced = resultFuelUsed.map(i => i * 19.6);
-  const avgMilesProduced = (_.sum(resultDistances2) / totalDays / totalUsers).toFixed(2);
-  const avgFuelUsed = (_.sum(resultFuelUsed) / totalDays / totalUsers).toFixed(2);
-  const avgGhgProduced = (_.sum(resultGhgProduced) / totalDays / totalUsers).toFixed(2);
-
-  const myCarTrips = Trips.find({ owner: Meteor.user()?.username, mode: 'Gas Car' }).fetch().filter(d => {
-    const date = new Date(d.date);
-    return (sd < date && date < ed);
-  });
-  const myCarDistances = _.map(myCarTrips, 'distance');
-  const myCarMpgs = _.map(myCarTrips, 'mpg');
-  const myFuelUsed = _.zipWith(myCarDistances, myCarMpgs, (distance, mpg) => distance / mpg);
-  const myGhgProduced = myFuelUsed.map(i => i * 19.6);
-  const myAvgMilesProduced = (_.sum(myCarDistances) / totalDays).toFixed(2);
-  const myAvgFuelUsed = (_.sum(myFuelUsed) / totalDays).toFixed(2);
-  const myAvgGhgProduced = (_.sum(myGhgProduced) / totalDays).toFixed(2);
-
-  const AvgProduced = {
-    x: ['VMT Produced', 'Fuel Used', 'GHG Produced'],
-    y: [avgMilesProduced, avgFuelUsed, avgGhgProduced],
-    name: 'Mean',
-    type: 'bar',
-  };
-
-  const userAvgProduced = {
-    x: ['VMT Produced', 'Fuel Used', 'GHG Produced'],
-    y: [myAvgMilesProduced, myAvgFuelUsed, myAvgGhgProduced],
-    name: 'My Average',
-    type: 'bar',
-  };
-
-  const dataProduced = [AvgProduced, userAvgProduced];
+  }, [props, vmtModal, fuelModal, ghgModal]);
 
   return (
       <Grid centered>
@@ -301,7 +327,7 @@ function State(props) {
           </Statistic>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Progress value={totalMilesSaved} total='1000000' progress='percent'
+            <Progress value={totalMilesSaved} total='1000000'
                       label="2021 GOAL: 1,000,000 VMT REDUCED" color="blue"/></Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -316,7 +342,7 @@ function State(props) {
           </Statistic>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Progress value={totalFuelSaved} total='43000' progress='percent'
+            <Progress value={totalFuelSaved} total='43000'
                       label="2021 GOAL: 43,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -331,7 +357,7 @@ function State(props) {
           </Statistic>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Progress value={totalGhgReduced} total='858000' progress='percent'
+            <Progress value={totalGhgReduced} total='858000'
                       label="2021 GOAL: 858,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -354,40 +380,7 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={vmtData} chartLayout={vmtLayout}/>
-                <Modal
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    trigger={<Button className='community-button'>Show Breakdown By County</Button>}
-                >
-                  <Modal.Header className='community-modal'>VMT Data Breakdown</Modal.Header>
-                  <Modal.Content className='community-modal'>
-                    <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              VMT Reduced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtReducedCounties} chartLayout={vmtLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              VMT Produced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={vmtProducedCounties} chartLayout={vmtLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Modal.Content>
-                </Modal>
+                {vmtModal}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -400,40 +393,7 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={fuelData} chartLayout={fuelLayout}/>
-                <Modal
-                    onClose={() => setOpen2(false)}
-                    onOpen={() => setOpen2(true)}
-                    open={open2}
-                    trigger={<Button className='community-button'>Show Breakdown By County</Button>}
-                >
-                  <Modal.Header>Fuel Data Breakdown</Modal.Header>
-                  <Modal.Content>
-                    <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              Fuel Saved By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={fuelSavedCounties} chartLayout={fuelLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              Fuel Used By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={fuelUsedCounties} chartLayout={fuelLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Modal.Content>
-                </Modal>
+                {fuelModal}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -444,53 +404,20 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={ghgData} chartLayout={ghgLayout}/>
-                <Modal
-                    onClose={() => setOpen3(false)}
-                    onOpen={() => setOpen3(true)}
-                    open={open3}
-                    trigger={<Button className='community-button'>Show Breakdown By County</Button>}
-                >
-                  <Modal.Header>GHG Data Breakdown</Modal.Header>
-                  <Modal.Content>
-                    <Grid centered>
-                      <Grid.Row>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              GHG Reduced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={ghgSavedCounties} chartLayout={ghgLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                        <Grid.Column width={8}>
-                          <Card fluid>
-                            <Card.Header className='community-card-header'>
-                              GHG Produced By County
-                            </Card.Header>
-                            <Card.Content>
-                              <Chart chartData={ghgProducedCounties} chartLayout={ghgLayout}/>
-                            </Card.Content>
-                          </Card>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Modal.Content>
-                </Modal>
+                {ghgModal}
               </Card.Content>
             </Card>
           </Grid.Column>
         </Grid.Row>
-     <Grid.Row>
+        <Grid.Row>
           <Grid.Column width={7}>
             <Card fluid className='community-card'>
               <Card.Header className='community-card-header'>
                 Average from the last 30 days
               </Card.Header>
               <Card.Content>
-                <Chart chartData={dataReduced} chartLayout={layout}/>
-                * Mean was calculated from all user averages
+                <Chart chartData={dataReduced} chartLayout={avgLayout}/>
+                * Mean calculated from all user averages
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -500,8 +427,8 @@ function State(props) {
                 Average from the last 30 days
               </Card.Header>
               <Card.Content>
-                <Chart chartData={dataProduced} chartLayout={layout}/>
-                * Mean was calculated from all user averages
+                <Chart chartData={dataProduced} chartLayout={avgLayout}/>
+                * Mean calculated from all user averages
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -530,13 +457,3 @@ export default withTracker(() => {
     userProfile,
   };
 })(State);
-
-/*
- db.TripsCollection.find({"date":{ $gte:ISODate("2021-04-10"), $lt:ISODate("2021-04-15") } }).pretty();
-{resultDistances2} <br/>
-{count}<br/>
-{resultMpgs2}<br/>
-fuel: {avgFuelUsed}<br/>
-miles: {avgMilesProduced}<br/>
-ghg: {avgGhgProduced}
-*/

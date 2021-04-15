@@ -17,6 +17,7 @@ function ChoseScenario(
         ghgProducedTotal,
         ghgReducedPerDay,
         fuelSavedPerDay,
+        test,
     },
 ) {
 
@@ -25,18 +26,38 @@ function ChoseScenario(
     const isEventSelected = useRef(false);
 
     // change to useState()
-    let nMilesSavedPerDay = useRef(_.map(milesSavedPerDay.mode, (mode, i) => ({
+    const nMilesSavedPerDay = useRef(_.map(milesSavedPerDay.mode, (mode, i) => ({
         date: milesSavedPerDay.date[i],
         distance: milesSavedPerDay.distance[i],
         mode: mode,
     })));
 
-    let nModesOfTransport = useRef(_.map(modesOfTransport.label, (mode, i) => ({
+    const nModesOfTransport = useRef(_.map(modesOfTransport.label, (mode, i) => ({
         label: mode,
         value: modesOfTransport.value[i],
     })));
 
-    let nGHGProducedTotal = useRef(ghgProducedTotal);
+    const nGHGProducedTotal = useRef(ghgProducedTotal);
+
+    function colorType(type) {
+      let color = '';
+      if (type === 'Telework') {
+        color = '#1f77b4';
+      } else if (type === 'Carpool') {
+        color = '#ff7f0e';
+      } else if (type === 'Bike') {
+        color = '#2ca02c';
+      } else if (type === 'Walk') {
+        color = '#e377c2';
+      } else if (type === 'Electric Vehicle') {
+        color = '#d62728';
+      } else if (type === 'Gas Car') {
+        color = '#9467bd';
+      } else {
+        color = '#8c564b';
+      }
+      return (color);
+    }
 
     // state for events in fullcalendar
     const [events, setEvents] = useState(() => _.map(milesSavedPerDay.date, function (date, i) {
@@ -52,7 +73,7 @@ function ChoseScenario(
             day = `0${day}`;
         }
 
-        return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
+        return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-'), color: colorType(milesSavedPerDay.mode[i]) };
     }));
 
     // state for event user selected in fullcalendar
@@ -76,7 +97,7 @@ function ChoseScenario(
                 day = `0${day}`;
             }
 
-            return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-') };
+            return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-'), color: colorType(milesSavedPerDay.mode[i]) };
         }));
     }
 
@@ -96,59 +117,123 @@ function ChoseScenario(
 
         // update state selectEvent with event user selected on fullcalendar
         setSelectedEvent(() => ({ id: info.event.id, title: info.event.title, date: [year, month, day].join('-'), oldDateFormat: info.event.start }));
+        // console.log({ id: info.event.id, title: info.event.title, date: [year, month, day].join('-'), oldDateFormat: info.event.start });
         defaultData.current = false;
         isEventSelected.current = true;
     };
 
     // on clicking submit button, updates state events with new info
     const handleSubmit = (evt) => {
-        evt.preventDefault();
-        // check that event is selected to change
-        if (isEventSelected.current === true) {
-            // store event state in array
-            const eventArr = [...events];
-            // update array with new event info
-            eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date };
-            // update state events with array
-            setEvents(eventArr);
+      evt.preventDefault();
+      const modesOTV = [];
+      const modesOTL = [];
+      let modesOT = {};
+      let ghgProduced = 0;
+      let ghgReduced = 0;
+      const milesSPDDate = [];
+      const milesSPDDistance = [];
+      const milesSPDM = [];
+      let milesSPD = {};
+      const ghgRPDD = [];
+      const ghgRPDG = [];
+      let ghgRPD = {};
+      const fuelSPDD = [];
+      const fuelSPDF = [];
+      const fuelSPDP = [];
+      let fuelSPD = {};
+      const userMPG = userProfile.autoMPG;
+      const ghgPerGallon = 19.6;
+      // check that event is selected to change
+      if (isEventSelected.current === true) {
+        // store event state in array
+        const eventArr = [...events];
+        // update array with new event info
+        eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date, color: colorType(transport) };
+        // update state events with array
+        setEvents(eventArr);
 
-            // update nMilesSavedPerDay with new info
-            nMilesSavedPerDay.current[selectedEvent.id] = {
-                date: selectedEvent.oldDateFormat,
-                distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
-                mode: nMilesSavedPerDay.current[selectedEvent.id].mode,
-            };
+        // update nMilesSavedPerDay with new info
+        nMilesSavedPerDay.current[selectedEvent.id] = {
+            date: selectedEvent.oldDateFormat,
+            distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
+            mode: nMilesSavedPerDay.current[selectedEvent.id].mode,
+        };
 
-            // get index of original mode
-            const indexOfOldTransport = nModesOfTransport.current.findIndex(({ label }) => label === selectedEvent.title);
-            // decrement value of original mode
-            nModesOfTransport.current[indexOfOldTransport] = { label: nModesOfTransport.current[indexOfOldTransport].label, value: nModesOfTransport.current[indexOfOldTransport].value - 1 };
-            // get index of what if mode
-            const indexOfNewTransport = nModesOfTransport.current.findIndex(({ label }) => label === transport);
-            if (indexOfNewTransport === -1) {
-                nModesOfTransport.current.push({ label: transport, value: 1 });
-            } else {
-                // increment index of what if mode
-                nModesOfTransport.current[indexOfNewTransport] = {
-                    label: transport,
-                    value: nModesOfTransport.current[indexOfNewTransport].value + 1,
-                };
-            }
-
-            // update nGHGProducedTotal
-            // ! check for if user doesn't have autoMPG registered
-            let ghgProduced = 0;
-            const userMPG = userProfile.autoMPG;
-            const ghgPerGallon = 19.6;
-            _.forEach(nMilesSavedPerDay.current, function (objects) {
-                if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
-                    ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
-                }
-            });
-            nGHGProducedTotal.current = ghgProduced;
+        // Changing MODES OF TRANSPORT (PIE GRAPH CHANGES).
+        // get index of original mode
+        const indexOfOldTransport = nModesOfTransport.current.findIndex(({ label }) => label === selectedEvent.title);
+        // decrement value of original mode
+        nModesOfTransport.current[indexOfOldTransport] = { label: nModesOfTransport.current[indexOfOldTransport].label, value: nModesOfTransport.current[indexOfOldTransport].value - 1 };
+        // get index of what if mode
+        const indexOfNewTransport = nModesOfTransport.current.findIndex(({ label }) => label === transport);
+        if (indexOfNewTransport === -1) {
+            nModesOfTransport.current.push({ label: transport, value: 1 });
         } else {
-            swal('Pick a date');
+          // increment index of what if mode
+          nModesOfTransport.current[indexOfNewTransport] = {
+            label: transport,
+            value: nModesOfTransport.current[indexOfNewTransport].value + 1,
+          };
         }
+        // console.log(nModesOfTransport);
+        // Code from TripCollection.js, lines 185-194 used to reformate the data for the charts.
+        _.forEach(nModesOfTransport.current, function (objects) {
+          modesOTV.push(objects.value);
+          modesOTL.push(objects.label);
+        });
+        modesOT = { value: modesOTV, label: modesOTL };
+        // FINISHED MODES OF TRANSPORT CHANGES.
+        // MILES SAVED & GHG PRODUCED
+        // update nGHGProducedTotal
+        // ! check for if user doesn't have autoMPG registered
+        // Get date of original selected event.
+        const indexOfOldMiles = nMilesSavedPerDay.current.findIndex(({ date }) => date === selectedEvent.oldDateFormat);
+        nMilesSavedPerDay.current[indexOfOldMiles] = {
+          date: selectedEvent.oldDateFormat,
+          distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
+          mode: transport,
+        };
+        _.forEach(nMilesSavedPerDay.current, function (objects) {
+          milesSPDDate.push(objects.date);
+          milesSPDDistance.push(objects.distance);
+          milesSPDM.push(objects.mode);
+        });
+        milesSPD = { date: milesSPDDate, distance: milesSPDDistance, mode: milesSPDM };
+        // If event produced miles & ghg
+        _.forEach(nMilesSavedPerDay.current, function (objects) {
+          if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
+            // console.log(`distance: ${objects.distance}`);
+            ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
+            ghgRPDD.push(objects.date);
+            ghgRPDG.push(0);
+            fuelSPDD.push(objects.date);
+            fuelSPDF.push(0);
+            fuelSPDP.push(((objects.distance / userMPG) * 3.77).toFixed(2));
+            // console.log(ghgProduced);
+            // console.log(objects.mode);
+            // console.log(`${ghgProduced} = ((${objects.distance} / ${userMPG}) * ${ghgPerGallon})`);
+          } else {
+            ghgReduced += ((objects.distance / userMPG) * ghgPerGallon);
+            ghgRPDD.push(objects.date);
+            ghgRPDG.push(((objects.distance / userMPG) * ghgPerGallon).toFixed(2));
+            fuelSPDD.push(objects.date);
+            fuelSPDF.push((objects.distance / userMPG).toFixed(2));
+            fuelSPDP.push(((objects.distance / userMPG) * 3.77).toFixed(2));
+          }
+        });
+        // If event reduced miles & ghg
+        ghgRPD = { date: ghgRPDD, ghg: ghgRPDG };
+        fuelSPD = { date: fuelSPDD, fuel: fuelSPDF, price: fuelSPDP };
+        nGHGProducedTotal.current = ghgProduced;
+        console.log(ghgReduced);
+        console.log(milesSPD);
+        // console.log(nGHGProducedTotal);
+        // sets the selected event to the change in case of additional changes before selecting a new event.
+        setSelectedEvent(() => ({ id: selectedEvent.id, title: transport, date: selectedEvent.date, oldDateFormat: selectedEvent.oldDateFormat }));
+      } else {
+          swal('Pick a date');
+      }
+      test(milesSPD, modesOT, ghgRPD, fuelSPD);
     };
 
     // updates selected state transport
@@ -173,54 +258,51 @@ function ChoseScenario(
                 <Form.Field>
                     Selected date: {selectedEvent.date}
                 </Form.Field>
-                <Form.Radio
+                <Form.Group inline>
+                  <Form.Radio
                     label='Bike'
                     checked={transport === 'Bike'}
                     value='Bike'
                     onClick={handleChange}
-                />
+                  />
 
-                <Form.Radio
-                    label='Carpool'
-                    checked={transport === 'Carpool'}
-                    value='Carpool'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Electric Vehicle'
-                    checked={transport === 'Electric Vehicle'}
-                    value='Electric Vehicle'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Gas Car'
-                    checked={transport === 'Gas Car'}
-                    value='Gas Car'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Public Transportation'
-                    checked={transport === 'Public Transportation'}
-                    value='Public Transportation'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Telework'
-                    checked={transport === 'Telework'}
-                    value='Telework'
-                    onClick={handleChange}
-                />
-
-                <Form.Radio
-                    label='Walk'
-                    checked={transport === 'Walk'}
-                    value='Walk'
-                    onClick={handleChange}
-                />
+                  <Form.Radio
+                      label='Carpool'
+                      checked={transport === 'Carpool'}
+                      value='Carpool'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Electric Vehicle'
+                      checked={transport === 'Electric Vehicle'}
+                      value='Electric Vehicle'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Gas Car'
+                      checked={transport === 'Gas Car'}
+                      value='Gas Car'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Public Transportation'
+                      checked={transport === 'Public Transportation'}
+                      value='Public Transportation'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Telework'
+                      checked={transport === 'Telework'}
+                      value='Telework'
+                      onClick={handleChange}
+                  />
+                  <Form.Radio
+                      label='Walk'
+                      checked={transport === 'Walk'}
+                      value='Walk'
+                      onClick={handleChange}
+                  />
+                </Form.Group>
 
                 <Form.Field>
                     <Form.Button content='submit'/>
@@ -241,6 +323,7 @@ ChoseScenario.propTypes = {
     ghgProducedTotal: PropTypes.string,
     ghgReducedPerDay: PropTypes.object,
     fuelSavedPerDay: PropTypes.object,
+    test: PropTypes.func,
 };
 
 export default ChoseScenario;

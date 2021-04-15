@@ -443,6 +443,11 @@ body {
 #calendar-form {
   margin-top: 25px;
   margin-left: 300px;
+  color: inherit !important;
+}
+
+.ui.checkbox input.hidden + label {
+  color: inherit !important;
 }
 
 #defaultButton {
@@ -603,6 +608,19 @@ body {
   color: #FFFFFF !important;
 }
 
-.card-modal {
-  background-color: inherit !important;
+.dark-modal {
+  background-color: #002A47 !important;
+  color: #FFFFFF !important;
+}
+
+/* WHAT IF */
+#whatif-container {
+  padding: 50px 100px;
+  margin-left: 150px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background-color: inherit;
+}
+
+.whatif-statistic {
+  color: inherit !important;
 }

@@ -26,6 +26,7 @@ function DashboardContent(
       fuelSpentAvg,
       ghgReducedAvg,
       ghgProducedAvg,
+      evGhgProducedAvg,
     },
 ) {
 
@@ -80,140 +81,97 @@ function DashboardContent(
   }];
 
   /* Graph Layouts */
-  const chartBgColor = '#213c5c';
-  const chartGridColor = '#5c5c5c';
-  const chartFontColor = '#FFFFFF';
-  let milesSavedPerDayLayout = {};
-  let defaultLayout = {};
-  let fuelAndDollarPerDayLayout = {};
-  let ghgReducedPerDayLayout = {};
+  let chartBgColor = '';
+  let chartGridColor = '';
+  let chartFontColor = '';
 
   if (userProfile.theme === 'dark') {
-    milesSavedPerDayLayout = {
-      autosize: true,
-      xaxis: {
-        range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
-        rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Miles Saved (miles)',
-        range: [0, Math.max(...milesSavedPerDay.distance)],
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-    defaultLayout = {
-      autosize: true,
-      showlegend: true,
-      paper_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-    fuelAndDollarPerDayLayout = {
-      autosize: true,
-      showlegend: true,
-      legend: {
-        orientation: 'h',
-        x: 0,
-        y: 1.3,
-      },
-      xaxis: {
-        range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
-        rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Fuel and Money saved',
-        range: [0, Math.max(...fuelSavedPerDay.price)],
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-    ghgReducedPerDayLayout = {
-      autosize: true,
-      xaxis: {
-        range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
-        rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'GHG Reduced (pounds)',
-        range: [0, Math.max(...ghgReducedPerDay.ghg)],
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
+    chartBgColor = '#213c5c';
+    chartGridColor = '#5c5c5c';
+    chartFontColor = '#FFFFFF';
   } else {
-    milesSavedPerDayLayout = {
-      autosize: true,
-      xaxis: {
-        range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
-        rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Miles Saved (miles)',
-        range: [0, Math.max(...milesSavedPerDay.distance)],
-        type: 'linear',
-      },
-    };
-    defaultLayout = {
-      autosize: true,
-      showlegend: true,
-    };
-    fuelAndDollarPerDayLayout = {
-      autosize: true,
-      showlegend: true,
-      legend: {
-        orientation: 'h',
-        x: 0,
-        y: 1.3,
-      },
-      xaxis: {
-        range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
-        rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Fuel and Money saved',
-        range: [0, Math.max(...fuelSavedPerDay.price)],
-        type: 'linear',
-      },
-    };
-    ghgReducedPerDayLayout = {
-      autosize: true,
-      xaxis: {
-        range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
-        rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'GHG Reduced (pounds)',
-        range: [0, Math.max(...ghgReducedPerDay.ghg)],
-        type: 'linear',
-      },
-    };
+    chartBgColor = '';
+    chartGridColor = '';
+    chartFontColor = '';
   }
+
+  const milesSavedPerDayLayout = {
+    autosize: true,
+    xaxis: {
+      range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
+      rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Miles Saved (miles)',
+      range: [0, Math.max(...milesSavedPerDay.distance)],
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+
+  const defaultLayout = {
+    autosize: true,
+    showlegend: true,
+    paper_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+
+  const fuelAndDollarPerDayLayout = {
+    autosize: true,
+    showlegend: true,
+    legend: {
+      orientation: 'h',
+      x: 0,
+      y: 1.3,
+    },
+    xaxis: {
+      range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
+      rangeslider: { range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[fuelSavedPerDay.length - 1]] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Fuel and Money saved',
+      range: [0, Math.max(...fuelSavedPerDay.price)],
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+
+  const ghgReducedPerDayLayout = {
+    autosize: true,
+    xaxis: {
+      range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
+      rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'GHG Reduced (pounds)',
+      range: [0, Math.max(...ghgReducedPerDay.ghg)],
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
 
   useEffect(() => {
     const generalCard = document.getElementsByClassName('general-card');
@@ -265,12 +223,9 @@ function DashboardContent(
           <DashboardGhgCard
               ghgProducedTotal={ghgProducedTotal}
               ghgReducedTotal={ghgReducedTotal}
-              ghgReducedAvgPerYear={ghgReducedAvg.year}
-              ghgReducedAvgPerMonth={ghgReducedAvg.month}
-              ghgReducedAvgPerDay={ghgReducedAvg.day}
-              ghgProducedAvgPerYear={ghgProducedAvg.year}
-              ghgProducedAvgPerMonth={ghgProducedAvg.month}
-              ghgProducedAvgPerDay={ghgProducedAvg.day}
+              ghgProducedAvg={ghgProducedAvg}
+              ghgReducedAvg={ghgReducedAvg}
+              evGhgProducedAvg={evGhgProducedAvg}
               userProfile={userProfile}
           />
           <DashboardTreeCard
@@ -310,7 +265,8 @@ function DashboardContent(
                 Fuel Saved per Day
               </Card.Header>
               <Card.Content>
-                <Chart chartData={[fuelSavedPerDayData, dollarSavedPerFuelData]} chartLayout={fuelAndDollarPerDayLayout}/>
+                <Chart chartData={[fuelSavedPerDayData, dollarSavedPerFuelData]}
+                       chartLayout={fuelAndDollarPerDayLayout}/>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -346,6 +302,7 @@ DashboardContent.propTypes = {
   fuelSpentAvg: PropTypes.object,
   ghgReducedAvg: PropTypes.object,
   ghgProducedAvg: PropTypes.object,
+  evGhgProducedAvg: PropTypes.object,
 };
 
 export default DashboardContent;

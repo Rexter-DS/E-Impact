@@ -56,8 +56,8 @@ class CommunityStats extends React.Component {
       vmtLayout = {
         autosize: true,
         xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
+          range: [startDate, endDate],
+          rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
           gridcolor: chartGridColor,
         },
@@ -171,7 +171,7 @@ class CommunityStats extends React.Component {
               <Statistic.Label className='community-statistic'>vehicle miles traveled (VMT) reduced</Statistic.Label>
             </Statistic>
             </Grid.Column>
-            <Grid.Column width={5}><Progress value={totalMilesSaved} total='200000' progress='percent'
+            <Grid.Column width={5}><Progress value={totalMilesSaved} total='200000'
                                              label="2021 GOAL: 200,000 VMT REDUCED" color="blue"/></Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -186,7 +186,7 @@ class CommunityStats extends React.Component {
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
-              <Progress value={totalFuelSaved} total='8000' progress='percent'
+              <Progress value={totalFuelSaved} total='8000'
                         label="2021 GOAL: 8,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -201,7 +201,7 @@ class CommunityStats extends React.Component {
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
-              <Progress value={totalGhgReduced} total='171000' progress='percent'
+              <Progress value={totalGhgReduced} total='171000'
                         label="2021 GOAL: 171,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
           </Grid.Row>
           <Grid.Row>

@@ -1,4 +1,9 @@
 {
+  "monti": {
+    "appId": "9HwjN7f9HhsojbcGc",
+    "appSecret": "bcb6e1f9-376c-48aa-b7a0-4ace1c10591d"
+  },
+
   "defaultAccounts": [
     { "county": "Honolulu", "first": "John", "last": "Smith", "email": "admin@foo.com", "password": "changeme", "role": "admin" },
     { "county": "Maui", "first": "Jake", "last": "Camarao", "email": "jcamarao@foo.com", "password": "changeme", "role": "admin" },
