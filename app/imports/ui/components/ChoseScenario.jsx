@@ -48,16 +48,16 @@ function ChoseScenario(
       } else if (type === 'Bike') {
         color = '#2ca02c';
       } else if (type === 'Walk') {
-        color = '#d62728';
-      } else if (type === 'Electric Vehicle') {
-        color = '#9467bd';
-      } else if (type === 'Gas Car') {
-        color = '#8c564b';
-      } else {
         color = '#e377c2';
+      } else if (type === 'Electric Vehicle') {
+        color = '#d62728';
+      } else if (type === 'Gas Car') {
+        color = '#9467bd';
+      } else {
+        color = '#8c564b';
       }
       return (color);
-    };
+    }
 
     // state for events in fullcalendar
     const [events, setEvents] = useState(() => _.map(milesSavedPerDay.date, function (date, i) {
@@ -148,7 +148,7 @@ function ChoseScenario(
         // store event state in array
         const eventArr = [...events];
         // update array with new event info
-        eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date };
+        eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date, color: colorType(transport) };
         // update state events with array
         setEvents(eventArr);
 
