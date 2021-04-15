@@ -16,6 +16,7 @@ function ChoseScenario(
         ghgProducedTotal,
         ghgReducedPerDay,
         fuelSavedPerDay,
+        test,
     },
 ) {
 
@@ -30,14 +31,14 @@ function ChoseScenario(
         mode: mode,
     })));
 
-    let nModesOfTransport = useRef(_.map(modesOfTransport.label, (mode, i) => ({
+    const nModesOfTransport = useRef(_.map(modesOfTransport.label, (mode, i) => ({
         label: mode,
         value: modesOfTransport.value[i],
     })));
 
     let nGHGProducedTotal = useRef(ghgProducedTotal);
 
-    function colorType (type) {
+    function colorType(type) {
       let color = '';
       if (type === 'Telework') {
         color = '#1f77b4';
@@ -115,62 +116,82 @@ function ChoseScenario(
 
         // update state selectEvent with event user selected on fullcalendar
         setSelectedEvent(() => ({ id: info.event.id, title: info.event.title, date: [year, month, day].join('-'), oldDateFormat: info.event.start }));
+        // console.log({ id: info.event.id, title: info.event.title, date: [year, month, day].join('-'), oldDateFormat: info.event.start });
         defaultData.current = false;
         isEventSelected.current = true;
     };
 
     // on clicking submit button, updates state events with new info
     const handleSubmit = (evt) => {
-        evt.preventDefault();
-        // check that event is selected to change
-        if (isEventSelected.current === true) {
-            // store event state in array
-            const eventArr = [...events];
-            // update array with new event info
-            eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date };
-            // update state events with array
-            setEvents(eventArr);
+      evt.preventDefault();
+      const modesOTV = [];
+      const modesOTL = [];
+      let modesOT = {};
+      let ghgProduced = 0;
+      const userMPG = userProfile.autoMPG;
+      const ghgPerGallon = 19.6;
+      // check that event is selected to change
+      if (isEventSelected.current === true) {
+        // store event state in array
+        const eventArr = [...events];
+        // update array with new event info
+        eventArr[selectedEvent.id] = { id: eventArr[selectedEvent.id].id, title: transport, date: selectedEvent.date };
+        // update state events with array
+        setEvents(eventArr);
 
-            // update nMilesSavedPerDay with new info
-            nMilesSavedPerDay.current[selectedEvent.id] = {
-                date: selectedEvent.oldDateFormat,
-                distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
-                mode: nMilesSavedPerDay.current[selectedEvent.id].mode,
-            };
+        // update nMilesSavedPerDay with new info
+        nMilesSavedPerDay.current[selectedEvent.id] = {
+            date: selectedEvent.oldDateFormat,
+            distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
+            mode: nMilesSavedPerDay.current[selectedEvent.id].mode,
+        };
 
-            // get index of original mode
-            const indexOfOldTransport = nModesOfTransport.current.findIndex(({ label }) => label === selectedEvent.title);
-            // decrement value of original mode
-            nModesOfTransport.current[indexOfOldTransport] = { label: nModesOfTransport.current[indexOfOldTransport].label, value: nModesOfTransport.current[indexOfOldTransport].value - 1 };
-            // get index of what if mode
-            const indexOfNewTransport = nModesOfTransport.current.findIndex(({ label }) => label === transport);
-            if (indexOfNewTransport === -1) {
-                nModesOfTransport.current.push({ label: transport, value: 1 });
-            } else {
-                // increment index of what if mode
-                nModesOfTransport.current[indexOfNewTransport] = {
-                    label: transport,
-                    value: nModesOfTransport.current[indexOfNewTransport].value + 1,
-                };
-            }
-
-            // update nGHGProducedTotal
-            // ! check for if user doesn't have autoMPG registered
-            let ghgProduced = 0;
-            const userMPG = userProfile.autoMPG;
-            const ghgPerGallon = 19.6;
-            _.forEach(nMilesSavedPerDay.current, function (objects) {
-                if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
-                    console.log(`distance: ${objects.distance}`);
-                    ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
-                    console.log(ghgProduced);
-                }
-            });
-            nGHGProducedTotal.current = ghgProduced;
-            console.log(nGHGProducedTotal);
+        // Changing MODES OF TRANSPORT (PIE GRAPH CHANGES).
+        // get index of original mode
+        const indexOfOldTransport = nModesOfTransport.current.findIndex(({ label }) => label === selectedEvent.title);
+        // decrement value of original mode
+        nModesOfTransport.current[indexOfOldTransport] = { label: nModesOfTransport.current[indexOfOldTransport].label, value: nModesOfTransport.current[indexOfOldTransport].value - 1 };
+        // get index of what if mode
+        const indexOfNewTransport = nModesOfTransport.current.findIndex(({ label }) => label === transport);
+        if (indexOfNewTransport === -1) {
+            nModesOfTransport.current.push({ label: transport, value: 1 });
         } else {
-            swal('Pick a date');
+          // increment index of what if mode
+          nModesOfTransport.current[indexOfNewTransport] = {
+            label: transport,
+            value: nModesOfTransport.current[indexOfNewTransport].value + 1,
+          };
         }
+        // console.log(nModesOfTransport);
+        // Code from TripCollection.js, lines 185-194 used to reformate the data for the charts.
+        _.forEach(nModesOfTransport.current, function (objects) {
+          modesOTV.push(objects.value);
+          modesOTL.push(objects.label);
+        });
+        modesOT = { value: modesOTV, label: modesOTL };
+        // FINISHED MODES OF TRANSPORT CHANGES.
+        // MILES SAVED & GHG PRODUCED
+        console.log(nMilesSavedPerDay);
+        // update nGHGProducedTotal
+        // ! check for if user doesn't have autoMPG registered
+
+        _.forEach(nMilesSavedPerDay.current, function (objects) {
+          if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
+            // console.log(`distance: ${objects.distance}`);
+            ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
+            // console.log(ghgProduced);
+            console.log(objects.mode);
+            console.log(`${ghgProduced} = ((${objects.distance} / ${userMPG}) * ${ghgPerGallon})`);
+          }
+        });
+        nGHGProducedTotal.current = ghgProduced;
+        // console.log(nGHGProducedTotal);
+        // sets the selected event to the change in case of additional changes before selecting a new event.
+        setSelectedEvent(() => ({ id: selectedEvent.id, title: transport, date: selectedEvent.date, oldDateFormat: selectedEvent.oldDateFormat }));
+      } else {
+          swal('Pick a date');
+      }
+      test(milesSavedPerDay, modesOT, ghgReducedPerDay, fuelSavedPerDay);
     };
 
     // updates selected state transport
@@ -260,6 +281,7 @@ ChoseScenario.propTypes = {
     ghgProducedTotal: PropTypes.string,
     ghgReducedPerDay: PropTypes.object,
     fuelSavedPerDay: PropTypes.object,
+    test: PropTypes.func,
 };
 
 export default ChoseScenario;
