@@ -25,7 +25,7 @@ function ChoseScenario(
     const isEventSelected = useRef(false);
 
     // change to useState()
-    let nMilesSavedPerDay = useRef(_.map(milesSavedPerDay.mode, (mode, i) => ({
+    const nMilesSavedPerDay = useRef(_.map(milesSavedPerDay.mode, (mode, i) => ({
         date: milesSavedPerDay.date[i],
         distance: milesSavedPerDay.distance[i],
         mode: mode,
@@ -36,7 +36,7 @@ function ChoseScenario(
         value: modesOfTransport.value[i],
     })));
 
-    let nGHGProducedTotal = useRef(ghgProducedTotal);
+    const nGHGProducedTotal = useRef(ghgProducedTotal);
 
     function colorType(type) {
       let color = '';
@@ -128,6 +128,18 @@ function ChoseScenario(
       const modesOTL = [];
       let modesOT = {};
       let ghgProduced = 0;
+      let ghgReduced = 0;
+      const milesSPDDate = [];
+      const milesSPDDistance = [];
+      const milesSPDM = [];
+      let milesSPD = {};
+      const ghgRPDD = [];
+      const ghgRPDG = [];
+      let ghgRPD = {};
+      const fuelSPDD = [];
+      const fuelSPDF = [];
+      const fuelSPDP = [];
+      let fuelSPD = {};
       const userMPG = userProfile.autoMPG;
       const ghgPerGallon = 19.6;
       // check that event is selected to change
@@ -171,27 +183,56 @@ function ChoseScenario(
         modesOT = { value: modesOTV, label: modesOTL };
         // FINISHED MODES OF TRANSPORT CHANGES.
         // MILES SAVED & GHG PRODUCED
-        console.log(nMilesSavedPerDay);
         // update nGHGProducedTotal
         // ! check for if user doesn't have autoMPG registered
-
+        // Get date of original selected event.
+        const indexOfOldMiles = nMilesSavedPerDay.current.findIndex(({ date }) => date === selectedEvent.oldDateFormat);
+        nMilesSavedPerDay.current[indexOfOldMiles] = {
+          date: selectedEvent.oldDateFormat,
+          distance: nMilesSavedPerDay.current[selectedEvent.id].distance,
+          mode: transport,
+        };
+        _.forEach(nMilesSavedPerDay.current, function (objects) {
+          milesSPDDate.push(objects.date);
+          milesSPDDistance.push(objects.distance);
+          milesSPDM.push(objects.mode);
+        });
+        milesSPD = { date: milesSPDDate, distance: milesSPDDistance, mode: milesSPDM };
+        // If event produced miles & ghg
         _.forEach(nMilesSavedPerDay.current, function (objects) {
           if (objects.mode === 'Gas Car' || objects.mode === 'Carpool') {
             // console.log(`distance: ${objects.distance}`);
             ghgProduced += ((objects.distance / userMPG) * ghgPerGallon);
+            ghgRPDD.push(objects.date);
+            ghgRPDG.push(0);
+            fuelSPDD.push(objects.date);
+            fuelSPDF.push(0);
+            fuelSPDP.push(((objects.distance / userMPG) * 3.77).toFixed(2));
             // console.log(ghgProduced);
-            console.log(objects.mode);
-            console.log(`${ghgProduced} = ((${objects.distance} / ${userMPG}) * ${ghgPerGallon})`);
+            // console.log(objects.mode);
+            // console.log(`${ghgProduced} = ((${objects.distance} / ${userMPG}) * ${ghgPerGallon})`);
+          } else {
+            ghgReduced += ((objects.distance / userMPG) * ghgPerGallon);
+            ghgRPDD.push(objects.date);
+            ghgRPDG.push(((objects.distance / userMPG) * ghgPerGallon).toFixed(2));
+            fuelSPDD.push(objects.date);
+            fuelSPDF.push((objects.distance / userMPG).toFixed(2));
+            fuelSPDP.push(((objects.distance / userMPG) * 3.77).toFixed(2));
           }
         });
+        // If event reduced miles & ghg
+        ghgRPD = { date: ghgRPDD, ghg: ghgRPDG };
+        fuelSPD = { date: fuelSPDD, fuel: fuelSPDF, price: fuelSPDP };
         nGHGProducedTotal.current = ghgProduced;
+        console.log(ghgReduced);
+        console.log(milesSPD);
         // console.log(nGHGProducedTotal);
         // sets the selected event to the change in case of additional changes before selecting a new event.
         setSelectedEvent(() => ({ id: selectedEvent.id, title: transport, date: selectedEvent.date, oldDateFormat: selectedEvent.oldDateFormat }));
       } else {
           swal('Pick a date');
       }
-      test(milesSavedPerDay, modesOT, ghgReducedPerDay, fuelSavedPerDay);
+      test(milesSPD, modesOT, ghgRPD, fuelSPD);
     };
 
     // updates selected state transport

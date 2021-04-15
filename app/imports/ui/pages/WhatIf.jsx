@@ -22,6 +22,7 @@ function WhatIf(
         fuelSavedPerDay,
     },
 ) {
+  console.log(milesSavedPerDay);
   const [milesSavedPerDayWI, setMSPDWI] = useState();
   const [modesOfTransportWI, setMOTDWI] = useState();
   const [ghgReducedPerDayWI, setGRPDWI] = useState();
