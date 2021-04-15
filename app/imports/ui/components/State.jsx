@@ -1,217 +1,45 @@
 import React, { useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Card, Grid, Icon, Progress, Statistic, Modal, Button } from 'semantic-ui-react';
 import { _ } from 'lodash';
 import moment from 'moment';
+import { Button, Card, Grid, Icon, Modal, Progress, Statistic } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
 import Chart from './Chart';
 import { Users } from '../../api/user/UserCollection';
+import { getStateData } from '../../api/utilities/Utilities';
 
 function State(props) {
-  const nonCarArr = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().map(function (element) {
-    element.fuelSaved = element.distance / element.mpg;
-    element.ghgSaved = element.fuelSaved * 19.6;
-    return element;
-  });
-
-  const nonCarData = nonCarArr.reduce(function (m, d) {
-    if (!m[d.date]) {
-      m[d.date] = { ...d, count: 1 };
-      return m;
-    }
-    m[d.date].distance += d.distance;
-    m[d.date].fuelSaved += d.fuelSaved;
-    m[d.date].ghgSaved += d.ghgSaved;
-    m[d.date].count += 1;
-    return m;
-  }, {});
-
-  const nonCarByDay = Object.keys(nonCarData).map(function (k) {
-    const item = nonCarData[k];
-    return {
-      date: item.date,
-      distance: item.distance,
-      fuelSaved: (item.fuelSaved).toFixed(2),
-      ghgSaved: (item.ghgSaved).toFixed(2),
-    };
-  });
-
-  const carArr = Trips.find({ mode: 'Gas Car' }).fetch().map(function (element) {
-    element.fuelUsed = element.distance / element.mpg;
-    element.ghgProduced = element.fuelUsed * 19.6;
-    return element;
-  });
-
-  const carData = carArr.reduce(function (m, d) {
-    if (!m[d.date]) {
-      m[d.date] = { ...d, count: 1 };
-      return m;
-    }
-    m[d.date].distance += d.distance;
-    m[d.date].fuelUsed += d.fuelUsed;
-    m[d.date].ghgProduced += d.ghgProduced;
-    m[d.date].count += 1;
-    return m;
-  }, {});
-
-  const carByDay = Object.keys(carData).map(function (k) {
-    const item = carData[k];
-    return {
-      date: item.date,
-      distance: item.distance,
-      fuelUsed: (item.fuelUsed).toFixed(2),
-      ghgProduced: (item.ghgProduced).toFixed(2),
-    };
-  });
-
-  const dates = _.map(nonCarByDay, 'date');
-  const formattedDates = dates.map((date) => moment(date).format('YYYY-MM-DD'));
-  const dates2 = _.map(carByDay, 'date');
-  const formattedDates2 = dates2.map((date) => moment(date).format('YYYY-MM-DD'));
-  const milesReduced = _.map(nonCarByDay, 'distance');
-  const milesProduced = _.map(carByDay, 'distance');
-  const fuelSavedByDay = _.map(nonCarByDay, 'fuelSaved');
-  const fuelUsedByDay = _.map(carByDay, 'fuelUsed');
-  const ghgSavedByDay = _.map(nonCarByDay, 'ghgSaved');
-  const ghgProducedByDay = _.map(carByDay, 'ghgProduced');
+  const data = getStateData();
+  const totalUsers = data.totalUsers;
+  const totalMilesSaved = data.totalMilesSaved;
+  const totalFuelUsed = data.totalFuelUsed;
+  const totalFuelSaved = data.totalFuelSaved;
+  const totalGhgProduced = data.totalGhgProduced;
+  const totalGhgReduced = data.totalGhgReduced;
+  const modeDistribution = data.modeDistribution;
+  const vmtData = data.vmtData;
+  const fuelData = data.fuelData;
+  const ghgData = data.ghgData;
+  const vmtReducedCounties = data.vmtReducedCounties;
+  const vmtProducedCounties = data.vmtProducedCounties;
+  const fuelSavedCounties = data.fuelSavedCounties;
+  const fuelUsedCounties = data.fuelUsedCounties;
+  const ghgSavedCounties = data.ghgSavedCounties;
+  const ghgProducedCounties = data.ghgProducedCounties;
 
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
 
-  const totalUsers = Meteor.users.find().count();
-
-  const carDistances = _.map(Trips.find({ mode: 'Gas Car' }).fetch(), 'distance');
-  const carMpgs = _.map(Trips.find({ mode: 'Gas Car' }).fetch(), 'mpg');
-  const fuelUsed = _.zipWith(carDistances, carMpgs, (distance, mpg) => distance / mpg);
-  const totalFuelUsed = _.sum(fuelUsed).toFixed(2);
-  const totalGhgProduced = (totalFuelUsed * 19.6).toFixed(2);
-
-  const otherDistances = _.map(Trips.find({ mode: { $not: 'Gas Car' } }).fetch(), 'distance');
-  const totalMilesSaved = _.sum(otherDistances).toFixed(2);
-  const otherMpgs = _.map(Trips.find({ mode: { $not: 'Gas Car' } }).fetch(), 'mpg');
-  const fuelSaved = _.zipWith(otherDistances, otherMpgs, (distance, mpg) => distance / mpg);
-
-  const totalFuelSaved = _.sum(fuelSaved).toFixed(2);
-  const totalGhgReduced = (totalFuelSaved * 19.6).toFixed(2);
-
-  const bikeCount = _.size(Trips.find({ mode: 'Bike' }).fetch());
-  const carpoolCount = _.size(Trips.find({ mode: 'Carpool' }).fetch());
-  const evCount = _.size(Trips.find({ mode: 'Electric Vehicle' }).fetch());
-  const carCount = _.size(Trips.find({ mode: 'Gas Car' }).fetch());
-  const ptCount = _.size(Trips.find({ mode: 'Public Transportation' }).fetch());
-  const teleworkCount = _.size(Trips.find({ mode: 'Telework' }).fetch());
-  const walkCount = _.size(Trips.find({ mode: 'Walk' }).fetch());
-
-  const modeDistribution = [{
-    type: 'pie',
-    hole: 0.4,
-    values: [bikeCount, carpoolCount, evCount, carCount, ptCount, teleworkCount, walkCount],
-    labels: ['Bike', 'Carpool', 'Electric Vehicle', 'Gas Car', 'Public Transportation', 'Telework', 'Walk'],
-    hoverinfo: 'label+percent',
-    textposition: 'inside',
-  }];
-
-  const vmtReduced =
-      {
-        x: formattedDates,
-        y: milesReduced,
-        stackgroup: 'one',
-        name: 'Reduced',
-      };
-
-  const vmtProduced =
-      {
-        x: formattedDates2,
-        y: milesProduced,
-        stackgroup: 'one',
-        name: 'Produced',
-      };
-
-  const vmtData = [vmtReduced, vmtProduced];
-
-  const fuelSavings =
-      {
-        x: formattedDates,
-        y: fuelSavedByDay,
-        stackgroup: 'one',
-        name: 'Saved',
-      };
-
-  const fuelUsage =
-      {
-        x: formattedDates2,
-        y: fuelUsedByDay,
-        stackgroup: 'one',
-        name: 'Used',
-      };
-
-  const fuelData = [fuelSavings, fuelUsage];
-
-  const ghgSavings =
-      {
-        x: formattedDates,
-        y: ghgSavedByDay,
-        stackgroup: 'one',
-        name: 'Saved',
-      };
-
-  const ghgProduction =
-      {
-        x: formattedDates2,
-        y: ghgProducedByDay,
-        stackgroup: 'one',
-        name: 'Produced',
-      };
-
-  const ghgData = [ghgSavings, ghgProduction];
-
-  const vmtHawaii =
-      {
-        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
-        y: [15, 13, 14, 15, 13],
-        stackgroup: 'one',
-        name: 'Hawaii',
-      };
-
-  const vmtHonolulu =
-      {
-        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
-        y: [25, 20, 23, 26, 24],
-        stackgroup: 'one',
-        name: 'Honolulu',
-      };
-  const vmtKalawao =
-      {
-        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
-        y: [10, 11, 10, 11, 11],
-        stackgroup: 'one',
-        name: 'Kalawao',
-      };
-
-  const vmtKauai =
-      {
-        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
-        y: [20, 18, 15, 17, 22],
-        stackgroup: 'one',
-        name: 'Kauai',
-      };
-
-  const vmtMaui =
-      {
-        x: ['2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05'],
-        y: [14, 13, 18, 15, 13],
-        stackgroup: 'one',
-        name: 'Maui',
-      };
-
-  const vmtCounties = [vmtHawaii, vmtHonolulu, vmtKalawao, vmtKauai, vmtMaui];
+ const endDate = moment().format('YYYY-MM-DD');
+ const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
 
   /* Graph Layouts */
   const chartBgColor = '#213c5c';
   const chartGridColor = '#5c5c5c';
+  let layout = {};
   let modeLayout = {};
   let vmtLayout = {};
   let fuelLayout = {};
@@ -229,7 +57,8 @@ function State(props) {
     vmtLayout = {
       autosize: true,
       xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
         type: 'date',
         gridcolor: chartGridColor,
       },
@@ -247,7 +76,8 @@ function State(props) {
     fuelLayout = {
       autosize: true,
       xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
         type: 'date',
         gridcolor: chartGridColor,
       },
@@ -265,7 +95,8 @@ function State(props) {
     ghgLayout = {
       autosize: true,
       xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
         type: 'date',
         gridcolor: chartGridColor,
       },
@@ -274,6 +105,16 @@ function State(props) {
         type: 'linear',
         gridcolor: chartGridColor,
       },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: '#FFFFFF',
+      },
+    };
+   layout = {
+      autosize: true,
+      showlegend: true,
+      barmode: 'group',
       paper_bgcolor: chartBgColor,
       plot_bgcolor: chartBgColor,
       font: {
@@ -288,7 +129,8 @@ function State(props) {
     vmtLayout = {
       autosize: true,
       xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
         type: 'date',
       },
       yaxis: {
@@ -299,7 +141,8 @@ function State(props) {
     fuelLayout = {
       autosize: true,
       xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
         type: 'date',
       },
       yaxis: {
@@ -310,13 +153,20 @@ function State(props) {
     ghgLayout = {
       autosize: true,
       xaxis: {
-        rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
         type: 'date',
       },
       yaxis: {
         title: 'Pounds of CO2',
         type: 'linear',
       },
+    };
+    layout = {
+      autosize: true,
+      showlegend: true,
+      barmode: 'group',
+
     };
   }
 
@@ -348,6 +198,89 @@ function State(props) {
     }
   }, [props]);
 
+   const ed = moment();
+ const sd = moment().subtract(30, 'd');
+ const result = Trips.find({ mode: { $not: 'Gas Car' } }).fetch().filter(d => {
+   const date = new Date(d.date);
+ return (sd < date && date < ed);
+   });
+  const totalDays = ed.diff(sd, 'days') + 1;
+  const resultDistances = _.map(result, 'distance');
+ const resultMpgs = _.map(result, 'mpg');
+  const resultFuelSaved = _.zipWith(resultDistances, resultMpgs, (distance, mpg) => distance / mpg);
+ const resultGhgSaved = resultFuelSaved.map(i => i * 19.6);
+  const avgMilesReduced = (_.sum(resultDistances) / totalDays / totalUsers).toFixed(2);
+ const avgFuelSaved = (_.sum(resultFuelSaved) / totalDays / totalUsers).toFixed(2);
+ const avgGhgSaved = (_.sum(resultGhgSaved) / totalDays / totalUsers).toFixed(2);
+
+  const myNonCarTrips = Trips.find({ owner: Meteor.user()?.username, mode: { $not: 'Gas Car' } }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const myNonCarDistances = _.map(myNonCarTrips, 'distance');
+  const myNonCarMpgs = _.map(myNonCarTrips, 'mpg');
+  const myFuelSaved = _.zipWith(myNonCarDistances, myNonCarMpgs, (distance, mpg) => distance / mpg);
+  const myGhgReduced = myFuelSaved.map(i => i * 19.6);
+  const myAvgMilesReduced = (_.sum(myNonCarDistances) / totalDays).toFixed(2);
+  const myAvgFuelSaved = (_.sum(myFuelSaved) / totalDays).toFixed(2);
+  const myAvgGhgReduced = (_.sum(myGhgReduced) / totalDays).toFixed(2);
+
+  const AvgSaved = {
+    x: ['VMT Reduced', 'Fuel Saved', 'GHG Reduced'],
+    y: [avgMilesReduced, avgFuelSaved, avgGhgSaved],
+    name: 'Mean',
+    type: 'bar',
+  };
+
+  const userAvgSaved = {
+    x: ['VMT Reduced', 'Fuel Saved', 'GHG Reduced'],
+    y: [myAvgMilesReduced, myAvgFuelSaved, myAvgGhgReduced],
+    name: 'My Average',
+    type: 'bar',
+  };
+
+  const dataReduced = [AvgSaved, userAvgSaved];
+
+  const result2 = Trips.find({ mode: 'Gas Car' }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const resultDistances2 = _.map(result2, 'distance');
+  const resultMpgs2 = _.map(result2, 'mpg');
+  const resultFuelUsed = _.zipWith(resultDistances2, resultMpgs2, (distance, mpg) => distance / mpg);
+  const resultGhgProduced = resultFuelUsed.map(i => i * 19.6);
+  const avgMilesProduced = (_.sum(resultDistances2) / totalDays / totalUsers).toFixed(2);
+  const avgFuelUsed = (_.sum(resultFuelUsed) / totalDays / totalUsers).toFixed(2);
+  const avgGhgProduced = (_.sum(resultGhgProduced) / totalDays / totalUsers).toFixed(2);
+
+  const myCarTrips = Trips.find({ owner: Meteor.user()?.username, mode: 'Gas Car' }).fetch().filter(d => {
+    const date = new Date(d.date);
+    return (sd < date && date < ed);
+  });
+  const myCarDistances = _.map(myCarTrips, 'distance');
+  const myCarMpgs = _.map(myCarTrips, 'mpg');
+  const myFuelUsed = _.zipWith(myCarDistances, myCarMpgs, (distance, mpg) => distance / mpg);
+  const myGhgProduced = myFuelUsed.map(i => i * 19.6);
+  const myAvgMilesProduced = (_.sum(myCarDistances) / totalDays).toFixed(2);
+  const myAvgFuelUsed = (_.sum(myFuelUsed) / totalDays).toFixed(2);
+  const myAvgGhgProduced = (_.sum(myGhgProduced) / totalDays).toFixed(2);
+
+  const AvgProduced = {
+    x: ['VMT Produced', 'Fuel Used', 'GHG Produced'],
+    y: [avgMilesProduced, avgFuelUsed, avgGhgProduced],
+    name: 'Mean',
+    type: 'bar',
+  };
+
+  const userAvgProduced = {
+    x: ['VMT Produced', 'Fuel Used', 'GHG Produced'],
+    y: [myAvgMilesProduced, myAvgFuelUsed, myAvgGhgProduced],
+    name: 'My Average',
+    type: 'bar',
+  };
+
+  const dataProduced = [AvgProduced, userAvgProduced];
+
   return (
       <Grid centered>
         <Grid.Row>
@@ -368,8 +301,8 @@ function State(props) {
           </Statistic>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Progress value={totalMilesSaved} total='20000' progress='percent'
-                      label="2021 GOAL: 100,000 VMT REDUCED" color="blue"/></Grid.Column>
+            <Progress value={totalMilesSaved} total='1000000' progress='percent'
+                      label="2021 GOAL: 1,000,000 VMT REDUCED" color="blue"/></Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={3} textAlign='center'> <Statistic color="red">
@@ -383,8 +316,8 @@ function State(props) {
           </Statistic>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Progress value={totalFuelSaved} total='1000' progress='percent'
-                      label="2021 GOAL: 5,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
+            <Progress value={totalFuelSaved} total='43000' progress='percent'
+                      label="2021 GOAL: 43,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={3} textAlign='center'> <Statistic color="red">
@@ -398,8 +331,8 @@ function State(props) {
           </Statistic>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Progress value={totalGhgReduced} total='10000' progress='percent'
-                      label="2021 GOAL: 50,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
+            <Progress value={totalGhgReduced} total='858000' progress='percent'
+                      label="2021 GOAL: 858,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={7}>
@@ -421,9 +354,6 @@ function State(props) {
               </Card.Header>
               <Card.Content>
                 <Chart chartData={vmtData} chartLayout={vmtLayout}/>
-
-
-
                 <Modal
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
@@ -436,21 +366,21 @@ function State(props) {
                       <Grid.Row>
                         <Grid.Column width={8}>
                           <Card fluid>
-                            <Card.Header>
+                            <Card.Header className='community-card-header'>
                               VMT Reduced By County
                             </Card.Header>
                             <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
+                              <Chart chartData={vmtReducedCounties} chartLayout={vmtLayout}/>
                             </Card.Content>
                           </Card>
                         </Grid.Column>
                         <Grid.Column width={8}>
                           <Card fluid>
-                            <Card.Header>
+                            <Card.Header className='community-card-header'>
                               VMT Produced By County
                             </Card.Header>
                             <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={vmtLayout}/>
+                              <Chart chartData={vmtProducedCounties} chartLayout={vmtLayout}/>
                             </Card.Content>
                           </Card>
                         </Grid.Column>
@@ -458,8 +388,6 @@ function State(props) {
                     </Grid>
                   </Modal.Content>
                 </Modal>
-
-
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -488,7 +416,7 @@ function State(props) {
                               Fuel Saved By County
                             </Card.Header>
                             <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
+                              <Chart chartData={fuelSavedCounties} chartLayout={fuelLayout}/>
                             </Card.Content>
                           </Card>
                         </Grid.Column>
@@ -498,7 +426,7 @@ function State(props) {
                               Fuel Used By County
                             </Card.Header>
                             <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={fuelLayout}/>
+                              <Chart chartData={fuelUsedCounties} chartLayout={fuelLayout}/>
                             </Card.Content>
                           </Card>
                         </Grid.Column>
@@ -532,7 +460,7 @@ function State(props) {
                               GHG Reduced By County
                             </Card.Header>
                             <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
+                              <Chart chartData={ghgSavedCounties} chartLayout={ghgLayout}/>
                             </Card.Content>
                           </Card>
                         </Grid.Column>
@@ -542,7 +470,7 @@ function State(props) {
                               GHG Produced By County
                             </Card.Header>
                             <Card.Content>
-                              <Chart chartData={vmtCounties} chartLayout={ghgLayout}/>
+                              <Chart chartData={ghgProducedCounties} chartLayout={ghgLayout}/>
                             </Card.Content>
                           </Card>
                         </Grid.Column>
@@ -550,6 +478,30 @@ function State(props) {
                     </Grid>
                   </Modal.Content>
                 </Modal>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid.Row>
+     <Grid.Row>
+          <Grid.Column width={7}>
+            <Card fluid className='community-card'>
+              <Card.Header className='community-card-header'>
+                Average from the last 30 days
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={dataReduced} chartLayout={layout}/>
+                * Mean was calculated from all user averages
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={7}>
+            <Card fluid className='community-card'>
+              <Card.Header className='community-card-header'>
+                Average from the last 30 days
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={dataProduced} chartLayout={layout}/>
+                * Mean was calculated from all user averages
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -579,40 +531,12 @@ export default withTracker(() => {
   };
 })(State);
 
-/* var data = [
-  {date:"2020-04-09",distance:1, mpg:1},
-  {date:"2020-04-09",distance:1, mpg:3},
-  {date:"2020-04-09",distance:1, mpg:1},
-  {date:"2020-04-10",distance:1, mpg:1},
-  {date:"2020-04-10",distance:1, mpg:1}
-]
-
-data.map((element) => {
-  return element.fuel = element.distance/element.mpg;
-});
-data.map((element) => {
-  return element.ghg = element.fuel*19.6
-});
-
-const reduced = data.reduce(function(m, d){
-  if(!m[d.date]){
-    m[d.date] = {...d, count: 1};
-    return m;
-  }
-  m[d.date].distance += d.distance;
-  m[d.date].fuel += d.fuel;
-  m[d.date].ghg += d.ghg;
-  m[d.date].count += 1;
-  return m;
-},{});
-
-// Create new array from grouped data and compute the average
-const result = Object.keys(reduced).map(function(k){
-  const item  = reduced[k];
-  return {
-    date: item.date,
-    distance: item.distance,
-    fuel: (item.fuel).toFixed(2),
-    ghg: (item.ghg).toFixed(2),
-  }
-}) */
+/*
+ db.TripsCollection.find({"date":{ $gte:ISODate("2021-04-10"), $lt:ISODate("2021-04-15") } }).pretty();
+{resultDistances2} <br/>
+{count}<br/>
+{resultMpgs2}<br/>
+fuel: {avgFuelUsed}<br/>
+miles: {avgMilesProduced}<br/>
+ghg: {avgGhgProduced}
+*/

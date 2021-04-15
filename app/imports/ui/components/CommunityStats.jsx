@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import { Card, Grid, Icon, Loader, Progress, Statistic } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -20,17 +21,20 @@ class CommunityStats extends React.Component {
 
   renderPage() {
     const county = this.props.county;
-    const hawaiiData = getCountyData(county);
-    const totalUsers = hawaiiData.totalUsers;
-    const totalMilesSaved = hawaiiData.totalMilesSaved;
-    const totalFuelUsed = hawaiiData.totalFuelUsed;
-    const totalFuelSaved = hawaiiData.totalFuelSaved;
-    const totalGhgProduced = hawaiiData.totalGhgProduced;
-    const totalGhgReduced = hawaiiData.totalGhgReduced;
-    const modeDistribution = hawaiiData.modeDistribution;
-    const vmtData = hawaiiData.vmtData;
-    const fuelData = hawaiiData.fuelData;
-    const ghgData = hawaiiData.ghgData;
+    const countyData = getCountyData(county);
+    const totalUsers = countyData.totalUsers;
+    const totalMilesSaved = countyData.totalMilesSaved;
+    const totalFuelUsed = countyData.totalFuelUsed;
+    const totalFuelSaved = countyData.totalFuelSaved;
+    const totalGhgProduced = countyData.totalGhgProduced;
+    const totalGhgReduced = countyData.totalGhgReduced;
+    const modeDistribution = countyData.modeDistribution;
+    const vmtData = countyData.vmtData;
+    const fuelData = countyData.fuelData;
+    const ghgData = countyData.ghgData;
+
+    const endDate = moment().format('YYYY-MM-DD');
+    const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
 
     /* Graph Layouts */
     const chartBgColor = '#213c5c';
@@ -52,7 +56,8 @@ class CommunityStats extends React.Component {
       vmtLayout = {
         autosize: true,
         xaxis: {
-          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
           gridcolor: chartGridColor,
         },
@@ -70,7 +75,8 @@ class CommunityStats extends React.Component {
       fuelLayout = {
         autosize: true,
         xaxis: {
-          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          range: [startDate, endDate],
+          rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
           gridcolor: chartGridColor,
         },
@@ -88,7 +94,8 @@ class CommunityStats extends React.Component {
       ghgLayout = {
         autosize: true,
         xaxis: {
-          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          range: [startDate, endDate],
+          rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
           gridcolor: chartGridColor,
         },
@@ -111,7 +118,8 @@ class CommunityStats extends React.Component {
       vmtLayout = {
         autosize: true,
         xaxis: {
-          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          range: [startDate, endDate],
+          rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
         },
         yaxis: {
@@ -122,7 +130,8 @@ class CommunityStats extends React.Component {
       fuelLayout = {
         autosize: true,
         xaxis: {
-          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          range: [startDate, endDate],
+          rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
         },
         yaxis: {
@@ -133,7 +142,8 @@ class CommunityStats extends React.Component {
       ghgLayout = {
         autosize: true,
         xaxis: {
-          rangeslider: { range: ['2020-01-01', '2021-12-31'] },
+          range: [startDate, endDate],
+          rangeslider: { range: ['2020-12-31', endDate] },
           type: 'date',
         },
         yaxis: {
@@ -146,7 +156,7 @@ class CommunityStats extends React.Component {
     return (
         <Grid centered>
           <Grid.Row>
-            <Grid.Column as="h2" textAlign='center'>Hawaii County</Grid.Column>
+            <Grid.Column as="h2" textAlign='center'>{county} County</Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3} textAlign='center'> <Statistic>
@@ -161,8 +171,8 @@ class CommunityStats extends React.Component {
               <Statistic.Label className='community-statistic'>vehicle miles traveled (VMT) reduced</Statistic.Label>
             </Statistic>
             </Grid.Column>
-            <Grid.Column width={5}><Progress value={totalMilesSaved} total='20000' progress='percent'
-                                             label="2021 GOAL: 20,000 VMT REDUCED" color="blue"/></Grid.Column>
+            <Grid.Column width={5}><Progress value={totalMilesSaved} total='200000' progress='percent'
+                                             label="2021 GOAL: 200,000 VMT REDUCED" color="blue"/></Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3} textAlign='center'> <Statistic color="red">
@@ -176,8 +186,8 @@ class CommunityStats extends React.Component {
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
-              <Progress value={totalFuelSaved} total='1000' progress='percent'
-                        label="2021 GOAL: 1,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
+              <Progress value={totalFuelSaved} total='8000' progress='percent'
+                        label="2021 GOAL: 8,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3} textAlign='center'> <Statistic color="red">
@@ -191,8 +201,8 @@ class CommunityStats extends React.Component {
             </Statistic>
             </Grid.Column>
             <Grid.Column width={5}>
-              <Progress value={totalGhgReduced} total='10000' progress='percent'
-                        label="2021 GOAL: 10,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
+              <Progress value={totalGhgReduced} total='171000' progress='percent'
+                        label="2021 GOAL: 171,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={7}>
