@@ -25,7 +25,7 @@ class NavBar extends React.Component {
               <a className='fake-menu-item' href={'#/get-involved'}><p>Get Involved</p></a>
             </Menu.Item>
             <Menu.Item>
-              <a className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
+              <a id="sign-in-button" className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
             </Menu.Item>
           </Menu>
         </div>

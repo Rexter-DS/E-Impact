@@ -4,12 +4,13 @@ import { Meteor } from 'meteor/meteor';
 import { Menu, Button, Table, Grid, Loader, Icon, Statistic } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { useParams } from 'react-router-dom';
 import SideBar from '../components/SideBar';
 import { Trips, tripPublications } from '../../api/trip/TripCollection';
+import TripItemAdmin from '../components/TripItemAdmin';
 import { Users } from '../../api/user/UserCollection';
-import TripItem from '../components/TripItem';
 
-const Daily = (props) => {
+const AdminDaily = (props) => {
   const monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const today = new Date();
   const [currentMonthYr, setCurrentMonthYr] = useState([today.getMonth(), today.getFullYear()]);
@@ -18,7 +19,7 @@ const Daily = (props) => {
   for (let i = 0; i < monthTrips.length; i++) {
     const tripMpg = monthTrips[i].mpg > 0 ? monthTrips[i].mpg : 25;
     const add = (monthTrips[i].distance / tripMpg) * 19.6;
-    if (!isNaN(add) && isFinite(add)) {
+    if (!Number.isNaN(add) && Number.isFinite(add)) {
       if (monthTrips[i].mode === 'Gas Car' || monthTrips[i].mode === 'Carpool') {
         monthlySum += add;
       } else {
@@ -58,7 +59,6 @@ const Daily = (props) => {
     return val;
   }
 
-  /* Styling */
   useEffect(() => {
     if (props.userReady && (document.getElementById('daily-container'))) {
       const dailyArrows = document.getElementsByClassName('daily-arrow-button');
@@ -100,94 +100,86 @@ const Daily = (props) => {
     }
   }, [props]);
 
-  return (!props.ready || !props.userReady) ? <Loader active>Loading data</Loader> :
-      (
-          <div id='daily-container'>
-            <SideBar theme={props.userProfile.theme}/>
-            <Menu borderless
-                  id="daily-top">
-              <Grid className={'middle aligned'} style={{ width: '100%', marginLeft: '25px' }}>
-                <Grid.Column width={1} verticalAlign='middle'>
-                  <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickPrev}>
-                    <Button.Content visible><Icon size='large' className='angle left'/></Button.Content>
-                    <Button.Content hidden>
-                      Prev
-                    </Button.Content>
-                  </Button>
-                </Grid.Column>
-                <Grid.Column width={3} verticalAlign='middle'>
-                  <Button size='massive' id={'daily-date-button'} animated={'fade'} onClick={handleClickToday}
-                          fluid>
-                    <Button.Content visible
-                                    style={{ fontSize: '30px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
-                    <Button.Content hidden>
-                      Go to current month
-                    </Button.Content>
-                  </Button>
-                </Grid.Column>
-                <Grid.Column width={1} verticalAlign='middle'>
-                  <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickNext}>
-                    <Button.Content visible><Icon size='large' className='angle right'/></Button.Content>
-                    <Button.Content hidden>
-                      Next
-                    </Button.Content>
-                  </Button>
-                </Grid.Column>
-                <Grid.Column width={4} textAlign='center'>
-                  <Statistic size='small' color={monthlySumColor}>
-                    <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
-                    <Statistic.Label id='daily-statistic-label'>
-                      {monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs Produced' : 'lbs Reduced'}</Statistic.Label>
-                  </Statistic>
-                </Grid.Column>
-                <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
-                  <Button id='daily-add-button' href={'#/addTrip'}>Add</Button>
-                </Menu.Item>
-              </Grid>
-            </Menu>
-            <Table fixed
-                   className='daily-table'>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>Mode of Transportation</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>Distance</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>mpg</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>Net Gallons</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>Net GHG</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>Delete Trip</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'></Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body className='daily-table'>
-                {monthTrips.map((trip) => <TripItem key={trip._id} trip={trip}/>)}
-                <Table.Row>
-                  <Table.Cell>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
-              </Table.Body>
-            </Table>
-          </div>
-      );
-};
+  return !props.ready ? <Loader active>Loading data</Loader> :
+        (
+            <div id='daily-container'
+                 style={{ marginLeft: '150px' }}>
+              <SideBar theme={props.userProfile.theme}/>
+              <Menu borderless
+                    id="daily-top">
+                <Grid className={'middle aligned'} style={{ width: '100%', marginLeft: '25px' }}>
+                  <Grid.Column width={1} verticalAlign='middle'>
+                    <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickPrev}>
+                      <Button.Content visible><Icon size='large' className='angle left'/></Button.Content>
+                      <Button.Content hidden>
+                        Prev
+                      </Button.Content>
+                    </Button>
+                  </Grid.Column>
+                  <Grid.Column width={3} verticalAlign='middle'>
+                    <Button size='massive' id={'daily-date-button'} animated={'fade'} onClick={handleClickToday} fluid>
+                      <Button.Content visible style={{ fontSize: '30px' }}>{`${monthString[currentMonthYr[0]]} ${currentMonthYr[1]}`}</Button.Content>
+                      <Button.Content hidden>
+                        Go to current month
+                      </Button.Content>
+                    </Button>
+                  </Grid.Column>
+                  <Grid.Column width={1} verticalAlign='middle'>
+                    <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickNext}>
+                      <Button.Content visible><Icon size='large' className='angle right'/></Button.Content>
+                      <Button.Content hidden>
+                        Next
+                      </Button.Content>
+                    </Button>
+                  </Grid.Column>
+                  <Grid.Column width={4} textAlign='center'>
+                    <Statistic size='small' color={monthlySumColor}>
+                      <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
+                      <Statistic.Label id='daily-statistic-label'>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced'}</Statistic.Label>
+                    </Statistic>
+                  </Grid.Column>
+                </Grid>
+              </Menu>
+              <Table fixed
+                     className='daily-table'>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>Mode of Transportation</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>Distance</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>mpg</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>Net Gallons</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>Net GHG</Table.HeaderCell>
+                    <Table.HeaderCell className='daily-table-header'>Delete Trip</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body className='daily-table'>
+                  {monthTrips.map((trip) => <TripItemAdmin key={trip._id} trip={trip}/>)}
+                  <Table.Row>
+                    <Table.Cell className='daily-table-data'>{`${monthTrips.length > 0 ? monthTrips.length : 'No'} Trips listed`}</Table.Cell></Table.Row>
+                </Table.Body>
+              </Table>
+            </div>
+        );
+  };
 
-Daily.propTypes = {
+AdminDaily.propTypes = {
   ready: PropTypes.bool.isRequired,
   trips: PropTypes.array.isRequired,
-  username: PropTypes.string,
   userReady: PropTypes.bool.isRequired,
   userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
+  const { owner } = useParams();
   const userSubscribe = Users.subscribeUser();
-  const username = Meteor.user()?.username;
-  const ready = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
-  const trips = Trips.find({}).fetch();
-  const userProfile = Users.getUserProfile(username);
+  const ready = Meteor.subscribe(tripPublications.tripCommunity).ready();
+  const trips = Trips.find({ owner }).fetch();
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
     userReady: userSubscribe.ready(),
     ready,
     trips,
-    username,
     userProfile,
   };
-})(Daily);
+})(AdminDaily);

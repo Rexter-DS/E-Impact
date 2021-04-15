@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Table, Button, Confirm, } from 'semantic-ui-react';
+import { Table, Button, Confirm } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
 import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
@@ -81,7 +81,7 @@ const TripItem = (props) => {
         </Table.Cell>}
       </Table.Row>
   );
-}
+};
 
 /** Require a document to be passed to this component. */
 TripItem.propTypes = {

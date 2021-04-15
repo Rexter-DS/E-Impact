@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Table, Button, Confirm } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
+import { Trips, tripPublications } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
 
 /** Renders a single row in the List Trip table. See pages/ListTrip.jsx. */
-const SavedTripItem = (props) => {
+const TripItem = (props) => {
   let gallons;
-  const tripMpg = props.trip.mpg > 0 ? props.trip.mpg : Users.getUserProfile(Meteor.user().username)?.autoMPG.isDefined() ? Users.getUserProfile(Meteor.user().username).autoMPG : 25;
+  const tripMpg = props.trip.mpg > 0 ? props.trip.mpg : Users.getUserProfile(props.trip.owner)?.autoMPG.isDefined() ? Users.getUserProfile(props.trip.owner).autoMPG : 25;
   if (props.trip.mode === 'Gas Car' || props.trip.mode === 'Carpool') {
     gallons = (props.trip.distance !== 0 ? ((props.trip.distance / tripMpg)) : 0);
   } else {
@@ -17,10 +18,12 @@ const SavedTripItem = (props) => {
   }
   const ghg = gallons === 0 ? 0 : gallons * 19.6;
 
+  const gStyle = gallons > 0 ? { color: 'red' } : { color: 'green' };
+
   const [confirmState, setConfirmState] = useState(false);
 
   function handleClickDel() {
-    SavedTrips.removeIt(props.trip);
+    Trips.removeIt(props.trip);
   }
 
   function handleCancel() {
@@ -44,13 +47,13 @@ const SavedTripItem = (props) => {
   }
   return (
       <Table.Row>
-        <Table.Cell className='daily-table-data'>{props.trip.description}</Table.Cell>
+        <Table.Cell className='daily-table-data'>{props.trip.date.toLocaleDateString()}</Table.Cell>
         <Table.Cell className='daily-table-data'>{props.trip.mode}</Table.Cell>
         <Table.Cell className='daily-table-data'>{props.trip.distance} mi</Table.Cell>
         <Table.Cell className='daily-table-data'>{props.trip.mpg}</Table.Cell>
-        <Table.Cell className='daily-table-data'>{gallons === 0 ? 0 : `${abs(gallons).toFixed(2)} gal`}</Table.Cell>
-        <Table.Cell className='daily-table-data'>{ghg === 0 ? 0 : `${abs(ghg).toFixed(2)} lbs`}</Table.Cell>
-        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}></Button><Confirm
+        <Table.Cell style={gStyle}>{gallons === 0 ? 0 : `${abs(gallons).toFixed(2)} gal`}</Table.Cell>
+        <Table.Cell style={gStyle}>{ghg === 0 ? 0 : `${abs(ghg).toFixed(2)} lbs`}</Table.Cell>
+        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}/><Confirm
             open={confirmState}
             header='Delete Trip?'
             onCancel={handleCancel}
@@ -61,20 +64,18 @@ const SavedTripItem = (props) => {
 };
 
 /** Require a document to be passed to this component. */
-SavedTripItem.propTypes = {
+TripItem.propTypes = {
   trip: PropTypes.object.isRequired,
-  username: PropTypes.string.isRequired,
   readySaved: PropTypes.bool.isRequired,
   savedTrips: PropTypes.array.isRequired,
 };
 
 export default withTracker(() => {
-  const username = Meteor.user()?.username;
-  const readySaved = Meteor.subscribe(savedTripPublications.savedTrip).ready() && username !== undefined;
-  const savedTrips = SavedTrips.find({}).fetch();
+  const { owner } = useParams();
+  const readySaved = Meteor.subscribe(tripPublications.tripCommunity).ready();
+  const allTrips = Trips.find({ owner }).fetch();
   return {
     readySaved,
-    savedTrips,
-    username,
+    allTrips,
   };
-})(SavedTripItem);
+})(TripItem);

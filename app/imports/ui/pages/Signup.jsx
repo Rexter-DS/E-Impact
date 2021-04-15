@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
-import { Container, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Container, Form, Grid, Header, Image, Message, Segment, Popup, Icon } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
+import { Users } from '../../api/user/UserCollection';
 import LandingNavBar from '../components/LandingNavBar';
 
 const countyOptions = [
@@ -20,7 +21,7 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { county: '', first: '', last: '', email: '', password: '', error: '', redirectToReferer: false };
+    this.state = { county: '', first: '', last: '', mpg: '', homeRoundTrip: '', email: '', password: '', error: '', redirectToReferer: false };
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -30,7 +31,7 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit = () => {
-    const { county, first, last, email, password } = this.state;
+    const { county, first, last, mpg, homeRoundTrip, email, password } = this.state;
     Accounts.createUser({ email, profile: { county: county, first: first, last: last }, username: email, password }, (err) => {
       if (err) {
         this.setState({ error: err.reason });
@@ -38,11 +39,12 @@ class Signup extends React.Component {
         this.setState({ error: '', redirectToReferer: true });
       }
     });
+    Users.define({ username: email, homeRoundTrip: Number(homeRoundTrip), autoMPG: Number(mpg) });
   }
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/dashboard' } };
+    const { from } = this.props.location.state || { from: { pathname: `/Dashboard/${this.state.email}` } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
@@ -88,6 +90,38 @@ class Signup extends React.Component {
                           placeholder="Last Name"
                           onChange={this.handleChange}
                           required
+                    />
+                    <Form.Input
+                        label={
+                          <div className='field' style={{ margin: 0 }}>
+                            <label style={{ display: 'inline-block' }}>Mpg of Vehicle</label>
+                            <Popup
+                                trigger={<Icon name='question circle outline'/>}
+                                content='This will be used to calculate how much gas you are saving and spending with each trip'
+                            />
+                          </div>
+                        }
+                        name='mpg'
+                        type='number'
+                        placeholder='Mpg'
+                        onChange={this.handleChange}
+                        required
+                    />
+                    <Form.Input
+                        label={
+                          <div className='field' style={{ margin: 0 }}>
+                            <label style={{ display: 'inline-block' }}>Home Round Trip</label>
+                            <Popup
+                                trigger={<Icon name='question circle outline'/>}
+                                content='This is the distance from your house to work and back. This will be used as the default value when quickly adding trips.'
+                            />
+                          </div>
+                        }
+                        name='homeRoundTrip'
+                        type='number'
+                        placeholder='Distance'
+                        onChange={this.handleChange}
+                        required
                     />
                     <Form.Input
                       label="Email"

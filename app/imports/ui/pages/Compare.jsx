@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import PropTypes from 'prop-types';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { Grid, Header, Image, Card, Divider } from 'semantic-ui-react';
+import { Grid, Header, Image, Card, Divider, Loader } from 'semantic-ui-react';
+import { Users } from '../../api/user/UserCollection';
 import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 
@@ -40,23 +43,23 @@ function SliderHandler() {
               <Image className='compare-image-card' src={value.brandLogo} size='small'/>
               <Image className='compare-image-card' src={value.image} size='large' href={value.website}
                      target='_blank'/>
-              <Header textAlign='center'>{value.car}</Header>
+              <Header id='compare-car' textAlign='center'>{value.car}</Header>
             </Grid.Column>
-            <Grid.Column width={10} className='slider-information-side'>
+            <Grid.Column id='compare-slider-information-side' width={10}>
               <Grid.Row textAlign='left'>Starting From: ${value.cashPrice}</Grid.Row>
               <Grid.Row textAlign='left'>Range: {value.range} mi</Grid.Row>
               <Grid.Row textAlign='left'>Battery Capacity: {value.batteryCapacity} kWh</Grid.Row>
               <Grid.Row>
                   <Header className='cost-per-header' textAlign='center'>Cost Per 100 mi</Header>
-                  <Card.Group className='cost-per-inner-cards' centered itemsPerRow={2}>
-                    <Card fluid>
+                  <Card.Group centered itemsPerRow={2}>
+                    <Card className='compare-cost-per-inner-card' fluid>
                       <Card.Content textAlign='center'>
                         Electric Vehicle
                         <Divider/>
                         ${((100 / (value.range / value.batteryCapacity)) * costPerkWh).toFixed(2)}
                       </Card.Content>
                     </Card>
-                    <Card fluid>
+                    <Card className='compare-cost-per-inner-card' fluid>
                       <Card.Content textAlign='center'>
                         Gas
                         <Divider />
@@ -72,35 +75,57 @@ function SliderHandler() {
   );
 }
 
-function Compare() {
+function Compare(props) {
 
-  return (
-      <div>
-      <div id='compare-container'>
-        <SideBar/>
-        <CarouselProvider
-            isIntrinsicHeight={true}
-            totalSlides={3}
-            infinite={true}
-        >
-          <Grid>
-            <Grid.Row>
-              <SliderHandler/>
-            </Grid.Row>
-            <Grid.Row>
-              <ButtonBack className='ui icon button'>
-                <i className='arrow left icon'/>
-              </ButtonBack>
-              <ButtonNext className='ui icon button right floated'>
-                <i className='arrow right icon'/>
-              </ButtonNext>
-            </Grid.Row>
-          </Grid>
-        </CarouselProvider>
-      </div>
+  if (props.userReady) {
+    if (props.userProfile.theme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+
+  return (!props.userReady) ? <Loader active>Loading data</Loader> :
+      (<div>
+        <div id='compare-container'>
+          <SideBar theme={props.userProfile.theme}/>
+          <CarouselProvider
+              isIntrinsicHeight={true}
+              totalSlides={3}
+              infinite={true}
+          >
+            <Grid>
+              <Grid.Row>
+                <SliderHandler/>
+              </Grid.Row>
+              <Grid.Row>
+                <ButtonBack className='ui icon button'>
+                  <i className='arrow left icon'/>
+                </ButtonBack>
+                <ButtonNext className='ui icon button right floated'>
+                  <i className='arrow right icon'/>
+                </ButtonNext>
+              </Grid.Row>
+            </Grid>
+          </CarouselProvider>
+        </div>
         <Footer id={'compare-footer'}/>
-      </div>
-  );
+      </div>);
 }
 
-export default Compare;
+Compare.propTypes = {
+  username: PropTypes.string,
+  userReady: PropTypes.bool.isRequired,
+  userProfile: PropTypes.object,
+};
+
+export default withTracker(() => {
+  const username = Meteor.user()?.username;
+  const userSubscribe = Users.subscribeUser();
+  const userProfile = Users.getUserProfile(username);
+  return {
+    userReady: userSubscribe.ready(),
+    username,
+    userProfile,
+  };
+})(Compare);

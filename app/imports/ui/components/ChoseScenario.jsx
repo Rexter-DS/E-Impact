@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 import { Button, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+
 function ChoseScenario(
     {
         milesSavedTotal,

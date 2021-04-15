@@ -7,16 +7,21 @@ import { SavedTrips } from '../../api/trip/SavedTripCollection';
 
 /** Initialize the database with a default data document. */
 function addTripData(data) {
-  console.log(`  Adding: trip on ${data.date} using ${data.mode} by ${data.owner}`);
+  // console.log(`  Adding: trip on ${data.date} using ${data.mode} by ${data.owner}`);
   Trips.define(data);
 }
 
 /** Initialize the trips collection if empty. */
-if (Trips.find().count() === 0) {
-  if (Meteor.settings.defaultTrips) {
-    console.log('Creating default trips.');
-    Meteor.settings.defaultTrips.map(data => addTripData(data));
-  }
+if (Trips.find({}).count() === 0) {
+  // if (Meteor.settings.defaultTrips) {
+    // console.log('Creating default trips.');
+    // Meteor.settings.defaultTrips.map(data => addTripData(data));
+  // if (Meteor.settings.loadAssetsFile) {
+    const assetsFileName = 'data.json';
+    // console.log(`Loading data from private/${assetsFileName}`);
+    const jsonData = JSON.parse(Assets.getText(assetsFileName));
+    jsonData.defaultTrips.map(trip => addTripData(trip));
+  // }
 }
 
 /** Initialize the database with a default data document. */
@@ -27,7 +32,7 @@ function addUserData(data) {
 
 /** Initialize the users collection if empty. */
 if (Users.find().count() === 0) {
-  if (Meteor.settings.defaultTrips) {
+  if (Meteor.settings.defaultUsers) {
     console.log('Creating default users.');
     Meteor.settings.defaultUsers.map(data => addUserData(data));
   }
