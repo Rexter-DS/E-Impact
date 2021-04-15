@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Icon, Image, Menu, Sidebar, Checkbox } from 'semantic-ui-react';
