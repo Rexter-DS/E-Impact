@@ -68,13 +68,13 @@ function DashboardFuelCard(
             <Grid stackable columns='equal'>
               <Grid.Row divided>
                 <Grid.Column>
-                  <Header textAlign='center'>Average Gallons Saved per Time</Header>
-                  <Table basic='very'>
+                  <Header className='dashboard-statistic' textAlign='center'>Average Gallons Saved per Time</Header>
+                  <Table className='dashboard-statistic' basic='very'>
                     <Table.Header fullWidth>
                       <Table.Row>
                         <Table.HeaderCell/>
-                        <Table.HeaderCell textAlign='right'>Gallons</Table.HeaderCell>
-                        <Table.HeaderCell textAlign='right'>Savings</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>Gallons</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>Savings</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -97,14 +97,14 @@ function DashboardFuelCard(
                   </Table>
                 </Grid.Column>
                 <Grid.Column>
-                  <Header textAlign='center'>Average Gallons Spent per Time</Header>
-                  <Table basic='very'>
+                  <Header className='dashboard-statistic' textAlign='center'>Average Gallons Spent per Time</Header>
+                  <Table className='dashboard-statistic' basic='very'>
                     <Table.Header fullWidth>
                       <Table.Row>
                         <Table.HeaderCell/>
-                        <Table.HeaderCell textAlign='right'>Gallons</Table.HeaderCell>
-                        <Table.HeaderCell textAlign='right'>Spendings</Table.HeaderCell>
-                        <Table.HeaderCell textAlign='right'>E-Vehicle Spendings</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>Gallons</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>Spendings</Table.HeaderCell>
+                        <Table.HeaderCell className='dashboard-statistic' textAlign='right'>E-Vehicle Spendings</Table.HeaderCell>
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>

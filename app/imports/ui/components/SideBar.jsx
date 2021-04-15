@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Icon, Image, Menu, Sidebar, Checkbox } from 'semantic-ui-react';
+import DarkModeToggle from 'react-dark-mode-toggle';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Users } from '../../api/user/UserCollection';
@@ -120,7 +121,10 @@ const SideBar = (props) => {
           Sign Out
         </Menu.Item>
         <Menu.Item>
-          <Checkbox toggle checked={props.theme === 'dark'} onChange={handleChange}/>
+          <DarkModeToggle
+              checked={props.theme === 'dark'}
+              onChange={handleChange}
+              size={60}/>
         </Menu.Item>
         <Menu.Item
             className='sidebar-item'

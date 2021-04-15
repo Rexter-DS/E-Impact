@@ -603,6 +603,7 @@ body {
   color: #FFFFFF !important;
 }
 
-.card-modal {
-  background-color: inherit !important;
+.dark-modal {
+  background-color: #002A47 !important;
+  color: #FFFFFF !important;
 }

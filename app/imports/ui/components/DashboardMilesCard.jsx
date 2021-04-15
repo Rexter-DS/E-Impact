@@ -50,8 +50,8 @@ function DashboardMilesCard(
             <Grid relaxed columns='equal'>
               <Grid.Column>
                 <Grid.Row>
-                  <Header textAlign='center'>Average Miles Saved per Time</Header>
-                  <Table basic='very'>
+                  <Header className='dashboard-statistic' textAlign='center'>Average Miles Saved per Time</Header>
+                  <Table className='dashboard-statistic' basic='very'>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
@@ -69,8 +69,8 @@ function DashboardMilesCard(
                   </Table>
                 </Grid.Row>
                 <Grid.Row>
-                  <Header textAlign='center'>Average Miles Traveled per Time</Header>
-                  <Table basic='very'>
+                  <Header className='dashboard-statistic' textAlign='center'>Average Miles Traveled per Time</Header>
+                  <Table className='dashboard-statistic' basic='very'>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
@@ -89,8 +89,8 @@ function DashboardMilesCard(
                 </Grid.Row>
               </Grid.Column>
               <Grid.Column>
-                <Header textAlign='center'>Miles per Mode of Transportation</Header>
-                <Table basic='very'>
+                <Header className='dashboard-statistic' textAlign='center'>Miles per Mode of Transportation</Header>
+                <Table className='dashboard-statistic' basic='very'>
                   <Table.Body>
                     <Table.Row>
                       <Table.Cell>Telework</Table.Cell>

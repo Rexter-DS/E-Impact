@@ -40,8 +40,8 @@ function DashboardGhgCard(
             <Grid relaxed columns='equal'>
               <Grid.Column>
                 <Grid.Row>
-                  <Header textAlign='center'>Average GHG Reduced per Time</Header>
-                  <Table basic='very'>
+                  <Header className='dashboard-statistic' textAlign='center'>Average GHG Reduced per Time</Header>
+                  <Table className='dashboard-statistic' basic='very'>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>
@@ -59,8 +59,8 @@ function DashboardGhgCard(
                   </Table>
                 </Grid.Row>
                 <Grid.Row>
-                  <Header textAlign='center'>Average GHG Produced per Time</Header>
-                  <Table basic='very'>
+                  <Header className='dashboard-statistic' textAlign='center'>Average GHG Produced per Time</Header>
+                  <Table className='dashboard-statistic' basic='very'>
                     <Table.Body>
                       <Table.Row>
                         <Table.Cell>Yearly</Table.Cell>

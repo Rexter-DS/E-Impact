@@ -24,10 +24,10 @@ function DashboardStatisticsCard(
           open={openMore}
           onOpen={() => setOpenMore(true)}
           onClose={() => setOpenMore(false)}
-          trigger={<Button compact floated='right'>Show more</Button>}
+          trigger={<Button className='card-button' compact floated='right'>Show more</Button>}
       >
-        <Header>{moreHeader}</Header>
-        <Modal.Content>
+        <Header className='card-modal'>{moreHeader}</Header>
+        <Modal.Content className='card-modal'>
           {moreContent}
         </Modal.Content>
       </Modal> :
@@ -36,16 +36,23 @@ function DashboardStatisticsCard(
   /* DOM Styling */
   useEffect(() => {
     const dashboardCards = document.getElementsByClassName('general-card');
+    const dashboardModals = document.getElementsByClassName('card-modal');
     if (userProfile.theme === 'dark') {
       for (let i = 0; i < dashboardCards.length; i++) {
         dashboardCards[i].classList.add('dark-card');
+      }
+      for (let i = 0; i < dashboardModals.length; i++) {
+        dashboardModals[i].classList.add('dark-card');
       }
     } else {
       for (let i = 0; i < dashboardCards.length; i++) {
         dashboardCards[i].classList.remove('dark-card');
       }
+      for (let i = 0; i < dashboardModals.length; i++) {
+        dashboardModals[i].classList.remove('dark-card');
+      }
     }
-  }, [userProfile]);
+  }, [userProfile, moreInfo]);
 
   return (
       <Card className='general-card'>
