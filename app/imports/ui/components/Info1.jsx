@@ -1,15 +1,12 @@
 import React from 'react';
-import { Grid, Header, Icon, Container, Button, Image } from 'semantic-ui-react';
-import { Link, withRouter, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
-//'/quickaccess'
+import { Grid, Header, Button, Image } from 'semantic-ui-react';
+import { withRouter, NavLink } from 'react-router-dom';
 
 class Info1 extends React.Component {
     render() {
         return (
             <Grid celled stackable>
-                <Grid.Row columns={2} style={{ padding:'30px' }}>
+                <Grid.Row columns={2} style={{ padding: '30px' }}>
                     <Grid.Column className='landing-info-center' verticalAlign='middle'>
                         <a href={'#/quickaccess'}>
                             <div id='landing-info1-left'>

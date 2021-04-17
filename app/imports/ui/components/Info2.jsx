@@ -1,7 +1,6 @@
 import React from 'react';
-import { Grid, Header, Icon, Container, Button, I } from 'semantic-ui-react';
-import { Link, withRouter, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Grid, Icon, Button } from 'semantic-ui-react';
+import { withRouter, NavLink } from 'react-router-dom';
 
 class Info2 extends React.Component {
     render() {
