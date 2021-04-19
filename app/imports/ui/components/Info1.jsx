@@ -23,7 +23,7 @@ class Info1 extends React.Component {
                         <h2>Create an account to keep track of the emissions of your daily transit and
                             see the changes you are making within your community!</h2>
                         <br/>
-                        <a href='#/signup'>
+                        <a href={'#/signup'}>
                             <Image src="images/community_info2.png" size="medium" centered/>
                         </a>
                         <br/>

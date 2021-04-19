@@ -11,7 +11,7 @@ import SaveTripModal from './SaveTripModal';
 /** Renders a single row in the List Trip table. See pages/ListTrip.jsx. */
 const TripItem = (props) => {
   let gallons;
-  const tripMpg = props.trip.mpg > 0 ? props.trip.mpg : Users.getUserProfile(Meteor.user().username)?.autoMPG.isDefined() ? Users.getUserProfile(Meteor.user().username).autoMPG : 25;
+  const tripMpg = (props.trip.mpg > 0 ? props.trip.mpg : Users.getUserProfile(Meteor.user().username)?.autoMPG.isDefined()) ? Users.getUserProfile(Meteor.user().username).autoMPG : 25;
   if (props.trip.mode === 'Gas Car' || props.trip.mode === 'Carpool') {
     gallons = (props.trip.distance !== 0 ? ((props.trip.distance / tripMpg)) : 0);
   } else {
@@ -69,7 +69,7 @@ const TripItem = (props) => {
         <Table.Cell className='daily-table-data'>{props.trip.mpg}</Table.Cell>
         <Table.Cell style={gStyle}>{gallons === 0 ? 0 : `${abs(gallons).toFixed(2)} gal`}</Table.Cell>
         <Table.Cell style={gStyle}>{ghg === 0 ? 0 : `${abs(ghg).toFixed(2)} lbs`}</Table.Cell>
-        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}></Button><Confirm
+        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}/><Confirm
             open={confirmState}
             header='Delete Trip?'
             onCancel={handleCancel}

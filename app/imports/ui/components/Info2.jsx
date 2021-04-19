@@ -8,7 +8,7 @@ class Info2 extends React.Component {
             <div id='landing-info1'>
                 <Grid>
                     <Grid.Column width={5} className='landing-info-center' verticalAlign='middle'>
-                        <a href='#/signup'>
+                        <a href={'#/signup'}>
                             <Icon link name='car' size='massive'/>
                         </a>
                     </Grid.Column>

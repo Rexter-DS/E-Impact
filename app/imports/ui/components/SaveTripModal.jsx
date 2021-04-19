@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Button, Header, Modal, Form, Segment, Icon } from 'semantic-ui-react';
-import { SavedTrips } from '../../api/trip/SavedTripCollection';
-import { AutoForm, DateField, ErrorsField, SelectField, SubmitField, TextField } from 'uniforms-semantic';
+import { Button, Header, Modal, Segment } from 'semantic-ui-react';
+import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import { SavedTrips } from '../../api/trip/SavedTripCollection';
 
 const SaveTripModal = (props) => {
   const [open, setOpen] = React.useState(false);
