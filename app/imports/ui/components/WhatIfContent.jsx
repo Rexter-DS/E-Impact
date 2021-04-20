@@ -14,10 +14,8 @@ function WhatIfContent(
       ghgProducedTotal,
       ghgReducedPerDay,
       fuelSavedPerDay,
-      // milesSavedTotalWI,
       milesSavedPerDayWI,
       modesOfTransportWI,
-      // ghgProducedTotalWI,
       ghgReducedPerDayWI,
       fuelSavedPerDayWI,
     },
@@ -102,9 +100,9 @@ function WhatIfContent(
     }];
 
   /* Graph Layouts */
-  let chartBgColor = '';
-  let chartGridColor = '';
-  let chartFontColor = '';
+  let chartBgColor;
+  let chartGridColor;
+  let chartFontColor;
 
   if (userProfile.theme === 'dark') {
     chartBgColor = '#213c5c';
@@ -189,9 +187,7 @@ function WhatIfContent(
   useEffect(() => {
     const whatifCards = document.getElementsByClassName('whatif-card');
     if (userProfile.theme === 'dark') {
-      console.log(whatifCards);
       for (let i = 0; i < whatifCards.length; i++) {
-        console.log('test');
         whatifCards[i].classList.add('dark-card');
       }
     } else {
@@ -298,10 +294,8 @@ WhatIfContent.propTypes = {
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
-  // milesSavedTotalWI: PropTypes.number,
   milesSavedPerDayWI: PropTypes.object,
   modesOfTransportWI: PropTypes.object,
-  // ghgProducedTotalWI: PropTypes.string,
   ghgReducedPerDayWI: PropTypes.object,
   fuelSavedPerDayWI: PropTypes.object,
 };
