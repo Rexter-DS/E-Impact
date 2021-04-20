@@ -27,7 +27,6 @@ const AdminDaily = (props) => {
       }
     }
   }
-  const monthlySumStyle = monthlySum > 0 ? { color: 'red' } : { color: 'green' };
   const monthlySumColor = monthlySum > 0 ? 'red' : 'green';
 
   function handleClickNext() {
@@ -57,6 +56,13 @@ const AdminDaily = (props) => {
       return -1 * val;
     }
     return val;
+  }
+
+  function monthlySumText() {
+    if (monthlySum === 0) {
+      return '';
+    }
+    return monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced';
   }
 
   useEffect(() => {
@@ -135,7 +141,7 @@ const AdminDaily = (props) => {
                   <Grid.Column width={4} textAlign='center'>
                     <Statistic size='small' color={monthlySumColor}>
                       <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
-                      <Statistic.Label id='daily-statistic-label'>{monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced'}</Statistic.Label>
+                      <Statistic.Label id='daily-statistic-label'>{monthlySumText()}</Statistic.Label>
                     </Statistic>
                   </Grid.Column>
                 </Grid>
@@ -174,7 +180,7 @@ export default withTracker(() => {
   const { owner } = useParams();
   const userSubscribe = Users.subscribeUser();
   const ready = Meteor.subscribe(tripPublications.tripCommunity).ready();
-  const trips = Trips.find({ owner }).fetch();
+  const trips = Trips.find({ owner }, {}).fetch();
   const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
     userReady: userSubscribe.ready(),

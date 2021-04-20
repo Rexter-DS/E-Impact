@@ -56,7 +56,7 @@ export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
   return {
-    trips: Trips.find({}).fetch(),
+    trips: Trips.find({}, {}).fetch(),
     ready: subscription.ready(),
   };
 })(TripHistory);

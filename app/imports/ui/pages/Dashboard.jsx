@@ -6,8 +6,6 @@ import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
 import DashboardContent from '../components/DashboardContent';
 
-// This page contains the graphs that will visualize the user's data in a more meaningful way.
-// The page waits for the data to load first and shows a loading page. Then once the collection is ready, we show the dashboard.
 function Dashboard(
     {
       tripReady,
@@ -31,10 +29,7 @@ function Dashboard(
     },
 ) {
 
-  this.theme = true;
-  if (document.body.classList.contains('dark')) {
-    this.theme = false;
-  }
+  this.theme = !document.body.classList.contains('dark');
 
   return ((tripReady && userReady) ?
           <div>
@@ -73,6 +68,7 @@ Dashboard.propTypes = {
   userProfile: PropTypes.any,
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
+  evGhgProducedAvg: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,
   milesSavedAvg: PropTypes.object,
   milesTraveledAvg: PropTypes.object,
@@ -98,7 +94,7 @@ export default withTracker(({ match }) => {
   const milesPerMode = Trips.getMilesPerMode(username);
 
   const userProfile = Users.getUserProfile(username);
-  
+
   const ghgProducedTotal = Trips.getGHGProducedTotal(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
   const ghgReducedPerDay = Trips.getGHGReducedPerDay(username, (userSubscribe.ready()) ? userProfile.autoMPG : 1);
 

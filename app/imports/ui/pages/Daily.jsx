@@ -18,7 +18,7 @@ const Daily = (props) => {
   for (let i = 0; i < monthTrips.length; i++) {
     const tripMpg = monthTrips[i].mpg > 0 ? monthTrips[i].mpg : 25;
     const add = (monthTrips[i].distance / tripMpg) * 19.6;
-    if (!isNaN(add) && isFinite(add)) {
+    if (!(add.isNaN) && (add.isFinite)) {
       if (monthTrips[i].mode === 'Gas Car' || monthTrips[i].mode === 'Carpool') {
         monthlySum += add;
       } else {
@@ -26,7 +26,6 @@ const Daily = (props) => {
       }
     }
   }
-  const monthlySumStyle = monthlySum > 0 ? { color: 'red' } : { color: 'green' };
   const monthlySumColor = monthlySum > 0 ? 'red' : 'green';
 
   function handleClickNext() {
@@ -58,7 +57,13 @@ const Daily = (props) => {
     return val;
   }
 
-  /* Styling */
+  function monthlySumText() {
+    if (monthlySum === 0) {
+      return '';
+    }
+    return monthlySum > 0 ? 'lbs ghg Produced' : 'lbs ghg Reduced';
+  }
+
   useEffect(() => {
     if (props.userReady && (document.getElementById('daily-container'))) {
       const dailyArrows = document.getElementsByClassName('daily-arrow-button');
@@ -137,7 +142,7 @@ const Daily = (props) => {
                   <Statistic size='small' color={monthlySumColor}>
                     <Statistic.Value><Icon name='cloud'/>{abs(monthlySum).toFixed(2)}</Statistic.Value>
                     <Statistic.Label id='daily-statistic-label'>
-                      {monthlySum === 0 ? '' : monthlySum > 0 ? 'lbs Produced' : 'lbs Reduced'}</Statistic.Label>
+                      {monthlySumText()}</Statistic.Label>
                   </Statistic>
                 </Grid.Column>
                 <Menu.Item position={'right'} style={{ marginRight: '100px' }}>
@@ -155,8 +160,8 @@ const Daily = (props) => {
                   <Table.HeaderCell className='daily-table-header'>mpg</Table.HeaderCell>
                   <Table.HeaderCell className='daily-table-header'>Net Gallons</Table.HeaderCell>
                   <Table.HeaderCell className='daily-table-header'>Net GHG</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'>Delete Trip</Table.HeaderCell>
-                  <Table.HeaderCell className='daily-table-header'></Table.HeaderCell>
+                  <Table.HeaderCell className='daily-table-header'>Delete</Table.HeaderCell>
+                  <Table.HeaderCell className='daily-table-header'>Save</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body className='daily-table'>

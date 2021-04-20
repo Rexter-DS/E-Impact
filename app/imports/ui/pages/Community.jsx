@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Card, Divider, Header, Loader, Popup, Dimmer } from 'semantic-ui-react';
+import { Card, Divider, Header, Loader, Popup } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SideBar from '../components/SideBar';
