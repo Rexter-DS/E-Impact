@@ -58,10 +58,8 @@ function WhatIf(
                     ghgProducedTotal={ghgProducedTotal}
                     ghgReducedPerDay={ghgReducedPerDay}
                     fuelSavedPerDay={fuelSavedPerDay}
-                    // milesSavedTotalWI={milesSavedTotal}
                     milesSavedPerDayWI={milesSavedPerDayWI}
                     modesOfTransportWI={modesOfTransportWI}
-                    // ghgProducedTotalWI={ghgProducedTotal}
                     ghgReducedPerDayWI={ghgReducedPerDayWI}
                     fuelSavedPerDayWI={fuelSavedPerDayWI}
                 />
