@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { Trips } from '../../api/trip/TripCollection';
 import { Users } from '../../api/user/UserCollection';
-import ChoseScenario, { nMilesSavedPerDay } from '../components/ChoseScenario';
+import ChoseScenario from '../components/ChoseScenario';
 import WhatIfContent from '../components/WhatIfContent';
 
 // This page contains the graphs that will visualize the user's data in a more meaningful way.
@@ -33,7 +33,6 @@ function WhatIf(
     setFSPDWI(fuelSavedPerDay);
   }, [fuelSavedPerDay]);
   const testFP = (miles, mode, ghg, fuel) => {
-    console.log('update successful');
     setMSPDWI(miles);
     setMOTDWI(mode);
     setGRPDWI(ghg);
