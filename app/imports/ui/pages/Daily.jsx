@@ -18,7 +18,7 @@ const Daily = (props) => {
   for (let i = 0; i < monthTrips.length; i++) {
     const tripMpg = monthTrips[i].mpg > 0 ? monthTrips[i].mpg : 25;
     const add = (monthTrips[i].distance / tripMpg) * 19.6;
-    if (!(add.isNaN) && (add.isFinite)) {
+    if (!Number.isNaN(add) && Number.isFinite(add)) {
       if (monthTrips[i].mode === 'Gas Car' || monthTrips[i].mode === 'Carpool') {
         monthlySum += add;
       } else {
