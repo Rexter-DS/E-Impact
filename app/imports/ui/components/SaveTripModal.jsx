@@ -4,6 +4,7 @@ import { Button, Header, Modal, Segment } from 'semantic-ui-react';
 import { AutoForm, ErrorsField, SubmitField, TextField } from 'uniforms-semantic';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
+import PropTypes from 'prop-types';
 import { SavedTrips } from '../../api/trip/SavedTripCollection';
 
 const SaveTripModal = (props) => {
@@ -64,6 +65,11 @@ const SaveTripModal = (props) => {
         </Modal.Actions>
       </Modal>
   );
+};
+
+/** Require a document to be passed to this component. */
+SaveTripModal.propTypes = {
+  trip: PropTypes.object.isRequired,
 };
 
 export default SaveTripModal;
