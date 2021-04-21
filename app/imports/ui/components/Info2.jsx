@@ -1,7 +1,6 @@
 import React from 'react';
-import { Grid, Header, Icon, Container, Button, I } from 'semantic-ui-react';
-import { Link, withRouter, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Grid, Icon, Button } from 'semantic-ui-react';
+import { withRouter, NavLink } from 'react-router-dom';
 
 class Info2 extends React.Component {
     render() {
@@ -9,7 +8,7 @@ class Info2 extends React.Component {
             <div id='landing-info1'>
                 <Grid>
                     <Grid.Column width={5} className='landing-info-center' verticalAlign='middle'>
-                        <a href='#/signup'>
+                        <a href={'#/signup'}>
                             <Icon link name='car' size='massive'/>
                         </a>
                     </Grid.Column>

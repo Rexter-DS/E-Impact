@@ -66,12 +66,10 @@ Admin.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  // Get access to the Meteor.Accounts?
   const subscription = Users.subscribeUserAdmin();
   const userSubscription = Users.subscribeUser();
   const userProfile = Users.getUserProfile(Meteor.user()?.username);
   return {
-    // users: Users.find({}).fetch(),
     users: Meteor.users.find({}).fetch(),
     ready: subscription.ready(),
     userReady: userSubscription.ready(),

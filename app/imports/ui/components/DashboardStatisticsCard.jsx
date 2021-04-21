@@ -31,7 +31,7 @@ function DashboardStatisticsCard(
           {moreContent}
         </Modal.Content>
       </Modal> :
-      <div></div>;
+      <div> </div>;
 
   /* DOM Styling */
   useEffect(() => {

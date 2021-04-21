@@ -7,7 +7,6 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import { Grid, Header, Image, Card, Divider, Loader } from 'semantic-ui-react';
 import { Users } from '../../api/user/UserCollection';
 import SideBar from '../components/SideBar';
-import Footer from '../components/Footer';
 
 function SliderHandler() {
   const [evData, setEVData] = useState([]);
@@ -109,7 +108,6 @@ function Compare(props) {
             </Grid>
           </CarouselProvider>
         </div>
-        {/*<Footer id={'compare-footer'}/>*/}
       </div>);
 }
 

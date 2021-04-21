@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Loader, Segment, Button } from 'semantic-ui-react';
+import { Grid, Header, Icon, Loader, Segment } from 'semantic-ui-react';
 import { AutoForm, DateField, ErrorsField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
@@ -16,8 +16,7 @@ import DeleteSavedModal from '../components/DeleteSavedModal';
 const AddTrip = (props) => {
 
   /** Create a schema to specify the structure of the data to appear in the form. */
-  // const userSavedTrips = _.filter(SavedTrips, (trip) => trip.owner === Meteor.user()?.username);
-  const userSavedTrips = SavedTrips.find({ owner: props.username }).fetch();
+  const userSavedTrips = SavedTrips.find({ owner: props.username }, {}).fetch();
   let descList;
   if (userSavedTrips.length === 0) {
     descList = [''];
@@ -69,19 +68,9 @@ const AddTrip = (props) => {
     const { mode, distance, mpg } = savedTrip;
     const owner = Meteor.user().username;
     const county = Meteor.user().profile.county;
-    console.log('Add Trip submit saved');
-    console.log(date, desc, savedTrip, mode, distance, mpg);
     if (Trips.defineWithMessage({ date, mode, distance, mpg, owner, county })) {
       formRef.reset();
     }
-  }
-
-  function deleteSavedTrips() {
-    function removeTrip(trip, index) {
-      SavedTrips.removeIt(trip);
-    }
-    SavedTrips.find({}).fetch().forEach(removeTrip);
-    console.log(`add trip: deleteSavedTrips(): ${SavedTrips.find({}).fetch()}`);
   }
 
   /* Styling */
@@ -156,8 +145,8 @@ export default withTracker(() => {
   const userReady = Users.subscribeUser().ready();
   const readyTrips = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
   const readySaved = Meteor.subscribe(savedTripPublications.savedTrip).ready() && username !== undefined;
-  const trips = Trips.find({}).fetch();
-  const savedTrips = SavedTrips.find({}).fetch();
+  const trips = Trips.find({}, {}).fetch();
+  const savedTrips = SavedTrips.find({}, {}).fetch();
   return {
     username,
     userProfile,

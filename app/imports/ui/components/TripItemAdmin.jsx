@@ -10,6 +10,7 @@ import { Users } from '../../api/user/UserCollection';
 /** Renders a single row in the List Trip table. See pages/ListTrip.jsx. */
 const TripItem = (props) => {
   let gallons;
+  // eslint-disable-next-line no-nested-ternary
   const tripMpg = props.trip.mpg > 0 ? props.trip.mpg : Users.getUserProfile(props.trip.owner)?.autoMPG.isDefined() ? Users.getUserProfile(props.trip.owner).autoMPG : 25;
   if (props.trip.mode === 'Gas Car' || props.trip.mode === 'Carpool') {
     gallons = (props.trip.distance !== 0 ? ((props.trip.distance / tripMpg)) : 0);

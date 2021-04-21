@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Form, Card, Image, Header, Popup, Button, Menu } from 'semantic-ui-react';
+import { Grid, Form, Card, Image, Header, Popup, Button } from 'semantic-ui-react';
 import '../../../client/style.css';
 import Footer from '../components/Footer';
 import LandingNavBar from '../components/LandingNavBar';
