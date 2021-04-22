@@ -128,7 +128,9 @@ const SideBar = (props) => {
         </Menu.Item>
         <Menu.Item
             className='sidebar-item'
-            style={{ color: '#0c4d85', position: 'fixed', bottom: '0' }}>
+            style={{ color: '#0c4d85', position: 'fixed', bottom: '0' }}
+            id="sidebar-current-user"
+        >
           <Icon name='user circle outline'/>
           {Meteor.user() ? Meteor.user().username : 'Guest'}
         </Menu.Item>
