@@ -1,4 +1,3 @@
-import { Meteor } from 'meteor/meteor';
 import React, { useEffect, useState } from 'react';
 import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
@@ -7,18 +6,11 @@ import PropTypes from 'prop-types';
 import { Users } from '../../api/user/UserCollection';
 import Settings from './Settings';
 
-const handleChange = () => {
-  Users.updateTheme(Meteor.user()?.username);
-  // if (Users.getUserProfile(Meteor.user()?.username).theme === 'dark') {
-  //   document.body.classList.add('dark-sidebar');
-  // } else {
-  //   document.body.classList.remove('dark-sidebar');
-  // }
+function SideBar(props) {
 
-  // console.log(Users.getUserProfile(Meteor.user()?.username).theme);
-};
-
-const SideBar = (props) => {
+  const handleChange = () => {
+    Users.updateTheme(props.userProfile.username);
+  };
 
   if (props.userReady && (document.getElementById('sidebar'))) {
     // console.log(document.getElementsByClassName('sidebar-item'));
@@ -60,6 +52,7 @@ const SideBar = (props) => {
   }, [props.userProfile, settings]);
 
   return (
+      (props.userReady) ?
       <div>
         <Sidebar
               as={Menu}
@@ -80,7 +73,7 @@ const SideBar = (props) => {
                        className='sidebar-item'
                        activeClassName=""
                        exact
-                       to={`/Dashboard/${Meteor.user()?.username}`}>
+                       to={`/Dashboard/${props.userProfile.username}`}>
               <Icon name='grid layout'/>
               Dashboard
             </Menu.Item>
@@ -88,7 +81,7 @@ const SideBar = (props) => {
                        className='sidebar-item'
                        activeClassName="active"
                        exact
-                       to={`/daily/${Meteor.user()?.username}`}
+                       to={`/daily/${props.userProfile.username}`}
                        key='daily'>
               <Icon name='list'/>
               Daily
@@ -97,7 +90,7 @@ const SideBar = (props) => {
                        className='sidebar-item'
                        activeClassName=""
                        exact
-                       to={`/WhatIf/${Meteor.user()?.username}`}>
+                       to={`/WhatIf/${props.userProfile.username}`}>
               <Icon name='grid layout'/>
               What If
             </Menu.Item>
@@ -105,7 +98,7 @@ const SideBar = (props) => {
                        className='sidebar-item'
                        activeClassName="active"
                        exact
-                       to={`/compare/${Meteor.user()?.username}`}
+                       to={`/compare/${props.userProfile.username}`}
                        key='compare'>
               <Icon name='car'/>
               Compare
@@ -113,7 +106,7 @@ const SideBar = (props) => {
             <Menu.Item as={NavLink}
                        className='sidebar-item'
                        activeClassName="active"
-                       exact to={`/community/${Meteor.user()?.username}`}
+                       exact to={`/community/${props.userProfile.username}`}
                        key='community'>
               <Icon name='globe'/>
               Community
@@ -167,9 +160,10 @@ const SideBar = (props) => {
               </Modal.Content>
             </Modal>
           </Sidebar>
-      </div>
+      </div> :
+       <div></div>
   );
-};
+}
 
 SideBar.propTypes = {
   userReady: PropTypes.bool.isRequired,
