@@ -142,8 +142,10 @@ function SideBar(props) {
                 onClose={() => setSettings(false)}
                 trigger={
                   <Menu.Item
+                      id='sidebar-current-user'
                       className='sidebar-item'
-                      style={{ bottom: '0' }}>
+                      style={{ bottom: '0' }}
+                  >
                     <Icon name='user circle outline'/>
                     {props.userProfile.username}
                   </Menu.Item>
