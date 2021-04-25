@@ -61,7 +61,8 @@ const SideBar = (props) => {
   }, [props.userProfile, settings]);
 
   return (
-      props.currentUser ? <div><Sidebar
+      <div>
+        <Sidebar
               as={Menu}
               animation='overlay'
               icon='labeled'
@@ -166,24 +167,25 @@ const SideBar = (props) => {
                 />
               </Modal.Content>
             </Modal>
-          </Sidebar></div>
-          : '');
+          </Sidebar>
+      </div>
+  );
 };
 
 SideBar.propTypes = {
-  currentUser: PropTypes.string,
+  //currentUser: PropTypes.string,
   userReady: PropTypes.bool.isRequired,
   theme: PropTypes.string,
   userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
-  const currentUser = Meteor.userId() || '';
+  //const currentUser = Meteor.userId() || '';
   const username = Meteor.user()?.username;
   const userSubscribe = Users.subscribeUser();
   const userProfile = Users.getUserProfile(username);
   return {
-    currentUser: currentUser,
+    //currentUser: currentUser,
     userReady: userSubscribe.ready(),
     userProfile,
   };
