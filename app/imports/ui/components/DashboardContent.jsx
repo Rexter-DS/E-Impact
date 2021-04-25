@@ -38,6 +38,9 @@ function DashboardContent(
       type: 'bar',
       text: milesSavedPerDay.mode,
       name: 'Miles Saved',
+      marker: {
+        color: 'rgb(33, 186, 69)',
+      },
     },
     {
       x: milesAddedPerDay.date,
@@ -45,6 +48,9 @@ function DashboardContent(
       type: 'bar',
       text: milesAddedPerDay.mode,
       name: 'Miles Traveled',
+      marker: {
+        color: 'rgb(219, 40, 40)',
+      },
     },
   ];
 
