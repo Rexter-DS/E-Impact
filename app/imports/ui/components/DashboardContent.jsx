@@ -15,6 +15,7 @@ function DashboardContent(
       vehicleMilesSaved,
       vehicleMilesAdded,
       milesSavedPerDay,
+      milesAddedPerDay,
       modesOfTransport,
       milesPerMode,
       userProfile,
@@ -30,12 +31,22 @@ function DashboardContent(
     },
 ) {
 
-  const milesSavedPerDayData = [{
-    x: milesSavedPerDay.date,
-    y: milesSavedPerDay.distance,
-    type: 'bar',
-    text: milesSavedPerDay.mode,
-  }];
+  const milesPerDayData = [
+    {
+      x: milesSavedPerDay.date,
+      y: milesSavedPerDay.distance,
+      type: 'bar',
+      text: milesSavedPerDay.mode,
+      name: 'Miles Saved',
+    },
+    {
+      x: milesAddedPerDay.date,
+      y: milesAddedPerDay.distance,
+      type: 'bar',
+      text: milesAddedPerDay.mode,
+      name: 'Miles Traveled',
+    },
+  ];
 
   const fuelSavedTotal = (vehicleMilesSaved / userProfile.autoMPG).toFixed(2);
   const fuelCostTotal = (vehicleMilesAdded / userProfile.autoMPG).toFixed(2);
@@ -95,8 +106,9 @@ function DashboardContent(
     chartFontColor = '';
   }
 
-  const milesSavedPerDayLayout = {
+  const milesPerDayLayout = {
     autosize: true,
+    barmode: 'group',
     xaxis: {
       range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
       rangeslider: { range: [milesSavedPerDay.date[0], milesSavedPerDay.date[milesSavedPerDay.length - 1]] },
@@ -105,7 +117,7 @@ function DashboardContent(
     },
     yaxis: {
       title: 'Miles Saved (miles)',
-      range: [0, Math.max(...milesSavedPerDay.distance)],
+      range: [Math.min(...milesAddedPerDay.distance), Math.max(...milesSavedPerDay.distance)],
       type: 'linear',
       gridcolor: chartGridColor,
     },
@@ -242,7 +254,7 @@ function DashboardContent(
                   Miles Saved Per Day
                 </Card.Header>
                 <Card.Content>
-                  <Chart chartData={milesSavedPerDayData} chartLayout={milesSavedPerDayLayout}/>
+                  <Chart chartData={milesPerDayData} chartLayout={milesPerDayLayout}/>
                 </Card.Content>
               </Card>
             </Grid.Column>
@@ -290,6 +302,7 @@ DashboardContent.propTypes = {
   vehicleMilesAdded: PropTypes.number,
   milesTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
+  milesAddedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   milesPerMode: PropTypes.array,
   userProfile: PropTypes.object,

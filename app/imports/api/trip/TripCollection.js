@@ -289,18 +289,79 @@ class TripCollection extends BaseCollection {
     const distance = [];
     const mode = [];
 
+    // initialize to be the first date if there are trips.
+    let prevDate = new Date();
+
     _.forEach(userTrips, function (objects) {
 
       const tripDate = objects.date;
       const tripDistance = objects.distance;
       const tripMode = objects.mode;
 
-      date.push(tripDate);
-      distance.push(tripDistance);
-      mode.push(tripMode);
+      if (prevDate.getTime() !== tripDate.getTime()) {
+        if (tripMode !== 'Gas Car') {
+          date.push(tripDate);
+          mode.push(tripMode);
+          distance.push(tripDistance);
+        }
+        prevDate = tripDate;
+      } else {
+        mode[mode.length - 1] = mode[mode.length - 1].concat(`, ${tripMode}`);
+        distance[distance.length - 1] += tripDistance;
+      }
     });
 
     return { date: date, distance: distance, mode: mode };
+  }
+
+  getMilesTraveledPerDay(username) {
+    const userTrips = this._collection.find({ owner: username }).fetch();
+
+    const date = [];
+
+    const saved = [];
+    const savedMode = [];
+
+    const added = [];
+    const addedMode = [];
+
+    let prevDate = new Date();
+
+    _.forEach(userTrips, function (objects) {
+
+      const tripDate = objects.date;
+      const tripDistance = objects.distance;
+      const tripMode = objects.mode;
+
+      if (prevDate.getTime() === tripDate.getTime()) {
+        if (tripMode === 'Gas Car') {
+          addedMode[added.length - 1] = tripMode;
+          added[added.length - 1] -= tripDistance;
+        } else {
+          savedMode[savedMode.length - 1] = savedMode[savedMode.length - 1].concat(`, ${tripMode}`);
+          saved[saved.length - 1] += tripDistance;
+        }
+      } else {
+        date.push(tripDate);
+        prevDate = tripDate;
+
+        if (tripMode === 'Gas Car') {
+          addedMode.push(tripMode);
+          added.push(-tripDistance);
+        } else {
+          savedMode.push(tripMode);
+          saved.push(tripDistance);
+
+          addedMode.push('');
+          added.push(0);
+        }
+      }
+    });
+
+    return {
+      milesSaved: { date: date, distance: saved, mode: savedMode },
+      milesAdded: { date: date, distance: added, mode: addedMode },
+    };
   }
 
   /**
@@ -339,10 +400,25 @@ class TripCollection extends BaseCollection {
     const ghg = [];
 
     const ghgPerGallon = 19.6;
+    let prevDate = new Date();
 
     _.forEach(userTrips, function (objects) {
-      date.push(objects.date);
-      ghg.push(((objects.distance / userMpg) * ghgPerGallon).toFixed(2));
+      const tripDate = objects.date;
+      const tripDistance = objects.distance;
+      const tripMode = objects.mode;
+
+      if (tripMode !== 'Gas Car') {
+        if (prevDate.getTime() !== tripDate.getTime()) {
+          date.push(tripDate);
+          ghg.push(((tripDistance / userMpg) * ghgPerGallon).toFixed(2));
+          prevDate = tripDate;
+        } else {
+          let currentGhg = parseFloat(ghg[ghg.length - 1]);
+          currentGhg += ((tripDistance / userMpg) * ghgPerGallon);
+          ghg[ghg.length - 1] = currentGhg.toFixed(2);
+        }
+      }
+
     });
 
     return { date: date, ghg: ghg };
@@ -362,10 +438,29 @@ class TripCollection extends BaseCollection {
     const fuel = [];
     const price = [];
 
+    let prevDate = new Date();
+
     _.forEach(userTrips, function (objects) {
-      date.push(objects.date);
-      fuel.push((objects.distance / userMPG).toFixed(2));
-      price.push(((objects.distance / userMPG) * fuelCost).toFixed(2));
+      const tripDate = objects.date;
+      const tripDistance = objects.distance;
+      const tripMode = objects.mode;
+
+      if (tripMode !== 'Gas Car') {
+        if (prevDate.getTime() !== tripDate.getTime()) {
+          date.push(tripDate);
+          fuel.push((tripDistance / userMPG).toFixed(2));
+          price.push(((tripDistance / userMPG) * fuelCost).toFixed(2));
+          prevDate = tripDate;
+        } else {
+          let currentFuel = parseFloat(fuel[fuel.length - 1]);
+          currentFuel += (tripDistance / userMPG);
+          fuel[fuel.length - 1] = currentFuel.toFixed(2);
+
+          let currentPrice = parseFloat(price[price.length - 1]);
+          currentPrice += ((tripDistance / userMPG) * fuelCost);
+          price[price.length - 1] = currentPrice.toFixed(2);
+        }
+      }
     });
 
     return { date: date, fuel: fuel, price: price };
