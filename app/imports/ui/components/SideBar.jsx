@@ -88,7 +88,7 @@ const SideBar = (props) => {
                        className='sidebar-item'
                        activeClassName="active"
                        exact
-                       to="/daily"
+                       to={`/daily/${Meteor.user()?.username}`}
                        key='daily'>
               <Icon name='list'/>
               Daily
@@ -105,7 +105,7 @@ const SideBar = (props) => {
                        className='sidebar-item'
                        activeClassName="active"
                        exact
-                       to="/compare"
+                       to={`/compare/${Meteor.user()?.username}`}
                        key='compare'>
               <Icon name='car'/>
               Compare
@@ -113,7 +113,7 @@ const SideBar = (props) => {
             <Menu.Item as={NavLink}
                        className='sidebar-item'
                        activeClassName="active"
-                       exact to="/community"
+                       exact to={`/community/${Meteor.user()?.username}`}
                        key='community'>
               <Icon name='globe'/>
               Community
@@ -178,7 +178,7 @@ SideBar.propTypes = {
 };
 
 export default withTracker(() => {
-  const currentUser = Meteor.userId() ? Meteor.userId() : '';
+  const currentUser = Meteor.userId() || '';
   const username = Meteor.user()?.username;
   const userSubscribe = Users.subscribeUser();
   const userProfile = Users.getUserProfile(username);
