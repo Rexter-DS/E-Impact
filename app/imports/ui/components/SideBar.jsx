@@ -152,7 +152,7 @@ const SideBar = (props) => {
                       className='sidebar-item'
                       style={{ bottom: '0' }}>
                     <Icon name='user circle outline'/>
-                    {Meteor.user() ? Meteor.user().username : 'Guest'}
+                    {props.userProfile.username}
                   </Menu.Item>
                 }
             >
