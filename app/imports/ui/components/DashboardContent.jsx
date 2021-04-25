@@ -19,7 +19,6 @@ function DashboardContent(
       modesOfTransport,
       milesPerMode,
       userProfile,
-      userReady,
       ghgReducedPerDay,
       fuelSavedPerDay,
       milesSavedAvg,
@@ -214,11 +213,7 @@ function DashboardContent(
 
   return (
       <div id='dashboard-container'>
-        <SideBar
-            userReady={userReady}
-            userProfile={userProfile}
-            theme={userProfile.theme}
-        />
+        <SideBar theme={userProfile.theme}/>
         <Card.Group centered stackable itemsPerRow={4}>
           <DashboardMilesCard
               milesSaved={vehicleMilesSaved}
@@ -317,7 +312,6 @@ DashboardContent.propTypes = {
   modesOfTransport: PropTypes.object,
   milesPerMode: PropTypes.array,
   userProfile: PropTypes.object,
-  userReady: PropTypes.bool,
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,

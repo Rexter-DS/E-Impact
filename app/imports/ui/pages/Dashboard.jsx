@@ -43,7 +43,6 @@ function Dashboard(
                 modesOfTransport={modesOfTransport}
                 milesPerMode={milesPerMode}
                 userProfile={userProfile}
-                userReady={userReady}
                 ghgProducedTotal={ghgProducedTotal}
                 ghgReducedPerDay={ghgReducedPerDay}
                 fuelSavedPerDay={fuelSavedPerDay}

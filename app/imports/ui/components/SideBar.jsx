@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useEffect, useState } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { NavLink } from 'react-router-dom';
@@ -172,9 +173,20 @@ const SideBar = (props) => {
 };
 
 SideBar.propTypes = {
+  // currentUser: PropTypes.string,
   userReady: PropTypes.bool.isRequired,
   theme: PropTypes.string,
   userProfile: PropTypes.object,
 };
 
-export default SideBar;
+export default withTracker(() => {
+  // const currentUser = Meteor.userId() || '';
+  const username = Meteor.user()?.username;
+  const userSubscribe = Users.subscribeUser();
+  const userProfile = Users.getUserProfile(username);
+  return {
+    // currentUser: currentUser,
+    userReady: userSubscribe.ready(),
+    userProfile,
+  };
+})(SideBar);

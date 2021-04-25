@@ -108,11 +108,7 @@ const Daily = (props) => {
   return (!props.ready || !props.userReady) ? <Loader active>Loading data</Loader> :
       (
           <div id='daily-container'>
-            <SideBar
-                userReady={props.userReady}
-                userProfile={props.userProfile}
-                theme={props.userProfile.theme}
-            />
+            <SideBar theme={props.userProfile.theme}/>
             <Menu borderless
                   id="daily-top">
               <Grid className={'middle aligned'} style={{ width: '100%', marginLeft: '25px' }}>
@@ -186,9 +182,9 @@ Daily.propTypes = {
   userProfile: PropTypes.object,
 };
 
-export default withTracker(({ match }) => {
+export default withTracker(() => {
   const userSubscribe = Users.subscribeUser();
-  const username = match.params._id;
+  const username = Meteor.user()?.username;
   const ready = Meteor.subscribe(tripPublications.trip).ready() && username !== undefined;
   const trips = Trips.find({}).fetch();
   const userProfile = Users.getUserProfile(username);
