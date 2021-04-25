@@ -173,19 +173,19 @@ const SideBar = (props) => {
 };
 
 SideBar.propTypes = {
-  //currentUser: PropTypes.string,
+  // currentUser: PropTypes.string,
   userReady: PropTypes.bool.isRequired,
   theme: PropTypes.string,
   userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
-  //const currentUser = Meteor.userId() || '';
+  // const currentUser = Meteor.userId() || '';
   const username = Meteor.user()?.username;
   const userSubscribe = Users.subscribeUser();
   const userProfile = Users.getUserProfile(username);
   return {
-    //currentUser: currentUser,
+    // currentUser: currentUser,
     userReady: userSubscribe.ready(),
     userProfile,
   };
