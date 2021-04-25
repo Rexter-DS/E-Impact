@@ -11,6 +11,7 @@ function WhatIfContent(
       milesSavedPerDay,
       modesOfTransport,
       userProfile,
+      userReady,
       ghgProducedTotal,
       ghgReducedPerDay,
       fuelSavedPerDay,
@@ -199,7 +200,11 @@ function WhatIfContent(
 
   return (
       <div id='whatif-container'>
-        <SideBar theme={userProfile.theme}/>
+        <SideBar
+            userProfile={userProfile}
+            userReady={userReady}
+            theme={userProfile.theme}
+        />
         <Card.Group centered stackable itemsPerRow={4}>
           <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
@@ -291,6 +296,7 @@ WhatIfContent.propTypes = {
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.object,
+  userReady: PropTypes.bool,
   ghgProducedTotal: PropTypes.string,
   ghgReducedPerDay: PropTypes.object,
   fuelSavedPerDay: PropTypes.object,

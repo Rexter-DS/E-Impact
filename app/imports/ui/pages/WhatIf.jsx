@@ -55,6 +55,7 @@ function WhatIf(
                     milesSavedPerDay={milesSavedPerDay}
                     modesOfTransport={modesOfTransport}
                     userProfile={userProfile}
+                    userReady={userReady}
                     ghgProducedTotal={ghgProducedTotal}
                     ghgReducedPerDay={ghgReducedPerDay}
                     fuelSavedPerDay={fuelSavedPerDay}
