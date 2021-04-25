@@ -1,4 +1,4 @@
-name: ci-branc-testcafe-E-Impact
+name: ci-branch-testcafe-E-Impact
 
 on:
   push:
