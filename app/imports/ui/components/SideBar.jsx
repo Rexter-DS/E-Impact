@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Icon, Image, Menu, Sidebar } from 'semantic-ui-react';
+import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Users } from '../../api/user/UserCollection';
+import Settings from './Settings';
 
 const handleChange = () => {
   Users.updateTheme(Meteor.user()?.username);
@@ -43,6 +44,21 @@ const SideBar = (props) => {
       }
     }
   }
+
+  const [settings, setSettings] = useState(false);
+
+  useEffect(() => {
+    const dashboardModals = document.getElementsByClassName('card-modal');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < dashboardModals.length; i++) {
+        dashboardModals[i].classList.add('dark-card');
+      }
+    } else {
+      for (let i = 0; i < dashboardModals.length; i++) {
+        dashboardModals[i].classList.remove('dark-card');
+      }
+    }
+  }, [props.userProfile, settings]);
 
   return (
       props.currentUser ? <div><Sidebar
@@ -126,15 +142,32 @@ const SideBar = (props) => {
               onChange={handleChange}
               size={60}/>
         </Menu.Item>
-        <Menu.Item
-            className='sidebar-item'
-            style={{ color: '#0c4d85', position: 'fixed', bottom: '0' }}
-            id="sidebar-current-user"
+        <Modal
+            closeIcon
+            open={settings}
+            onOpen={() => setSettings(true)}
+            onClose={() => setSettings(false)}
+            trigger={
+              <Menu.Item
+                  className='sidebar-item'
+                  style={{ bottom: '0' }}>
+                <Icon name='user circle outline'/>
+                {Meteor.user() ? Meteor.user().username : 'Guest'}
+              </Menu.Item>
+            }
         >
-          <Icon name='user circle outline'/>
-          {Meteor.user() ? Meteor.user().username : 'Guest'}
-        </Menu.Item>
-      </Sidebar></div> : '');
+          <Header className='card-modal'>Settings</Header>
+          <Modal.Content className='card-modal'>
+            <Settings
+                docId={props.userProfile._id}
+                username={props.userProfile.username}
+                userMpg={props.userProfile.autoMPG}
+                userHomeRoundTrip={props.userProfile.homeRoundTrip}
+            />
+          </Modal.Content>
+        </Modal>
+      </Sidebar></div>
+          : '');
 };
 
 SideBar.propTypes = {
