@@ -17,8 +17,6 @@ function DashboardFuelCard(
       userProfile,
     },
 ) {
-
-
   const fuelSavedCostPerYear = (fuelSavedAvgPerYear * fuelCost).toFixed(2);
   const fuelSavedCostPerMonth = (fuelSavedAvgPerMonth * fuelCost).toFixed(2);
   const fuelSavedCostPerDay = (fuelSavedAvgPerDay * fuelCost).toFixed(2);
