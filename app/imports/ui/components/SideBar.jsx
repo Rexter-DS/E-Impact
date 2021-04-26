@@ -175,6 +175,6 @@ SideBar.propTypes = {
 };
 
 export default withTracker(() => {
-  const userReady = Users.subscribeUser().ready();
-  return userReady;
+  const ready = Users.subscribeUser().ready();
+  return ready;
 })(SideBar);
