@@ -1,5 +1,4 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { Card, Divider, Header, Loader, Popup } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -28,7 +27,11 @@ class Community extends React.Component {
     return (
       <div>
         <div id='community-container'>
-          <SideBar theme={this.props.userProfile.theme}/>
+          <SideBar
+              userProfile={this.props.userProfile}
+              userReady={this.props.userReady}
+              theme={this.props.userProfile.theme}
+          />
           <div id='community-map'>
             <Map/>
           </div>
@@ -143,11 +146,12 @@ Community.propTypes = {
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({ match }) => {
   // Get access to Trip documents.
+  const username = match.params._id;
   const subscription = Trips.subscribeTripCommunity();
   const userReady = Users.subscribeUser().ready();
-  const userProfile = Users.getUserProfile(Meteor.user()?.username);
+  const userProfile = Users.getUserProfile(username);
   return {
     trips: Trips.find({}).fetch(),
     ready: subscription.ready(),

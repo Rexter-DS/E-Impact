@@ -1,4 +1,3 @@
-import { Meteor } from 'meteor/meteor';
 import React, { useEffect, useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
@@ -8,20 +7,11 @@ import PropTypes from 'prop-types';
 import { Users } from '../../api/user/UserCollection';
 import Settings from './Settings';
 
-const handleChange = () => {
-  Users.updateTheme(Meteor.user()?.username);
-  // if (Users.getUserProfile(Meteor.user()?.username).theme === 'dark') {
-  //   document.body.classList.add('dark-sidebar');
-  // } else {
-  //   document.body.classList.remove('dark-sidebar');
-  // }
+function SideBar(props) {
 
-  // console.log(Users.getUserProfile(Meteor.user()?.username).theme);
-};
-
-const SideBar = (props) => {
-
-  const [settings, setSettings] = useState(false);
+  const handleChange = () => {
+    Users.updateTheme(props.userProfile.username);
+  };
 
   if (props.userReady && (document.getElementById('sidebar'))) {
     // console.log(document.getElementsByClassName('sidebar-item'));
@@ -45,146 +35,146 @@ const SideBar = (props) => {
         sidebarItems[i].classList.remove('dark-sidebar-item');
       }
     }
-
-    useEffect(() => {
-      const dashboardModals = document.getElementsByClassName('card-modal');
-      if (props.userProfile.theme === 'dark') {
-        for (let i = 0; i < dashboardModals.length; i++) {
-          dashboardModals[i].classList.add('dark-card');
-        }
-      } else {
-        for (let i = 0; i < dashboardModals.length; i++) {
-          dashboardModals[i].classList.remove('dark-card');
-        }
-      }
-    }, [props.userProfile, settings]);
   }
 
+  const [settings, setSettings] = useState(false);
+
+  useEffect(() => {
+    const dashboardModals = document.getElementsByClassName('card-modal');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < dashboardModals.length; i++) {
+        dashboardModals[i].classList.add('dark-card');
+      }
+    } else {
+      for (let i = 0; i < dashboardModals.length; i++) {
+        dashboardModals[i].classList.remove('dark-card');
+      }
+    }
+  }, [props.userProfile, settings]);
+
   return (
-      props.currentUser ? <div><Sidebar
-          as={Menu}
-          animation='overlay'
-          icon='labeled'
-          vertical
-          visible
-          width='thin'
-          id='sidebar'
-      >
-        <Menu.Item
-            style={{ padding: 0 }}>
-          <Image size='large'
-                 src={this.sidebarLogo}
-          />
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName=""
-                   exact
-                   to={`/Dashboard/${Meteor.user()?.username}`}>
-          <Icon name='grid layout'/>
-          Dashboard
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName="active"
-                   exact
-                   to="/daily"
-                   key='daily'>
-          <Icon name='list'/>
-          Daily
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName=""
-                   exact
-                   to={`/WhatIf/${Meteor.user()?.username}`}>
-          <Icon name='grid layout'/>
-          What If
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName="active"
-                   exact
-                   to="/compare"
-                   key='compare'>
-          <Icon name='car'/>
-          Compare
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName="active"
-                   exact to="/community"
-                   key='community'>
-          <Icon name='globe'/>
-          Community
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName="active"
-                   exact
-                   to="/admin"
-                   key='admin'>
-          <Icon name='cog'/>
-          Admin Page
-        </Menu.Item>
-        <Menu.Item as={NavLink}
-                   className='sidebar-item'
-                   activeClassName="active"
-                   exact
-                   to="/"
-                   key='signout'>
-          <Icon name='sign-out'/>
-          Sign Out
-        </Menu.Item>
-        <Menu.Item>
-          <DarkModeToggle
-              checked={props.theme === 'dark'}
-              onChange={handleChange}
-              size={60}/>
-        </Menu.Item>
-        <Modal
-            closeIcon
-            open={settings}
-            onOpen={() => setSettings(true)}
-            onClose={() => setSettings(false)}
-            trigger={
-              <Menu.Item
-                  className='sidebar-item'
-                  style={{ bottom: '0' }}>
-                <Icon name='user circle outline'/>
-                {Meteor.user() ? Meteor.user().username : 'Guest'}
-              </Menu.Item>
-            }
-        >
-          <Header className='card-modal'>Settings</Header>
-          <Modal.Content className='card-modal'>
-            <Settings
-                docId={props.userProfile._id}
-                username={props.userProfile.username}
-                userMpg={props.userProfile.autoMPG}
-                userHomeRoundTrip={props.userProfile.homeRoundTrip}
-            />
-          </Modal.Content>
-        </Modal>
-      </Sidebar></div>
-          : '');
-};
+      (props.userReady) ?
+      <div>
+        <Sidebar
+              as={Menu}
+              animation='overlay'
+              icon='labeled'
+              vertical
+              visible
+              width='thin'
+              id='sidebar'
+          >
+            <Menu.Item
+                style={{ padding: 0 }}>
+              <Image size='large'
+                     src={this.sidebarLogo}
+              />
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName=""
+                       exact
+                       to={`/Dashboard/${props.userProfile.username}`}>
+              <Icon name='grid layout'/>
+              Dashboard
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName="active"
+                       exact
+                       to={`/daily/${props.userProfile.username}`}
+                       key='daily'>
+              <Icon name='list'/>
+              Daily
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName=""
+                       exact
+                       to={`/WhatIf/${props.userProfile.username}`}>
+              <Icon name='grid layout'/>
+              What If
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName="active"
+                       exact
+                       to={`/compare/${props.userProfile.username}`}
+                       key='compare'>
+              <Icon name='car'/>
+              Compare
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName="active"
+                       exact to={`/community/${props.userProfile.username}`}
+                       key='community'>
+              <Icon name='globe'/>
+              Community
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName="active"
+                       exact
+                       to="/admin"
+                       key='admin'>
+              <Icon name='cog'/>
+              Admin Page
+            </Menu.Item>
+            <Menu.Item as={NavLink}
+                       className='sidebar-item'
+                       activeClassName="active"
+                       exact
+                       to="/"
+                       key='signout'>
+              <Icon name='sign-out'/>
+              Sign Out
+            </Menu.Item>
+            <Menu.Item>
+              <DarkModeToggle
+                  checked={props.theme === 'dark'}
+                  onChange={handleChange}
+                  size={60}/>
+            </Menu.Item>
+            <Modal
+                closeIcon
+                open={settings}
+                onOpen={() => setSettings(true)}
+                onClose={() => setSettings(false)}
+                trigger={
+                  <Menu.Item
+                      id='sidebar-current-user'
+                      className='sidebar-item'
+                      style={{ bottom: '0' }}
+                  >
+                    <Icon name='user circle outline'/>
+                    {props.userProfile.username}
+                  </Menu.Item>
+                }
+            >
+              <Header className='card-modal'>Settings</Header>
+              <Modal.Content className='card-modal'>
+                <Settings
+                    docId={props.userProfile._id}
+                    username={props.userProfile.username}
+                    userMpg={props.userProfile.autoMPG}
+                    userHomeRoundTrip={props.userProfile.homeRoundTrip}
+                />
+              </Modal.Content>
+            </Modal>
+          </Sidebar>
+      </div> :
+       <div></div>
+  );
+}
 
 SideBar.propTypes = {
-  currentUser: PropTypes.string,
   userReady: PropTypes.bool.isRequired,
   theme: PropTypes.string,
   userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
-  const currentUser = Meteor.userId() ? Meteor.userId() : '';
-  const username = Meteor.user()?.username;
-  const userSubscribe = Users.subscribeUser();
-  const userProfile = Users.getUserProfile(username);
-  return {
-    currentUser: currentUser,
-    userReady: userSubscribe.ready(),
-    userProfile,
-  };
+  const ready = Users.subscribeUser().ready();
+  return ready;
 })(SideBar);
