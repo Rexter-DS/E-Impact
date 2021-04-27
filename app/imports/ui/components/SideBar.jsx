@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
@@ -38,19 +38,6 @@ function SideBar(props) {
   }
 
   const [settings, setSettings] = useState(false);
-
-  useEffect(() => {
-    const dashboardModals = document.getElementsByClassName('card-modal');
-    if (props.userProfile.theme === 'dark') {
-      for (let i = 0; i < dashboardModals.length; i++) {
-        dashboardModals[i].classList.add('dark-card');
-      }
-    } else {
-      for (let i = 0; i < dashboardModals.length; i++) {
-        dashboardModals[i].classList.remove('dark-card');
-      }
-    }
-  }, [props.userProfile, settings]);
 
   return (
       (props.userReady) ?

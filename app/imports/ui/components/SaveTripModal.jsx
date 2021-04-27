@@ -35,7 +35,7 @@ const SaveTripModal = (props) => {
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open}
-          trigger={<Button className='daily-save-button'>Save Trip</Button>}
+          trigger={<Button className='daily-save-button' onHover>Save Trip</Button>}
       >
         <Modal.Header>Save Trip</Modal.Header>
         <Modal.Content>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Grid, Header, Icon, Loader, Segment } from 'semantic-ui-react';
+import { Grid, Header, Icon, Loader, Segment, Divider } from 'semantic-ui-react';
 import { AutoForm, DateField, ErrorsField, NumField, SelectField, SubmitField } from 'uniforms-semantic';
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
@@ -77,13 +77,20 @@ const AddTrip = (props) => {
   useEffect(() => {
     if (props.userReady) {
       const addTripForms = document.getElementsByClassName('add-trip-form');
+      const submitButtons = document.getElementsByClassName('submit-button');
       if (props.userProfile.theme === 'dark') {
         for (let i = 0; i < addTripForms.length; i++) {
           addTripForms[i].classList.add('dark-trip-form');
         }
+        for (let i = 0; i < submitButtons.length; i++) {
+          submitButtons[i].classList.remove('light-submit-button');
+        }
       } else {
         for (let i = 0; i < addTripForms.length; i++) {
           addTripForms[i].classList.remove('dark-trip-form');
+        }
+        for (let i = 0; i < submitButtons.length; i++) {
+          submitButtons[i].classList.add('light-submit-button');
         }
       }
     }
@@ -107,18 +114,19 @@ const AddTrip = (props) => {
                   <NumField name='mpg' label={'Vehicle MPG'}/>
                   <Icon name='question circle outline'/>If using alternative modes of transportation, enter the mpg of
                   your internal combustion engine vehicle.<br/><br/>
-                  <SubmitField value='Submit'/>
+                  <SubmitField className='submit-button' value='Submit'/>
                   <ErrorsField/>
                 </Segment>
               </AutoForm>
-              <Header className='add-trip-header' as="h2" textAlign="center">OR Add Saved Trip</Header>
+              <Divider className='add-trip-divider' horizontal>Or</Divider>
+              <Header className='add-trip-header' as="h2" textAlign="center">Add Saved Trip</Header>
               <AutoForm ref={ref => { fRef = ref; }} schema={bridge2} onSubmit={data => submitSaved(data, fRef)}>
                 <Segment className='add-trip-form'>
                   <DateField name='date'/>
                   <SelectField name='desc' label={'Saved Trips'}/>
                   <p><Icon name='question circle outline'/>You can simply select your saved trip here to skip adding the same details again and again.<br/>
                   {'To save more trips, click the "Save Trip" button on the Daily page.'}</p>
-                  <SubmitField value='Submit'/>
+                  <SubmitField className='submit-button' value='Submit'/>
                   <ErrorsField/>
                 </Segment>
               </AutoForm>

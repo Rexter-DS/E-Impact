@@ -98,8 +98,8 @@ const Daily = (props) => {
           dailyTableHeader[i].classList.remove('dark-daily-table-header');
         }
         for (let i = 0; i < dailyTable.length; i++) {
-          dailyTable[i].classList.add('dark-daily-table');
-          dailyTable[i].classList.remove('light-daily-table');
+          dailyTable[i].classList.add('light-daily-table');
+          dailyTable[i].classList.remove('dark-daily-table');
         }
       }
     }
@@ -134,7 +134,7 @@ const Daily = (props) => {
                     </Button.Content>
                   </Button>
                 </Grid.Column>
-                <Grid.Column width={1} verticalAlign='middle'>
+                <Grid.Column width={1} verticalAlign='middle' floated='left'>
                   <Button className='daily-arrow-button' circular animated={'fade'} onClick={handleClickNext}>
                     <Button.Content visible><Icon size='large' className='angle right'/></Button.Content>
                     <Button.Content hidden>
@@ -155,7 +155,8 @@ const Daily = (props) => {
               </Grid>
             </Menu>
             <Table fixed
-                   className='daily-table'>
+                   className='daily-table'
+                   textAlign='center'>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>

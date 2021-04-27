@@ -14,7 +14,7 @@ function DeleteSavedModal(props) {
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
           open={open}
-          trigger={<Button style={{ marginTop: '15px' }} className='daily-save-button'>Edit Saved Trip List</Button>}
+          trigger={<Button id='edit-saved-trip-button'>Edit Saved Trip List</Button>}
       >
         <Modal.Header>Current Saved Trip List</Modal.Header>
         <Modal.Content image>
