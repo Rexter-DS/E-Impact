@@ -10,13 +10,6 @@ import Settings from './Settings';
 
 const handleChange = () => {
   Users.updateTheme(Meteor.user()?.username);
-  // if (Users.getUserProfile(Meteor.user()?.username).theme === 'dark') {
-  //   document.body.classList.add('dark-sidebar');
-  // } else {
-  //   document.body.classList.remove('dark-sidebar');
-  // }
-
-  // console.log(Users.getUserProfile(Meteor.user()?.username).theme);
 };
 
 const SideBar = (props) => {
@@ -45,19 +38,6 @@ const SideBar = (props) => {
         sidebarItems[i].classList.remove('dark-sidebar-item');
       }
     }
-
-    useEffect(() => {
-      const dashboardModals = document.getElementsByClassName('card-modal');
-      if (props.userProfile.theme === 'dark') {
-        for (let i = 0; i < dashboardModals.length; i++) {
-          dashboardModals[i].classList.add('dark-card');
-        }
-      } else {
-        for (let i = 0; i < dashboardModals.length; i++) {
-          dashboardModals[i].classList.remove('dark-card');
-        }
-      }
-    }, [props.userProfile, settings]);
   }
 
   return (
