@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { tripPublications, Trips } from '../../api/trip/TripCollection';
 import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
 import { Users } from '../../api/user/UserCollection';
-import SidebarVisible from '../components/SideBar';
+import SideBar from '../components/SideBar';
 import DeleteSavedModal from '../components/DeleteSavedModal';
 
 const AddTrip = (props) => {
@@ -100,7 +100,7 @@ const AddTrip = (props) => {
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
     return (!props.readyTrips || !props.readySaved || !props.userReady) ? <Loader active>Loading Page</Loader> : (
         <div id='add-trip-container'>
-          <SidebarVisible theme={props.userProfile.theme}/>
+          <SideBar theme={props.userProfile.theme}/>
           <Grid container centered>
             <Grid.Column>
               <Header className='add-trip-header' as="h2" textAlign="center">Add New Trip</Header>
