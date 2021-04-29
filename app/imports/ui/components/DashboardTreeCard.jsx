@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Icon, Statistic, Image } from 'semantic-ui-react';
+import { Grid, Statistic, Image } from 'semantic-ui-react';
 import DashboardStatisticsCard from './DashboardStatisticsCard';
 
 function DashboardTreeCard(
