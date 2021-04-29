@@ -13,7 +13,7 @@ function SideBar(props) {
     Users.updateTheme(props.userProfile.username);
   };
 
-  if (props.userReady && (document.getElementById('sidebar'))) {
+  if (props.ready && (document.getElementById('sidebar'))) {
     // console.log(document.getElementsByClassName('sidebar-item'));
 
     const sidebarItems = document.getElementsByClassName('sidebar-item');
@@ -39,8 +39,10 @@ function SideBar(props) {
 
   const [settings, setSettings] = useState(false);
 
+  console.log(props.userProfile);
+
   return (
-      (props.userReady) ?
+      (props.ready) ?
       <div>
         <Sidebar
               as={Menu}
@@ -156,12 +158,16 @@ function SideBar(props) {
 }
 
 SideBar.propTypes = {
-  userReady: PropTypes.bool.isRequired,
+  ready: PropTypes.bool.isRequired,
   theme: PropTypes.string,
   userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
   const ready = Users.subscribeUser().ready();
-  return ready;
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
+  return {
+    ready,
+    userProfile,
+  };
 })(SideBar);
