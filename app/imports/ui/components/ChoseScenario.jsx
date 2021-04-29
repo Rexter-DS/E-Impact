@@ -80,21 +80,8 @@ function ChoseScenario(
 
     // sets events back to user's original data
     function defaultEvents() {
-        setEvents(() => _.map(milesSavedPerDay.date, function (date, i) {
-            const year = `${date.getFullYear()}`;
-            let month = `${date.getMonth() + 1}`;
-            let day = `${date.getDate()}`;
-
-            // Adjust month and day to have 2 numbers if necessary
-            if (month.length < 2) {
-                month = `0${month}`;
-            }
-            if (day.length < 2) {
-                day = `0${day}`;
-            }
-
-            return { id: i, title: milesSavedPerDay.mode[i], date: [year, month, day].join('-'), color: colorType(milesSavedPerDay.mode[i]) };
-        }));
+      window.location.reload();
+      return false;
     }
 
     // on clicking event, it stores event information in state selectedEvent
