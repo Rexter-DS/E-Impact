@@ -10,25 +10,26 @@ import { Users } from '../../api/user/UserCollection';
 import { getStateData } from '../../api/utilities/Utilities';
 
 function State(props) {
-  const data = getStateData();
-  const totalUsers = data.totalUsers;
-  const totalMilesSaved = data.totalMilesSaved;
-  const totalFuelUsed = data.totalFuelUsed;
-  const totalFuelSaved = data.totalFuelSaved;
-  const totalGhgProduced = data.totalGhgProduced;
-  const totalGhgReduced = data.totalGhgReduced;
-  const modeDistribution = data.modeDistribution;
-  const vmtData = data.vmtData;
-  const fuelData = data.fuelData;
-  const ghgData = data.ghgData;
-  const vmtReducedCounties = data.vmtReducedCounties;
-  const vmtProducedCounties = data.vmtProducedCounties;
-  const fuelSavedCounties = data.fuelSavedCounties;
-  const fuelUsedCounties = data.fuelUsedCounties;
-  const ghgSavedCounties = data.ghgSavedCounties;
-  const ghgProducedCounties = data.ghgProducedCounties;
-  const dataReduced = data.dataReduced;
-  const dataProduced = data.dataProduced;
+  const {
+    totalUsers,
+    totalMilesSaved,
+    totalFuelUsed,
+    totalFuelSaved,
+    totalGhgProduced,
+    totalGhgReduced,
+    modeDistribution,
+    vmtData,
+    fuelData,
+    ghgData,
+    vmtReducedCounties,
+    vmtProducedCounties,
+    fuelSavedCounties,
+    fuelUsedCounties,
+    ghgSavedCounties,
+    ghgProducedCounties,
+    dataReduced,
+    dataProduced,
+  } = getStateData();
 
   const endDate = moment().format('YYYY-MM-DD');
   const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
@@ -38,138 +39,113 @@ function State(props) {
   const [open3, setOpen3] = React.useState(false);
 
   /* Graph Layouts */
-  const chartBgColor = '#213c5c';
-  const chartGridColor = '#5c5c5c';
-  let modeLayout = {};
-  let vmtLayout = {};
-  let fuelLayout = {};
-  let ghgLayout = {};
-  let avgLayout = {};
+  let chartBgColor = '';
+  let chartGridColor = '';
+  let chartFontColor = '';
+  const tMargin = '40';
+  const bMargin = '40';
 
   if (props.userProfile.theme === 'dark') {
-    modeLayout = {
-      autosize: true,
-      showlegend: true,
-      paper_bgcolor: chartBgColor,
-      font: {
-        color: '#FFFFFF',
-      },
-    };
-    vmtLayout = {
-      autosize: true,
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Vehicle miles traveled',
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: '#FFFFFF',
-      },
-    };
-    fuelLayout = {
-      autosize: true,
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Gallons of Gas',
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: '#FFFFFF',
-      },
-    };
-    ghgLayout = {
-      autosize: true,
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Pounds of CO2',
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: '#FFFFFF',
-      },
-    };
-    avgLayout = {
-      autosize: true,
-      showlegend: true,
-      barmode: 'group',
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: '#FFFFFF',
-      },
-    };
+    chartBgColor = '#213c5c';
+    chartGridColor = '#5c5c5c';
+    chartFontColor = '#FFFFFF';
   } else {
-    modeLayout = {
-      autosize: true,
-      showlegend: true,
-    };
-    vmtLayout = {
-      autosize: true,
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Vehicle miles traveled',
-        type: 'linear',
-      },
-    };
-    fuelLayout = {
-      autosize: true,
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Gallons of Gas',
-        type: 'linear',
-      },
-    };
-    ghgLayout = {
-      autosize: true,
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-      },
-      yaxis: {
-        title: 'Pounds of CO2',
-        type: 'linear',
-      },
-    };
-    avgLayout = {
-      autosize: true,
-      showlegend: true,
-      barmode: 'group',
-
-    };
+    chartBgColor = '';
+    chartGridColor = '';
+    chartFontColor = '';
   }
+
+  const modeLayout = {
+    autosize: true,
+    showlegend: true,
+    paper_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const vmtLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    xaxis: {
+      range: [startDate, endDate],
+      rangeslider: { range: ['2020-12-31', endDate] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Vehicle miles traveled',
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const fuelLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    xaxis: {
+      range: [startDate, endDate],
+      rangeslider: { range: ['2020-12-31', endDate] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Gallons of Gas',
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const ghgLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    xaxis: {
+      range: [startDate, endDate],
+      rangeslider: { range: ['2020-12-31', endDate] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Pounds of CO2',
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const avgLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    showlegend: true,
+    barmode: 'group',
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
 
   const vmtModal =
       <Modal
@@ -220,7 +196,7 @@ function State(props) {
             <Grid.Row>
               <Grid.Column width={8}>
                 <Card className='card-modal' fluid>
-                  <Card.Header className='community-card-header'>
+                  <Card.Header className='card-header'>
                     Fuel Saved By County
                   </Card.Header>
                   <Card.Content>
@@ -230,7 +206,7 @@ function State(props) {
               </Grid.Column>
               <Grid.Column width={8}>
                 <Card className='card-modal' fluid>
-                  <Card.Header className='community-card-header'>
+                  <Card.Header className='card-header'>
                     Fuel Used By County
                   </Card.Header>
                   <Card.Content>
@@ -250,13 +226,13 @@ function State(props) {
           open={open3}
           trigger={<Button className='community-button'>Show Breakdown By County</Button>}
       >
-        <Modal.Header className='card-modal' >GHG Data Breakdown</Modal.Header>
+        <Modal.Header className='card-modal'>GHG Data Breakdown</Modal.Header>
         <Modal.Content className='card-modal'>
           <Grid centered>
             <Grid.Row>
               <Grid.Column width={8}>
                 <Card className='card-modal' fluid>
-                  <Card.Header className='community-card-header'>
+                  <Card.Header className='card-header'>
                     GHG Reduced By County
                   </Card.Header>
                   <Card.Content>
@@ -266,7 +242,7 @@ function State(props) {
               </Grid.Column>
               <Grid.Column width={8}>
                 <Card className='card-modal' fluid>
-                  <Card.Header className='community-card-header'>
+                  <Card.Header className='card-header'>
                     GHG Produced By County
                   </Card.Header>
                   <Card.Content>
@@ -282,14 +258,14 @@ function State(props) {
   /* DOM Styling */
   useEffect(() => {
     const communityCard = document.getElementsByClassName('community-card');
-    const communityCardHeader = document.getElementsByClassName('community-card-header');
+    const cardHeader = document.getElementsByClassName('card-header');
     const communityModal = document.getElementsByClassName('card-modal');
     if (props.userProfile.theme === 'dark') {
       for (let i = 0; i < communityCard.length; i++) {
         communityCard[i].classList.add('dark-community-card');
       }
-      for (let i = 0; i < communityCardHeader.length; i++) {
-        communityCardHeader[i].classList.add('dark-community-card-header');
+      for (let i = 0; i < cardHeader.length; i++) {
+        cardHeader[i].classList.add('dark-card-header');
       }
       for (let i = 0; i < communityModal.length; i++) {
         communityModal[i].classList.add('dark-card');
@@ -298,8 +274,8 @@ function State(props) {
       for (let i = 0; i < communityCard.length; i++) {
         communityCard[i].classList.remove('dark-community-card');
       }
-      for (let i = 0; i < communityCardHeader.length; i++) {
-        communityCardHeader[i].classList.remove('dark-community-card-header');
+      for (let i = 0; i < cardHeader.length; i++) {
+        cardHeader[i].classList.remove('dark-card-header');
       }
       for (let i = 0; i < communityModal.length; i++) {
         communityModal[i].classList.remove('dark-card');
@@ -363,7 +339,7 @@ function State(props) {
         <Grid.Row>
           <Grid.Column width={7}>
             <Card fluid className='community-card'>
-              <Card.Header className='community-card-header'>
+              <Card.Header className='card-header'>
                 Modes of Transportation
               </Card.Header>
               <Card.Content>
@@ -375,7 +351,7 @@ function State(props) {
           </Grid.Column>
           <Grid.Column width={7}>
             <Card className='community-card' fluid>
-              <Card.Header className='community-card-header' textAlign='left'>
+              <Card.Header className='card-header' textAlign='left'>
                 VMT Data
               </Card.Header>
               <Card.Content>
@@ -388,7 +364,7 @@ function State(props) {
         <Grid.Row>
           <Grid.Column width={7}>
             <Card className='community-card' fluid>
-              <Card.Header className='community-card-header'>
+              <Card.Header className='card-header'>
                 Fuel Data
               </Card.Header>
               <Card.Content>
@@ -399,7 +375,7 @@ function State(props) {
           </Grid.Column>
           <Grid.Column width={7}>
             <Card className='community-card' fluid>
-              <Card.Header className='community-card-header'>
+              <Card.Header className='card-header'>
                 GHG Data
               </Card.Header>
               <Card.Content>
@@ -412,7 +388,7 @@ function State(props) {
         <Grid.Row>
           <Grid.Column width={7}>
             <Card fluid className='community-card'>
-              <Card.Header className='community-card-header'>
+              <Card.Header className='card-header'>
                 Average from the last 30 days
               </Card.Header>
               <Card.Content>
@@ -423,7 +399,7 @@ function State(props) {
           </Grid.Column>
           <Grid.Column width={7}>
             <Card fluid className='community-card'>
-              <Card.Header className='community-card-header'>
+              <Card.Header className='card-header'>
                 Average from the last 30 days
               </Card.Header>
               <Card.Content>
@@ -451,9 +427,11 @@ export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
   const userProfile = Users.getUserProfile(Meteor.user()?.username);
+  const trips = Trips.find({}).fetch();
+  const ready = subscription.ready();
   return {
-    trips: Trips.find({}).fetch(),
-    ready: subscription.ready(),
+    trips,
+    ready,
     userProfile,
   };
 })(State);

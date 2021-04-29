@@ -11,7 +11,7 @@
 
 .dark {
   background-color: #002A47;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 body {
@@ -113,18 +113,6 @@ body {
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
-#dashboard-container {
-  /*padding-top: 20px;*/
-  padding: 50px 100px;
-  margin-left: 150px;
-  font-family: "Barlow Semi Condensed", sans-serif;
-  background-color: inherit;
-}
-
-#dashboard-total-row {
-  height: 10%;
-}
-
 #compare-footer {
   background-color: #093c69;
   font-family: "Barlow Semi Condensed", sans-serif;
@@ -191,12 +179,36 @@ body {
 }
 
 /* DASHBOARD */
+#dashboard-container {
+  /*padding-top: 20px;*/
+  padding: 50px 100px;
+  margin-left: 150px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background-color: inherit;
+}
+
+#dashboard-total-row {
+  height: 10%;
+}
+
 .dashboard-statistic {
   color: inherit !important;
 }
 
 .link {
   color: #177fc5;
+}
+
+.tree-icon {
+  padding: 25px 10px 0px 20px !important;
+}
+
+.question-icon {
+  margin-left: 3px !important;
+}
+
+.ui.table thead th, .ui.table tr:first-child td, .ui.table tr td {
+  border-color: rgba(175, 175, 175, 0.4) !important;
 }
 
 /* DAILY */
@@ -232,6 +244,7 @@ body {
   color: #FFFFFF !important;
   font-size: 20px !important;
   background-color: #0c4d85 !important;
+  padding: 15px 50px 15px 50px;
 }
 
 #daily-date-button {
@@ -258,6 +271,7 @@ body {
 
 .dark-daily-table {
   background-color: inherit !important;
+  color: #C9C9C9 !important;
 }
 
 .light-daily-table {
@@ -548,19 +562,35 @@ body {
   background-color: #1d3652 !important;
 }
 
+/* GENERAL */
+.general-header {
+  color: inherit !important;
+}
+
   /* GENERAL CARD */
+.ui.cards > .card > .content, .ui.card > .content {
+  border-top: 0 !important;
+}
+
+/* This isn't applying, need assistance the card borders are ugly. */
+.ui.cards > .card > .extra, .ui.card > .extra {
+  border-top: 0 !important;
+  border-top-width: 0 !important;
+}
+
 .dark-card {
   background-color: #213c5c !important;
   color: inherit !important;
 }
 
 .card-header {
-  padding-left: 1rem;
+  padding: 10px 0 10px 10px !important;
   color: #4183C4;
 }
 
+/* For cards, not modals-cards */
 .dark-card-header {
-  color: #FFFFFF !important;
+  color: #668D9E !important;
 }
 
 .card-button {

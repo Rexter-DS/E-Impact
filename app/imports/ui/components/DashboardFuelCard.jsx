@@ -52,7 +52,7 @@ function DashboardFuelCard(
               More Information
               <Popup
                   hoverable
-                  trigger={<Icon link name='question circle outline'/>}
+                  trigger={<Icon className='question-icon' link name='question circle outline'/>}
               >
                 <Popup.Content>
                   The Department of Energy reports that the cost of using a vehicle running on gasoline is $3.10/gallon while running the same vehicle only costs $2.65/eGallon. <br/>

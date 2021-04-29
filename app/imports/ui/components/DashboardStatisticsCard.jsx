@@ -37,12 +37,16 @@ function DashboardStatisticsCard(
   useEffect(() => {
     const dashboardCards = document.getElementsByClassName('general-card');
     const dashboardModals = document.getElementsByClassName('card-modal');
+    const cardHeaders = document.getElementsByClassName('card-header');
     if (userProfile.theme === 'dark') {
       for (let i = 0; i < dashboardCards.length; i++) {
         dashboardCards[i].classList.add('dark-card');
       }
       for (let i = 0; i < dashboardModals.length; i++) {
         dashboardModals[i].classList.add('dark-card');
+      }
+      for (let i = 0; i < cardHeaders.length; i++) {
+        cardHeaders[i].classList.add('dark-card-header');
       }
     } else {
       for (let i = 0; i < dashboardCards.length; i++) {
@@ -51,12 +55,15 @@ function DashboardStatisticsCard(
       for (let i = 0; i < dashboardModals.length; i++) {
         dashboardModals[i].classList.remove('dark-card');
       }
+      for (let i = 0; i < cardHeaders.length; i++) {
+        cardHeaders[i].classList.remove('dark-card-header');
+      }
     }
   }, [userProfile, moreInfo]);
 
   return (
       <Card className='general-card'>
-        <Card.Header>{cardHeader}</Card.Header>
+        <Card.Header className='card-header'>{cardHeader}</Card.Header>
         <Card.Content textAlign='center'>
           <Popup
               on='hover'

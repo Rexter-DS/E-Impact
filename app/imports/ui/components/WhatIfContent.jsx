@@ -8,6 +8,7 @@ import Chart from './Chart';
 function WhatIfContent(
     {
       milesSavedTotal,
+      trueMilesSavedTotal,
       milesSavedPerDay,
       modesOfTransport,
       userProfile,
@@ -19,9 +20,16 @@ function WhatIfContent(
       modesOfTransportWI,
       ghgReducedPerDayWI,
       fuelSavedPerDayWI,
+      newMilesTotal,
     },
 ) {
 
+  const milesSavedTotalWI = newMilesTotal(milesSavedPerDayWI);
+  const fuelSavedTotalWI = (milesSavedTotalWI / userProfile.autoMPG).toFixed(2);
+  const ghgProducedTotalWI = (((milesSavedTotal - milesSavedTotalWI) / userProfile.autoMPG) * 19.6).toFixed(2);
+  const ghgReducedTotalWI = (fuelSavedTotalWI * 19.6).toFixed(2);
+  const fuelSavedTotal = (trueMilesSavedTotal / userProfile.autoMPG).toFixed(2);
+  const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
   const milesSavedPerDayData = [{
     x: milesSavedPerDay.date,
     y: milesSavedPerDay.distance,
@@ -38,16 +46,15 @@ function WhatIfContent(
       marker: { color: 'rgb(173,216,230)' },
     }];
 
-  const fuelSavedTotal = (milesSavedTotal / userProfile.autoMPG).toFixed(2);
-
   const fuelSavedPerDayData = {
     x: fuelSavedPerDay.date,
     y: fuelSavedPerDay.fuel,
     name: 'Original Fuel Saved (gallons)',
     type: 'scatter',
     mode: 'lines+markers',
+    hoverinfo: 'y',
     line: {
-      width: 7 },
+      width: 4 },
   };
   const fuelSavedPerDayDataWI = {
     x: fuelSavedPerDayWI.date,
@@ -55,22 +62,21 @@ function WhatIfContent(
     name: 'What If Fuel Saved (gallons)',
     type: 'scatter',
     mode: 'lines+markers',
+    hoverinfo: 'y',
     line: {
       color: 'rgb(176,216,230)',
-      width: 1 },
+      width: 3 },
   };
-
-  const ghgReducedTotal = (fuelSavedTotal * 19.6).toFixed(2);
-
   const ghgReducedPerDayData = {
     x: ghgReducedPerDay.date,
     y: ghgReducedPerDay.ghg,
     name: 'Original GHG Reduced (pounds)',
     type: 'scatter',
     mode: 'lines+markers',
+    hoverinfo: 'y',
     line: {
       color: 'rgb(44,160,44)',
-      width: 7 },
+      width: 4 },
   };
   const ghgReducedPerDayDataWI = {
     x: ghgReducedPerDayWI.date,
@@ -78,14 +84,16 @@ function WhatIfContent(
     name: 'What If GHG Reduced (pounds)',
     type: 'scatter',
     mode: 'lines+markers',
+    hoverinfo: 'y',
     line: {
       color: 'rgb(0,229,0)',
-      width: 2 },
+      width: 3 },
   };
 
   const modesOfTransportData = [{
     values: modesOfTransport.value,
     labels: modesOfTransport.label,
+    textposition: 'inside',
     type: 'pie',
     hole: 0.4,
     hoverinfo: 'label+percent',
@@ -94,6 +102,7 @@ function WhatIfContent(
     {
       values: modesOfTransportWI.value,
       labels: modesOfTransportWI.label,
+      textposition: 'inside',
       type: 'pie',
       hole: 0.4,
       hoverinfo: 'label+percent',
@@ -162,21 +171,23 @@ function WhatIfContent(
   const defaultLayout = {
     autosize: true,
     showlegend: true,
+    legend: { orientation: 'h' },
     annotations: [
       {
         font: { size: 15 },
         showarrow: false,
         text: 'Old',
-        x: 0.17,
+        x: 0.20,
         y: 0.5,
       },
       {
         font: { size: 15 },
         showarrow: false,
         text: 'New',
-        x: 0.82,
+        x: 0.80,
         y: 0.5,
       }],
+    margin: { t: 0, b: 0, l: 0, r: 0 },
     grid: { rows: 1, columns: 2 },
     paper_bgcolor: chartBgColor,
     font: {
@@ -212,8 +223,14 @@ function WhatIfContent(
             </Card.Header>
             <Card.Content textAlign='center'>
               <Statistic>
-                <Statistic.Value className='whatif-statistic'>{milesSavedTotal}</Statistic.Value>
+                <Statistic.Value className='whatif-statistic'>{trueMilesSavedTotal}</Statistic.Value>
                 <Statistic.Label className='whatif-statistic'>miles</Statistic.Label>
+              </Statistic>
+            </Card.Content>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value className='whatif-statistic'>{milesSavedTotalWI}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>what if miles</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
@@ -227,6 +244,12 @@ function WhatIfContent(
                 <Statistic.Label className='whatif-statistic'>gallons</Statistic.Label>
               </Statistic>
             </Card.Content>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value className='whatif-statistic'>{fuelSavedTotalWI}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>what if gallons</Statistic.Label>
+              </Statistic>
+            </Card.Content>
           </Card>
           <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
@@ -238,6 +261,12 @@ function WhatIfContent(
                 <Statistic.Label className='whatif-statistic'>pounds</Statistic.Label>
               </Statistic>
             </Card.Content>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value className='whatif-statistic'>{ghgProducedTotalWI}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>what if pounds</Statistic.Label>
+              </Statistic>
+            </Card.Content>
           </Card>
           <Card className='whatif-card'>
             <Card.Header style={{ paddingLeft: '10px' }}>
@@ -247,6 +276,12 @@ function WhatIfContent(
               <Statistic>
                 <Statistic.Value className='whatif-statistic'>{ghgReducedTotal}</Statistic.Value>
                 <Statistic.Label className='whatif-statistic'>pounds</Statistic.Label>
+              </Statistic>
+            </Card.Content>
+            <Card.Content textAlign='center'>
+              <Statistic>
+                <Statistic.Value className='whatif-statistic'>{ghgReducedTotalWI}</Statistic.Value>
+                <Statistic.Label className='whatif-statistic'>what if pounds</Statistic.Label>
               </Statistic>
             </Card.Content>
           </Card>
@@ -293,6 +328,7 @@ function WhatIfContent(
 
 WhatIfContent.propTypes = {
   milesSavedTotal: PropTypes.number,
+  trueMilesSavedTotal: PropTypes.number,
   milesSavedPerDay: PropTypes.object,
   modesOfTransport: PropTypes.object,
   userProfile: PropTypes.object,
@@ -304,6 +340,7 @@ WhatIfContent.propTypes = {
   modesOfTransportWI: PropTypes.object,
   ghgReducedPerDayWI: PropTypes.object,
   fuelSavedPerDayWI: PropTypes.object,
+  newMilesTotal: PropTypes.func,
 };
 
 export default WhatIfContent;

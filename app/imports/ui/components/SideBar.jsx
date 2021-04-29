@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { NavLink } from 'react-router-dom';
@@ -13,34 +14,39 @@ function SideBar(props) {
     Users.updateTheme(props.userProfile.username);
   };
 
-  if (props.userReady && (document.getElementById('sidebar'))) {
-    // console.log(document.getElementsByClassName('sidebar-item'));
+  let sidebarLogo = 'images/EImpactLogo.png';
 
-    const sidebarItems = document.getElementsByClassName('sidebar-item');
+  useEffect(() => {
+    if (props.ready && (document.getElementById('sidebar'))) {
 
-    if (props.userProfile.theme === 'dark') {
-      this.sidebarLogo = 'images/EImpactLogoWhite.png';
-      document.body.classList.add('dark');
-      document.getElementById('sidebar').classList.add('dark-sidebar');
-      for (let i = 0; i < sidebarItems.length; i++) {
-        sidebarItems[i].classList.add('dark-sidebar-item');
-        sidebarItems[i].classList.remove('light-sidebar-item');
-      }
-    } else {
-      this.sidebarLogo = 'images/EImpactLogo.png';
-      document.body.classList.remove('dark');
-      document.getElementById('sidebar').classList.remove('dark-sidebar');
-      for (let i = 0; i < sidebarItems.length; i++) {
-        sidebarItems[i].classList.add('light-sidebar-item');
-        sidebarItems[i].classList.remove('dark-sidebar-item');
+      const sidebarItems = document.getElementsByClassName('sidebar-item');
+
+      if (props.userProfile.theme === 'dark') {
+        sidebarLogo = 'images/EImpactLogoWhite.png';
+        document.body.classList.add('dark');
+        document.getElementById('sidebar').classList.add('dark-sidebar');
+        for (let i = 0; i < sidebarItems.length; i++) {
+          sidebarItems[i].classList.add('dark-sidebar-item');
+          sidebarItems[i].classList.remove('light-sidebar-item');
+        }
+      } else {
+        sidebarLogo = 'images/EImpactLogo.png';
+        document.body.classList.remove('dark');
+        document.getElementById('sidebar').classList.remove('dark-sidebar');
+        for (let i = 0; i < sidebarItems.length; i++) {
+          sidebarItems[i].classList.add('light-sidebar-item');
+          sidebarItems[i].classList.remove('dark-sidebar-item');
+        }
       }
     }
-  }
+  }, [props, sidebarLogo]);
 
   const [settings, setSettings] = useState(false);
 
+  console.log(sidebarLogo);
+
   return (
-      (props.userReady) ?
+      (props.ready) ?
       <div>
         <Sidebar
               as={Menu}
@@ -54,7 +60,7 @@ function SideBar(props) {
             <Menu.Item
                 style={{ padding: 0 }}>
               <Image size='large'
-                     src={this.sidebarLogo}
+                     src={sidebarLogo}
               />
             </Menu.Item>
             <Menu.Item as={NavLink}
@@ -156,12 +162,16 @@ function SideBar(props) {
 }
 
 SideBar.propTypes = {
-  userReady: PropTypes.bool.isRequired,
+  ready: PropTypes.bool.isRequired,
   theme: PropTypes.string,
   userProfile: PropTypes.object,
 };
 
 export default withTracker(() => {
   const ready = Users.subscribeUser().ready();
-  return ready;
+  const userProfile = Users.getUserProfile(Meteor.user()?.username);
+  return {
+    ready,
+    userProfile,
+  };
 })(SideBar);

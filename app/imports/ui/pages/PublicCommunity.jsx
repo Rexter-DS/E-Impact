@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Grid } from 'semantic-ui-react';
-import CommunityNavBar from '../components/CommunityNavBar';
+import LandingNavBar from '../components/LandingNavBar';
 import Footer from '../components/Footer';
 import PublicMap from '../components/PublicMap';
 
@@ -9,7 +9,7 @@ class PublicCommunity extends React.Component {
   render() {
     return (
         <div>
-          <CommunityNavBar/>
+          <LandingNavBar/>
           <div id='public-community-container'>
             <div id='community-map'>
               <PublicMap/>
