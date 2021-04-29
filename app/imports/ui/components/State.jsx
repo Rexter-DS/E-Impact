@@ -10,25 +10,26 @@ import { Users } from '../../api/user/UserCollection';
 import { getStateData } from '../../api/utilities/Utilities';
 
 function State(props) {
-  const data = getStateData();
-  const totalUsers = data.totalUsers;
-  const totalMilesSaved = data.totalMilesSaved;
-  const totalFuelUsed = data.totalFuelUsed;
-  const totalFuelSaved = data.totalFuelSaved;
-  const totalGhgProduced = data.totalGhgProduced;
-  const totalGhgReduced = data.totalGhgReduced;
-  const modeDistribution = data.modeDistribution;
-  const vmtData = data.vmtData;
-  const fuelData = data.fuelData;
-  const ghgData = data.ghgData;
-  const vmtReducedCounties = data.vmtReducedCounties;
-  const vmtProducedCounties = data.vmtProducedCounties;
-  const fuelSavedCounties = data.fuelSavedCounties;
-  const fuelUsedCounties = data.fuelUsedCounties;
-  const ghgSavedCounties = data.ghgSavedCounties;
-  const ghgProducedCounties = data.ghgProducedCounties;
-  const dataReduced = data.dataReduced;
-  const dataProduced = data.dataProduced;
+  const {
+    totalUsers,
+    totalMilesSaved,
+    totalFuelUsed,
+    totalFuelSaved,
+    totalGhgProduced,
+    totalGhgReduced,
+    modeDistribution,
+    vmtData,
+    fuelData,
+    ghgData,
+    vmtReducedCounties,
+    vmtProducedCounties,
+    fuelSavedCounties,
+    fuelUsedCounties,
+    ghgSavedCounties,
+    ghgProducedCounties,
+    dataReduced,
+    dataProduced,
+  } = getStateData();
 
   const endDate = moment().format('YYYY-MM-DD');
   const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
@@ -426,9 +427,11 @@ export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
   const userProfile = Users.getUserProfile(Meteor.user()?.username);
+  const trips = Trips.find({}).fetch();
+  const ready = subscription.ready();
   return {
-    trips: Trips.find({}).fetch(),
-    ready: subscription.ready(),
+    trips,
+    ready,
     userProfile,
   };
 })(State);

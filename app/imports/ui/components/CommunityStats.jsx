@@ -1,238 +1,248 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Card, Grid, Icon, Progress, Statistic } from 'semantic-ui-react';
 import moment from 'moment';
-import { Card, Grid, Icon, Loader, Progress, Statistic } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
-import { getCountyData } from '../../api/utilities/Utilities.js';
 import Chart from './Chart';
 import { Users } from '../../api/user/UserCollection';
+import { getCountyData } from '../../api/utilities/Utilities';
 
-class CommunityStats extends React.Component {
-  componentDidUpdate() {
-    Users.communityStyling(this.props);
+function CommunityStats(props) {
+  const county = props.county;
+  const {
+    totalUsers,
+    totalMilesSaved,
+    totalFuelUsed,
+    totalFuelSaved,
+    totalGhgProduced,
+    totalGhgReduced,
+    modeDistribution,
+    vmtData,
+    fuelData,
+    ghgData,
+  } = getCountyData(county);
+
+  const endDate = moment().format('YYYY-MM-DD');
+  const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
+
+  /* Graph Layouts */
+  let chartBgColor = '';
+  let chartGridColor = '';
+  let chartFontColor = '';
+  const tMargin = '40';
+  const bMargin = '40';
+
+  if (props.userProfile.theme === 'dark') {
+    chartBgColor = '#213c5c';
+    chartGridColor = '#5c5c5c';
+    chartFontColor = '#FFFFFF';
+  } else {
+    chartBgColor = '';
+    chartGridColor = '';
+    chartFontColor = '';
   }
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
-  render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
-  }
+  const modeLayout = {
+    autosize: true,
+    showlegend: true,
+    paper_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const vmtLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    xaxis: {
+      range: [startDate, endDate],
+      rangeslider: { range: ['2020-12-31', endDate] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Vehicle miles traveled',
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const fuelLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    xaxis: {
+      range: [startDate, endDate],
+      rangeslider: { range: ['2020-12-31', endDate] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Gallons of Gas',
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
+  const ghgLayout = {
+    autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
+    xaxis: {
+      range: [startDate, endDate],
+      rangeslider: { range: ['2020-12-31', endDate] },
+      type: 'date',
+      gridcolor: chartGridColor,
+    },
+    yaxis: {
+      title: 'Pounds of CO2',
+      type: 'linear',
+      gridcolor: chartGridColor,
+    },
+    paper_bgcolor: chartBgColor,
+    plot_bgcolor: chartBgColor,
+    font: {
+      color: chartFontColor,
+    },
+  };
 
-  renderPage() {
-    const county = this.props.county;
-    const countyData = getCountyData(county);
-    const totalUsers = countyData.totalUsers;
-    const totalMilesSaved = countyData.totalMilesSaved;
-    const totalFuelUsed = countyData.totalFuelUsed;
-    const totalFuelSaved = countyData.totalFuelSaved;
-    const totalGhgProduced = countyData.totalGhgProduced;
-    const totalGhgReduced = countyData.totalGhgReduced;
-    const modeDistribution = countyData.modeDistribution;
-    const vmtData = countyData.vmtData;
-    const fuelData = countyData.fuelData;
-    const ghgData = countyData.ghgData;
-
-    const endDate = moment().format('YYYY-MM-DD');
-    const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
-
-    /* Graph Layouts */
-    let chartBgColor = '';
-    let chartGridColor = '';
-    let chartFontColor = '';
-    const tMargin = '40';
-    const bMargin = '10';
-
-    if (this.props.userProfile.theme === 'dark') {
-      chartBgColor = '#213c5c';
-      chartGridColor = '#5c5c5c';
-      chartFontColor = '#FFFFFF';
+  /* DOM Styling */
+  useEffect(() => {
+    const communityCard = document.getElementsByClassName('community-card');
+    const cardHeader = document.getElementsByClassName('card-header');
+    if (props.userProfile.theme === 'dark') {
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.add('dark-community-card');
+      }
+      for (let i = 0; i < cardHeader.length; i++) {
+        cardHeader[i].classList.add('dark-card-header');
+      }
     } else {
-      chartBgColor = '';
-      chartGridColor = '';
-      chartFontColor = '';
+      for (let i = 0; i < communityCard.length; i++) {
+        communityCard[i].classList.remove('dark-community-card');
+      }
+      for (let i = 0; i < cardHeader.length; i++) {
+        cardHeader[i].classList.remove('dark-card-header');
+      }
     }
+  }, [props]);
 
-    const modeLayout = {
-      autosize: true,
-      margin: {
-        t: tMargin,
-        b: bMargin,
-      },
-      showlegend: true,
-      paper_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-    const vmtLayout = {
-      autosize: true,
-      margin: {
-        t: tMargin,
-        b: bMargin,
-      },
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Vehicle miles traveled',
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-    const fuelLayout = {
-      autosize: true,
-      margin: {
-        t: tMargin,
-        b: bMargin,
-      },
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Gallons of Gas',
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-    const ghgLayout = {
-      autosize: true,
-      margin: {
-        t: tMargin,
-        b: bMargin,
-      },
-      xaxis: {
-        range: [startDate, endDate],
-        rangeslider: { range: ['2020-12-31', endDate] },
-        type: 'date',
-        gridcolor: chartGridColor,
-      },
-      yaxis: {
-        title: 'Pounds of CO2',
-        type: 'linear',
-        gridcolor: chartGridColor,
-      },
-      paper_bgcolor: chartBgColor,
-      plot_bgcolor: chartBgColor,
-      font: {
-        color: chartFontColor,
-      },
-    };
-
-    return (
-        <Grid centered>
-          <Grid.Row>
-            <Grid.Column as="h2" textAlign='center'>{county} County</Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='center'> <Statistic>
+  return (
+      <Grid centered>
+        <Grid.Row>
+          <Grid.Column as="h2" textAlign='center'>{county} County</Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={3} textAlign='center'>
+            <Statistic>
               <Statistic.Value className='community-statistic'>
                 <Icon name='users'/>{totalUsers}
               </Statistic.Value>
               <Statistic.Label className='community-statistic'>users</Statistic.Label>
             </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value className='community-statistic'><Icon name='car'/>{totalMilesSaved}</Statistic.Value>
-              <Statistic.Label className='community-statistic'>vehicle miles traveled (VMT) reduced</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5}><Progress value={totalMilesSaved} total='200000'
-                                             label="2021 GOAL: 200,000 VMT REDUCED" color="blue"/></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='center'> <Statistic color="red">
-              <Statistic.Value><Icon name='fire'/>{totalFuelUsed}</Statistic.Value>
-              <Statistic.Label className='community-statistic'>gallons of gas used</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value className='community-statistic'><Icon name='fire'/>{totalFuelSaved}</Statistic.Value>
-              <Statistic.Label className='community-statistic'>gallons of gas saved</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Progress value={totalFuelSaved} total='8000'
-                        label="2021 GOAL: 8,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='center'> <Statistic color="red">
-              <Statistic.Value><Icon name='cloud'/>{totalGhgProduced}</Statistic.Value>
-              <Statistic.Label className='community-statistic'>pounds of C02 produced</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5} textAlign='center'> <Statistic>
-              <Statistic.Value className='community-statistic'><Icon name='cloud'/>{totalGhgReduced}</Statistic.Value>
-              <Statistic.Label className='community-statistic'>pounds of CO2 reduced</Statistic.Label>
-            </Statistic>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Progress value={totalGhgReduced} total='171000'
-                        label="2021 GOAL: 171,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={7}>
-              <Card className='community-card' fluid>
-                <Card.Header className='community-card-header'>
-                  Modes of Transportation
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={modeDistribution} chartLayout={modeLayout} />
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Card className='community-card' fluid>
-                <Card.Header className='community-card-header'>
-                  VMT Data
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={vmtData} chartLayout={vmtLayout} />
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={7}>
-              <Card className='community-card' fluid>
-                <Card.Header className='community-card-header'>
-                  Fuel Data
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={fuelData} chartLayout={fuelLayout} />
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Card className='community-card' fluid>
-                <Card.Header className='community-card-header'>
-                  GHG Data
-                </Card.Header>
-                <Card.Content>
-                  <Chart chartData={ghgData} chartLayout={ghgLayout} />
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-    );
-  }
+          </Grid.Column>
+          <Grid.Column width={5} textAlign='center'> <Statistic>
+            <Statistic.Value className='community-statistic'><Icon name='car'/>{totalMilesSaved}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>vehicle miles traveled (VMT) reduced</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Progress value={totalMilesSaved} total='200000'
+                      label="2021 GOAL: 200,000 VMT REDUCED" color="blue"/></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={3} textAlign='center'> <Statistic color="red">
+            <Statistic.Value><Icon name='fire'/>{totalFuelUsed}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>gallons of gas used</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5} textAlign='center'> <Statistic>
+            <Statistic.Value className='community-statistic'><Icon name='fire'/>{totalFuelSaved}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>gallons of gas saved</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Progress value={totalFuelSaved} total='8000'
+                      label="2021 GOAL: 8,000 GALLONS OF GAS SAVED" color="blue"/></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={3} textAlign='center'> <Statistic color="red">
+            <Statistic.Value><Icon name='cloud'/>{totalGhgProduced}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>pounds of C02 produced</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5} textAlign='center'> <Statistic>
+            <Statistic.Value className='community-statistic'><Icon name='cloud'/>{totalGhgReduced}</Statistic.Value>
+            <Statistic.Label className='community-statistic'>pounds of CO2 reduced</Statistic.Label>
+          </Statistic>
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Progress value={totalGhgReduced} total='171000'
+                      label="2021 GOAL: 171,000 POUNDS OF CO2 REDUCED" color="blue"/></Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={7}>
+            <Card fluid className='community-card'>
+              <Card.Header className='card-header'>
+                Modes of Transportation
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={modeDistribution} chartLayout={modeLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={7}>
+            <Card className='community-card' fluid>
+              <Card.Header className='card-header' textAlign='left'>
+                VMT Data
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={vmtData} chartLayout={vmtLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={7}>
+            <Card className='community-card' fluid>
+              <Card.Header className='card-header'>
+                Fuel Data
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={fuelData} chartLayout={fuelLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={7}>
+            <Card className='community-card' fluid>
+              <Card.Header className='card-header'>
+                GHG Data
+              </Card.Header>
+              <Card.Content>
+                <Chart chartData={ghgData} chartLayout={ghgLayout}/>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+
+  );
 }
 
 /** Require an array of Trip documents in the props. */
@@ -248,9 +258,11 @@ export default withTracker(() => {
   // Get access to Trip documents.
   const subscription = Trips.subscribeTripCommunity();
   const userProfile = Users.getUserProfile(Meteor.user()?.username);
+  const trips = Trips.find({}).fetch();
+  const ready = subscription.ready();
   return {
-    trips: Trips.find({}).fetch(),
-    ready: subscription.ready(),
+    trips,
+    ready,
     userProfile,
   };
 })(CommunityStats);
