@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Icon, Statistic } from 'semantic-ui-react';
+import { Grid, Icon, Statistic, Image } from 'semantic-ui-react';
 import DashboardStatisticsCard from './DashboardStatisticsCard';
 
 function DashboardTreeCard(
@@ -16,13 +16,8 @@ function DashboardTreeCard(
           cardHeader='Tree per GHG'
           topContent={
             <Grid>
-              <Grid.Column width={5}>
-                <Icon
-                    name='tree'
-                    color='green'
-                    size='huge'
-                    style={{ paddingLeft: '1rem', paddingTop: '1rem' }}
-                />
+              <Grid.Column className='tree-icon' width={6}>
+                <Image src='/images/TreeIconGood.png'/>
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >
@@ -37,13 +32,8 @@ function DashboardTreeCard(
           popupTop='One tree absorbs 48 pounds of GHG each year. Based on the amount of GHG you reduced, this number represents your contribution in reducing GHG in terms of trees.'
           bottomContent={
             <Grid>
-              <Grid.Column width={5}>
-                <Icon
-                    name='tree'
-                    color='red'
-                    size='huge'
-                    style={{ paddingLeft: '1rem', paddingTop: '1rem' }}
-                />
+              <Grid.Column className='tree-icon' width={6}>
+                <Image src='/images/TreeIconBad.png'/>
               </Grid.Column>
               <Grid.Column width={10} textAlign='center' style={{ paddingLeft: '0.4rem' }}>
                 <Statistic >

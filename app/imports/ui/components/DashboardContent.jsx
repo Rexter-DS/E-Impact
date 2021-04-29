@@ -101,6 +101,8 @@ function DashboardContent(
   let chartBgColor = '';
   let chartGridColor = '';
   let chartFontColor = '';
+  const tMargin = '40';
+  const bMargin = '10';
 
   if (userProfile.theme === 'dark') {
     chartBgColor = '#213c5c';
@@ -114,6 +116,11 @@ function DashboardContent(
 
   const milesPerDayLayout = {
     autosize: true,
+    height: '350',
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
     barmode: 'group',
     xaxis: {
       range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
@@ -136,6 +143,11 @@ function DashboardContent(
 
   const defaultLayout = {
     autosize: true,
+    height: '350',
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
     showlegend: true,
     paper_bgcolor: chartBgColor,
     font: {
@@ -145,6 +157,10 @@ function DashboardContent(
 
   const fuelAndDollarPerDayLayout = {
     autosize: true,
+    height: '400',
+    margin: {
+      b: bMargin,
+    },
     showlegend: true,
     legend: {
       orientation: 'h',
@@ -172,6 +188,11 @@ function DashboardContent(
 
   const ghgReducedPerDayLayout = {
     autosize: true,
+    height: '400',
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
     xaxis: {
       range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[10]],
       rangeslider: { range: [ghgReducedPerDay.date[0], ghgReducedPerDay.date[ghgReducedPerDay.length - 1]] },
@@ -193,20 +214,20 @@ function DashboardContent(
 
   useEffect(() => {
     const generalCard = document.getElementsByClassName('general-card');
-    const generalCardHeader = document.getElementsByClassName('general-card-header');
+    const generalCardHeader = document.getElementsByClassName('card-header');
     if (userProfile.theme === 'dark') {
       for (let i = 0; i < generalCard.length; i++) {
-        generalCard[i].classList.add('dark-general-card');
+        generalCard[i].classList.add('dark-card');
       }
       for (let i = 0; i < generalCardHeader.length; i++) {
-        generalCardHeader[i].classList.add('dark-general-card-header');
+        generalCardHeader[i].classList.add('dark-card-header');
       }
     } else {
       for (let i = 0; i < generalCard.length; i++) {
-        generalCard[i].classList.remove('dark-general-card');
+        generalCard[i].classList.remove('dark-card');
       }
       for (let i = 0; i < generalCardHeader.length; i++) {
-        generalCardHeader[i].classList.add('dark-general-card-header');
+        generalCardHeader[i].classList.remove('dark-card-header');
       }
     }
   }, [userProfile]);
@@ -252,11 +273,11 @@ function DashboardContent(
               userProfile={userProfile}
           />
         </Card.Group>
-        <Grid stackable>
+        <Grid style={{ marginTop: '10px' }} stackable>
           <Grid.Row>
             <Grid.Column width={9}>
               <Card className='general-card' fluid>
-                <Card.Header className='general-card-header'>
+                <Card.Header className='card-header'>
                   Miles Saved Per Day
                 </Card.Header>
                 <Card.Content>
@@ -266,7 +287,7 @@ function DashboardContent(
             </Grid.Column>
             <Grid.Column width={7}>
               <Card className='general-card' fluid>
-                <Card.Header className='general-card-header'>
+                <Card.Header className='card-header'>
                   Modes of Transportation Used
                 </Card.Header>
                 <Card.Content>
@@ -276,10 +297,10 @@ function DashboardContent(
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid stackable columns='equal'>
+        <Grid style={{ marginTop: '10px' }} stackable columns='equal'>
           <Grid.Column>
             <Card className='general-card' fluid>
-              <Card.Header className='general-card-header'>
+              <Card.Header className='card-header'>
                 Fuel Saved per Day
               </Card.Header>
               <Card.Content>
@@ -290,7 +311,7 @@ function DashboardContent(
           </Grid.Column>
           <Grid.Column>
             <Card className='general-card' fluid>
-              <Card.Header className='general-card-header'>
+              <Card.Header className='card-header'>
                 GHG Reduced per Day
               </Card.Header>
               <Card.Content>

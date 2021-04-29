@@ -37,121 +37,103 @@ class CommunityStats extends React.Component {
     const startDate = moment().subtract(14, 'd').format('YYYY-MM-DD');
 
     /* Graph Layouts */
-    const chartBgColor = '#213c5c';
-    const chartGridColor = '#5c5c5c';
-    let modeLayout = {};
-    let vmtLayout = {};
-    let fuelLayout = {};
-    let ghgLayout = {};
+    let chartBgColor = '';
+    let chartGridColor = '';
+    let chartFontColor = '';
+    const tMargin = '40';
+    const bMargin = '10';
 
     if (this.props.userProfile.theme === 'dark') {
-      modeLayout = {
-        autosize: true,
-        showlegend: true,
-        paper_bgcolor: chartBgColor,
-        font: {
-          color: '#FFFFFF',
-        },
-      };
-      vmtLayout = {
-        autosize: true,
-        xaxis: {
-          range: [startDate, endDate],
-          rangeslider: { range: ['2020-12-31', endDate] },
-          type: 'date',
-          gridcolor: chartGridColor,
-        },
-        yaxis: {
-          title: 'Vehicle miles traveled',
-          type: 'linear',
-          gridcolor: chartGridColor,
-        },
-        paper_bgcolor: chartBgColor,
-        plot_bgcolor: chartBgColor,
-        font: {
-          color: '#FFFFFF',
-        },
-      };
-      fuelLayout = {
-        autosize: true,
-        xaxis: {
-          range: [startDate, endDate],
-          rangeslider: { range: ['2020-12-31', endDate] },
-          type: 'date',
-          gridcolor: chartGridColor,
-        },
-        yaxis: {
-          title: 'Gallons of Gas',
-          type: 'linear',
-          gridcolor: chartGridColor,
-        },
-        paper_bgcolor: chartBgColor,
-        plot_bgcolor: chartBgColor,
-        font: {
-          color: '#FFFFFF',
-        },
-      };
-      ghgLayout = {
-        autosize: true,
-        xaxis: {
-          range: [startDate, endDate],
-          rangeslider: { range: ['2020-12-31', endDate] },
-          type: 'date',
-          gridcolor: chartGridColor,
-        },
-        yaxis: {
-          title: 'Pounds of CO2',
-          type: 'linear',
-          gridcolor: chartGridColor,
-        },
-        paper_bgcolor: chartBgColor,
-        plot_bgcolor: chartBgColor,
-        font: {
-          color: '#FFFFFF',
-        },
-      };
+      chartBgColor = '#213c5c';
+      chartGridColor = '#5c5c5c';
+      chartFontColor = '#FFFFFF';
     } else {
-      modeLayout = {
-        autosize: true,
-        showlegend: true,
-      };
-      vmtLayout = {
-        autosize: true,
-        xaxis: {
-          range: [startDate, endDate],
-          rangeslider: { range: ['2020-12-31', endDate] },
-          type: 'date',
-        },
-        yaxis: {
-          title: 'Vehicle miles traveled',
-          type: 'linear',
-        },
-      };
-      fuelLayout = {
-        autosize: true,
-        xaxis: {
-          range: [startDate, endDate],
-          rangeslider: { range: ['2020-12-31', endDate] },
-          type: 'date',
-        },
-        yaxis: {
-          title: 'Gallons of Gas',
-          type: 'linear',
-        },
-      };
-      ghgLayout = {
-        autosize: true,
-        xaxis: {
-          range: [startDate, endDate],
-          rangeslider: { range: ['2020-12-31', endDate] },
-          type: 'date',
-        },
-        yaxis: {
-          title: 'Pounds of CO2',
-          type: 'linear',
-        },
-      };
+      chartBgColor = '';
+      chartGridColor = '';
+      chartFontColor = '';
     }
+
+    const modeLayout = {
+      autosize: true,
+      margin: {
+        t: tMargin,
+        b: bMargin,
+      },
+      showlegend: true,
+      paper_bgcolor: chartBgColor,
+      font: {
+        color: chartFontColor,
+      },
+    };
+    const vmtLayout = {
+      autosize: true,
+      margin: {
+        t: tMargin,
+        b: bMargin,
+      },
+      xaxis: {
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
+        type: 'date',
+        gridcolor: chartGridColor,
+      },
+      yaxis: {
+        title: 'Vehicle miles traveled',
+        type: 'linear',
+        gridcolor: chartGridColor,
+      },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: chartFontColor,
+      },
+    };
+    const fuelLayout = {
+      autosize: true,
+      margin: {
+        t: tMargin,
+        b: bMargin,
+      },
+      xaxis: {
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
+        type: 'date',
+        gridcolor: chartGridColor,
+      },
+      yaxis: {
+        title: 'Gallons of Gas',
+        type: 'linear',
+        gridcolor: chartGridColor,
+      },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: chartFontColor,
+      },
+    };
+    const ghgLayout = {
+      autosize: true,
+      margin: {
+        t: tMargin,
+        b: bMargin,
+      },
+      xaxis: {
+        range: [startDate, endDate],
+        rangeslider: { range: ['2020-12-31', endDate] },
+        type: 'date',
+        gridcolor: chartGridColor,
+      },
+      yaxis: {
+        title: 'Pounds of CO2',
+        type: 'linear',
+        gridcolor: chartGridColor,
+      },
+      paper_bgcolor: chartBgColor,
+      plot_bgcolor: chartBgColor,
+      font: {
+        color: chartFontColor,
+      },
+    };
 
     return (
         <Grid centered>

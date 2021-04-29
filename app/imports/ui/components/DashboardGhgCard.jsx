@@ -41,7 +41,7 @@ function DashboardGhgCard(
               More Information
               <Popup
                   hoverable
-                  trigger={<Icon link name='question circle outline'/>}
+                  trigger={<Icon className='question-icon' link name='question circle outline'/>}
               >
                 <Popup.Content>
                   This shows the average amount of GHG that you have produced as well as reduced. <br/>

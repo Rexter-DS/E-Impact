@@ -78,7 +78,7 @@ const TripItem = (props) => {
         /></Table.Cell>
         {saved ? <Table.Cell className='daily-table-data'>{`"${tripDesc}"`}</Table.Cell> :
         <Table.Cell>
-          <SaveTripModal trip={props.trip}/>
+          <SaveTripModal trip={props.trip} userProfile={props.userProfile}/>
         </Table.Cell>}
       </Table.Row>
   );
@@ -88,17 +88,20 @@ const TripItem = (props) => {
 TripItem.propTypes = {
   trip: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  userProfile: PropTypes.object,
   readySaved: PropTypes.bool.isRequired,
   savedTrips: PropTypes.array.isRequired,
 };
 
 export default withTracker(() => {
   const username = Meteor.user()?.username;
+  const userProfile = Users.getUserProfile(username);
   const readySaved = Meteor.subscribe(savedTripPublications.savedTrip).ready() && username !== undefined;
   const savedTrips = SavedTrips.find({}).fetch();
   return {
     readySaved,
     savedTrips,
     username,
+    userProfile,
   };
 })(TripItem);

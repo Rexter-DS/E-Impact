@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Statistic, Grid, Table, Header } from 'semantic-ui-react';
 import _ from 'lodash';
