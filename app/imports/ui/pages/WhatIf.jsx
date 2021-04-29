@@ -26,6 +26,16 @@ function WhatIf(
   const [modesOfTransportWI, setMOTDWI] = useState();
   const [ghgReducedPerDayWI, setGRPDWI] = useState();
   const [fuelSavedPerDayWI, setFSPDWI] = useState();
+  const trueMilesTotal = (x) => {
+    let gasMiles = 0;
+    x.mode.forEach(function (mode, index) {
+      if (mode === 'Gas Car' || mode === 'Carpool') {
+        gasMiles += x.distance[index];
+      }
+    });
+    return (milesSavedTotal - gasMiles);
+  };
+  const trueMilesSavedTotal = trueMilesTotal(milesSavedPerDay);
   useEffect(() => {
     setMSPDWI(milesSavedPerDay);
     setMOTDWI(modesOfTransport);
@@ -52,9 +62,11 @@ function WhatIf(
                 />
                 <WhatIfContent
                     milesSavedTotal={milesSavedTotal}
+                    trueMilesSavedTotal={trueMilesSavedTotal}
                     milesSavedPerDay={milesSavedPerDay}
                     modesOfTransport={modesOfTransport}
                     userProfile={userProfile}
+                    userReady={userReady}
                     ghgProducedTotal={ghgProducedTotal}
                     ghgReducedPerDay={ghgReducedPerDay}
                     fuelSavedPerDay={fuelSavedPerDay}
@@ -62,6 +74,7 @@ function WhatIf(
                     modesOfTransportWI={modesOfTransportWI}
                     ghgReducedPerDayWI={ghgReducedPerDayWI}
                     fuelSavedPerDayWI={fuelSavedPerDayWI}
+                    newMilesTotal={trueMilesTotal}
                 />
             </div> :
             <Dimmer active>

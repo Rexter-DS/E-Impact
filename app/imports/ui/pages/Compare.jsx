@@ -87,7 +87,11 @@ function Compare(props) {
   return (!props.userReady) ? <Loader active>Loading data</Loader> :
       (<div>
         <div id='compare-container'>
-          <SideBar theme={props.userProfile.theme}/>
+          <SideBar
+              userReady={props.userReady}
+              userProfile={props.userProfile}
+              theme={props.userProfile.theme}
+          />
           <CarouselProvider
               isIntrinsicHeight={true}
               totalSlides={3}
@@ -117,8 +121,8 @@ Compare.propTypes = {
   userProfile: PropTypes.object,
 };
 
-export default withTracker(() => {
-  const username = Meteor.user()?.username;
+export default withTracker(({ match }) => {
+  const username = match.params._id;
   const userSubscribe = Users.subscribeUser();
   const userProfile = Users.getUserProfile(username);
   return {

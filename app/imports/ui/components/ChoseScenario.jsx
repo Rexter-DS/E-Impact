@@ -170,7 +170,7 @@ function ChoseScenario(
             value: nModesOfTransport.current[indexOfNewTransport].value + 1,
           };
         }
-        // Code from TripCollection.js, lines 185-194 used to reformate the data for the charts.
+        // Code from TripCollection.js, lines 185-194 used to reformat the data for the charts.
         _.forEach(nModesOfTransport.current, function (objects) {
           modesOTV.push(objects.value);
           modesOTL.push(objects.label);
