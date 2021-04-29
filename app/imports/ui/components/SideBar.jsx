@@ -41,7 +41,6 @@ function SideBar(props) {
     }
   }, [props, sidebarLogo]);
 
-
   const [settings, setSettings] = useState(false);
 
   console.log(sidebarLogo);
