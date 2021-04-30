@@ -5,6 +5,7 @@ import { Header, Icon, Image, Menu, Modal, Sidebar } from 'semantic-ui-react';
 import DarkModeToggle from 'react-dark-mode-toggle';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Roles } from 'meteor/alanning:roles';
 import { Users } from '../../api/user/UserCollection';
 import Settings from './Settings';
 
@@ -15,6 +16,19 @@ function SideBar(props) {
   };
 
   let sidebarLogo = 'images/EImpactLogo.png';
+
+  const adminPage =
+        Roles.userIsInRole(Users.getUserProfile(props.userProfile.username)._id, 'admin') ? (
+        <Menu.Item as={NavLink}
+                   className='sidebar-item'
+                   activeClassName="active"
+                   exact
+                   to="/admin"
+                   key='admin'>
+          <Icon name='cog'/>
+          Admin Page
+        </Menu.Item>
+        ) : '';
 
   useEffect(() => {
     if (props.ready && (document.getElementById('sidebar'))) {
@@ -43,7 +57,9 @@ function SideBar(props) {
 
   const [settings, setSettings] = useState(false);
 
-  console.log(sidebarLogo);
+  console.log(Users.getUserProfile(props.userProfile.username)._id);
+
+  console.log(Roles.getRolesForUser(Users.getUserProfile(props.userProfile.username)._id));
 
   return (
       (props.ready) ?
@@ -105,15 +121,7 @@ function SideBar(props) {
               <Icon name='globe'/>
               Community
             </Menu.Item>
-            <Menu.Item as={NavLink}
-                       className='sidebar-item'
-                       activeClassName="active"
-                       exact
-                       to="/admin"
-                       key='admin'>
-              <Icon name='cog'/>
-              Admin Page
-            </Menu.Item>
+            {adminPage}
             <Menu.Item as={NavLink}
                        className='sidebar-item'
                        activeClassName="active"
