@@ -11,6 +11,14 @@ Users.publish();
 SavedTrips.publish();
 
 /** Need this for the alanning:roles package */
+Meteor.publish(null, function () {
+  if (this.userId) {
+    // Recommended code to publish roles for each user
+    return Meteor.roleAssignment.find({ 'user._id': this.userId });
+  }
+  return this.ready();
+});
+
 Meteor.publish(Trips, function () {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
