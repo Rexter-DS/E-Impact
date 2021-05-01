@@ -18,7 +18,7 @@ function SideBar(props) {
   let sidebarLogo = 'images/EImpactLogo.png';
 
   const adminPage =
-        Roles.userIsInRole(Users.getUserProfile(props.userProfile.username)._id, 'admin') ? (
+        Roles.userIsInRole(Meteor.userId(), 'admin') ? (
         <Menu.Item as={NavLink}
                    className='sidebar-item'
                    activeClassName="active"
