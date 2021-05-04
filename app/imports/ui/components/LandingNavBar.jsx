@@ -23,7 +23,7 @@ class NavBar extends React.Component {
             <Menu.Item className='nav-menu-item' href={'#/get-involved'} position="right">
               Get Involved
             </Menu.Item>
-            <Menu.Item className='nav-menu-item' href={'#/signin'}>
+            <Menu.Item id='sign-in-button' className='nav-menu-item' href={'#/signin'}>
               Log In
             </Menu.Item>
           </Menu>
