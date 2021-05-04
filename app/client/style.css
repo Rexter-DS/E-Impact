@@ -473,6 +473,16 @@ body {
   background-color: inherit !important;
 }
 
+.compare-logo {
+  height: 150px !important;
+  width: auto;
+}
+
+.compare-car-image {
+  height: 300px !important;
+  width: auto;
+}
+
 .compare-slider {
   background-color: inherit !important;
 }

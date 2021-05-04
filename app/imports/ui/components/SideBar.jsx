@@ -74,8 +74,7 @@ function SideBar(props) {
               width='thin'
               id='sidebar'
           >
-            <Menu.Item
-                style={{ padding: 0 }}>
+            <Menu.Item>
               <Image size='large'
                      src={sidebarLogo}
               />

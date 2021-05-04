@@ -34,13 +34,16 @@ function SliderHandler() {
   const gasCost = (100 / testMPG) * avgGasPrice;
   const costPerkWh = 0.2874;
 
+  console.log(evData);
+
+
   return (
       <Slider className='compare-slider'>
         {evData.map((value, index) => <Slide index={index} key={index}>
           <Grid centered columns={2} divided>
             <Grid.Column width={6}>
-              <Image className='compare-image-card' src={value.brandLogo} size='small'/>
-              <Image className='compare-image-card' src={value.image} size='large' href={value.website}
+              <Image className='compare-logo' src={value.brandLogo}/>
+              <Image className='compare-car-image' src={value.image} href={value.website}
                      target='_blank'/>
               <Header id='compare-car' textAlign='center'>{value.car}</Header>
             </Grid.Column>
@@ -75,6 +78,15 @@ function SliderHandler() {
 }
 
 function Compare(props) {
+  const [evData, setEVData] = useState([]);
+
+  useEffect(() => {
+    Meteor.call('getEVData', function (error, result) {
+      if (!error) {
+        setEVData(result);
+      }
+    });
+  }, [setEVData]);
 
   if (props.userReady) {
     if (props.userProfile.theme === 'dark') {
@@ -94,7 +106,7 @@ function Compare(props) {
           />
           <CarouselProvider
               isIntrinsicHeight={true}
-              totalSlides={3}
+              totalSlides={evData.length}
               infinite={true}
           >
             <Grid>
