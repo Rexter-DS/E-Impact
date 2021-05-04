@@ -34,9 +34,6 @@ function SliderHandler() {
   const gasCost = (100 / testMPG) * avgGasPrice;
   const costPerkWh = 0.2874;
 
-  console.log(evData);
-
-
   return (
       <Slider className='compare-slider'>
         {evData.map((value, index) => <Slide index={index} key={index}>
