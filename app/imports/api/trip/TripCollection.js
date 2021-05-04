@@ -335,11 +335,23 @@ class TripCollection extends BaseCollection {
 
       if (prevDate.getTime() === tripDate.getTime()) {
         if (tripMode === 'Gas Car') {
-          addedMode[added.length - 1] = tripMode;
-          added[added.length - 1] -= tripDistance;
-        } else {
-          savedMode[savedMode.length - 1] = savedMode[savedMode.length - 1].concat(`, ${tripMode}`);
-          saved[saved.length - 1] += tripDistance;
+          if (added.length < date.length) {
+            addedMode.push(tripMode);
+            added.push(-tripDistance);
+          } else {
+            addedMode[added.length - 1] = tripMode;
+            added[added.length - 1] -= tripDistance;
+          }
+        }
+
+        if (tripMode !== 'Gas Car') {
+          if (saved.length < date.length) {
+            savedMode.push(tripMode);
+            saved.push(tripDistance);
+          } else {
+            savedMode[savedMode.length - 1] = savedMode[savedMode.length - 1].concat(`, ${tripMode}`);
+            saved[saved.length - 1] += tripDistance;
+          }
         }
       } else {
         date.push(tripDate);
@@ -357,6 +369,9 @@ class TripCollection extends BaseCollection {
         }
       }
     });
+
+    const print = { date: date, distance: saved, mode: savedMode };
+    console.log(print);
 
     return {
       milesSaved: { date: date, distance: saved, mode: savedMode },
