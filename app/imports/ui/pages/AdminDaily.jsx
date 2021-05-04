@@ -147,7 +147,8 @@ const AdminDaily = (props) => {
                 </Grid>
               </Menu>
               <Table fixed
-                     className='daily-table'>
+                     className='daily-table'
+              >
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>

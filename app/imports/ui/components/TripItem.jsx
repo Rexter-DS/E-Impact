@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Table, Button, Confirm } from 'semantic-ui-react';
+import { Table, Button, Modal, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Trips } from '../../api/trip/TripCollection';
 import { savedTripPublications, SavedTrips } from '../../api/trip/SavedTripCollection';
@@ -62,6 +62,22 @@ const TripItem = (props) => {
     }
     return val;
   }
+
+  useEffect(() => {
+    if (document.getElementById('save-trip-modal')) {
+      const cardModals = document.getElementsByClassName('card-modal');
+      if (props.userProfile.theme === 'dark') {
+        for (let i = 0; i < cardModals.length; i++) {
+          cardModals[i].classList.add('dark-modal');
+        }
+      } else {
+        for (let i = 0; i < cardModals.length; i++) {
+          cardModals[i].classList.remove('dark-modal');
+        }
+      }
+    }
+  }, [confirmState, setConfirmState, props.userProfile]);
+
   return (
       <Table.Row>
         <Table.Cell className='daily-table-data'>{props.trip.date.toLocaleDateString()}</Table.Cell>
@@ -70,16 +86,34 @@ const TripItem = (props) => {
         <Table.Cell className='daily-table-data'>{props.trip.mpg}</Table.Cell>
         <Table.Cell style={gStyle}>{gallons === 0 ? 0 : `${abs(gallons).toFixed(2)} gal`}</Table.Cell>
         <Table.Cell style={gStyle}>{ghg === 0 ? 0 : `${abs(ghg).toFixed(2)} lbs`}</Table.Cell>
-        <Table.Cell><Button negative circular icon='x' onClick={openConfirm}/><Confirm
-            open={confirmState}
-            header='Delete Trip?'
-            onCancel={handleCancel}
-            onConfirm={handleConfirmDel}
-        /></Table.Cell>
-        {saved ? <Table.Cell className='daily-table-data'>{`"${tripDesc}"`}</Table.Cell> :
         <Table.Cell>
-          <SaveTripModal trip={props.trip} userProfile={props.userProfile}/>
-        </Table.Cell>}
+          <Modal
+              id='save-trip-modal'
+              onClose={() => setConfirmState(false)}
+              onOpen={() => setConfirmState(true)}
+              open={confirmState}
+              trigger={<Button negative circular icon='x' onClick={openConfirm}/>}
+          >
+            <Modal.Header className='card-modal'>Delete Trip?</Modal.Header>
+            <Modal.Content className='card-modal'>
+              <Modal.Description className='card-modal'>
+                <Header className='card-modal'>Are you sure?</Header>
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions className='card-modal'>
+              <Button onClick={() => handleCancel()}>
+                Cancel
+              </Button>
+              <Button className='card-button' onClick={() => handleConfirmDel()}>
+                Yes
+              </Button>
+            </Modal.Actions>
+          </Modal>
+        </Table.Cell>
+        {saved ? <Table.Cell className='daily-table-data'>{`"${tripDesc}"`}</Table.Cell> :
+            <Table.Cell>
+              <SaveTripModal trip={props.trip} userProfile={props.userProfile}/>
+            </Table.Cell>}
       </Table.Row>
   );
 };

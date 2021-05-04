@@ -155,8 +155,7 @@ const Daily = (props) => {
               </Grid>
             </Menu>
             <Table fixed
-                   className='daily-table'
-                   textAlign='center'>
+                   className='daily-table'>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell className='daily-table-header'>Date</Table.HeaderCell>

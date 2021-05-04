@@ -8,7 +8,6 @@ import { Menu, Image } from 'semantic-ui-react';
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
   render() {
-
     const menuStyle = {
       marginBottom: '0px',
       border: 'none',
@@ -17,15 +16,15 @@ class NavBar extends React.Component {
 
     return (
         <div>
-          <Menu id='community-nav' style={menuStyle} className='ui borderless top fixed menu'>
+          <Menu id='landing-nav' style={menuStyle} className='ui borderless top fixed menu'>
             <a href={'/#'}>
-              <Image size='medium' src="/images/EImpactLogo.png"/>
+              <Image id='landing-logo' src="/images/EImpactLogo.png"/>
             </a>
-            <Menu.Item position="right">
-              <a className='fake-menu-item' href={'#/get-involved'}><p>Get Involved</p></a>
+            <Menu.Item className='nav-menu-item' href={'#/get-involved'} position="right">
+              Get Involved
             </Menu.Item>
-            <Menu.Item>
-              <a id="sign-in-button" className='fake-menu-item' href={'#/signin'}><p>Log in</p></a>
+            <Menu.Item className='nav-menu-item' href={'#/signin'}>
+              Log In
             </Menu.Item>
           </Menu>
         </div>

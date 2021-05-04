@@ -279,7 +279,7 @@ function ChoseScenario(
                 </Form.Group>
 
                 <Form.Field>
-                    <Form.Button content='submit'/>
+                    <Form.Button content='Submit'/>
                 </Form.Field>
             </Form>
 

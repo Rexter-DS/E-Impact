@@ -113,6 +113,8 @@ function WhatIfContent(
   let chartBgColor;
   let chartGridColor;
   let chartFontColor;
+  const tMargin = '40';
+  const bMargin = '10';
 
   if (userProfile.theme === 'dark') {
     chartBgColor = '#213c5c';
@@ -126,6 +128,10 @@ function WhatIfContent(
 
   const milesSavedPerDayLayout = {
     autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
     barmode: 'group',
     xaxis: {
       range: [milesSavedPerDay.date[0], milesSavedPerDay.date[10]],
@@ -148,6 +154,10 @@ function WhatIfContent(
 
   const fuelAndGhgPerDayLayout = {
     autosize: true,
+    margin: {
+      t: tMargin,
+      b: bMargin,
+    },
     showlegend: true,
     xaxis: {
       range: [fuelSavedPerDay.date[0], fuelSavedPerDay.date[10]],
@@ -198,13 +208,20 @@ function WhatIfContent(
   /* DOM Styling */
   useEffect(() => {
     const whatifCards = document.getElementsByClassName('whatif-card');
+    const cardHeaders = document.getElementsByClassName('card-header');
     if (userProfile.theme === 'dark') {
       for (let i = 0; i < whatifCards.length; i++) {
         whatifCards[i].classList.add('dark-card');
       }
+      for (let i = 0; i < cardHeaders.length; i++) {
+        cardHeaders[i].classList.add('dark-card-header');
+      }
     } else {
       for (let i = 0; i < whatifCards.length; i++) {
         whatifCards[i].classList.remove('dark-card');
+      }
+      for (let i = 0; i < cardHeaders.length; i++) {
+        cardHeaders[i].classList.remove('dark-card-header');
       }
     }
   }, [userProfile]);
@@ -218,7 +235,7 @@ function WhatIfContent(
         />
         <Card.Group centered stackable itemsPerRow={4}>
           <Card className='whatif-card'>
-            <Card.Header style={{ paddingLeft: '10px' }}>
+            <Card.Header className='card-header'>
               Vehicle Miles Traveled (VMT) Reduced
             </Card.Header>
             <Card.Content textAlign='center'>
@@ -235,7 +252,7 @@ function WhatIfContent(
             </Card.Content>
           </Card>
           <Card className='whatif-card'>
-            <Card.Header style={{ paddingLeft: '10px' }}>
+            <Card.Header className='card-header'>
               Gallons of Fuel Saved
             </Card.Header>
             <Card.Content textAlign='center'>
@@ -252,7 +269,7 @@ function WhatIfContent(
             </Card.Content>
           </Card>
           <Card className='whatif-card'>
-            <Card.Header style={{ paddingLeft: '10px' }}>
+            <Card.Header className='card-header'>
               Green House Gas (GHG) Produced
             </Card.Header>
             <Card.Content textAlign='center'>
@@ -269,7 +286,7 @@ function WhatIfContent(
             </Card.Content>
           </Card>
           <Card className='whatif-card'>
-            <Card.Header style={{ paddingLeft: '10px' }}>
+            <Card.Header className='card-header'>
               Green House Gas (GHG) Reduced
             </Card.Header>
             <Card.Content textAlign='center'>
@@ -286,11 +303,11 @@ function WhatIfContent(
             </Card.Content>
           </Card>
         </Card.Group>
-        <Grid stackable>
+        <Grid stackable style={{ marginTop: '10px' }}>
           <Grid.Row>
             <Grid.Column width={9}>
               <Card className='whatif-card' fluid>
-                <Card.Header style={{ paddingLeft: '10px' }}>
+                <Card.Header className='card-header'>
                   Miles Saved Per Day
                 </Card.Header>
                 <Card.Content>
@@ -300,7 +317,7 @@ function WhatIfContent(
             </Grid.Column>
             <Grid.Column width={7}>
               <Card className='whatif-card' fluid>
-                <Card.Header style={{ paddingLeft: '10px' }}>
+                <Card.Header className='card-header'>
                   Modes of Transportation Used
                 </Card.Header>
                 <Card.Content>
@@ -313,7 +330,7 @@ function WhatIfContent(
         <Grid stackable columns='equal'>
           <Grid.Column>
             <Card className='whatif-card' fluid>
-              <Card.Header style={{ paddingLeft: '10px' }}>
+              <Card.Header className='card-header'>
                 Fuel Saved and GHG Reduced per Day
               </Card.Header>
               <Card.Content>

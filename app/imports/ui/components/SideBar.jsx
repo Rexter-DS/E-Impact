@@ -30,11 +30,12 @@ function SideBar(props) {
         </Menu.Item>
         ) : '';
 
+  const [settings, setSettings] = useState(false);
+
   useEffect(() => {
     if (props.ready && (document.getElementById('sidebar'))) {
-
       const sidebarItems = document.getElementsByClassName('sidebar-item');
-
+      const modals = document.getElementsByClassName('card-modal');
       if (props.userProfile.theme === 'dark') {
         sidebarLogo = 'images/EImpactLogoWhite.png';
         document.body.classList.add('dark');
@@ -42,6 +43,9 @@ function SideBar(props) {
         for (let i = 0; i < sidebarItems.length; i++) {
           sidebarItems[i].classList.add('dark-sidebar-item');
           sidebarItems[i].classList.remove('light-sidebar-item');
+        }
+        for (let i = 0; i < modals.length; i++) {
+          modals[i].classList.add('dark-card');
         }
       } else {
         sidebarLogo = 'images/EImpactLogo.png';
@@ -51,15 +55,12 @@ function SideBar(props) {
           sidebarItems[i].classList.add('light-sidebar-item');
           sidebarItems[i].classList.remove('dark-sidebar-item');
         }
+        for (let i = 0; i < modals.length; i++) {
+          modals[i].classList.remove('dark-card');
+        }
       }
     }
-  }, [props, sidebarLogo]);
-
-  const [settings, setSettings] = useState(false);
-
-  console.log(Users.getUserProfile(props.userProfile.username)._id);
-
-  console.log(Roles.getRolesForUser(Users.getUserProfile(props.userProfile.username)._id));
+  }, [props, sidebarLogo, settings, setSettings]);
 
   return (
       (props.ready) ?
